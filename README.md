@@ -17,12 +17,11 @@ View dataset properties and relations.
 
 ![dataset](./doc/2019-07-24-23-56-29-mlp-dataset.png)
 
-## Event-driven specs
+## Specs
 
 Application functionality is being covered with [event-driven specs](https://abdullin.com/sku-vault/event-driven-verification/). This captures business logic and UX flows in non-fragile way.
 
-
-## Managing
+## Getting started
 
 Application is build and tested with Python 3.7.
 
