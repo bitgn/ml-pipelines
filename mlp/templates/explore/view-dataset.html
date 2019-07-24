@@ -1,0 +1,86 @@
+{% extends "explore/base.html" %}
+{% load filters %}
+
+{% block content %}
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2>
+            Dataset: {{ dataset.name }}
+            {% if stale %} <span class="stale-status badge badge-warning">stale</span>{% endif %}
+        </h2>
+    </div>
+
+    <div class="container">
+        <div class="row" >
+            <div class="col rounded border px-4 py-3">
+
+                <div>
+
+                    <strong>Project:</strong> <a href="{% url "explore:view_project" dataset.project_id %}" class="project-link">{{ project.name }}</a><br/>
+                    <strong>Records: </strong>{{ dataset.record_count }}<br/>
+                    <strong>Files: </strong> {{ dataset.file_count }}<br />
+                    <strong>Size:</strong>  <span class="zip-size">{% if dataset.zip_bytes_set %}{{ dataset.zip_bytes|fmt_bytes }}{% else %}N/A{% endif %}</span><br/>
+
+                    {% if dataset.data_format_set %}
+                        <strong>Format:</strong> <span class="record-format">{{ dataset.data_format }}</span><br/>
+                    {% endif %}
+
+                    <strong>Last updated:</strong> <span class="last-updated">{% if dataset.update_timestamp_set %}{{ dataset.update_timestamp|fmt_timestamp }}{% else %}N/A{% endif %}</span><br/>
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <div class="row pt-3">
+            <div class="col">
+                <h3>Relations</h3>
+                {{  lineage | safe }}
+            </div>
+        </div>
+
+    {% if dataset.description_set %}
+        <div class="row pt-4">
+        <div class="col rounded-top" style="background-color: #e2e3e5;">
+            <b>Description</b>
+
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col rounded-bottom border px-4 py-3">
+
+
+            {{ description|safe }}
+
+        </div>
+        </div>
+
+    {%  endif %}
+    {% if dataset.sample_set %}
+          <div class="row pt-4">
+        <div class="col">
+            <h3>Sample</h3>
+
+            <pre class="alert alert-secondary"><code>{{ dataset.sample_body.decode }}</code></pre>
+
+        </div>
+          </div>
+    {% endif %}
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+{% endblock %}
+
+

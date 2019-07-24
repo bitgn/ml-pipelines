@@ -1,0 +1,47 @@
+{% extends "explore/base.html" %}
+
+
+{% block content %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">Project: {{ name }}</h1>
+
+    </div>
+
+
+
+
+
+    <table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Dataset</th>
+            <th>Size</th>
+            <th>Archive</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for ds, info in datasets %}
+        <tr class="dataset-info" id="ds-{{ ds.dataset_id }}">
+            <td>
+                <a href="{% url "explore:view_dataset" ds.dataset_id %}" class="dataset-link">{{ds.name}}</a>
+                {% if info.stale %} <span class="stale-status badge badge-warning">stale</span>{% endif %}
+            </td>
+            <td class="raw-size">{% if ds.raw_bytes_set %}{{ ds.raw_bytes | filesizeformat }}{% endif %}</td>
+            <td class="zip-size">{% if ds.zip_bytes_set %}{{ ds.zip_bytes | filesizeformat }}{% endif %}</td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+    </table>
+
+
+
+
+
+
+
+{% endblock %}
+
+
