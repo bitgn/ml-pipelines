@@ -47,7 +47,7 @@
             </div>
 
         </div>
-        <div class="row pt-3">
+        <div class="row pt-5">
             <div class="col">
                 <h3>Relations</h3>
                 {{  lineage | safe }}
@@ -55,9 +55,9 @@
         </div>
 
     {% if dataset.description_set %}
-        <div class="row pt-4">
+        <div class="row pt-5">
         <div class="col rounded-top" style="background-color: #e2e3e5;">
-            <b>Description</b>
+            <span class="pl-2">            <b>Description</b></span>
 
         </div>
         </div>
@@ -73,7 +73,7 @@
 
     {%  endif %}
     {% if dataset.sample_set %}
-          <div class="row pt-4">
+          <div class="row pt-5">
         <div class="col">
             <h3>Sample</h3>
 
