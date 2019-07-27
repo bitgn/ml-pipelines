@@ -2,6 +2,15 @@
 
 
 {% block content %}
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+        <li class="breadcrumb-item"><a href="{% url "explore:projects" %}">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
+      </ol>
+    </nav>
+
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h1 class="h2">Project: {{ name }}</h1>
 

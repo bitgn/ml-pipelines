@@ -5,8 +5,8 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
-    <li class="breadcrumb-item"><a href="#">Explore</a></li>
-    <li class="breadcrumb-item"><a href="#">{{ project.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url "explore:projects" %}">Projects</a></li>
+    <li class="breadcrumb-item"><a href="{% url "explore:view_project" dataset.project_id %}" class="project-link">{{ project.name }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{ dataset.name }}</li>
   </ol>
 </nav>
@@ -24,8 +24,6 @@
             <div class="col">
 
                 <div>
-
-                    <strong>Project:</strong> <a href="{% url "explore:view_project" dataset.project_id %}" class="project-link">{{ project.name }}</a><br/>
                     <strong>Records: </strong>{{ dataset.record_count }}<br/>
                     <strong>Files: </strong> {{ dataset.file_count }}<br />
                     <strong>Size:</strong>  <span class="zip-size">{% if dataset.zip_bytes_set %}{{ dataset.zip_bytes|fmt_bytes }}{% else %}N/A{% endif %}</span><br/>
