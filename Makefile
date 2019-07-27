@@ -23,9 +23,9 @@ demo:
 dev:
 	lib/deploy-dev
 
-release:
+ready-to-test:
 	echo $(CURRENT_VER)
-	git tag -a -m "Automated build"  $(PROJECT)-$(NEXT_VER)
+	git tag -a -m "Release to 'Ready to test'"  $(PROJECT)-$(NEXT_VER)
 	git push --tags
 	lib/deploy-qa $(PROJECT)-$(NEXT_VER)
 
