@@ -169,7 +169,12 @@ margin-right: 10px;
 
 
 
-    <footer>{% if APP_VERSION %}<span class="float-right text-muted">Version: {{ APP_VERSION }}</span>{% endif %}</footer>
+    <footer>
+        <span class="float-right text-muted">
+            <a href="https://github.com/bitgn/ml-pipelines">ML Pipelines</a>
+            {% if APP_VERSION %} / version {{ APP_VERSION }}{% endif %}
+        </span>
+    </footer>
     </main>
 
 
