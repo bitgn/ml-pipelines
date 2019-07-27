@@ -3,6 +3,14 @@
 
 {% block content %}
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+    <li class="breadcrumb-item"><a href="#">Explore</a></li>
+    <li class="breadcrumb-item"><a href="#">{{ project.name }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ dataset.name }}</li>
+  </ol>
+</nav>
+
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2>
@@ -12,8 +20,8 @@
     </div>
 
     <div class="container">
-        <div class="row" >
-            <div class="col rounded border px-4 py-3">
+        <div class="row rounded border px-4 py-3" >
+            <div class="col">
 
                 <div>
 
@@ -30,6 +38,11 @@
                 </div>
 
 
+
+            </div>
+            <div class="col">
+                    <strong>Maintainer:</strong> <a href="{% url "explore:view_project" dataset.project_id %}" class="project-link">Aliza Heath</a><br/>
+                <strong>Domain Experts: </strong><a href="">Russell Edwards</a>, <a href="">Harley Bruce</a><br/>
 
             </div>
 

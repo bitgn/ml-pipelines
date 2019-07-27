@@ -61,6 +61,9 @@ message TenantStats{
     int32 project_count = 1;
     int32 dataset_count = 2;
     int32 pipeline_count = 3;
+    int32 dashboard_count = 4;
+    int32 expert_count = 5;
+    int32 model_count = 6;
 }
 
 

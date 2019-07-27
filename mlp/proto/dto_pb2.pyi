@@ -156,21 +156,27 @@ class TenantStats(google___protobuf___message___Message):
     project_count = ... # type: int
     dataset_count = ... # type: int
     pipeline_count = ... # type: int
+    dashboard_count = ... # type: int
+    expert_count = ... # type: int
+    model_count = ... # type: int
 
     def __init__(self,
         *,
         project_count : typing___Optional[int] = None,
         dataset_count : typing___Optional[int] = None,
         pipeline_count : typing___Optional[int] = None,
+        dashboard_count : typing___Optional[int] = None,
+        expert_count : typing___Optional[int] = None,
+        model_count : typing___Optional[int] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> TenantStats: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_count",u"pipeline_count",u"project_count"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"dashboard_count",u"dataset_count",u"expert_count",u"model_count",u"pipeline_count",u"project_count"]) -> None: ...
     else:
-        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_count",b"dataset_count",u"pipeline_count",b"pipeline_count",u"project_count",b"project_count"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"dashboard_count",b"dashboard_count",u"dataset_count",b"dataset_count",u"expert_count",b"expert_count",u"model_count",b"model_count",u"pipeline_count",b"pipeline_count",u"project_count",b"project_count"]) -> None: ...
 
 class LineageCache(google___protobuf___message___Message):
     digest = ... # type: typing___Text
