@@ -4,9 +4,10 @@ Generate demo data from the web analytics domain
 
 
 import datetime
+from dataclasses import dataclass
 from typing import List
 from proto import events_pb2 as evt
-from attr import dataclass
+
 
 
 @dataclass
