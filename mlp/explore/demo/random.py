@@ -14,6 +14,8 @@ def setup_random_demo():
     t = test.Env()
 
     datasets = set()
+
+    mapping = {}
     for i in range(random.randint(5, 10)):
         project = preset.project_created(t)
         yield project
@@ -22,6 +24,8 @@ def setup_random_demo():
         for d in range(random.randint(2, 7)):
             ds = preset.dataset_created(t, project)
             datasets.add(ds.dataset_id)
+
+            mapping[ds.dataset_id] = project.project_id
 
             yield ds
 
@@ -46,7 +50,8 @@ def setup_random_demo():
                 else:
                     job_name = random.choice(['clean', 'filter', 'upload', 'format'])
 
-                e = evt.JobCreated(job_id=job_id, job_name=job_name, inputs=prev_step, outputs=step, )
+                project_id = mapping[list(step)[0]]
+                e = evt.JobAdded(job_id=job_id, job_name=job_name, inputs=prev_step, outputs=step, project_id=project_id)
                 yield e
 
             prev_step = step

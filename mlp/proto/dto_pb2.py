@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proto/dto.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fproto/dto.proto\x1a\x12proto/events.proto\"d\n\x0bProjectData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x15\n\rdataset_count\x18\x03 \x01(\x05\x12\x11\n\traw_bytes\x18\x04 \x01(\x03\x12\x11\n\tzip_bytes\x18\x05 \x01(\x03\"\x83\x04\n\x0b\x44\x61tasetData\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\x14\n\x0crecord_count\x18\x04 \x01(\x03\x12\x18\n\x10record_count_set\x18\x05 \x01(\x08\x12\x12\n\nfile_count\x18\x06 \x01(\x03\x12\x16\n\x0e\x66ile_count_set\x18\x07 \x01(\x08\x12\x11\n\traw_bytes\x18\x08 \x01(\x03\x12\x15\n\rraw_bytes_set\x18\t \x01(\x08\x12\x11\n\tzip_bytes\x18\n \x01(\x03\x12\x15\n\rzip_bytes_set\x18\x0b \x01(\x08\x12\x13\n\x0bsample_body\x18\x0c \x01(\x0c\x12!\n\x0bsample_kind\x18\r \x01(\x0e\x32\x0c.SAMPLE_KIND\x12\x12\n\nsample_set\x18\x0e \x01(\x08\x12\x18\n\x10update_timestamp\x18\x0f \x01(\x03\x12\x1c\n\x14update_timestamp_set\x18\x10 \x01(\x08\x12\x13\n\x0b\x64\x61ta_format\x18\x11 \x01(\t\x12\x17\n\x0f\x64\x61ta_format_set\x18\x12 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x13 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x14 \x01(\x08\x12\x15\n\rupstream_jobs\x18\x15 \x03(\t\x12\x17\n\x0f\x64ownstream_jobs\x18\x16 \x03(\t\"H\n\x03Job\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x10\n\x08job_name\x18\x02 \x01(\t\x12\x0e\n\x06inputs\x18\x03 \x03(\t\x12\x0f\n\x07outputs\x18\x04 \x03(\t\"\x8f\x01\n\x0bTenantStats\x12\x15\n\rproject_count\x18\x01 \x01(\x05\x12\x15\n\rdataset_count\x18\x02 \x01(\x05\x12\x11\n\tjob_count\x18\x03 \x01(\x05\x12\x14\n\x0creport_count\x18\x04 \x01(\x05\x12\x14\n\x0c\x65xpert_count\x18\x05 \x01(\x05\x12\x13\n\x0bmodel_count\x18\x06 \x01(\x05\"*\n\nAssetCache\x12\x0e\n\x06\x64igest\x18\x01 \x01(\t\x12\x0c\n\x04\x62ody\x18\x02 \x01(\x0c\"K\n\tChunkData\x12\x0c\n\x04hash\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08raw_size\x18\x03 \x01(\x03\x12\x10\n\x08zip_size\x18\x04 \x01(\x03\"M\n\nSourceLink\x12\x17\n\x04kind\x18\x01 \x01(\x0e\x32\t.LinkType\x12\x13\n\x0bsource_name\x18\x02 \x01(\t\x12\x11\n\tuser_name\x18\x03 \x01(\t\"\xb8\x01\n\x0bVersionData\x12\x0f\n\x07version\x18\x01 \x01(\x05\x12\x1a\n\x06\x63hunks\x18\x02 \x03(\x0b\x32\n.ChunkData\x12\x1c\n\x07sources\x18\x03 \x03(\x0b\x32\x0b.SourceLink\x12\x10\n\x08raw_size\x18\x04 \x01(\x03\x12\x10\n\x08zip_size\x18\x05 \x01(\x03\x12\x12\n\ndataset_id\x18\x06 \x01(\t\x12&\n\ndescriptor\x18\x07 \x01(\x0b\x32\x12.DatasetDescriptor\")\n\x0b\x46ieldSchema\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\"l\n\x11\x44\x61tasetDescriptor\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x14\n\x0crecord_count\x18\x02 \x01(\x03\x12\x1c\n\x06schema\x18\x03 \x03(\x0b\x32\x0c.FieldSchema\x12\x15\n\rsample_string\x18\x04 \x01(\t*%\n\x08LinkType\x12\r\n\tUNIVERSAL\x10\x00\x12\n\n\x06UPLOAD\x10\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0fproto/dto.proto\x1a\x12proto/events.proto\"w\n\x0bProjectData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x15\n\rdataset_count\x18\x03 \x01(\x05\x12\x11\n\traw_bytes\x18\x04 \x01(\x03\x12\x11\n\tzip_bytes\x18\x05 \x01(\x03\x12\x11\n\tjob_count\x18\x06 \x01(\x05\"\x83\x04\n\x0b\x44\x61tasetData\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\x14\n\x0crecord_count\x18\x04 \x01(\x03\x12\x18\n\x10record_count_set\x18\x05 \x01(\x08\x12\x12\n\nfile_count\x18\x06 \x01(\x03\x12\x16\n\x0e\x66ile_count_set\x18\x07 \x01(\x08\x12\x11\n\traw_bytes\x18\x08 \x01(\x03\x12\x15\n\rraw_bytes_set\x18\t \x01(\x08\x12\x11\n\tzip_bytes\x18\n \x01(\x03\x12\x15\n\rzip_bytes_set\x18\x0b \x01(\x08\x12\x13\n\x0bsample_body\x18\x0c \x01(\x0c\x12!\n\x0bsample_kind\x18\r \x01(\x0e\x32\x0c.SAMPLE_KIND\x12\x12\n\nsample_set\x18\x0e \x01(\x08\x12\x18\n\x10update_timestamp\x18\x0f \x01(\x03\x12\x1c\n\x14update_timestamp_set\x18\x10 \x01(\x08\x12\x13\n\x0b\x64\x61ta_format\x18\x11 \x01(\t\x12\x17\n\x0f\x64\x61ta_format_set\x18\x12 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x13 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x14 \x01(\x08\x12\x15\n\rupstream_jobs\x18\x15 \x03(\t\x12\x17\n\x0f\x64ownstream_jobs\x18\x16 \x03(\t\"\\\n\x03Job\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x10\n\x08job_name\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\x0e\n\x06inputs\x18\x04 \x03(\t\x12\x0f\n\x07outputs\x18\x05 \x03(\t\"\x8f\x01\n\x0bTenantStats\x12\x15\n\rproject_count\x18\x01 \x01(\x05\x12\x15\n\rdataset_count\x18\x02 \x01(\x05\x12\x11\n\tjob_count\x18\x03 \x01(\x05\x12\x14\n\x0creport_count\x18\x04 \x01(\x05\x12\x14\n\x0c\x65xpert_count\x18\x05 \x01(\x05\x12\x13\n\x0bmodel_count\x18\x06 \x01(\x05\"*\n\nAssetCache\x12\x0e\n\x06\x64igest\x18\x01 \x01(\t\x12\x0c\n\x04\x62ody\x18\x02 \x01(\x0c\"K\n\tChunkData\x12\x0c\n\x04hash\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08raw_size\x18\x03 \x01(\x03\x12\x10\n\x08zip_size\x18\x04 \x01(\x03\"M\n\nSourceLink\x12\x17\n\x04kind\x18\x01 \x01(\x0e\x32\t.LinkType\x12\x13\n\x0bsource_name\x18\x02 \x01(\t\x12\x11\n\tuser_name\x18\x03 \x01(\t\"\xb8\x01\n\x0bVersionData\x12\x0f\n\x07version\x18\x01 \x01(\x05\x12\x1a\n\x06\x63hunks\x18\x02 \x03(\x0b\x32\n.ChunkData\x12\x1c\n\x07sources\x18\x03 \x03(\x0b\x32\x0b.SourceLink\x12\x10\n\x08raw_size\x18\x04 \x01(\x03\x12\x10\n\x08zip_size\x18\x05 \x01(\x03\x12\x12\n\ndataset_id\x18\x06 \x01(\t\x12&\n\ndescriptor\x18\x07 \x01(\x0b\x32\x12.DatasetDescriptor\")\n\x0b\x46ieldSchema\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\"l\n\x11\x44\x61tasetDescriptor\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x14\n\x0crecord_count\x18\x02 \x01(\x03\x12\x1c\n\x06schema\x18\x03 \x03(\x0b\x32\x0c.FieldSchema\x12\x15\n\rsample_string\x18\x04 \x01(\t*%\n\x08LinkType\x12\r\n\tUNIVERSAL\x10\x00\x12\n\n\x06UPLOAD\x10\x01\x62\x06proto3')
   ,
   dependencies=[proto_dot_events__pb2.DESCRIPTOR,])
 
@@ -42,8 +42,8 @@ _LINKTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1419,
-  serialized_end=1456,
+  serialized_start=1458,
+  serialized_end=1495,
 )
 _sym_db.RegisterEnumDescriptor(_LINKTYPE)
 
@@ -95,6 +95,13 @@ _PROJECTDATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='job_count', full_name='ProjectData.job_count', index=5,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -108,7 +115,7 @@ _PROJECTDATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=39,
-  serialized_end=139,
+  serialized_end=158,
 )
 
 
@@ -285,8 +292,8 @@ _DATASETDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=142,
-  serialized_end=657,
+  serialized_start=161,
+  serialized_end=676,
 )
 
 
@@ -312,15 +319,22 @@ _JOB = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='inputs', full_name='Job.inputs', index=2,
-      number=3, type=9, cpp_type=9, label=3,
+      name='project_id', full_name='Job.project_id', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='inputs', full_name='Job.inputs', index=3,
+      number=4, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='outputs', full_name='Job.outputs', index=3,
-      number=4, type=9, cpp_type=9, label=3,
+      name='outputs', full_name='Job.outputs', index=4,
+      number=5, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -337,8 +351,8 @@ _JOB = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=659,
-  serialized_end=731,
+  serialized_start=678,
+  serialized_end=770,
 )
 
 
@@ -403,8 +417,8 @@ _TENANTSTATS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=734,
-  serialized_end=877,
+  serialized_start=773,
+  serialized_end=916,
 )
 
 
@@ -441,8 +455,8 @@ _ASSETCACHE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=879,
-  serialized_end=921,
+  serialized_start=918,
+  serialized_end=960,
 )
 
 
@@ -493,8 +507,8 @@ _CHUNKDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=923,
-  serialized_end=998,
+  serialized_start=962,
+  serialized_end=1037,
 )
 
 
@@ -538,8 +552,8 @@ _SOURCELINK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1000,
-  serialized_end=1077,
+  serialized_start=1039,
+  serialized_end=1116,
 )
 
 
@@ -611,8 +625,8 @@ _VERSIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1080,
-  serialized_end=1264,
+  serialized_start=1119,
+  serialized_end=1303,
 )
 
 
@@ -649,8 +663,8 @@ _FIELDSCHEMA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1266,
-  serialized_end=1307,
+  serialized_start=1305,
+  serialized_end=1346,
 )
 
 
@@ -701,8 +715,8 @@ _DATASETDESCRIPTOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1309,
-  serialized_end=1417,
+  serialized_start=1348,
+  serialized_end=1456,
 )
 
 _DATASETDATA.fields_by_name['sample_kind'].enum_type = proto_dot_events__pb2._SAMPLE_KIND

@@ -22,12 +22,14 @@ message DatasetUpdated {
 
 
 
-message JobCreated {
+message JobAdded {
     string job_id = 1;
     string job_name = 2;
 
     repeated string inputs = 3;
     repeated string outputs = 4;
+
+    string project_id = 5;
 }
 
 

@@ -15,6 +15,7 @@
         <tr>
             <th>Name</th>
             <th>Datasets</th>
+            <th>Jobs</th>
             <th>Size</th>
         </tr>
     </thead>
@@ -22,11 +23,13 @@
 
     {% for p in projects %}
         <tr class="project-info" id="prj-{{ p.id }}">
-        <td>
-            <a href="{% url 'explore:view_project' p.id %}" class="project-name project-link">{{ p.name }}</a>
-        </td>
-        <td class="dataset-count">{{ p.dataset_count }}</td>
-        <td>{{ p.raw_bytes|filesizeformat }}</td>
+            <td>
+                <a href="{% url 'explore:view_project' p.id %}" class="project-name project-link">{{ p.name }}</a>
+            </td>
+            <td class="dataset-count">{{ p.dataset_count }}</td>
+            <td class="job-count">{{ p.job_count }}</td>
+
+            <td>{{ p.raw_bytes|filesizeformat }}</td>
         </tr>
     {%  empty %}
 

@@ -61,28 +61,28 @@ def build_lineage(dataset_id, tx):
     dot.node("this", label=ds.name, color="#28a745", bgcolor="#28a745")
     edge_node = {'style': 'rounded'}
     for l in ds.upstream_jobs:
-        link = db.job_get(tx, l)
+        job = db.job_get(tx, l)
 
-        if not link:
+        if not job:
             print(f'no link for id {l}')
 
-        dot.node(link.link_id, label=link.link_name, **edge_node)
-        dot.edge(link.link_id, "this")
+        dot.node(job.job_id, label=job.link_name, **edge_node)
+        dot.edge(job.job_id, "this")
 
-        for input_id in link.inputs:
+        for input_id in job.inputs:
             input_ds = db.dataset_get(tx, input_id)
             dot.node(input_id, label=input_ds.name, href=urls.reverse("explore:view_dataset", args=[input_id]))
 
-            dot.edge(input_id, link.link_id, arrowhead='none')
+            dot.edge(input_id, job.link_id, arrowhead='none')
     for l in ds.downstream_jobs:
-        link = db.job_get(tx, l)
-        dot.node(link.link_id, label=link.link_name, **edge_node)
-        dot.edge("this", link.link_id, arrowhead='none')
+        job = db.job_get(tx, l)
+        dot.node(job.job_id, label=job.job_name, **edge_node)
+        dot.edge("this", job.job_id, arrowhead='none')
 
-        for output_id in link.outputs:
+        for output_id in job.outputs:
             output_ds = db.dataset_get(tx, output_id)
             dot.node(output_id, label=output_ds.name, href=urls.reverse("explore:view_dataset", args=[output_id]))
-            dot.edge(link.link_id, output_id, arrowtail='none')
+            dot.edge(job.job_id, output_id, arrowtail='none')
     return dot
 
 

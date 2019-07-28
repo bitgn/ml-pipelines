@@ -136,12 +136,13 @@ def _(e: evt.DatasetUpdated, tx: lmdb.Transaction):
 
 
 @apply.register
-def _(e: evt.JobCreated, tx: lmdb.Transaction):
+def _(e: evt.JobAdded, tx: lmdb.Transaction):
     val = dto.Job(
         job_id=e.job_id,
         job_name=e.job_name,
         inputs=e.inputs,
         outputs=e.outputs,
+        project_id=e.project_id
     )
 
     stats = db.stats_get(tx)
@@ -161,3 +162,7 @@ def _(e: evt.JobCreated, tx: lmdb.Transaction):
         ds = db.dataset_get(tx, output_id)
         ds.upstream_jobs.append(e.job_id)
         db.dataset_add(tx, ds)
+
+    prj = db.project_get(tx, project_id=e.project_id)
+    prj.job_count += 1
+    db.project_add(tx, prj)

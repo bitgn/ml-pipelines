@@ -208,5 +208,5 @@ def setup_analytics_demo():
         inputs = [x.id for x in p.sources]
         outputs = [x.id for x in p.outputs]
 
-        link = evt.JobCreated(job_id=p.id, job_name=p.name, inputs=inputs, outputs=outputs)
+        link = evt.JobAdded(job_id=p.id, job_name=p.name, inputs=inputs, outputs=outputs, project_id=project.project_id)
         yield link
