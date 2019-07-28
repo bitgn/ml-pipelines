@@ -23,6 +23,7 @@ JOBS = 0x04
 STATS=0x05
 
 ASSET_CACHE=0x06
+EXPERTS=0x07
 
 
 
@@ -147,6 +148,18 @@ def cache_put(tx: lmdb.Transaction, id:str, cache: dto.AssetCache):
     tx.put(tpl.pack((ASSET_CACHE,id)),cache.SerializeToString())
 
 
+
+def expert_put(tx: lmdb.Transaction, val: dto.Expert):
+    tx.put(tpl.pack((EXPERTS, val.expert_id)), val.SerializeToString())
+
+def expert_get(tx: lmdb.Transaction, id: str) -> typing.Optional[dto.Expert]:
+    r = tpl.pack((EXPERTS,id))
+    data = tx.get(r)
+    if not data:
+        return None
+    val = dto.Expert()
+    val.ParseFromString(data)
+    return val
 
 def counter_get(tx: lmdb.Transaction, key):
     key = tpl.pack(key)

@@ -11,6 +11,10 @@ message ProjectData {
     int32 job_count = 6;
 }
 
+message Expert {
+    string expert_id = 1;
+    string expert_name = 2;
+}
 
 message DatasetData {
     string dataset_id = 1;
@@ -46,7 +50,11 @@ message DatasetData {
 
     repeated string upstream_jobs = 21;
     repeated string downstream_jobs = 22;
+
+    repeated Expert experts = 23;
 }
+
+
 
 
 message Job{
@@ -56,7 +64,12 @@ message Job{
 
     repeated string inputs = 4;
     repeated string outputs = 5;
+
+    repeated Expert experts = 6;
 }
+
+
+
 
 
 message TenantStats{

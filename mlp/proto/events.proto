@@ -12,6 +12,8 @@ message DatasetCreated{
     string name = 2;
     string project_id = 3;
     DatasetMetadata metadata = 4;
+
+    repeated string experts = 5;
 }
 
 message DatasetUpdated {
@@ -30,6 +32,14 @@ message JobAdded {
     repeated string outputs = 4;
 
     string project_id = 5;
+
+    repeated string experts = 6;
+}
+
+
+message ExpertAdded {
+    string expert_id = 1;
+    string expert_name = 2;
 }
 
 

@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proto/events.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x12proto/events.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"2\n\x0eProjectCreated\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"j\n\x0e\x44\x61tasetCreated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\"\n\x08metadata\x18\x04 \x01(\x0b\x32\x10.DatasetMetadata\"\\\n\x0e\x44\x61tasetUpdated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12\"\n\x08metadata\x18\x04 \x01(\x0b\x32\x10.DatasetMetadata\"a\n\x08JobAdded\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x10\n\x08job_name\x18\x02 \x01(\t\x12\x0e\n\x06inputs\x18\x03 \x03(\t\x12\x0f\n\x07outputs\x18\x04 \x03(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\"\xa1\x02\n\x0f\x44\x61tasetMetadata\x12 \n\nset_fields\x18\x01 \x03(\x0e\x32\x0c.FIELD_TYPES\x12 \n\ndel_fields\x18\x02 \x03(\x0e\x32\x0c.FIELD_TYPES\x12\x14\n\x0crecord_count\x18\x03 \x01(\x03\x12\x12\n\nfile_count\x18\x04 \x01(\x03\x12\x11\n\traw_bytes\x18\x05 \x01(\x03\x12\x11\n\tzip_bytes\x18\x06 \x01(\x03\x12\x13\n\x0bsample_body\x18\x07 \x01(\x0c\x12!\n\x0bsample_kind\x18\x08 \x01(\x0e\x32\x0c.SAMPLE_KIND\x12\x18\n\x10update_timestamp\x18\t \x01(\x03\x12\x13\n\x0b\x64\x61ta_format\x18\n \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x0b \x01(\t*\xd1\x01\n\x0b\x46IELD_TYPES\x12\x0e\n\nFIELD_NONE\x10\x00\x12\x16\n\x12\x46IELD_RECORD_COUNT\x10\x01\x12\x13\n\x0f\x46IELD_RAW_BYTES\x10\x02\x12\x13\n\x0f\x46IELD_ZIP_BYTES\x10\x03\x12\x10\n\x0c\x46IELD_SAMPLE\x10\x04\x12\x1a\n\x16\x46IELD_UPDATE_TIMESTAMP\x10\x05\x12\x14\n\x10\x46IELD_FILE_COUNT\x10\x06\x12\x15\n\x11\x46IELD_DATA_FORMAT\x10\x07\x12\x15\n\x11\x46IELD_DESCRIPTION\x10\x08**\n\x0bSAMPLE_KIND\x12\x08\n\x04TEXT\x10\x00\x12\x07\n\x03TSV\x10\x01\x12\x08\n\x04JSON\x10\x02\x62\x06proto3')
+  serialized_pb=_b('\n\x12proto/events.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"2\n\x0eProjectCreated\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"{\n\x0e\x44\x61tasetCreated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\"\n\x08metadata\x18\x04 \x01(\x0b\x32\x10.DatasetMetadata\x12\x0f\n\x07\x65xperts\x18\x05 \x03(\t\"\\\n\x0e\x44\x61tasetUpdated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12\"\n\x08metadata\x18\x04 \x01(\x0b\x32\x10.DatasetMetadata\"r\n\x08JobAdded\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x10\n\x08job_name\x18\x02 \x01(\t\x12\x0e\n\x06inputs\x18\x03 \x03(\t\x12\x0f\n\x07outputs\x18\x04 \x03(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x0f\n\x07\x65xperts\x18\x06 \x03(\t\"5\n\x0b\x45xpertAdded\x12\x11\n\texpert_id\x18\x01 \x01(\t\x12\x13\n\x0b\x65xpert_name\x18\x02 \x01(\t\"\xa1\x02\n\x0f\x44\x61tasetMetadata\x12 \n\nset_fields\x18\x01 \x03(\x0e\x32\x0c.FIELD_TYPES\x12 \n\ndel_fields\x18\x02 \x03(\x0e\x32\x0c.FIELD_TYPES\x12\x14\n\x0crecord_count\x18\x03 \x01(\x03\x12\x12\n\nfile_count\x18\x04 \x01(\x03\x12\x11\n\traw_bytes\x18\x05 \x01(\x03\x12\x11\n\tzip_bytes\x18\x06 \x01(\x03\x12\x13\n\x0bsample_body\x18\x07 \x01(\x0c\x12!\n\x0bsample_kind\x18\x08 \x01(\x0e\x32\x0c.SAMPLE_KIND\x12\x18\n\x10update_timestamp\x18\t \x01(\x03\x12\x13\n\x0b\x64\x61ta_format\x18\n \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x0b \x01(\t*\xd1\x01\n\x0b\x46IELD_TYPES\x12\x0e\n\nFIELD_NONE\x10\x00\x12\x16\n\x12\x46IELD_RECORD_COUNT\x10\x01\x12\x13\n\x0f\x46IELD_RAW_BYTES\x10\x02\x12\x13\n\x0f\x46IELD_ZIP_BYTES\x10\x03\x12\x10\n\x0c\x46IELD_SAMPLE\x10\x04\x12\x1a\n\x16\x46IELD_UPDATE_TIMESTAMP\x10\x05\x12\x14\n\x10\x46IELD_FILE_COUNT\x10\x06\x12\x15\n\x11\x46IELD_DATA_FORMAT\x10\x07\x12\x15\n\x11\x46IELD_DESCRIPTION\x10\x08**\n\x0bSAMPLE_KIND\x12\x08\n\x04TEXT\x10\x00\x12\x07\n\x03TSV\x10\x01\x12\x08\n\x04JSON\x10\x02\x62\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -70,8 +70,8 @@ _FIELD_TYPES = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=701,
-  serialized_end=910,
+  serialized_start=790,
+  serialized_end=999,
 )
 _sym_db.RegisterEnumDescriptor(_FIELD_TYPES)
 
@@ -97,8 +97,8 @@ _SAMPLE_KIND = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=912,
-  serialized_end=954,
+  serialized_start=1001,
+  serialized_end=1043,
 )
 _sym_db.RegisterEnumDescriptor(_SAMPLE_KIND)
 
@@ -191,6 +191,13 @@ _DATASETCREATED = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='experts', full_name='DatasetCreated.experts', index=4,
+      number=5, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -204,7 +211,7 @@ _DATASETCREATED = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=107,
-  serialized_end=213,
+  serialized_end=230,
 )
 
 
@@ -248,8 +255,8 @@ _DATASETUPDATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=215,
-  serialized_end=307,
+  serialized_start=232,
+  serialized_end=324,
 )
 
 
@@ -295,6 +302,13 @@ _JOBADDED = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='experts', full_name='JobAdded.experts', index=5,
+      number=6, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -307,8 +321,46 @@ _JOBADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=309,
-  serialized_end=406,
+  serialized_start=326,
+  serialized_end=440,
+)
+
+
+_EXPERTADDED = _descriptor.Descriptor(
+  name='ExpertAdded',
+  full_name='ExpertAdded',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='expert_id', full_name='ExpertAdded.expert_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='expert_name', full_name='ExpertAdded.expert_name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=442,
+  serialized_end=495,
 )
 
 
@@ -408,8 +460,8 @@ _DATASETMETADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=409,
-  serialized_end=698,
+  serialized_start=498,
+  serialized_end=787,
 )
 
 _DATASETCREATED.fields_by_name['metadata'].message_type = _DATASETMETADATA
@@ -421,6 +473,7 @@ DESCRIPTOR.message_types_by_name['ProjectCreated'] = _PROJECTCREATED
 DESCRIPTOR.message_types_by_name['DatasetCreated'] = _DATASETCREATED
 DESCRIPTOR.message_types_by_name['DatasetUpdated'] = _DATASETUPDATED
 DESCRIPTOR.message_types_by_name['JobAdded'] = _JOBADDED
+DESCRIPTOR.message_types_by_name['ExpertAdded'] = _EXPERTADDED
 DESCRIPTOR.message_types_by_name['DatasetMetadata'] = _DATASETMETADATA
 DESCRIPTOR.enum_types_by_name['FIELD_TYPES'] = _FIELD_TYPES
 DESCRIPTOR.enum_types_by_name['SAMPLE_KIND'] = _SAMPLE_KIND
@@ -453,6 +506,13 @@ JobAdded = _reflection.GeneratedProtocolMessageType('JobAdded', (_message.Messag
   # @@protoc_insertion_point(class_scope:JobAdded)
   ))
 _sym_db.RegisterMessage(JobAdded)
+
+ExpertAdded = _reflection.GeneratedProtocolMessageType('ExpertAdded', (_message.Message,), dict(
+  DESCRIPTOR = _EXPERTADDED,
+  __module__ = 'proto.events_pb2'
+  # @@protoc_insertion_point(class_scope:ExpertAdded)
+  ))
+_sym_db.RegisterMessage(ExpertAdded)
 
 DatasetMetadata = _reflection.GeneratedProtocolMessageType('DatasetMetadata', (_message.Message,), dict(
   DESCRIPTOR = _DATASETMETADATA,

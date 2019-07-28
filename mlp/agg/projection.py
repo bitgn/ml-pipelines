@@ -114,6 +114,11 @@ def _(e: evt.DatasetCreated, tx: lmdb.Transaction):
 
     _apply_metadata(e.metadata, val)
 
+    for expert_id in e.experts:
+        expert = db.expert_get(tx, expert_id)
+        val.experts.append(expert)
+
+
     db.dataset_add(tx, val)
     prj = db.project_get(tx, project_id=e.project_id)
     prj.dataset_count += 1
@@ -136,6 +141,12 @@ def _(e: evt.DatasetUpdated, tx: lmdb.Transaction):
 
 
 @apply.register
+def _(e: evt.ExpertAdded, tx: lmdb.Transaction):
+    val = dto.Expert(expert_id=e.expert_id, expert_name=e.expert_name)
+    db.expert_put(tx, val)
+
+
+@apply.register
 def _(e: evt.JobAdded, tx: lmdb.Transaction):
     val = dto.Job(
         job_id=e.job_id,
@@ -148,6 +159,12 @@ def _(e: evt.JobAdded, tx: lmdb.Transaction):
     stats = db.stats_get(tx)
     stats.job_count += 1
     db.stats_put(tx, stats)
+
+
+    for expert_id in e.experts:
+        expert = db.expert_get(tx, expert_id)
+        val.experts.append(expert)
+
 
     db.job_put(tx, val)
 
