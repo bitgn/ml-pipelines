@@ -23,6 +23,9 @@ demo:
 dev:
 	lib/deploy-dev
 
+screenshots:
+	mlp/venv/bin/python mlp/lib/screenshot.py doc
+
 ready-to-test:
 	echo $(CURRENT_VER)
 	git tag -a -m "Release to 'Ready to test'"  $(PROJECT)-$(NEXT_VER)

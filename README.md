@@ -9,13 +9,13 @@ At the moment of writing this repository includes only the MLP Catalog - a Djang
 
 Searching datasets across projects.
 
-![explore](./doc/2019-07-24-23-55-56-mlp-catalog-explore.png)
+![explore](./doc/explore-datasets.png)
 
 ## View Datasets
 
 View dataset properties and relations.
 
-![dataset](./doc/2019-07-24-23-56-29-mlp-dataset.png)
+![dataset](./doc/view-dataset.png)
 
 ## Specs
 
