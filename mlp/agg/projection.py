@@ -1,11 +1,7 @@
-import collections as coll
 from functools import singledispatch
-from typing import Dict, List
-from dataclasses import dataclass
 
 from proto import events_pb2 as evt
 from proto import dto_pb2 as dto
-import utils
 import lmdb
 
 from agg import db
@@ -20,14 +16,11 @@ def apply(e, tx: lmdb.Transaction):
 def _(e: evt.ProjectCreated, tx: lmdb.Transaction):
     db.project_add(tx, dto.ProjectData(id=e.project_id, name=e.name, dataset_count=0))
     stats = db.stats_get(tx)
-    stats.project_count +=1
+    stats.project_count += 1
     db.stats_put(tx, stats)
 
 
-
-
 def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
-
     for f in s.set_fields:
 
         if f == evt.FIELD_DESCRIPTION:
@@ -111,8 +104,6 @@ def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
             continue
 
 
-
-
 @apply.register
 def _(e: evt.DatasetCreated, tx: lmdb.Transaction):
     val = dto.DatasetData(
@@ -120,7 +111,6 @@ def _(e: evt.DatasetCreated, tx: lmdb.Transaction):
         dataset_id=e.dataset_id,
         name=e.name,
     )
-
 
     _apply_metadata(e.metadata, val)
 
@@ -131,11 +121,9 @@ def _(e: evt.DatasetCreated, tx: lmdb.Transaction):
     prj.raw_bytes += e.metadata.raw_bytes
     db.project_add(tx, prj)
 
-
     stats = db.stats_get(tx)
-    stats.dataset_count +=1
+    stats.dataset_count += 1
     db.stats_put(tx, stats)
-
 
 
 @apply.register
@@ -146,30 +134,30 @@ def _(e: evt.DatasetUpdated, tx: lmdb.Transaction):
 
     db.dataset_add(tx, val)
 
-@apply.register
-def _(e: evt.DatasetLinkAdded, tx: lmdb.Transaction):
 
-    val = dto.DatasetLink(
-        link_id=e.link_id,
-        link_name=e.link_name,
+@apply.register
+def _(e: evt.JobCreated, tx: lmdb.Transaction):
+    val = dto.Job(
+        job_id=e.job_id,
+        job_name=e.job_name,
         inputs=e.inputs,
         outputs=e.outputs,
     )
 
     stats = db.stats_get(tx)
-    stats.pipeline_count+=1
+    stats.job_count += 1
     db.stats_put(tx, stats)
 
-    db.lineage_set(tx, val)
+    db.job_put(tx, val)
 
     # we are doing it the slow way for now
 
     for input_id in e.inputs:
         ds = db.dataset_get(tx, input_id)
-        ds.downstreams.append(e.link_id)
+        ds.downstream_jobs.append(e.job_id)
         db.dataset_add(tx, ds)
 
     for output_id in e.outputs:
         ds = db.dataset_get(tx, output_id)
-        ds.upstreams.append(e.link_id)
+        ds.upstream_jobs.append(e.job_id)
         db.dataset_add(tx, ds)

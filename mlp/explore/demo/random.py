@@ -38,15 +38,15 @@ def setup_random_demo():
             step = set(random.choices(list(pipeline), k=random.randint(1, 3)))
 
             if prev_step:
-                link_id = f"random-{t.next_id()}"
-                link_name = link_id
+                job_id = f"random-{t.next_id()}"
+                job_name = job_id
 
                 if len(prev_step) > 1:
-                    link_name = random.choice(['merge', 'join', 'enrich'])
+                    job_name = random.choice(['merge', 'join', 'enrich'])
                 else:
-                    link_name = random.choice(['clean', 'filter', 'upload', 'format'])
+                    job_name = random.choice(['clean', 'filter', 'upload', 'format'])
 
-                e = evt.DatasetLinkAdded(link_id=link_id, link_name=link_name, inputs=prev_step, outputs=step, )
+                e = evt.JobCreated(job_id=job_id, job_name=job_name, inputs=prev_step, outputs=step, )
                 yield e
 
             prev_step = step

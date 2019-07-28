@@ -60,8 +60,8 @@ def build_lineage(dataset_id, tx):
     dot.attr(rankdir='LR', fontname='Arial')
     dot.node("this", label=ds.name, color="#28a745", bgcolor="#28a745")
     edge_node = {'style': 'rounded'}
-    for l in ds.upstreams:
-        link = db.lineage_get(tx, l)
+    for l in ds.upstream_jobs:
+        link = db.job_get(tx, l)
 
         if not link:
             print(f'no link for id {l}')
@@ -74,8 +74,8 @@ def build_lineage(dataset_id, tx):
             dot.node(input_id, label=input_ds.name, href=urls.reverse("explore:view_dataset", args=[input_id]))
 
             dot.edge(input_id, link.link_id, arrowhead='none')
-    for l in ds.downstreams:
-        link = db.lineage_get(tx, l)
+    for l in ds.downstream_jobs:
+        link = db.job_get(tx, l)
         dot.node(link.link_id, label=link.link_name, **edge_node)
         dot.edge("this", link.link_id, arrowhead='none')
 
@@ -99,7 +99,7 @@ def get_or_cache(tx, dataset_id, d: g.Digraph):
     result = d.pipe(format='svg')
 
     with env.begin(write=True) as wr:
-        cache = dto.LineageCache(digest=digest, body=result)
+        cache = dto.AssetCache(digest=digest, body=result)
         db.cache_put(wr, dataset_id, cache)
 
     with env.begin() as r:

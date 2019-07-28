@@ -22,9 +22,9 @@ message DatasetUpdated {
 
 
 
-message DatasetLinkAdded {
-    string link_id = 1;
-    string link_name = 2;
+message JobCreated {
+    string job_id = 1;
+    string job_name = 2;
 
     repeated string inputs = 3;
     repeated string outputs = 4;

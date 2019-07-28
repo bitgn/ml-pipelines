@@ -14,9 +14,9 @@ def base_template(request):
         'APP_VERSION': settings.APP_VERSION,
         'PROJECT_COUNT': stats.project_count,
         'DATASET_COUNT': stats.dataset_count,
-        'PIPELINE_COUNT': stats.pipeline_count,
+        'JOB_COUNT': stats.job_count,
         'MENU_ACTIVE': 'none',
         'EXPERT_COUNT': stats.expert_count,
-        'DASHBOARD_COUNT': stats.dashboard_count,
+        'REPORT_COUNT': stats.report_count,
         'MODEL_COUNT': stats.model_count,
     }

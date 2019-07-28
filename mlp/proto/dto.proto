@@ -43,14 +43,14 @@ message DatasetData {
     bool description_set = 20;
 
 
-    repeated string upstreams = 21;
-    repeated string downstreams = 22;
+    repeated string upstream_jobs = 21;
+    repeated string downstream_jobs = 22;
 }
 
 
-message DatasetLink{
-    string link_id = 1;
-    string link_name = 2;
+message Job{
+    string job_id = 1;
+    string job_name = 2;
 
     repeated string inputs = 3;
     repeated string outputs = 4;
@@ -60,14 +60,14 @@ message DatasetLink{
 message TenantStats{
     int32 project_count = 1;
     int32 dataset_count = 2;
-    int32 pipeline_count = 3;
-    int32 dashboard_count = 4;
+    int32 job_count = 3;
+    int32 report_count = 4;
     int32 expert_count = 5;
     int32 model_count = 6;
 }
 
 
-message LineageCache{
+message AssetCache{
     string digest = 1;
     bytes body = 2;
 }

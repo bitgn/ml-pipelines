@@ -19,10 +19,10 @@ EVENTS = 0x00
 PROJECTS = 0x01
 DATASETS = 0x02
 PROJECT_DATASETS = 0x03
-LINEAGE = 0x04
+JOBS = 0x04
 STATS=0x05
 
-LINEAGE_CACHE=0x06
+ASSET_CACHE=0x06
 
 
 
@@ -105,15 +105,15 @@ def dataset_list_all(tx: lmdb.Transaction):
 
 
 
-def lineage_set(tx: lmdb.Transaction, val : dto.DatasetLink):
-    key = tpl.pack((LINEAGE, val.link_id))
+def job_put(tx: lmdb.Transaction, val : dto.Job):
+    key = tpl.pack((JOBS, val.job_id))
     tx.put(key, val.SerializeToString())
 
-def lineage_get(tx: lmdb.Transaction, lineage_id: str) -> typing.Optional[dto.DatasetLink]:
-    r = tpl.pack((LINEAGE, lineage_id))
+def job_get(tx: lmdb.Transaction, job_id: str) -> typing.Optional[dto.Job]:
+    r = tpl.pack((JOBS, job_id))
     bs = tx.get(r)
     if bs:
-        val = dto.DatasetLink()
+        val = dto.Job()
         val.ParseFromString(bs)
         return val
     return None
@@ -130,21 +130,21 @@ def stats_put(tx: lmdb.Transaction, stats: dto.TenantStats):
     tx.put(tpl.pack((STATS,)),stats.SerializeToString())
 
 
-def cache_get(tx: lmdb.Transaction, id: str) -> typing.Optional[dto.LineageCache]:
-    r = tpl.pack((LINEAGE_CACHE,id))
+def cache_get(tx: lmdb.Transaction, id: str) -> typing.Optional[dto.AssetCache]:
+    r = tpl.pack((ASSET_CACHE,id))
 
     data = tx.get(r)
     if not data:
         return None
-    val = dto.LineageCache()
+    val = dto.AssetCache()
     val.ParseFromString(data)
     return val
 
 
 
 
-def cache_put(tx: lmdb.Transaction, id:str, cache: dto.LineageCache):
-    tx.put(tpl.pack((LINEAGE_CACHE,id)),cache.SerializeToString())
+def cache_put(tx: lmdb.Transaction, id:str, cache: dto.AssetCache):
+    tx.put(tpl.pack((ASSET_CACHE,id)),cache.SerializeToString())
 
 
 
