@@ -65,20 +65,13 @@
 
     {% if dataset.description_set %}
         <div class="row pt-5">
-        <div class="col rounded-top" style="background-color: #e2e3e5;">
-            <span class="pl-2">            <b>Description</b></span>
-
-        </div>
-        </div>
-
-        <div class="row">
-        <div class="col rounded-bottom border px-4 py-3">
-
-
+        <div class="col">
+            <h3>Description</h3>
             {{ description|safe }}
 
         </div>
         </div>
+
 
     {%  endif %}
     {% if dataset.sample_set %}

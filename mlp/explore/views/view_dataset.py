@@ -32,7 +32,7 @@ def view_dataset(request, dataset_id):
     }
 
     if ds.description_set:
-        context['description'] = md.markdown(ds.description, extensions=['fenced_code', 'codehilite']).replace('h3>','h5>').replace('h2>','h4>').replace('h1>','h3>')
+        context['description'] = md.markdown(ds.description, extensions=['fenced_code', 'codehilite']).replace('h3>','h6>').replace('h2>','h5>').replace('h1>','h4>')
 
     return render(request, "explore/view-dataset.html", context)
 
