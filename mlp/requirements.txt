@@ -8,3 +8,4 @@ lmdb
 foundationdb
 markdown
 graphviz
+Faker

@@ -66,14 +66,14 @@ def build_lineage(dataset_id, tx):
         if not job:
             print(f'no link for id {l}')
 
-        dot.node(job.job_id, label=job.link_name, **edge_node)
+        dot.node(job.job_id, label=job.job_name, **edge_node)
         dot.edge(job.job_id, "this")
 
         for input_id in job.inputs:
             input_ds = db.dataset_get(tx, input_id)
             dot.node(input_id, label=input_ds.name, href=urls.reverse("explore:view_dataset", args=[input_id]))
 
-            dot.edge(input_id, job.link_id, arrowhead='none')
+            dot.edge(input_id, job.job_id, arrowhead='none')
     for l in ds.downstream_jobs:
         job = db.job_get(tx, l)
         dot.node(job.job_id, label=job.job_name, **edge_node)

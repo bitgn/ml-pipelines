@@ -39,8 +39,19 @@
 
             </div>
             <div class="col">
-                    <strong>Maintainer:</strong> <a href="{% url "explore:view_project" dataset.project_id %}" class="project-link">Aliza Heath</a><br/>
-                <strong>Domain Experts: </strong><a href="">Russell Edwards</a>, <a href="">Harley Bruce</a><br/>
+                {% if dataset.experts %}
+                    <strong>Domain Experts: </strong>
+                        {% for e in dataset.experts %}
+                            {% if not forloop.first %}, {% endif %}<i>{{ e.expert_name }}</i>
+                        {% endfor %}
+
+
+
+
+
+                {% endif %}
+
+
 
             </div>
 
