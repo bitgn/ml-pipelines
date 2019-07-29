@@ -27,9 +27,8 @@ Application is build and tested with Python 3.7.
 
 Prerequisites:
 
-- Python 3.7
-- [graphviz](https://www.graphviz.org)
-- [LMDB](https://lmdb.readthedocs.io/en/release/)
+- Python 3.7 with dev libraries: `apt install python3.7 python3.7-dev`
+- [graphviz](https://www.graphviz.org): `apt install graphviz`
 - [virtualenv](https://virtualenv.pypa.io/en/latest/)
 
 To get started, go to the `mlp` folder and:
