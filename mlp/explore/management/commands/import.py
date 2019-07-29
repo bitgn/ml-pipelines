@@ -33,6 +33,10 @@ class Command(BaseCommand):
 
 
                 for i in meta:
+                    if i['type'] == 'expert':
+                        e = evt.ExpertAdded(expert_id=i['expert_id'], expert_name=i['expert_name'])
+                        projection.apply(e, tx)
+                        continue
                     if i['type'] == 'project':
                         self.create_project(i, tx)
                     if i['type'] == 'dataset':
@@ -69,10 +73,15 @@ class Command(BaseCommand):
                             mtd.storage_location = i['storage_location']
                             mtd.set_fields.append(evt.FIELD_STORAGE_LOCATION)
 
+
+
                         e = evt.DatasetCreated(project_id=project_id,
                                                name=name,
                                                metadata=mtd,
                                                dataset_id=dataset_id)
+
+                        if 'experts' in i:
+                            e.experts.extend(i['experts'])
 
                         projection.apply(e, tx)
 
