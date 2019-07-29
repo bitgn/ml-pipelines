@@ -25,7 +25,6 @@
         <tr>
             <th>Dataset</th>
             <th>Size</th>
-            <th>Archive</th>
         </tr>
     </thead>
     <tbody>
@@ -36,7 +35,6 @@
                 <a href="{% url "explore:view_dataset" ds.dataset_id %}" class="dataset-link">{{ds.name}}</a>
                 {% if info.stale %} <span class="stale-status badge badge-warning">stale</span>{% endif %}
             </td>
-            <td class="raw-size">{% if ds.raw_bytes_set %}{{ ds.raw_bytes | filesizeformat }}{% endif %}</td>
             <td class="zip-size">{% if ds.zip_bytes_set %}{{ ds.zip_bytes | filesizeformat }}{% endif %}</td>
         </tr>
 

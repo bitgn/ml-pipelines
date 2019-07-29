@@ -112,6 +112,12 @@ def _(e: evt.DatasetCreated, tx: lmdb.Transaction):
         name=e.name,
     )
 
+    if not e.dataset_id:
+        raise ValueError("dataset_id is missing")
+
+    if not e.project_id:
+        raise ValueError("project_id is missing")
+
     _apply_metadata(e.metadata, val)
 
     for expert_id in e.experts:
@@ -122,7 +128,7 @@ def _(e: evt.DatasetCreated, tx: lmdb.Transaction):
     db.dataset_add(tx, val)
     prj = db.project_get(tx, project_id=e.project_id)
     prj.dataset_count += 1
-    prj.zip_bytes += e.metadata.raw_bytes
+    prj.zip_bytes += e.metadata.zip_bytes
     prj.raw_bytes += e.metadata.raw_bytes
     db.project_add(tx, prj)
 

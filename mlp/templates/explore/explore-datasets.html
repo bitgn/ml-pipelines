@@ -59,7 +59,7 @@
 
             </td>
             <td><a href="{% url "explore:view_project" ds.project_id %}" class="project-link">{{ meta.project_name }}</a> </td>
-            <td class="raw-size">{{ ds.raw_bytes|fmt_bytes }}</td>
+            <td class="raw-size">{{ ds.zip_bytes|fmt_bytes }}</td>
             <td class="update-timestamp">{% if ds.update_timestamp_set %}{{ ds.update_timestamp |fmt_timestamp }}{% endif %}</td>
         </tr>
 

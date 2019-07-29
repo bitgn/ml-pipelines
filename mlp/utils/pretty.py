@@ -25,25 +25,25 @@ def timedelta(diff: datetime.timedelta):
 
     s = diff.seconds
     if diff.days > (365 * 2):
-        return f'{diff.days / 365} years ago'
+        return f'{diff.days / 365:.0f} years ago'
 
     if diff.days > 365:
         return 'a year ago'
 
     if diff.days > 60:
-        return f'{diff.days / 30} months ago'
+        return f'{diff.days / 30:.0f} months ago'
 
     if diff.days > 30:
         return 'a month ago'
 
     if diff.days > 14:
-        return f'{diff.days / 7} weeks ago'
+        return f'{diff.days / 7:.0f} weeks ago'
 
     if diff.days > 7:
         return 'a week ago'
 
     if diff.days > 1:
-        return f'{diff.days} days ago'
+        return f'{diff.days:.0f} days ago'
 
 
     if diff.days == 1:
