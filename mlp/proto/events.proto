@@ -53,6 +53,8 @@ enum FIELD_TYPES {
     FIELD_FILE_COUNT = 6;
     FIELD_DATA_FORMAT = 7;
     FIELD_DESCRIPTION = 8;
+    FIELD_STORAGE_ID = 9;
+    FIELD_STORAGE_LOCATION = 10;
 }
 
 // Sample storage format. Doesn't necessarily match
@@ -84,6 +86,8 @@ message DatasetMetadata {
 
     string data_format = 10;
     string description = 11;
+    string storage_id = 12;
+    string storage_location = 13;
 
 }
 

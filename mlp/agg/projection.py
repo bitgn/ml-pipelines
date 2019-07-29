@@ -62,6 +62,14 @@ def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
             t.update_timestamp_set = True
             continue
 
+        if f == evt.FIELD_STORAGE_ID:
+            t.storage_id = s.storage_id
+            t.storage_id_set = True
+
+        if f == evt.FIELD_STORAGE_LOCATION:
+            t.storage_location = s.storage_location
+            t.storage_location_set = True
+
     for f in s.del_fields:
         print("DEL!")
         if f == evt.FIELD_DESCRIPTION:
@@ -102,6 +110,14 @@ def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
             t.update_timestamp = None
             t.update_timestamp_set = False
             continue
+
+        if f == evt.FIELD_STORAGE_ID:
+            t.storage_id = None
+            t.storage_id_set = False
+
+        if f == evt.FIELD_STORAGE_LOCATION:
+            t.storage_location = None
+            t.storage_location_set = False
 
 
 @apply.register

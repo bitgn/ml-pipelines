@@ -48,6 +48,8 @@ class FIELD_TYPES(int):
     FIELD_FILE_COUNT = typing___cast(FIELD_TYPES, 6)
     FIELD_DATA_FORMAT = typing___cast(FIELD_TYPES, 7)
     FIELD_DESCRIPTION = typing___cast(FIELD_TYPES, 8)
+    FIELD_STORAGE_ID = typing___cast(FIELD_TYPES, 9)
+    FIELD_STORAGE_LOCATION = typing___cast(FIELD_TYPES, 10)
 FIELD_NONE = typing___cast(FIELD_TYPES, 0)
 FIELD_RECORD_COUNT = typing___cast(FIELD_TYPES, 1)
 FIELD_RAW_BYTES = typing___cast(FIELD_TYPES, 2)
@@ -57,6 +59,8 @@ FIELD_UPDATE_TIMESTAMP = typing___cast(FIELD_TYPES, 5)
 FIELD_FILE_COUNT = typing___cast(FIELD_TYPES, 6)
 FIELD_DATA_FORMAT = typing___cast(FIELD_TYPES, 7)
 FIELD_DESCRIPTION = typing___cast(FIELD_TYPES, 8)
+FIELD_STORAGE_ID = typing___cast(FIELD_TYPES, 9)
+FIELD_STORAGE_LOCATION = typing___cast(FIELD_TYPES, 10)
 
 class SAMPLE_KIND(int):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
@@ -209,6 +213,8 @@ class DatasetMetadata(google___protobuf___message___Message):
     update_timestamp = ... # type: int
     data_format = ... # type: typing___Text
     description = ... # type: typing___Text
+    storage_id = ... # type: typing___Text
+    storage_location = ... # type: typing___Text
 
     def __init__(self,
         *,
@@ -223,12 +229,14 @@ class DatasetMetadata(google___protobuf___message___Message):
         update_timestamp : typing___Optional[int] = None,
         data_format : typing___Optional[typing___Text] = None,
         description : typing___Optional[typing___Text] = None,
+        storage_id : typing___Optional[typing___Text] = None,
+        storage_location : typing___Optional[typing___Text] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> DatasetMetadata: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",u"del_fields",u"description",u"file_count",u"raw_bytes",u"record_count",u"sample_body",u"sample_kind",u"set_fields",u"update_timestamp",u"zip_bytes"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",u"del_fields",u"description",u"file_count",u"raw_bytes",u"record_count",u"sample_body",u"sample_kind",u"set_fields",u"storage_id",u"storage_location",u"update_timestamp",u"zip_bytes"]) -> None: ...
     else:
-        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",b"data_format",u"del_fields",b"del_fields",u"description",b"description",u"file_count",b"file_count",u"raw_bytes",b"raw_bytes",u"record_count",b"record_count",u"sample_body",b"sample_body",u"sample_kind",b"sample_kind",u"set_fields",b"set_fields",u"update_timestamp",b"update_timestamp",u"zip_bytes",b"zip_bytes"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",b"data_format",u"del_fields",b"del_fields",u"description",b"description",u"file_count",b"file_count",u"raw_bytes",b"raw_bytes",u"record_count",b"record_count",u"sample_body",b"sample_body",u"sample_kind",b"sample_kind",u"set_fields",b"set_fields",u"storage_id",b"storage_id",u"storage_location",b"storage_location",u"update_timestamp",b"update_timestamp",u"zip_bytes",b"zip_bytes"]) -> None: ...

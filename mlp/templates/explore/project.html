@@ -33,6 +33,7 @@
         <tr class="dataset-info" id="ds-{{ ds.dataset_id }}">
             <td>
                 <a href="{% url "explore:view_dataset" ds.dataset_id %}" class="dataset-link">{{ds.name}}</a>
+                {% if ds.storage_id_set %}<span class="text-muted"> ({{ ds.storage_id }})</span>{% endif %}
                 {% if info.stale %} <span class="stale-status badge badge-warning">stale</span>{% endif %}
             </td>
             <td class="zip-size">{% if ds.zip_bytes_set %}{{ ds.zip_bytes | filesizeformat }}{% endif %}</td>

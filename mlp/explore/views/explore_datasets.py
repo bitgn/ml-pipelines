@@ -17,6 +17,7 @@ def explore_datasets(request):
 
     projects = {}
     values = []
+
     with env.begin() as tx:
         datasets = list(db.dataset_list_all(tx))
 
@@ -35,7 +36,7 @@ def explore_datasets(request):
                 continue
 
 
-            fts = f'{ds.name}|{project.name}|{ds.data_format}'
+            fts = f'{ds.name}|{project.name}|{ds.data_format}|{ds.storage_id}|{ds.storage_location}'
 
             if ds.sample_set:
                 fts += "|" + ds.sample_body.decode()

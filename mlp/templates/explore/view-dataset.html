@@ -24,6 +24,14 @@
             <div class="col">
 
                 <div>
+                    {% if dataset.storage_id_set %}
+                        <strong>Storage: </strong>{{ dataset.storage_id }}<br/>
+                    {% endif %}
+
+                    {% if dataset.storage_location_set %}
+                        <strong>Location: </strong><code>{{ dataset.storage_location }}</code><br/>
+                    {% endif %}
+
                     <strong>Records: </strong>{{ dataset.record_count }}<br/>
                     <strong>Files: </strong> {{ dataset.file_count }}<br />
                     <strong>Size:</strong>  <span class="zip-size">{% if dataset.zip_bytes_set %}{{ dataset.zip_bytes|fmt_bytes }}{% else %}N/A{% endif %}</span><br/>

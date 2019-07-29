@@ -52,6 +52,12 @@ message DatasetData {
     repeated string downstream_jobs = 22;
 
     repeated Expert experts = 23;
+
+    string storage_id = 24;
+    bool storage_id_set = 25;
+
+    string storage_location = 26;
+    bool storage_location_set = 27;
 }
 
 

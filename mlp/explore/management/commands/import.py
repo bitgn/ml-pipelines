@@ -61,6 +61,14 @@ class Command(BaseCommand):
                             evt.FIELD_SAMPLE
                         ])
 
+                        if 'storage_id' in i:
+                            mtd.storage_id = i['storage_id']
+                            mtd.set_fields.append(evt.FIELD_STORAGE_ID)
+
+                        if 'storage_location' in i:
+                            mtd.storage_location = i['storage_location']
+                            mtd.set_fields.append(evt.FIELD_STORAGE_LOCATION)
+
                         e = evt.DatasetCreated(project_id=project_id,
                                                name=name,
                                                metadata=mtd,
