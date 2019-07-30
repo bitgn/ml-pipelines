@@ -42,7 +42,7 @@ class Command(BaseCommand):
                     if i['type'] == 'dataset':
 
                         project_id=i['project_id']
-                        name=i['name']
+                        name=i['dataset_name']
                         dataset_id = i['dataset_id']
 
                         mtd = evt.DatasetMetadata(

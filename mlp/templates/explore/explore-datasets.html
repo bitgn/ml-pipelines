@@ -42,7 +42,7 @@
         <tr>
             <th>Dataset</th>
             <th>Project</th>
-            <th>Size</th>
+            <th>Storage</th>
             <th>Last Updated</th>
 
 
@@ -55,12 +55,15 @@
         <tr class="dataset-info" id="ds-{{ ds.dataset_id }}">
             <td>
                 <a href="{% url "explore:view_dataset" ds.dataset_id%} " class="dataset-name">{{ ds.name  }}</a>
-            {% if ds.storage_id_set %}<span class="text-muted"> ({{ ds.storage_id }})</span>{% endif %}
+
                 {% if meta.stale %} <span class="stale-status badge badge-warning">stale</span>{% endif %}
 
             </td>
             <td><a href="{% url "explore:view_project" ds.project_id %}" class="project-link">{{ meta.project_name }}</a> </td>
-            <td class="raw-size">{{ ds.zip_bytes|fmt_bytes }}</td>
+            <td class="zip-size">
+                {{ ds.zip_bytes|fmt_bytes }}
+                {% if ds.storage_id_set %}<span class="text-muted">at {{ ds.storage_id }}</span>{% endif %}
+            </td>
             <td class="update-timestamp">{% if ds.update_timestamp_set %}{{ ds.update_timestamp |fmt_timestamp }}{% endif %}</td>
         </tr>
 
