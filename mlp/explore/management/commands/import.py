@@ -9,7 +9,7 @@ from explore import demo
 from proto import events_pb2 as evt
 import random
 import json
-
+import os
 random.seed(1)
 
 
@@ -24,6 +24,8 @@ class Command(BaseCommand):
         with lmdb.open(settings.LMDB, subdir=False) as env:
             main = env.open_db()
             file_name = options['json']
+
+            folder = os.path.dirname(file_name)
             print(file_name)
             with open(file_name, 'r') as f:
                 meta = json.load(f)
@@ -56,6 +58,8 @@ class Command(BaseCommand):
                         )
 
 
+
+
                         mtd.set_fields.extend([
                             evt.FIELD_UPDATE_TIMESTAMP,
                             evt.FIELD_RECORD_COUNT,
@@ -72,6 +76,15 @@ class Command(BaseCommand):
                         if 'storage_location' in i:
                             mtd.storage_location = i['storage_location']
                             mtd.set_fields.append(evt.FIELD_STORAGE_LOCATION)
+
+                        description = os.path.join(folder, dataset_id + ".md")
+                        if os.path.exists(description):
+                            print(f"Import {description}")
+                            with open(description, 'r') as f:
+                                mtd.description = "\n".join(f.readlines())
+                                mtd.set_fields.append(evt.FIELD_DESCRIPTION)
+
+
 
 
 
