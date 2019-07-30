@@ -167,6 +167,10 @@ def _(e: evt.ExpertAdded, tx: lmdb.Transaction):
     val = dto.Expert(expert_id=e.expert_id, expert_name=e.expert_name)
     db.expert_put(tx, val)
 
+    stats = db.stats_get(tx)
+    stats.expert_count += 1
+    db.stats_put(tx, stats)
+
 
 @apply.register
 def _(e: evt.JobAdded, tx: lmdb.Transaction):
