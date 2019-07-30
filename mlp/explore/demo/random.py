@@ -20,6 +20,8 @@ def setup_random_demo():
     mapping = {}
     experts = []
 
+    storages = ['aws-eu', 'aws-us', 'azure']
+
     for i in range(random.randint(5, 10)):
         name = f.name()
 
@@ -38,6 +40,10 @@ def setup_random_demo():
 
         for d in range(random.randint(2, 7)):
             ds = preset.dataset_created(t, project)
+
+            ds.metadata.storage_id = random.choice(storages)
+            ds.metadata.set_fields.append(evt.FIELD_STORAGE_ID)
+
             datasets.add(ds.dataset_id)
 
             mapping[ds.dataset_id] = project.project_id
