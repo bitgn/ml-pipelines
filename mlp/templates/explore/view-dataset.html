@@ -28,9 +28,12 @@
                         <strong>Storage: </strong><span class="storage-id">{{ dataset.storage_id }}</span><br/>
                     {% endif %}
 
-                    {% if dataset.storage_location_set %}
-                        <strong>Location: </strong><code>{{ dataset.storage_location }}</code><br/>
-                    {% endif %}
+
+                    <strong>Location: </strong>
+                    <code class="storage-loc">
+                        {% if dataset.storage_location_set %}{{ dataset.storage_location }}{% else %}N/A{% endif %}
+                    </code><br/>
+
 
                     <strong>Records: </strong>{{ dataset.record_count }}<br/>
                     <strong>Files: </strong> {{ dataset.file_count }}<br />
