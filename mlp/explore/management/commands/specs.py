@@ -69,6 +69,7 @@ class Command(BaseCommand):
                 print(f'\n{CBOLD}{stem}{CEND}: {doc or ""}')
 
                 count = 0
+                module_fails = 0
 
                 for name, factory in getmembers(module, isfunction):
                     if not name.startswith('given_'):
@@ -119,5 +120,12 @@ class Command(BaseCommand):
                             print(f'    {CRED}✗ when {s.when.text}{CEND}:')
                             for fail in fails:
                                 print(f'      {fail}')
+
+
+                        module_fails += len(fails)
+
                 if count == 0:
                     print(f'  {CRED}✗ feature has no specs{CEND}')
+
+                if count == 0 or module_fails > 0:
+                    print(f'  {os.path.abspath(os.path.join(root, l))}')
