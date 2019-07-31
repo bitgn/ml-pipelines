@@ -19,5 +19,4 @@ def given_a_dataset_with_metadata(t: test.Env):
                   href=urls.reverse('explore:view_project', args=[ds.project_id]),
                   text=prj.name),
 
-        then.text('main .zip-size', pretty.bytes(ds.metadata.zip_bytes)),
     )
