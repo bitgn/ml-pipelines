@@ -30,13 +30,13 @@ def given_a_dataset(t: test.Env):
     since = pretty.timedelta(now - past)
 
     href = urls.reverse('explore:view_project', args=[ds.project_id])
-    pretty_bytes = pretty.bytes(ds.metadata.raw_bytes)
+    pretty_bytes = pretty.bytes(ds.metadata.zip_bytes)
     t.scenario(
         when.list_datasets(),
         then.none('main #empty-catalog-message'),
         then.count('main .dataset-info', 1),
         then.text(f'main #ds-{ds.dataset_id} .dataset-name', ds.name),
-        then.text(f'main #ds-{ds.dataset_id} .raw-size', pretty_bytes),
+        then.text(f'main #ds-{ds.dataset_id} .zip-size', pretty_bytes),
         then.link(f'main #ds-{ds.dataset_id} .project-link', href=href, text=prj.name),
         then.text(f'main #ds-{ds.dataset_id} .update-timestamp', since)
     )

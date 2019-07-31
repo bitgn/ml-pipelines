@@ -27,7 +27,7 @@ def text(selector, expected: str):
         result = s.select_one(selector)
         if not result:
             return f"Expected result with text '{expected}' for '{selector}'"
-        if result.text != expected:
+        if result.text.strip() != expected:
             return f"Text for '{selector}' should be '{expected}' not '{result.text}'"
 
     return env.Then(_)
