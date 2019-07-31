@@ -13,7 +13,9 @@ def _avoid_wrapping(value):
 def bytes(num):
 
     if num == 1:
-        return "1 byte"
+        return _avoid_wrapping("1 byte")
+    if num == 0:
+        return _avoid_wrapping("0 bytes")
     for unit in ['bytes','KB','MB','GB','TB','PB','EB','ZB']:
         if abs(num) < 1024.0:
             return _avoid_wrapping(f"{num:3.1f} {unit}")

@@ -91,12 +91,12 @@ def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
             t.file_count_set = False
             continue
         if f == evt.FIELD_RAW_BYTES:
-            t.raw_bytes = None
+            t.raw_bytes = 0
             t.raw_bytes_set = False
             continue
 
         if f == evt.FIELD_ZIP_BYTES:
-            t.zip_bytes = None
+            t.zip_bytes = 0
             t.zip_bytes_set = False
             continue
 

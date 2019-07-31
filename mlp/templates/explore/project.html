@@ -34,6 +34,7 @@
 {% for ds, info in datasets %}
 
 
+
     <tr class="dataset-info" id="ds-{{ ds.dataset_id }}">
     <td>
         <a href="{% url "explore:view_dataset" ds.dataset_id %}" class="dataset-link">{{ds.name}}</a>
@@ -43,9 +44,8 @@
 
     </td>
     <td class="data-format text-lowercase">{% if ds.data_format_set %}{{ ds.data_format }}{% endif %}</td>
-    <td class="zip-size">
-
-        {% if ds.zip_bytes_set %}{{ ds.zip_bytes | filesizeformat }}{% endif %}
+    <td>
+    <span class="zip-size">{{ ds.zip_bytes | fmt_bytes }}</span>
     {% if ds.storage_id_set %}<span class="text-muted">at <span class="storage-id">{{ ds.storage_id }}</span></span>{% endif %}
     </td>
     <td class="update-timestamp">{% if ds.update_timestamp_set %}{{ ds.update_timestamp |fmt_timestamp }}{% endif %}</td>

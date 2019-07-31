@@ -21,7 +21,4 @@ def timestamp_since_filter(ts):
 
 @register.filter(name="fmt_bytes")
 def bytes_filter(bytes):
-    if not bytes:
-        return ''
-
     return pretty.bytes(bytes)

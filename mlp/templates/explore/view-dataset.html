@@ -34,7 +34,7 @@
 
                     <strong>Records: </strong>{{ dataset.record_count }}<br/>
                     <strong>Files: </strong> {{ dataset.file_count }}<br />
-                    <strong>Size:</strong>  <span class="zip-size">{% if dataset.zip_bytes_set %}{{ dataset.zip_bytes|fmt_bytes }}{% else %}N/A{% endif %}</span><br/>
+                    <strong>Size:</strong> <span class="zip-size">{{ dataset.zip_bytes|fmt_bytes }}</span><br/>
 
                     {% if dataset.data_format_set %}
                         <strong>Format:</strong> <span class="record-format">{{ dataset.data_format }}</span><br/>
