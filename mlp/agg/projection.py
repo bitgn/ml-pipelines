@@ -71,7 +71,6 @@ def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
             t.storage_location_set = True
 
     for f in s.del_fields:
-        print("DEL!")
         if f == evt.FIELD_DESCRIPTION:
             t.description = None
             t.description_set = False
@@ -112,11 +111,11 @@ def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
             continue
 
         if f == evt.FIELD_STORAGE_ID:
-            t.storage_id = None
+            t.storage_id = b''
             t.storage_id_set = False
 
         if f == evt.FIELD_STORAGE_LOCATION:
-            t.storage_location = None
+            t.storage_location = b''
             t.storage_location_set = False
 
 

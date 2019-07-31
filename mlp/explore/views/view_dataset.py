@@ -102,7 +102,5 @@ def get_or_cache(tx, dataset_id, d: g.Digraph):
         cache = dto.AssetCache(digest=digest, body=result)
         db.cache_put(wr, dataset_id, cache)
 
-    with env.begin() as r:
-        print(db.cache_get(r, dataset_id) is not None)
 
     return result

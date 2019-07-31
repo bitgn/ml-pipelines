@@ -46,7 +46,7 @@
     <td class="zip-size">
 
         {% if ds.zip_bytes_set %}{{ ds.zip_bytes | filesizeformat }}{% endif %}
-    {% if ds.storage_id_set %}<span class="text-muted">at {{ ds.storage_id }}</span>{% endif %}
+    {% if ds.storage_id_set %}<span class="text-muted">at <span class="storage-id">{{ ds.storage_id }}</span></span>{% endif %}
     </td>
     <td class="update-timestamp">{% if ds.update_timestamp_set %}{{ ds.update_timestamp |fmt_timestamp }}{% endif %}</td>
 
