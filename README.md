@@ -13,6 +13,11 @@ Find relevant data by searching across all datasets.
     <img src="./doc/explore-datasets-thumb.png" width="320" alt="explore datasets">
 </a>
 
+
+<a href="./doc/explore-datasets-2.png">
+    <img src="./doc/explore-datasets-2-thumb.png" width="320" alt="explore datasets">
+</a>
+
 ## View Projects
 
 Organize elements of ML Pipelines into projects.
