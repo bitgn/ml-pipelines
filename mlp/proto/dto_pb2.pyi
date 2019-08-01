@@ -119,10 +119,10 @@ class DatasetData(google___protobuf___message___Message):
     description_set = ... # type: bool
     upstream_jobs = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
     downstream_jobs = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
-    storage_id = ... # type: typing___Text
-    storage_id_set = ... # type: bool
-    storage_location = ... # type: typing___Text
-    storage_location_set = ... # type: bool
+    location_id = ... # type: typing___Text
+    location_id_set = ... # type: bool
+    location_uri = ... # type: typing___Text
+    location_uri_set = ... # type: bool
 
     @property
     def experts(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[Expert]: ...
@@ -152,19 +152,19 @@ class DatasetData(google___protobuf___message___Message):
         upstream_jobs : typing___Optional[typing___Iterable[typing___Text]] = None,
         downstream_jobs : typing___Optional[typing___Iterable[typing___Text]] = None,
         experts : typing___Optional[typing___Iterable[Expert]] = None,
-        storage_id : typing___Optional[typing___Text] = None,
-        storage_id_set : typing___Optional[bool] = None,
-        storage_location : typing___Optional[typing___Text] = None,
-        storage_location_set : typing___Optional[bool] = None,
+        location_id : typing___Optional[typing___Text] = None,
+        location_id_set : typing___Optional[bool] = None,
+        location_uri : typing___Optional[typing___Text] = None,
+        location_uri_set : typing___Optional[bool] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> DatasetData: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",u"data_format_set",u"dataset_id",u"description",u"description_set",u"downstream_jobs",u"experts",u"file_count",u"file_count_set",u"name",u"project_id",u"raw_bytes",u"raw_bytes_set",u"record_count",u"record_count_set",u"sample_body",u"sample_kind",u"sample_set",u"storage_id",u"storage_id_set",u"storage_location",u"storage_location_set",u"update_timestamp",u"update_timestamp_set",u"upstream_jobs",u"zip_bytes",u"zip_bytes_set"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",u"data_format_set",u"dataset_id",u"description",u"description_set",u"downstream_jobs",u"experts",u"file_count",u"file_count_set",u"location_id",u"location_id_set",u"location_uri",u"location_uri_set",u"name",u"project_id",u"raw_bytes",u"raw_bytes_set",u"record_count",u"record_count_set",u"sample_body",u"sample_kind",u"sample_set",u"update_timestamp",u"update_timestamp_set",u"upstream_jobs",u"zip_bytes",u"zip_bytes_set"]) -> None: ...
     else:
-        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",b"data_format",u"data_format_set",b"data_format_set",u"dataset_id",b"dataset_id",u"description",b"description",u"description_set",b"description_set",u"downstream_jobs",b"downstream_jobs",u"experts",b"experts",u"file_count",b"file_count",u"file_count_set",b"file_count_set",u"name",b"name",u"project_id",b"project_id",u"raw_bytes",b"raw_bytes",u"raw_bytes_set",b"raw_bytes_set",u"record_count",b"record_count",u"record_count_set",b"record_count_set",u"sample_body",b"sample_body",u"sample_kind",b"sample_kind",u"sample_set",b"sample_set",u"storage_id",b"storage_id",u"storage_id_set",b"storage_id_set",u"storage_location",b"storage_location",u"storage_location_set",b"storage_location_set",u"update_timestamp",b"update_timestamp",u"update_timestamp_set",b"update_timestamp_set",u"upstream_jobs",b"upstream_jobs",u"zip_bytes",b"zip_bytes",u"zip_bytes_set",b"zip_bytes_set"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",b"data_format",u"data_format_set",b"data_format_set",u"dataset_id",b"dataset_id",u"description",b"description",u"description_set",b"description_set",u"downstream_jobs",b"downstream_jobs",u"experts",b"experts",u"file_count",b"file_count",u"file_count_set",b"file_count_set",u"location_id",b"location_id",u"location_id_set",b"location_id_set",u"location_uri",b"location_uri",u"location_uri_set",b"location_uri_set",u"name",b"name",u"project_id",b"project_id",u"raw_bytes",b"raw_bytes",u"raw_bytes_set",b"raw_bytes_set",u"record_count",b"record_count",u"record_count_set",b"record_count_set",u"sample_body",b"sample_body",u"sample_kind",b"sample_kind",u"sample_set",b"sample_set",u"update_timestamp",b"update_timestamp",u"update_timestamp_set",b"update_timestamp_set",u"upstream_jobs",b"upstream_jobs",u"zip_bytes",b"zip_bytes",u"zip_bytes_set",b"zip_bytes_set"]) -> None: ...
 
 class Job(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...

@@ -62,13 +62,13 @@ def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
             t.update_timestamp_set = True
             continue
 
-        if f == evt.FIELD_STORAGE_ID:
-            t.storage_id = s.storage_id
-            t.storage_id_set = True
+        if f == evt.FIELD_LOCATION_ID:
+            t.location_id = s.location_id
+            t.location_id_set = True
 
-        if f == evt.FIELD_STORAGE_LOCATION:
-            t.storage_location = s.storage_location
-            t.storage_location_set = True
+        if f == evt.FIELD_LOCATION_URI:
+            t.location_uri = s.location_uri
+            t.location_uri_set = True
 
     for f in s.del_fields:
         if f == evt.FIELD_DESCRIPTION:
@@ -110,13 +110,13 @@ def _apply_metadata(s: evt.DatasetMetadata, t: dto.DatasetData):
             t.update_timestamp_set = False
             continue
 
-        if f == evt.FIELD_STORAGE_ID:
-            t.storage_id = b''
-            t.storage_id_set = False
+        if f == evt.FIELD_LOCATION_ID:
+            t.location_id = b''
+            t.location_id_set = False
 
-        if f == evt.FIELD_STORAGE_LOCATION:
-            t.storage_location = b''
-            t.storage_location_set = False
+        if f == evt.FIELD_LOCATION_URI:
+            t.location_uri = b''
+            t.location_uri_set = False
 
 
 @apply.register

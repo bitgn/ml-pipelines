@@ -41,8 +41,8 @@ def setup_random_demo():
         for d in range(random.randint(2, 7)):
             ds = preset.dataset_created(t, project)
 
-            ds.metadata.storage_id = random.choice(storages)
-            ds.metadata.set_fields.append(evt.FIELD_STORAGE_ID)
+            ds.metadata.location_id = random.choice(storages)
+            ds.metadata.set_fields.append(evt.FIELD_LOCATION_ID)
 
             datasets.add(ds.dataset_id)
 

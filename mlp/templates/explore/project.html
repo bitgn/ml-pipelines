@@ -46,7 +46,7 @@
     <td class="data-format text-lowercase">{% if ds.data_format_set %}{{ ds.data_format }}{% endif %}</td>
     <td>
     <span class="zip-size">{{ ds.zip_bytes | fmt_bytes }}</span>
-    {% if ds.storage_id_set %}<span class="text-muted">at <span class="storage-id">{{ ds.storage_id }}</span></span>{% endif %}
+    {% if ds.location_id_set %}<span class="text-muted">at <span class="location-id">{{ ds.location_id }}</span></span>{% endif %}
     </td>
     <td class="update-timestamp">{% if ds.update_timestamp_set %}{{ ds.update_timestamp |fmt_timestamp }}{% endif %}</td>
 

@@ -38,7 +38,7 @@ def explore_datasets(request):
                 continue
 
 
-            fts = f'{ds.name}|{project.name}|{ds.data_format}|{ds.storage_id}|{ds.storage_location}'
+            fts = f'{ds.name}|{project.name}|{ds.data_format}|{ds.location_id}|{ds.location_uri}'
 
             if ds.sample_set:
                 fts += "|" + ds.sample_body.decode()

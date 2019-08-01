@@ -20,7 +20,7 @@ class Node:
     record_count: int
     last_update: datetime.datetime
     description: str
-    storage_id:str
+    location_id:str
 
 
 @dataclass
@@ -213,9 +213,9 @@ def setup_analytics_demo():
             meta.description = n.description.strip(' \n\r')
             meta.set_fields.append(evt.FIELD_DESCRIPTION)
 
-        if n.storage_id:
-            meta.storage_id = n.storage_id
-            meta.set_fields.append(evt.FIELD_STORAGE_ID)
+        if n.location_id:
+            meta.location_id = n.location_id
+            meta.set_fields.append(evt.FIELD_LOCATION_ID)
 
         ds = evt.DatasetCreated(dataset_id=n.id, name=n.name, project_id=project.project_id, metadata=meta)
         yield ds

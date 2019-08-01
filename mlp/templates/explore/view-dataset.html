@@ -24,14 +24,14 @@
             <div class="col">
 
                 <div>
-                    {% if dataset.storage_id_set %}
-                        <strong>Storage: </strong><span class="storage-id">{{ dataset.storage_id }}</span><br/>
+                    {% if dataset.location_id_set %}
+                        <strong>Location: </strong><span class="location-id">{{ dataset.location_id }}</span><br/>
                     {% endif %}
 
 
-                    <strong>Location: </strong>
-                    <code class="storage-loc">
-                        {% if dataset.storage_location_set %}{{ dataset.storage_location }}{% else %}N/A{% endif %}
+                    <strong>URI: </strong>
+                    <code class="location-uri">
+                        {% if dataset.location_uri_set %}{{ dataset.location_uri }}{% else %}N/A{% endif %}
                     </code><br/>
 
 

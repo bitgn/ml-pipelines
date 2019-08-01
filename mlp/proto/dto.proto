@@ -53,11 +53,11 @@ message DatasetData {
 
     repeated Expert experts = 23;
 
-    string storage_id = 24;
-    bool storage_id_set = 25;
+    string location_id = 24;
+    bool location_id_set = 25;
 
-    string storage_location = 26;
-    bool storage_location_set = 27;
+    string location_uri = 26;
+    bool location_uri_set = 27;
 }
 
 
