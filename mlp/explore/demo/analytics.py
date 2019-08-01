@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from typing import List
 from proto import events_pb2 as evt
 
-
+import faker
 
 @dataclass
 class Node:
@@ -20,6 +20,7 @@ class Node:
     record_count: int
     last_update: datetime.datetime
     description: str
+    storage_id:str
 
 
 @dataclass
@@ -31,7 +32,9 @@ class Process:
 
 
 _counter = 0
+f = faker.Faker()
 
+storages = ['gcs-eu', 'gcs-us', 'vm-ds']
 
 def _next_id():
     global _counter
@@ -46,15 +49,21 @@ random.seed(1)
 
 def _node(name: str, format=None, size_mb=None, description=None, file_count=None, minutes=None) -> 'Node':
     id = f'analytics_n_{_next_id()}'
-    n = Node(id, name, format, 0, 0, 0, None, description)
+    n = Node(id, name, format, 0, 0, 0, None, description, 'gcp-vm1')
+
+
+
+
+
 
     if 'tsv' in name:
         n.format = 'TSV'
         n.file_count = 1
 
         n.last_update = datetime.datetime.utcnow() - datetime.timedelta(hours=3)
+        n.storage_id = 'gcp-eu'
 
-    if 'metric' in name or 'Inxlux' in name:
+    if 'metric' in name or 'Influx' in name:
         n.format = 'INFLUX_DB'
         n.last_update = datetime.datetime.utcnow()
 
@@ -189,6 +198,9 @@ def setup_analytics_demo():
             meta.zip_bytes = n.file_size
             meta.set_fields.append(evt.FIELD_RAW_BYTES)
             meta.set_fields.append(evt.FIELD_ZIP_BYTES)
+        else:
+            meta.zip_bytes = random.randint(10000, 100000)
+            meta.set_fields.append(evt.FIELD_ZIP_BYTES)
         if n.record_count:
             meta.record_count = n.record_count
             meta.set_fields.append(evt.FIELD_RECORD_COUNT)
@@ -200,6 +212,10 @@ def setup_analytics_demo():
         if n.description:
             meta.description = n.description.strip(' \n\r')
             meta.set_fields.append(evt.FIELD_DESCRIPTION)
+
+        if n.storage_id:
+            meta.storage_id = n.storage_id
+            meta.set_fields.append(evt.FIELD_STORAGE_ID)
 
         ds = evt.DatasetCreated(dataset_id=n.id, name=n.name, project_id=project.project_id, metadata=meta)
         yield ds

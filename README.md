@@ -22,6 +22,11 @@ Organize elements of ML Pipelines into projects.
     <img src="./doc/view-projects-thumb.png" width="320" alt="view projects">
 </a>
 
+<a href="./doc/view-project.png">
+    <img src="./doc/view-project-thumb.png" width="320" alt="view project">
+</a>
+
+
 ## View Datasets
 
 View dataset properties and relations.
