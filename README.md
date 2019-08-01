@@ -36,6 +36,10 @@ View dataset properties and relations.
 </a>
 
 
+<a href="./doc/view-dataset-2.png">
+    <img src="./doc/view-dataset-2-thumb.png" width="320" alt="view datasets">
+</a>
+
 ## Specs
 
 Application functionality is being covered with [event-driven specs](https://abdullin.com/sku-vault/event-driven-verification/). This captures business logic and UX flows in non-fragile way.
