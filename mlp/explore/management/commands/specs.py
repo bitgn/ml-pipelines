@@ -2,6 +2,7 @@ import importlib
 import os
 import pathlib
 import sys
+import traceback
 from inspect import getmembers, isfunction, getdoc
 
 import bs4
@@ -78,56 +79,62 @@ class Command(BaseCommand):
                 for name, factory in getmembers(module, isfunction):
                     if not name.startswith('given_'):
                         continue
+                    try:
+                        count += 1
 
-                    count += 1
+                        test_env = test.Env()
+                        factory(test_env)
 
-                    test_env = test.Env()
-                    factory(test_env)
+                        def utcnow():
+                            return test_env.time
 
-                    def utcnow():
-                        return test_env.time
+                        config.set_utcnow(utcnow)
 
-                    config.set_utcnow(utcnow)
 
-                    with env.begin(write=True) as tx:
-                        tx.drop(main)
 
-                        for e in test_env.events:
-                            projection.apply(e, tx)
+                        with env.begin(write=True) as tx:
+                            tx.drop(main)
 
-                    print(f'  {CYELLOW}{name}{CEND} - {factory.__doc__}')
+                            for e in test_env.events:
+                                projection.apply(e, tx)
 
-                    for s in test_env.scenarios:
-                        fails = []
+                        print(f'  {CYELLOW}{name}{CEND} - {factory.__doc__}')
 
-                        response = s.when.action(client)
+                        for s in test_env.scenarios:
+                            fails = []
 
-                        soup = bs4.BeautifulSoup(response.content, 'lxml')
-                        if response.status_code != http.HTTPStatus.OK:
-                            if soup.title:
-                                fails.append(f'{response.reason_phrase}: {soup.title.text}')
+                            response = s.when.action(client)
+
+                            soup = bs4.BeautifulSoup(response.content, 'lxml')
+                            if response.status_code != http.HTTPStatus.OK:
+                                if soup.title:
+                                    fails.append(f'{response.reason_phrase}: {soup.title.text}')
+                                else:
+                                    fails.append(f'{response.reason_phrase}: {soup}')
                             else:
-                                fails.append(f'{response.reason_phrase}: {soup}')
-                        else:
-                            if s.then:
+                                if s.then:
 
-                                for a in s.then:
-                                    result = a.action(soup)
-                                    if result:
-                                        fails.append(result)
+                                    for a in s.then:
+                                        result = a.action(soup)
+                                        if result:
+                                            fails.append(result)
+                                else:
+                                    fails.append("no expectations provided")
+
+                            if not fails:
+                                print(f'    {CGREEN}✔︎ when {s.when.text}{CEND}')
                             else:
-                                fails.append("no expectations provided")
-
-                        if not fails:
-                            print(f'    {CGREEN}✔︎ when {s.when.text}{CEND}')
-                        else:
-                            print(f'    {CRED}✗ when {s.when.text}{CEND}:')
-                            for fail in fails:
-                                print(f'      {fail}')
+                                print(f'    {CRED}✗ when {s.when.text}{CEND}:')
+                                for fail in fails:
+                                    print(f'      {fail}')
 
 
-                        module_fails += len(fails)
-
+                            module_fails += len(fails)
+                    except Exception as e:
+                        print(f'    {CRED}✗ when {s.when.text}{CEND}:')
+                        lines = traceback.format_exception(*sys.exc_info(), limit=3, chain=True)
+                        print(f'      {CRED}{"      ".join(lines).rstrip()}{CEND}')
+                        print(f'      {os.path.join(os.path.abspath(root), l) }')
                 if count == 0:
                     print(f'  {CRED}✗ feature has no specs{CEND}')
 
