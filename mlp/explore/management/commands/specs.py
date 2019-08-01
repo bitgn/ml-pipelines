@@ -132,7 +132,7 @@ class Command(BaseCommand):
                             module_fails += len(fails)
                     except Exception as e:
                         print(f'    {CRED}✗ when {s.when.text}{CEND}:')
-                        lines = traceback.format_exception(*sys.exc_info(), limit=3, chain=True)
+                        lines = traceback.format_exception(*sys.exc_info(), limit=None, chain=True)
                         print(f'      {CRED}{"      ".join(lines).rstrip()}{CEND}')
                         print(f'      {os.path.join(os.path.abspath(root), l) }')
                 if count == 0:
