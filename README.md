@@ -7,16 +7,29 @@ At the moment of writing this repository includes only the MLP Catalog - a Djang
 
 ## Explore Datasets
 
-Searching datasets across projects.
+Find relevant data by searching across all datasets.
 
-<a href="./doc/explore-datasets.png"><img src="./doc/explore-datasets-thumbnail.png" align="left" height="48" width="48" ></a>
+<a href="./doc/explore-datasets.png">
+    <img src="./doc/explore-datasets-thumb.png" width="320" alt="explore datasets">
+</a>
 
+## View Projects
+
+Organize elements of ML Pipelines into projects.
+
+
+<a href="./doc/view-projects.png">
+    <img src="./doc/view-projects-thumb.png" width="320" alt="view projects">
+</a>
 
 ## View Datasets
 
 View dataset properties and relations.
 
-![dataset](./doc/view-dataset.png)
+<a href="./doc/view-dataset.png">
+    <img src="./doc/view-dataset-thumb.png" width="320" alt="view datasets">
+</a>
+
 
 ## Specs
 
