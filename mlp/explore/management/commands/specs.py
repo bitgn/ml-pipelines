@@ -55,6 +55,10 @@ class Command(BaseCommand):
 
             main = env.open_db()
 
+            file_fails = 0;
+            file_ok = 0;
+            assertion_fails = 0;
+
             for l in os.listdir(root):
                 stem = pathlib.Path(l).stem
 
@@ -129,3 +133,11 @@ class Command(BaseCommand):
 
                 if count == 0 or module_fails > 0:
                     print(f'  {os.path.abspath(os.path.join(root, l))}')
+                    file_fails+=1
+                else:
+                    file_ok+=1
+        print()
+        if file_fails:
+            print(f'{CRED}✗ File FAILS {file_fails}{CEND}')
+        if file_ok:
+            print(f'{CGREEN}✔ File OK {file_ok}{CEND}')
