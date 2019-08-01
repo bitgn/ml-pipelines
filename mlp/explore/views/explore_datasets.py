@@ -25,10 +25,12 @@ def explore_datasets(request):
 
             if ds.project_id not in projects:
                 projects[ds.project_id] = db.project_get(tx, ds.project_id)
+
             project = projects[ds.project_id]
+            is_stale = stale.is_stale(ds)
             meta = {
                 'project_name': project.name,
-                'stale': stale.is_stale(ds)
+                'stale': is_stale
             }
 
             if not query:
@@ -43,6 +45,9 @@ def explore_datasets(request):
 
             if ds.description_set:
                 fts += "|" + ds.description
+
+            if is_stale:
+                fts += "|stale"
 
             fts = fts.lower()
 
@@ -62,8 +67,10 @@ def explore_datasets(request):
     catalog_is_empty = not query and not datasets
 
     context = {
-        'query': query, 'd': {}, 'datasets': values, 'catalog_is_empty': catalog_is_empty,
+        'query': query,
+        'd': {},
+        'datasets': values,
+        'catalog_is_empty': catalog_is_empty,
         'MENU_ACTIVE':'datasets'
-
-               }
+    }
     return render(request, "explore/explore-datasets.html", context)

@@ -28,6 +28,11 @@ def given_a_dataset_updated_today(t: test.Env):
         then.none(f'main #ds-{ds.dataset_id} .stale-status')
     )
 
+    t.scenario(
+        when.search_datasets("stale"),
+        then.none(f'main #ds-{ds.dataset_id}')
+    )
+
 
 def given_a_dataset_updated_week_ago(t: test.Env):
     """show stale status"""
@@ -49,5 +54,10 @@ def given_a_dataset_updated_week_ago(t: test.Env):
 
     t.scenario(
         when.list_datasets(),
+        then.exists(f'main #ds-{ds.dataset_id} .stale-status')
+    )
+
+    t.scenario(
+        when.search_datasets("stale"),
         then.exists(f'main #ds-{ds.dataset_id} .stale-status')
     )
