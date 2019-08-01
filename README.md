@@ -9,7 +9,8 @@ At the moment of writing this repository includes only the MLP Catalog - a Djang
 
 Searching datasets across projects.
 
-![explore](./doc/explore-datasets.png)
+<a href="./doc/explore-datasets.png"><img src="./doc/explore-datasets-thumbnail.png" align="left" height="48" width="48" ></a>
+
 
 ## View Datasets
 
