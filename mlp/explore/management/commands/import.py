@@ -69,13 +69,13 @@ class Command(BaseCommand):
                             evt.FIELD_SAMPLE
                         ])
 
-                        if 'storage_id' in i:
-                            mtd.storage_id = i['storage_id']
-                            mtd.set_fields.append(evt.FIELD_STORAGE_ID)
+                        if 'location_id' in i:
+                            mtd.location_id = i['location_id']
+                            mtd.set_fields.append(evt.FIELD_LOCATION_ID)
 
-                        if 'storage_location' in i:
-                            mtd.storage_location = i['storage_location']
-                            mtd.set_fields.append(evt.FIELD_STORAGE_LOCATION)
+                        if 'location_uri' in i:
+                            mtd.location_uri = i['location_uri']
+                            mtd.set_fields.append(evt.FIELD_LOCATION_URI)
 
                         description = os.path.join(folder, dataset_id + ".md")
                         if os.path.exists(description):
