@@ -1,0 +1,11 @@
+syntax="proto3";
+
+
+
+message CreateProjectRequest{}
+message CreateProjectResponse{}
+
+
+service Catalog {
+    rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
+}
