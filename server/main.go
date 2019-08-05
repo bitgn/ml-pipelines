@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"mlp/catalog/db"
-	"mlp/catalog/web/list_projects"
+	"mlp/catalog/web"
 
 	"net/http"
 )
@@ -29,7 +29,7 @@ func main() {
 	s := &server{env}
 
 
-	fs := http.FileServer(http.Dir("static/"))
+	fs := http.FileServer(http.Dir("web/static/"))
 
 
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -37,14 +37,13 @@ func main() {
 
 
 	http.HandleFunc("/", s.projectsHandler)
-	log.Fatal(http.ListenAndServe("localhost:8080", nil))
+	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
 
 
 
 func (s *server) projectsHandler(w http.ResponseWriter, r *http.Request) {
-
-		list_projects.Handle(s.Env, w)
+		web.ListProjects(s.Env, w)
 
 }

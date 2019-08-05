@@ -1,0 +1,127 @@
+{{- /*gotype: mlp/catalog/web.Site*/ -}}
+{{ define "layout" }}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--No status bar on iOS-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{.Url.Static "bootstrap.min.css"}}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{.Url.Static "custom.css"}}" crossorigin="anonymous">
+
+
+
+    <title>ML Catalog</title>
+
+    <style type="text/css">
+
+        .treeview span.indent {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        /* fix bootstrap conflict with Pygments */
+        .codehilite pre { white-space: pre;
+            border-radius: inherit;
+            display: inherit;
+            background-color: inherit;
+            border: inherit;
+            color: inherit;
+        }
+
+        /* fix conflict with other sytlesheets */
+        .codehilite .m { margin: inherit; }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">ML Catalog</a>
+
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid" id="app">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+
+
+                <ul class="nav flex-column">
+
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .ActiveMenu "projects"}}active{{end}}" href="{{ .Url.ListProjects}}">
+                        <span data-feather="file"></span>
+                        Projects <span class="badge badge-pill badge-secondary align-middle">{{.ProjectCount }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .ActiveMenu "datasets"}}active{{end}}" href="{{.Url.ExploreDatasets}}">
+                        <span data-feather="users"></span>
+                        Datasets  <span class="badge badge-pill badge-secondary align-middle">{{.DatasetCount}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-muted" href="#">
+                            <span data-feather="users"></span>
+                            Jobs <span class="badge badge-pill badge-secondary align-middle">{{.JobCount}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-muted" href="#">
+                            <span data-feather="users"></span>
+                            Models <span class="badge badge-pill badge-secondary align-middle">{{.ModelCount}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-muted" href="#">
+                            <span data-feather="users"></span>
+                            Reports <span class="badge badge-pill badge-secondary align-middle">{{.ReportCount}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-muted" href="#">
+                            <span data-feather="users"></span>
+                            Experts <span class="badge badge-pill badge-secondary align-middle">{{.ExpertCount}}</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+            {{ template "content" }}
+
+            <footer>
+        <span class="float-right text-muted">
+            <a href="https://github.com/bitgn/ml-pipelines">ML Pipelines</a>
+            {{ if .AppVersion}}: {{.AppVersion}}{{end}}
+        </span>
+            </footer>
+        </main>
+
+
+    </div>
+
+</div>
+</body>
+</html>
+{{end}}

@@ -1,5 +1,5 @@
-{{- /*gotype: mlp/catalog/web/list_projects.Model*/ -}}
-
+{{- /*gotype: mlp/catalog/web.ListProjectsModel*/ -}}
+{{ define "content" }}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
     <h1 class="h2">Projects</h1>
 
@@ -19,17 +19,17 @@
         </thead>
         <tbody>
 
-        {{range .Projects}}
+        {{range $prj := .Projects}}
 
 
-        <tr class="project-info" id="prj-{{ .Id }}">
+        <tr class="project-info" id="prj-{{ $prj.Id }}">
             <td>
-                <a href="{% url 'explore:view_project' p.id %}" class="project-name project-link">{{ .Name }}</a>
+                <a href="{{.Site.Url.ViewProject $prj.Id }}" class="project-name project-link">{{ .Name }}</a>
             </td>
             <td class="dataset-count">{{ .DatasetCount }}</td>
             <td class="job-count">{{ .JobCount }}</td>
 
-            <td>{{ .ZipBytes }}</td>
+            <td>{{ $prj.ZipBytes }}</td>
         </tr>
         {{end}}
         </tbody>
@@ -40,4 +40,5 @@
         <h4 class="alert-heading">Catalog is empty</h4>
         <p>This looks like a fresh install. Catalog currently contains no projects or datasets. You can use client tools to add dataset information.</p>
     </div>
+{{end}}
 {{end}}
