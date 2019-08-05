@@ -1,6 +1,6 @@
 syntax="proto3";
 
-
+import "events.proto";
 
 message CreateProjectRequest{}
 message CreateProjectResponse{}
@@ -8,4 +8,28 @@ message CreateProjectResponse{}
 
 service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
+}
+
+
+
+
+
+message ScenarioRequest {
+    string Name = 1;
+    repeated Event Events = 2;
+}
+
+message ScenarioResponse {
+
+}
+
+
+
+// TODO: make this streaming
+
+
+// Test service helps to automate specification checks, screenshots and tutorials
+service Test {
+    // Setup a given state in the database
+    rpc Setup(ScenarioRequest) returns (ScenarioResponse){}
 }

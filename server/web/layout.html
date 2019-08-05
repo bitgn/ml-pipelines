@@ -6,20 +6,15 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
 
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <!--No status bar on iOS-->
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-
-
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{.Url.Static "bootstrap.min.css"}}" crossorigin="anonymous">
     <link rel="stylesheet" href="{{.Url.Static "custom.css"}}" crossorigin="anonymous">
-
 
 
     <title>ML Catalog</title>
@@ -107,20 +102,16 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
             {{ template "content" }}
 
             <footer>
-        <span class="float-right text-muted">
-            <a href="https://github.com/bitgn/ml-pipelines">ML Pipelines</a>
-            {{ if .AppVersion}}: {{.AppVersion}}{{end}}
-        </span>
+                <span class="float-right text-muted">
+                    <a href="https://github.com/bitgn/ml-pipelines">ML Pipelines</a>
+                    {{ if .AppVersion}}: {{.AppVersion}}{{end}}
+                </span>
             </footer>
         </main>
-
-
     </div>
-
 </div>
 </body>
 </html>

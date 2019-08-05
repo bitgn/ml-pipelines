@@ -11,12 +11,15 @@ It is generated from these files:
 It has these top-level messages:
 	CreateProjectRequest
 	CreateProjectResponse
+	ScenarioRequest
+	ScenarioResponse
 */
 package api
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
+import events "mlp/catalog/events"
 
 import (
 	context "golang.org/x/net/context"
@@ -50,9 +53,36 @@ func (m *CreateProjectResponse) String() string            { return proto.Compac
 func (*CreateProjectResponse) ProtoMessage()               {}
 func (*CreateProjectResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
+type ScenarioRequest struct {
+	Name   string          `protobuf:"bytes,1,opt,name=Name" json:"Name,omitempty"`
+	Events []*events.Event `protobuf:"bytes,2,rep,name=Events" json:"Events,omitempty"`
+}
+
+func (m *ScenarioRequest) Reset()                    { *m = ScenarioRequest{} }
+func (m *ScenarioRequest) String() string            { return proto.CompactTextString(m) }
+func (*ScenarioRequest) ProtoMessage()               {}
+func (*ScenarioRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+func (m *ScenarioRequest) GetEvents() []*events.Event {
+	if m != nil {
+		return m.Events
+	}
+	return nil
+}
+
+type ScenarioResponse struct {
+}
+
+func (m *ScenarioResponse) Reset()                    { *m = ScenarioResponse{} }
+func (m *ScenarioResponse) String() string            { return proto.CompactTextString(m) }
+func (*ScenarioResponse) ProtoMessage()               {}
+func (*ScenarioResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
 func init() {
 	proto.RegisterType((*CreateProjectRequest)(nil), "CreateProjectRequest")
 	proto.RegisterType((*CreateProjectResponse)(nil), "CreateProjectResponse")
+	proto.RegisterType((*ScenarioRequest)(nil), "ScenarioRequest")
+	proto.RegisterType((*ScenarioResponse)(nil), "ScenarioResponse")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -127,15 +157,87 @@ var _Catalog_serviceDesc = grpc.ServiceDesc{
 	Metadata: fileDescriptor0,
 }
 
+// Client API for Test service
+
+type TestClient interface {
+	// Setup a given state in the database
+	Setup(ctx context.Context, in *ScenarioRequest, opts ...grpc.CallOption) (*ScenarioResponse, error)
+}
+
+type testClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewTestClient(cc *grpc.ClientConn) TestClient {
+	return &testClient{cc}
+}
+
+func (c *testClient) Setup(ctx context.Context, in *ScenarioRequest, opts ...grpc.CallOption) (*ScenarioResponse, error) {
+	out := new(ScenarioResponse)
+	err := grpc.Invoke(ctx, "/Test/Setup", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for Test service
+
+type TestServer interface {
+	// Setup a given state in the database
+	Setup(context.Context, *ScenarioRequest) (*ScenarioResponse, error)
+}
+
+func RegisterTestServer(s *grpc.Server, srv TestServer) {
+	s.RegisterService(&_Test_serviceDesc, srv)
+}
+
+func _Test_Setup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScenarioRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TestServer).Setup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Test/Setup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TestServer).Setup(ctx, req.(*ScenarioRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Test_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "Test",
+	HandlerType: (*TestServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Setup",
+			Handler:    _Test_Setup_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: fileDescriptor0,
+}
+
 func init() { proto.RegisterFile("api.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 106 bytes of a gzipped FileDescriptorProto
+	// 203 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4c, 0x2c, 0xc8, 0xd4,
-	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x57, 0x12, 0xe3, 0x12, 0x71, 0x2e, 0x4a, 0x4d, 0x2c, 0x49, 0x0d,
-	0x28, 0xca, 0xcf, 0x4a, 0x4d, 0x2e, 0x09, 0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x51, 0x12, 0xe7,
-	0x12, 0x45, 0x13, 0x2f, 0x2e, 0xc8, 0xcf, 0x2b, 0x4e, 0x35, 0xf2, 0xe6, 0x62, 0x77, 0x4e, 0x2c,
-	0x49, 0xcc, 0xc9, 0x4f, 0x17, 0x72, 0xe0, 0xe2, 0x45, 0x51, 0x23, 0x24, 0xaa, 0x87, 0xcd, 0x2c,
-	0x29, 0x31, 0x3d, 0xac, 0x46, 0x29, 0x31, 0x24, 0xb1, 0x81, 0x1d, 0x61, 0x0c, 0x08, 0x00, 0x00,
-	0xff, 0xff, 0xd9, 0xdd, 0x0c, 0xc3, 0x91, 0x00, 0x00, 0x00,
+	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x97, 0xe2, 0x49, 0x2d, 0x4b, 0xcd, 0x2b, 0x29, 0x86, 0xf0, 0x94,
+	0xc4, 0xb8, 0x44, 0x9c, 0x8b, 0x52, 0x13, 0x4b, 0x52, 0x03, 0x8a, 0xf2, 0xb3, 0x52, 0x93, 0x4b,
+	0x82, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x94, 0xc4, 0xb9, 0x44, 0xd1, 0xc4, 0x8b, 0x0b, 0xf2,
+	0xf3, 0x8a, 0x53, 0x95, 0x5c, 0xb9, 0xf8, 0x83, 0x93, 0x53, 0xf3, 0x12, 0x8b, 0x32, 0xf3, 0xa1,
+	0x6a, 0x85, 0x84, 0xb8, 0x58, 0xfc, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83,
+	0xc0, 0x6c, 0x21, 0x39, 0x2e, 0x36, 0x57, 0xb0, 0x3d, 0x12, 0x4c, 0x0a, 0xcc, 0x1a, 0xdc, 0x46,
+	0x6c, 0x7a, 0x60, 0x6e, 0x10, 0x54, 0x54, 0x49, 0x88, 0x4b, 0x00, 0x61, 0x0c, 0xc4, 0x68, 0x23,
+	0x6f, 0x2e, 0x76, 0xe7, 0xc4, 0x92, 0xc4, 0x9c, 0xfc, 0x74, 0x21, 0x07, 0x2e, 0x5e, 0x14, 0xeb,
+	0x85, 0x44, 0xf5, 0xb0, 0x39, 0x53, 0x4a, 0x4c, 0x0f, 0xbb, 0x2b, 0x19, 0x8c, 0xcc, 0xb8, 0x58,
+	0x42, 0x40, 0x8e, 0xd3, 0xe3, 0x62, 0x0d, 0x4e, 0x2d, 0x29, 0x2d, 0x10, 0x12, 0xd0, 0x43, 0x73,
+	0xb7, 0x94, 0xa0, 0x1e, 0xba, 0x13, 0x94, 0x18, 0x92, 0xd8, 0xc0, 0xe1, 0x62, 0x0c, 0x08, 0x00,
+	0x00, 0xff, 0xff, 0x97, 0x86, 0x66, 0xb7, 0x32, 0x01, 0x00, 0x00,
 }

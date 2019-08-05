@@ -88,6 +88,15 @@ func (db *DB) Read() (tx *Tx, err error) {
 
 
 
+func (db *DB) MustWrite() *Tx{
+	tx, err := db.CreateTransaction(0)
+
+	if err != nil{
+		panic(err)
+	}
+	return tx
+}
+
 func (db *DB) BeginWrite() (tx *Tx, err error) {
 	return db.CreateTransaction(0)
 }

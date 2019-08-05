@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-import "events.proto";
 
+import "events.proto";
 
 
 enum Range {
@@ -15,6 +15,7 @@ enum Range {
     EXPERTS=7;
 
 }
+
 
 message ProjectData {
     string name = 1;

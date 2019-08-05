@@ -2,8 +2,8 @@ package projection
 
 import (
 	"github.com/golang/protobuf/proto"
-	"ml-catalog/db"
-	"ml-catalog/events"
+	"mlp/catalog/db"
+	"mlp/catalog/events"
 )
 
 func Handle(tx *db.Tx, msg proto.Message){

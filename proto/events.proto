@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
+
 message ProjectCreated{
     string project_id = 1;
     string name = 2;
@@ -57,6 +58,8 @@ enum FIELD_TYPES {
     FIELD_LOCATION_URI = 10;
 }
 
+
+
 // Sample storage format. Doesn't necessarily match
 // actual data format which could be very cryptic
 enum SAMPLE_KIND {
@@ -91,5 +94,21 @@ message DatasetMetadata {
 
 }
 
+
+message Event {
+    enum Types {
+        None = 0;
+        ProjectCreated = 1;
+        DatasetCreated = 2;
+        DatasetUpdated = 3;
+        ExpertAdded = 4;
+        JobAdded = 5;
+    }
+
+    bytes Body = 1;
+    Types Type = 2;
+
+
+}
 
 

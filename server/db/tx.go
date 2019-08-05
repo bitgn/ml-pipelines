@@ -52,5 +52,15 @@ func (tx *Tx) PutReserve(key []byte, size int) ([]byte, error) {
 }
 
 func (tx *Tx) Close() (err error) {
-	return nil
+	return tx.Close()
 }
+
+func (tx *Tx) MustClose(){
+	err := tx.Close()
+	if err != nil {
+		panic(err)
+	}
+
+}
+
+
