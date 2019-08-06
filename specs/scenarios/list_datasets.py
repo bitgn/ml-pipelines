@@ -1,14 +1,10 @@
 """MLP-2"""
-from django import urls
-
-from explore.specs import when, preset
-from test import *
-
-from utils import pretty
+from env import *
 import datetime as dt
+from evil import pretty
 
 
-def given_no_datasets(e: test.Env):
+def given_no_datasets(e: Env):
     """show an actionable message"""
 
     e.scenario(
@@ -18,7 +14,7 @@ def given_no_datasets(e: test.Env):
     )
 
 
-def given_a_dataset(t: test.Env):
+def given_a_dataset(t: Env):
     """show dataset properties"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
@@ -29,7 +25,7 @@ def given_a_dataset(t: test.Env):
 
     since = pretty.timedelta(now - past)
 
-    href = urls.reverse('explore:view_project', args=[ds.project_id])
+    href = urls.view_project(ds.project_id)
     t.scenario(
         when.list_datasets(),
         then.none('main #empty-catalog-message'),

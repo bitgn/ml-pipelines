@@ -38,7 +38,4 @@ protobuf:
 	cd server && sed -i '' 's_events "."_events "mlp/catalog/events"_g' db/db.pb.go
 	protoc -I proto/ proto/api.proto --go_out=plugins=grpc:server/api
 	cd server && sed -i '' 's_events "."_events "mlp/catalog/events"_g' api/api.pb.go
-
-
-	cd mlp && protoc --python_out=. --mypy_out=.  proto/dto.proto proto/events.proto  --plugin=protoc-gen-mypy=venv/bin/protoc-gen-mypy
-    protoc -I proto/ proto/catalog_service.proto --go_out=plugins=grpc:ml-go/service
+	#protoc --python_out=. --mypy_out=.  proto/dto.proto proto/events.proto  --plugin=protoc-gen-mypy=venv/bin/protoc-gen-mypy

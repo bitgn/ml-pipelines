@@ -1,10 +1,8 @@
 """MLP-3"""
-
-from explore.specs import when, preset
-from test import *
+from env import *
 
 
-def given_a_dataset_updated_today(t: test.Env):
+def given_a_dataset_updated_today(t: Env):
     """hide stale status"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
@@ -34,7 +32,7 @@ def given_a_dataset_updated_today(t: test.Env):
     )
 
 
-def given_a_dataset_updated_week_ago(t: test.Env):
+def given_a_dataset_updated_week_ago(t: Env):
     """show stale status"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)

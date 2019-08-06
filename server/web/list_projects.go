@@ -1,7 +1,7 @@
 package web
 
 import (
-
+	"fmt"
 	"html/template"
 	"mlp/catalog/db"
 
@@ -15,14 +15,13 @@ type ListProjectsModel struct {
 
 
 func ListProjects(env *db.DB, w http.ResponseWriter){
-	tx, err := env.Read()
-	if err != nil {
-		panic(err)
-	}
+	tx := env.MustRead()
 
-	defer tx.Close()
+	defer tx.MustAbort()
 
 	projects := db.ListProjects(tx)
+
+	fmt.Println("Downloaded %d", len(projects))
 
 
 

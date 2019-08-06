@@ -1,13 +1,7 @@
+from env import *
 
-from django import urls
 
-from explore.specs import when, preset
-from test import *
-from utils import pretty
-
-from proto import events_pb2 as evt
-
-def given_a_dataset_with_location_id(t: test.Env):
+def given_a_dataset_with_location_id(t: Env):
     """show location id on all related screens"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
@@ -33,7 +27,7 @@ def given_a_dataset_with_location_id(t: test.Env):
     )
 
 
-def given_a_dataset_without_location_id(t: test.Env):
+def given_a_dataset_without_location_id(t: Env):
     """hide location id field completely"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)

@@ -86,6 +86,15 @@ func (db *DB) Read() (tx *Tx, err error) {
 	return db.CreateTransaction(lmdb.Readonly)
 }
 
+func (db *DB) MustRead() *Tx{
+	tx, err := db.CreateTransaction(lmdb.Readonly)
+	if err != nil {
+		panic(err)
+	}
+	return tx
+}
+
+
 
 
 func (db *DB) MustWrite() *Tx{

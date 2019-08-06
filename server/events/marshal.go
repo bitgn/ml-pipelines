@@ -8,33 +8,44 @@ import (
 
 
 
-
-func getInstance(id Event_Types) proto.Message{
+// getInstance returns an empty
+func getInstance(id Type) proto.Message{
 	switch id {
-	case Event_ProjectCreated:
+	case Type_Event_ProjectCreated:
 		return &ProjectCreated{}
-	case Event_DatasetCreated:
+	case Type_Event_DatasetCreated:
 		return &DatasetCreated{}
-
+	case Type_Event_DatasetUpdated:
+		return &DatasetUpdated{}
+	case Type_Event_ExpertAdded:
+		return  &ExpertAdded{}
+	case Type_Event_JobAdded:
+		return &JobAdded{}
 	default:
 		panic(errors.Errorf("Unknown event type %s", id))
 	}
 }
 
 
-func getContract(msg proto.Message) Event_Types {
+func getContract(msg proto.Message) Type {
 	switch e := msg.(type) {
 	case *ProjectCreated:
-		return Event_ProjectCreated
+		return Type_Event_ProjectCreated
 	case *DatasetCreated:
-		return Event_DatasetCreated
+		return Type_Event_DatasetCreated
+	case *DatasetUpdated:
+		return Type_Event_DatasetUpdated
+	case *JobAdded:
+		return Type_Event_JobAdded
+	case *ExpertAdded:
+		return Type_Event_ExpertAdded
 	default:
 		panic(errors.Errorf("Uknown event %s", e))
 
 	}
 }
 
-func Unmarshal(types Event_Types, buf []byte) proto.Message{
+func Unmarshal(types Type, buf []byte) proto.Message{
 	msg := getInstance(types);
 	err := proto.Unmarshal(buf, msg)
 	if err != nil {
@@ -44,7 +55,7 @@ func Unmarshal(types Event_Types, buf []byte) proto.Message{
 
 }
 
-func Marshal(msg proto.Message) (Event_Types, []byte){
+func Marshal(msg proto.Message) (Type, []byte){
 	id := getContract(msg)
 	bytes, err := proto.Marshal(msg)
 	if err != nil {

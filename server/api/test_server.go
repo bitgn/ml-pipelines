@@ -6,6 +6,7 @@ import (
 	"mlp/catalog/db"
 	"mlp/catalog/events"
 	"mlp/catalog/projection"
+	"mlp/catalog/sim"
 )
 
 //Setup(context.Context, *ScenarioRequest) (*ScenarioResponse, error)
@@ -28,14 +29,19 @@ func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*Scenari
 		panic(errors.Wrap(err, "Failed to empty the DB"))
 	}
 
+	if req.Timestamp != 0 {
+		sim.SetSimulationTime(req.Timestamp)
+	} else {
+		sim.DisableSimulationTime()
+	}
+
 
 	for _,e := range req.Events{
 		msg := events.Unmarshal(e.Type, e.Body)
 		projection.Handle(tx, msg)
-
 	}
 
-	defer tx.MustClose()
+	tx.MustCommit()
 
 	return &ScenarioResponse{}, nil
 }

@@ -32,6 +32,13 @@ func (tx *Tx) Commit() error {
 	return tx.Tx.Commit()
 }
 
+func (tx *Tx) MustCommit() {
+	err := tx.Tx.Commit()
+	if err != nil{
+		panic(err)
+	}
+}
+
 func (tx *Tx) Put(key []byte, val []byte)  {
 	if err := tx.Tx.Put(tx.DB, key, val, 0); err != nil {
 		panic(errors.Wrap(err, "tx.Put"))
@@ -52,10 +59,16 @@ func (tx *Tx) PutReserve(key []byte, size int) ([]byte, error) {
 }
 
 func (tx *Tx) Close() (err error) {
-	return tx.Close()
+	return nil
+}
+
+
+func (tx *Tx) MustAbort(){
+	tx.Tx.Abort()
 }
 
 func (tx *Tx) MustClose(){
+
 	err := tx.Close()
 	if err != nil {
 		panic(err)

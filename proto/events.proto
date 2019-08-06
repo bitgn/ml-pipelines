@@ -94,21 +94,19 @@ message DatasetMetadata {
 
 }
 
+enum Type {
+    None = 0;
+    Event_ProjectCreated = 1;
+    Event_DatasetCreated = 2;
+    Event_DatasetUpdated = 3;
+    Event_ExpertAdded = 4;
+    Event_JobAdded = 5;
+}
+
 
 message Event {
-    enum Types {
-        None = 0;
-        ProjectCreated = 1;
-        DatasetCreated = 2;
-        DatasetUpdated = 3;
-        ExpertAdded = 4;
-        JobAdded = 5;
-    }
-
     bytes Body = 1;
-    Types Type = 2;
-
-
+    Type Type = 2;
 }
 
 

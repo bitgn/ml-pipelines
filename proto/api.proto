@@ -17,6 +17,7 @@ service Catalog {
 message ScenarioRequest {
     string Name = 1;
     repeated Event Events = 2;
+    int64 timestamp = 3;
 }
 
 message ScenarioResponse {

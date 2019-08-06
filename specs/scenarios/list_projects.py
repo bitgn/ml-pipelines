@@ -1,11 +1,8 @@
 """MLP-?????"""
-from django import urls
-
-from explore.specs import when, preset
-from test import *
+from env import *
 
 
-def given_no_projects(e: test.Env):
+def given_no_projects(e: Env):
     """show an empty placeholder so that the user could create projects"""
     e.scenario(
         when.list_projects(),
@@ -13,13 +10,13 @@ def given_no_projects(e: test.Env):
     )
 
 
-def given_a_project(t: test.Env):
+def given_a_project(t: Env):
     """show a project overview with a link to a project"""
     e = preset.project_created(t)
 
     t.given_events(e)
 
-    href = urls.reverse('explore:view_project', args=[e.project_id])
+    href = urls.view_project(e.project_id)
     t.scenario(
         when.list_projects(),
         then.none('main #empty-catalog-message'),
@@ -30,7 +27,7 @@ def given_a_project(t: test.Env):
     )
 
 
-def given_a_few_projects(t: test.Env):
+def given_a_few_projects(t: Env):
     """display all projects on the page"""
     count = 3
 

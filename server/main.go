@@ -45,7 +45,7 @@ func main() {
 }
 
 func runGrpc(env *db.DB){
-	lis, err := net.Listen("tcp", ":8001")
+	lis, err := net.Listen("tcp", "localhost:50051")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

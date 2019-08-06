@@ -10,10 +10,14 @@ import (
 	"github.com/abdullin/lex-go/tuple"
 )
 
-func CreateKey(args ...tuple.Element) []byte {
+func CreateKey(r Range, args ...tuple.Element) []byte {
+
+	var slice []tuple.Element
+	slice = append(slice, int(r))
+	slice = append(slice, args...)
 
 
-	tpl := tuple.Tuple(args)
+	tpl := tuple.Tuple(slice)
 	return tpl.Pack()
 }
 

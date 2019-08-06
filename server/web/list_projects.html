@@ -5,8 +5,6 @@
 
 </div>
 
-
-
 {{if .Projects}}
     <table class="table table-sm table-striped table-bordered">
         <thead>
@@ -19,17 +17,17 @@
         </thead>
         <tbody>
 
-        {{range $prj := .Projects}}
+        {{range .Projects}}
 
 
-        <tr class="project-info" id="prj-{{ $prj.Id }}">
+        <tr class="project-info" id="prj-{{ .Id }}">
             <td>
-                <a href="{{.Site.Url.ViewProject $prj.Id }}" class="project-name project-link">{{ .Name }}</a>
+                <a href="{{$.Site.Url.ViewProject .Id }}" class="project-name project-link">{{ .Name }}</a>
             </td>
             <td class="dataset-count">{{ .DatasetCount }}</td>
             <td class="job-count">{{ .JobCount }}</td>
 
-            <td>{{ $prj.ZipBytes }}</td>
+            <td>{{ .ZipBytes }}</td>
         </tr>
         {{end}}
         </tbody>

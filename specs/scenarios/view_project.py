@@ -1,12 +1,8 @@
 """MLP-?????????"""
-from django import urls
-
-from explore.specs import when, preset
-from test import *
-from utils import pretty
+from env import *
 
 
-def given_an_empty_project(t: test.Env):
+def given_an_empty_project(t: Env):
     "show dataset placeholder"
     prj = preset.project_created(t)
     t.given_events(prj)
@@ -16,7 +12,7 @@ def given_an_empty_project(t: test.Env):
     )
 
 
-def given_a_project_with_a_dataset(t: test.Env):
+def given_a_project_with_a_dataset(t: Env):
     "show dataset in the list"
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
@@ -27,6 +23,6 @@ def given_a_project_with_a_dataset(t: test.Env):
         then.count('main .dataset-info', 1),
         then.text(f'main #ds-{ds.dataset_id} .dataset-link', ds.name),
         then.link(f'main #ds-{ds.dataset_id} .dataset-link',
-                  href=urls.reverse('explore:view_dataset', args=[ds.dataset_id]),
+                  href=urls.view_dataset(ds.dataset_id),
                   text=ds.name),
     )

@@ -1,10 +1,8 @@
 """MLP-4"""
 
-from explore.specs import when, preset
-from test import *
+from env import *
 
-
-def given_a_dataset(t: test.Env):
+def given_a_dataset(t: Env):
     """find it via project name, dataset name or sample"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
