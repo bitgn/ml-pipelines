@@ -1,7 +1,6 @@
 package web
 
 import (
-	"fmt"
 	"html/template"
 	"mlp/catalog/db"
 
@@ -20,9 +19,6 @@ func ListProjects(env *db.DB, w http.ResponseWriter){
 	defer tx.MustAbort()
 
 	projects := db.ListProjects(tx)
-
-	fmt.Println("Downloaded %d", len(projects))
-
 
 
 	t, err := template.ParseFiles("web/layout.html","web/list_projects.html")

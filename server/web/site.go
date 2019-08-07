@@ -1,6 +1,9 @@
 package web
 
-import "path"
+import (
+	"fmt"
+	"path"
+)
 
 type Site struct{
 	ProjectCount int
@@ -31,7 +34,7 @@ func (b *UrlResolver) ExploreDatasets() string{
 }
 
 func (b *UrlResolver) ViewProject(id string) string{
-	return ""
+	return fmt.Sprintf("/projects/%s/", id)
 }
 
 func (b *UrlResolver) ViewDataset(dataset_id string) string{

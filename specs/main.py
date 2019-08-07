@@ -57,6 +57,7 @@ for l in os.listdir(root):
             req.timestamp = int(test_env.time.timestamp())
 
             req.Events.extend(marshal.serialize(test_env.events))
+            stub.Setup(req)
 
             print(f'  {CYELLOW}{name}{CEND} - {factory.__doc__}')
 

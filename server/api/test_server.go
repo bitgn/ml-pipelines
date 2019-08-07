@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"mlp/catalog/db"
@@ -23,6 +24,8 @@ type test_server struct {
 
 
 func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*ScenarioResponse, error){
+	fmt.Printf("Received scenario '%s' with %d events\n", req.Name, len(req.Events))
+
 	tx := t.db.MustWrite()
 
 	if err := tx.Tx.Drop(tx.DB, false); err != nil {

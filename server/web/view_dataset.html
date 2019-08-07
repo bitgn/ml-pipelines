@@ -1,12 +1,12 @@
-{% extends "explore/base.html" %}
-{% load filters %}
+{{- /*gotype: mlp/catalog/web.ViewDatsetModel*/ -}}
+{{define "content"}}
 
-{% block content %}
+
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
-    <li class="breadcrumb-item"><a href="{% url "explore:projects" %}">Projects</a></li>
-    <li class="breadcrumb-item"><a href="{% url "explore:view_project" dataset.project_id %}" class="project-link">{{ project.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Dataset.ProjectId}}" class="project-link">{{ .Dataset.ProjectId }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{ dataset.name }}</li>
   </ol>
 </nav>
@@ -14,29 +14,29 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2>
-            Dataset: {{ dataset.name }}
-            {% if stale %} <span class="stale-status badge badge-warning">stale</span>{% endif %}
+            Dataset: {{ .Dataset.Name }}
+            {{if .Stale}} <span class="stale-status badge badge-warning">stale</span>{{end}}
         </h2>
     </div>
 
-    <div class="container" id="ds-{{ dataset.dataset_id }}">
+    <div class="container" id="ds-{{.Dataset.DatasetId}}">
         <div class="row rounded border px-4 py-3" >
             <div class="col">
 
                 <div>
-                    {% if dataset.location_id_set %}
-                        <strong>Location: </strong><span class="location-id">{{ dataset.location_id }}</span><br/>
-                    {% endif %}
+                    {{if .Dataset.LocationIdSet}}
+                        <strong>Location: </strong><span class="location-id">{{ .Dataset.LocationId }}</span><br/>
+                    {{end}}
 
 
                     <strong>URI: </strong>
                     <code class="location-uri">
-                        {% if dataset.location_uri_set %}{{ dataset.location_uri }}{% else %}N/A{% endif %}
+                        {{if .Dataset.LocationUriSet}}{{.Dataset.LocationUri}}{{else}}N/A{{end}}
                     </code><br/>
 
 
-                    <strong>Records: </strong>{{ dataset.record_count }}<br/>
-                    <strong>Files: </strong> {{ dataset.file_count }}<br />
+                    <strong>Records: </strong>{{ .Dataset.RecordCount }}<br/>
+                    <strong>Files: </strong> {{ .Dataset.FileCount }}<br />
                     <strong>Size:</strong> <span class="zip-size">{{ dataset.zip_bytes|fmt_bytes }}</span><br/>
 
                     {% if dataset.data_format_set %}
@@ -110,6 +110,6 @@
 
 
 
-{% endblock %}
+{{end}}
 
 
