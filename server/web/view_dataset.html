@@ -6,8 +6,8 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
     <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
-    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Dataset.ProjectId}}" class="project-link">{{ .Dataset.ProjectId }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ dataset.name }}</li>
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Dataset.ProjectId}}" class="project-link">{{ .Project.Name }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ .Dataset.Name }}</li>
   </ol>
 </nav>
 
@@ -37,32 +37,26 @@
 
                     <strong>Records: </strong>{{ .Dataset.RecordCount }}<br/>
                     <strong>Files: </strong> {{ .Dataset.FileCount }}<br />
-                    <strong>Size:</strong> <span class="zip-size">{{ dataset.zip_bytes|fmt_bytes }}</span><br/>
+                    <strong>Size:</strong> <span class="zip-size">{{ .Site.Fmt.BytesDecimal .Dataset.ZipBytes }}</span><br/>
 
-                    {% if dataset.data_format_set %}
-                        <strong>Format:</strong> <span class="record-format">{{ dataset.data_format }}</span><br/>
-                    {% endif %}
 
-                    <strong>Last updated:</strong> <span class="last-updated">{% if dataset.update_timestamp_set %}{{ dataset.update_timestamp|fmt_timestamp }}{% else %}N/A{% endif %}</span><br/>
+
+                    <strong>Format:</strong> <span class="record-format">{{if .Dataset.DataFormatSet}}{{.Dataset.DataFormat}}{{else}}N/A{{end}}</span><br/>
+
+
+                    <strong>Last updated:</strong> <span class="last-updated">{{if .Dataset.UpdateTimestampSet}}{{.Site.Fmt.Timestamp .Dataset.UpdateTimestamp}}{{else}}N/A{{end}}</span><br/>
                 </div>
 
 
 
             </div>
             <div class="col">
-                {% if dataset.experts %}
+                {{if .Dataset.Experts}}
                     <strong>Domain Experts: </strong>
-                        {% for e in dataset.experts %}
-                            {% if not forloop.first %}, {% endif %}<i>{{ e.expert_name }}</i>
-                        {% endfor %}
-
-
-
-
-
-                {% endif %}
-
-
+                        {{range $i,$e := .Dataset.Experts}}
+                            {{if $i}},{{end}}<i>{{$e}}</i>
+                        {{end}}
+                {{end}}
 
             </div>
 
@@ -70,34 +64,35 @@
         <div class="row pt-5">
             <div class="col">
                 <h3>Relations</h3>
-                {{  lineage | safe }}
+                {{  .Lineage }}
             </div>
         </div>
 
-    {% if dataset.description_set %}
+        {{ if .Description}}
+
         <div class="row pt-5">
         <div class="col">
             <h3>Description</h3>
 
             <article class="pt-2">
-                {{ description|safe }}
+                {{ .Description }}
             </article>
 
         </div>
         </div>
 
 
-    {%  endif %}
-    {% if dataset.sample_set %}
+    {{end}}
+        {{if .Dataset.SampleSet}}
           <div class="row pt-5">
         <div class="col">
             <h3>Sample</h3>
 
-            <pre class="alert alert-secondary"><code>{{ dataset.sample_body.decode }}</code></pre>
+            <pre class="alert alert-secondary"><code>{{ .Dataset.SampleBody }}</code></pre>
 
         </div>
           </div>
-    {% endif %}
+    {{end}}
 
 
 

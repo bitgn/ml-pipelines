@@ -10,7 +10,21 @@ var (
 	sim_time time.Time
 	sim_set = false
 
+	sim_running = true
+
 )
+
+func Start(){
+	sim_running = true
+}
+
+func Stop() {
+	sim_running = false
+}
+
+func IsRunning() bool {
+	return sim_running
+}
 
 
 func SetSimulationTime(t int64){

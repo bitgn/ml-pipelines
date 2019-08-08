@@ -27,6 +27,10 @@ stub = api_pb2_grpc.TestStub(channel)
 
 webBase = "http://localhost:8000"
 
+scenario_ok = 0
+scenario_fail = 0
+scenario_fail_count = 0
+
 for l in os.listdir(root):
     stem = pathlib.Path(l).stem
 
@@ -41,6 +45,8 @@ for l in os.listdir(root):
 
     count = 0
     module_fails = 0
+
+
 
     client = requests.sessions.Session()
 
@@ -70,6 +76,8 @@ for l in os.listdir(root):
                 if response.status_code != http.HTTPStatus.OK:
                     if soup.title:
                         fails.append(f'{response.reason}: {soup.title.text}')
+                    elif soup.p.text:
+                        fails.append(f'{response.reason}: {soup.p.text.strip()}')
                     else:
                         fails.append(f'{response.reason}: {soup}')
                 else:
@@ -84,8 +92,11 @@ for l in os.listdir(root):
 
                 if not fails:
                     print(f'    {CGREEN}✔︎ when {s.when.text}{CEND}')
+                    scenario_ok+=1
                 else:
                     print(f'    {CRED}✗ when {s.when.text}{CEND}:')
+                    scenario_fail+=1
+                    scenario_fail_count += len(fails)
                     for fail in fails:
                         print(f'      {fail}')
 
@@ -108,3 +119,5 @@ if file_fails:
     print(f'{CRED}✗ File FAILS {file_fails}{CEND}')
 if file_ok:
     print(f'{CGREEN}✔ File OK {file_ok}{CEND}')
+
+print(f'Scenarios: {scenario_ok} OK, {scenario_fail} fail (fix {scenario_fail_count})')

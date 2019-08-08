@@ -20,14 +20,16 @@ func ListProjects(env *db.DB, w http.ResponseWriter){
 
 	projects := db.ListProjects(tx)
 
+	t := template.New("layout")
 
-	t, err := template.ParseFiles("web/layout.html","web/list_projects.html")
+
+	t, err := t.ParseFiles("web/layout.html","web/list_projects.html")
 	if err != nil{
 		http.Error(w, err.Error(), 408)
 		return
 	}
 
-	mod := &Site{Url: UrlResolver{}}
+	mod := &Site{}
 	mod.ActiveMenu="projects"
 
 	if err = t.ExecuteTemplate(w, "layout",&ListProjectsModel{mod,projects}); err != nil {

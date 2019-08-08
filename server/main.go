@@ -1,13 +1,16 @@
 package main
 
 import (
+	"errors"
+	"fmt"
+	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 	"log"
 	"mlp/catalog/api"
 	"mlp/catalog/db"
+	"mlp/catalog/sim"
 	"mlp/catalog/web"
 	"net"
-
 	"net/http"
 )
 
@@ -32,16 +35,19 @@ func main() {
 	s := &server{env}
 
 
+	mx := mux.NewRouter()
 	fs := http.FileServer(http.Dir("web/static/"))
+	mx.Handle("/static/", http.StripPrefix("/static/", fs))
+	mx.HandleFunc("/datasets/{dataset_id}/", simWrap(s.datasetHandler))
 
+	mx.PathPrefix("/").HandlerFunc(simWrap(s.projectsHandler))
 
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 
 	go runGrpc(env)
 
-	http.HandleFunc("/", s.projectsHandler)
-	log.Fatal(http.ListenAndServe("localhost:8000", nil))
+
+	log.Fatal(http.ListenAndServe("localhost:8000", mx))
 }
 
 func runGrpc(env *db.DB){
@@ -59,10 +65,43 @@ func runGrpc(env *db.DB){
 	}
 }
 
+func simWrap(inner http.HandlerFunc) http.HandlerFunc{
+	return func(w http.ResponseWriter, r *http.Request){
+
+		if sim.IsRunning(){
+
+			var err error
+			defer func() {
+				rec := recover()
+				if rec != nil {
+					if r != nil {
+						switch t := rec.(type) {
+						case string:
+							err = errors.New(t)
+						case error:
+							err = t
+						default:
+							err = errors.New("Unknown error")
+						}
+						print(err.Error())
+						http.Error(w, err.Error(), http.StatusInternalServerError)
+					}
+				}
+
+			}()
+			fmt.Println("  ", r.URL)
+		}
+		inner(w, r)
+	}
+}
 
 
 
 func (s *server) projectsHandler(w http.ResponseWriter, r *http.Request) {
 		web.ListProjects(s.Env, w)
+}
+func (s *server) datasetHandler(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
 
+	web.ViewDataset(s.Env, w, vars["dataset_id"])
 }
