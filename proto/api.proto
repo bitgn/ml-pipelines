@@ -11,6 +11,10 @@ service Catalog {
 }
 
 
+message OkResponse {
+
+}
+
 
 
 
@@ -23,8 +27,9 @@ message ScenarioRequest {
 message ScenarioResponse {
 
 }
+message KillRequest{}
 
-
+message PingRequest{}
 
 // TODO: make this streaming
 
@@ -32,5 +37,7 @@ message ScenarioResponse {
 // Test service helps to automate specification checks, screenshots and tutorials
 service Test {
     // Setup a given state in the database
-    rpc Setup(ScenarioRequest) returns (ScenarioResponse){}
+    rpc Setup(ScenarioRequest) returns (OkResponse){}
+    rpc Kill(KillRequest) returns(OkResponse){}
+    rpc Ping(PingRequest) returns(OkResponse){}
 }

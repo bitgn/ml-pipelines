@@ -1,3 +1,5 @@
+import time
+
 import grpc
 from api import api_pb2_grpc, marshal
 from api import api_pb2 as api
@@ -31,6 +33,17 @@ scenario_ok = 0
 scenario_fail = 0
 scenario_fail_count = 0
 
+
+def wait_for_server_to_start():
+    while True:
+        try:
+            stub.Ping(api.PingRequest())
+            break
+        except:
+            time.sleep(0.1)
+            continue
+
+
 for l in os.listdir(root):
     stem = pathlib.Path(l).stem
 
@@ -49,6 +62,9 @@ for l in os.listdir(root):
 
 
     client = requests.sessions.Session()
+
+    wait_for_server_to_start()
+
 
     for name, factory in getmembers(module, isfunction):
         if not name.startswith('given_'):
@@ -121,3 +137,8 @@ if file_ok:
     print(f'{CGREEN}✔ File OK {file_ok}{CEND}')
 
 print(f'Scenarios: {scenario_ok} OK, {scenario_fail} fail (fix {scenario_fail_count})')
+
+try:
+    stub.Kill(api.KillRequest())
+except:
+    pass

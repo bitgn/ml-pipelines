@@ -8,6 +8,7 @@ import (
 	"mlp/catalog/events"
 	"mlp/catalog/projection"
 	"mlp/catalog/sim"
+	"os"
 )
 
 //Setup(context.Context, *ScenarioRequest) (*ScenarioResponse, error)
@@ -20,10 +21,11 @@ type test_server struct {
 
 }
 
+func (t *test_server) Ping(context.Context, *PingRequest) (*OkResponse, error) {
+	return &OkResponse{}, nil
+}
 
-
-
-func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*ScenarioResponse, error){
+func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*OkResponse, error){
 	fmt.Printf("Received scenario '%s' with %d events\n", req.Name, len(req.Events))
 
 	sim.Start()
@@ -48,12 +50,16 @@ func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*Scenari
 
 	tx.MustCommit()
 
-	return &ScenarioResponse{}, nil
+	return &OkResponse{}, nil
+}
+
+func (t *test_server) Kill(ctx context.Context, req *KillRequest) (*OkResponse, error){
+	os.Exit(0)
+	return &OkResponse{}, nil
 }
 
 
 func NewTestServer(db *db.DB) TestServer{
 	return &test_server{db}
-
 }
 

@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\tapi.proto\x1a\x0c\x65vents.proto\"\x16\n\x14\x43reateProjectRequest\"\x17\n\x15\x43reateProjectResponse\"J\n\x0fScenarioRequest\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x16\n\x06\x45vents\x18\x02 \x03(\x0b\x32\x06.Event\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x12\n\x10ScenarioResponse2K\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x32\x36\n\x04Test\x12.\n\x05Setup\x12\x10.ScenarioRequest\x1a\x11.ScenarioResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\tapi.proto\x1a\x0c\x65vents.proto\"\x16\n\x14\x43reateProjectRequest\"\x17\n\x15\x43reateProjectResponse\"\x0c\n\nOkResponse\"J\n\x0fScenarioRequest\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x16\n\x06\x45vents\x18\x02 \x03(\x0b\x32\x06.Event\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x12\n\x10ScenarioResponse\"\r\n\x0bKillRequest\"\r\n\x0bPingRequest2K\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x32z\n\x04Test\x12(\n\x05Setup\x12\x10.ScenarioRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Kill\x12\x0c.KillRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Ping\x12\x0c.PingRequest\x1a\x0b.OkResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[events__pb2.DESCRIPTOR,])
 
@@ -76,6 +76,30 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
 )
 
 
+_OKRESPONSE = _descriptor.Descriptor(
+  name='OkResponse',
+  full_name='OkResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=76,
+  serialized_end=88,
+)
+
+
 _SCENARIOREQUEST = _descriptor.Descriptor(
   name='ScenarioRequest',
   full_name='ScenarioRequest',
@@ -116,8 +140,8 @@ _SCENARIOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=76,
-  serialized_end=150,
+  serialized_start=90,
+  serialized_end=164,
 )
 
 
@@ -140,15 +164,66 @@ _SCENARIORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=152,
-  serialized_end=170,
+  serialized_start=166,
+  serialized_end=184,
+)
+
+
+_KILLREQUEST = _descriptor.Descriptor(
+  name='KillRequest',
+  full_name='KillRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=186,
+  serialized_end=199,
+)
+
+
+_PINGREQUEST = _descriptor.Descriptor(
+  name='PingRequest',
+  full_name='PingRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=201,
+  serialized_end=214,
 )
 
 _SCENARIOREQUEST.fields_by_name['Events'].message_type = events__pb2._EVENT
 DESCRIPTOR.message_types_by_name['CreateProjectRequest'] = _CREATEPROJECTREQUEST
 DESCRIPTOR.message_types_by_name['CreateProjectResponse'] = _CREATEPROJECTRESPONSE
+DESCRIPTOR.message_types_by_name['OkResponse'] = _OKRESPONSE
 DESCRIPTOR.message_types_by_name['ScenarioRequest'] = _SCENARIOREQUEST
 DESCRIPTOR.message_types_by_name['ScenarioResponse'] = _SCENARIORESPONSE
+DESCRIPTOR.message_types_by_name['KillRequest'] = _KILLREQUEST
+DESCRIPTOR.message_types_by_name['PingRequest'] = _PINGREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 CreateProjectRequest = _reflection.GeneratedProtocolMessageType('CreateProjectRequest', (_message.Message,), {
@@ -165,6 +240,13 @@ CreateProjectResponse = _reflection.GeneratedProtocolMessageType('CreateProjectR
   })
 _sym_db.RegisterMessage(CreateProjectResponse)
 
+OkResponse = _reflection.GeneratedProtocolMessageType('OkResponse', (_message.Message,), {
+  'DESCRIPTOR' : _OKRESPONSE,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:OkResponse)
+  })
+_sym_db.RegisterMessage(OkResponse)
+
 ScenarioRequest = _reflection.GeneratedProtocolMessageType('ScenarioRequest', (_message.Message,), {
   'DESCRIPTOR' : _SCENARIOREQUEST,
   '__module__' : 'api_pb2'
@@ -179,6 +261,20 @@ ScenarioResponse = _reflection.GeneratedProtocolMessageType('ScenarioResponse', 
   })
 _sym_db.RegisterMessage(ScenarioResponse)
 
+KillRequest = _reflection.GeneratedProtocolMessageType('KillRequest', (_message.Message,), {
+  'DESCRIPTOR' : _KILLREQUEST,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:KillRequest)
+  })
+_sym_db.RegisterMessage(KillRequest)
+
+PingRequest = _reflection.GeneratedProtocolMessageType('PingRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PINGREQUEST,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:PingRequest)
+  })
+_sym_db.RegisterMessage(PingRequest)
+
 
 
 _CATALOG = _descriptor.ServiceDescriptor(
@@ -187,8 +283,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=172,
-  serialized_end=247,
+  serialized_start=216,
+  serialized_end=291,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',
@@ -211,8 +307,8 @@ _TEST = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=249,
-  serialized_end=303,
+  serialized_start=293,
+  serialized_end=415,
   methods=[
   _descriptor.MethodDescriptor(
     name='Setup',
@@ -220,7 +316,25 @@ _TEST = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_SCENARIOREQUEST,
-    output_type=_SCENARIORESPONSE,
+    output_type=_OKRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Kill',
+    full_name='Test.Kill',
+    index=1,
+    containing_service=None,
+    input_type=_KILLREQUEST,
+    output_type=_OKRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Ping',
+    full_name='Test.Ping',
+    index=2,
+    containing_service=None,
+    input_type=_PINGREQUEST,
+    output_type=_OKRESPONSE,
     serialized_options=None,
   ),
 ])

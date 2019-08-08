@@ -61,7 +61,17 @@ class TestStub(object):
     self.Setup = channel.unary_unary(
         '/Test/Setup',
         request_serializer=api__pb2.ScenarioRequest.SerializeToString,
-        response_deserializer=api__pb2.ScenarioResponse.FromString,
+        response_deserializer=api__pb2.OkResponse.FromString,
+        )
+    self.Kill = channel.unary_unary(
+        '/Test/Kill',
+        request_serializer=api__pb2.KillRequest.SerializeToString,
+        response_deserializer=api__pb2.OkResponse.FromString,
+        )
+    self.Ping = channel.unary_unary(
+        '/Test/Ping',
+        request_serializer=api__pb2.PingRequest.SerializeToString,
+        response_deserializer=api__pb2.OkResponse.FromString,
         )
 
 
@@ -78,13 +88,37 @@ class TestServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Kill(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def Ping(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_TestServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'Setup': grpc.unary_unary_rpc_method_handler(
           servicer.Setup,
           request_deserializer=api__pb2.ScenarioRequest.FromString,
-          response_serializer=api__pb2.ScenarioResponse.SerializeToString,
+          response_serializer=api__pb2.OkResponse.SerializeToString,
+      ),
+      'Kill': grpc.unary_unary_rpc_method_handler(
+          servicer.Kill,
+          request_deserializer=api__pb2.KillRequest.FromString,
+          response_serializer=api__pb2.OkResponse.SerializeToString,
+      ),
+      'Ping': grpc.unary_unary_rpc_method_handler(
+          servicer.Ping,
+          request_deserializer=api__pb2.PingRequest.FromString,
+          response_serializer=api__pb2.OkResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
