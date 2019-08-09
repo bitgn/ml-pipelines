@@ -1,4 +1,6 @@
 import time
+from dataclasses import dataclass
+from typing import List
 
 import grpc
 from api import api_pb2_grpc, marshal
@@ -23,7 +25,6 @@ file_fails = 0
 file_ok = 0
 assertion_fails = 0
 
-
 channel = grpc.insecure_channel('localhost:50051')
 stub = api_pb2_grpc.TestStub(channel)
 
@@ -39,9 +40,34 @@ def wait_for_server_to_start():
             time.sleep(0.1)
             continue
 
+
 scenario_ok = 0
 scenario_fail = 0
 scenario_fail_count = 0
+
+
+@dataclass()
+class ScenarioResult:
+
+
+    when: str
+    fails: List[str]
+
+    def __init__(self):
+        self.fails = []
+
+    def ok(self):
+        return not self.fails
+
+
+def print_result(r: ScenarioResult):
+    print(f'    {CBOLD}when {r.when}{CEND}')
+    if not r.fails:
+        print(f'      {CGREEN}OK{CEND}')
+    else:
+        for fail in r.fails:
+            print(f'      {CRED}{fail}{CEND}')
+
 
 try:
 
@@ -61,12 +87,9 @@ try:
         count = 0
         module_fails = 0
 
-
-
         client = requests.sessions.Session()
 
         wait_for_server_to_start()
-
 
         for name, factory in getmembers(module, isfunction):
             if not name.startswith('given_'):
@@ -83,43 +106,45 @@ try:
                 req.Events.extend(marshal.serialize(test_env.events))
                 stub.Setup(req)
 
-
                 print(f'  {CYELLOW}{name}{CEND} - {factory.__doc__}')
 
                 for s in test_env.scenarios:
-                    print(f'    {CBOLD}when {s.when.text}{CEND}')
-                    fails = []
+
+                    res = ScenarioResult()
+                    res.when = s.when.text
+
+                    #
 
                     response = s.when.action(client, webBase)
 
                     soup = bs4.BeautifulSoup(response.content, 'lxml')
                     if response.status_code != http.HTTPStatus.OK:
                         if soup.title:
-                            fails.append(f'{CBOLD}{response.reason}: {soup.title.text}')
+                            res.fails.append(f'{CBOLD}{response.reason}: {soup.title.text}')
                         elif soup.p.text:
-                            fails.append(f'{CBOLD}{response.reason}: {soup.p.text.strip()}')
+                            res.fails.append(f'{CBOLD}{response.reason}: {soup.p.text.strip()}')
                         else:
-                            fails.append(f'{CBOLD}{response.reason}: {soup}')
+                            res.fails.append(f'{CBOLD}{response.reason}: {soup}')
                     else:
                         if s.then:
 
                             for a in s.then:
                                 result = a.action(soup)
                                 if result:
-                                    fails.append(result)
+                                    res.fails.append(result)
                         else:
-                            fails.append("no expectations provided")
+                            res.fails.append("no expectations provided")
 
-                    if not fails:
-                        print(f'      {CGREEN}OK{CEND}')
-                        scenario_ok+=1
+                    if res.ok():
+                        scenario_ok += 1
                     else:
-                        scenario_fail+=1
-                        scenario_fail_count += len(fails)
-                        for fail in fails:
-                            print(f'      {CRED}{fail}{CEND}')
+                        scenario_fail += 1
+                        scenario_fail_count += len(res.fails)
 
-                    module_fails += len(fails)
+                    module_fails += len(res.fails)
+
+                    if not res.ok():
+                        print_result(res)
             except:
                 print(f'    {CRED}✗ {name}{CEND}:')
                 lines = traceback.format_exception(*sys.exc_info(), limit=None, chain=True)

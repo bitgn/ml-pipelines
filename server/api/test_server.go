@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"mlp/catalog/db"
@@ -26,7 +25,7 @@ func (t *test_server) Ping(context.Context, *PingRequest) (*OkResponse, error) {
 }
 
 func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*OkResponse, error){
-	fmt.Printf("Received scenario '%s' with %d events\n", req.Name, len(req.Events))
+	//fmt.Printf("Received scenario '%s' with %d events\n", req.Name, len(req.Events))
 
 	sim.Start()
 
