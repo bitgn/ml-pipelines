@@ -119,14 +119,15 @@ class SuiteResult:
                         scenarios_ok +=1
 
 
+        print()
         if spec_ok == spec_count:
-            print(f'{CGREEN}✔ Specs:      {spec_ok} of {spec_count} OK{CEND}')
+            print(f'{CGREEN}✗ Specs:      {spec_ok} of {spec_count} OK{CEND}')
         else:
-            print(f'{CRED}✔ Specs:      {spec_ok} of {spec_count} OK{CEND}')
+            print(f'{CRED}✔ Specs:      {spec_ok} of {spec_count} FAIL{CEND}')
         if assert_count == assert_ok:
             print(f"{CGREEN}✔ Assertions: {assert_ok} of {assert_count} OK{CEND}")
         else:
-            print(f"{CRED}✗ Assertions: {assert_ok} out of {assert_count}{CEND}")
+            print(f"{CRED}✗ Assertions: {assert_ok} of {assert_count} FAIL{CEND}")
 
 
 @dataclass()
