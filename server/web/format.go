@@ -2,6 +2,7 @@ package web
 
 import (
 	"fmt"
+	"math"
 	"mlp/catalog/sim"
 	"strings"
 	"time"
@@ -68,7 +69,7 @@ func (f *Format) Timestamp(t int64) string{
 
 func durationAbs(d time.Duration) string {
 
-	days := int(d.Hours() / 24)
+	days := int(math.Floor( d.Hours() / 24))
 
 
 	switch {
@@ -93,7 +94,7 @@ func durationAbs(d time.Duration) string {
 	}
 
 
-	hours := int(d.Hours())
+	hours := int(math.Floor(d.Hours()))
 	sec := int(d.Seconds())
 
 	switch {
