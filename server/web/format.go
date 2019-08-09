@@ -19,9 +19,12 @@ func (f *Format) BytesDecimal(b int64) string{
 }
 
 
+
+
 // avoidWrapping adds non-breaking spaces where there previously were normal spaces.
 func avoidWrapping(s string) string{
-	return strings.Replace(s, " ", "\xa0", -1)
+	const nbsp = "\u00A0"
+	return strings.Replace(s, " ", nbsp, -1)
 }
 
 func bytesDecimal(b int64) string {
