@@ -1,0 +1,91 @@
+{{- /*gotype: mlp/catalog/web.ExploreDatasetsModel*/ -}}
+{{ define "content" }}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">Explore Datasets</h1>
+    </div>
+
+
+        {{if .CatalogIsEmpty}}
+
+
+
+
+
+        <div class="alert alert-info" role="alert" id="empty-catalog-message">
+  <h4 class="alert-heading">Catalog is empty</h4>
+  <p>This looks like a fresh install. Catalog currently contains no datasets. You can use client tools to add dataset information.</p>
+
+</div>
+
+            {{else}}
+
+
+
+
+        <form action="{{.Site.Url.ExploreDatasets}}" method="get">
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Search Datasets" aria-label="Search Datasets" aria-describedby="basic-addon2" name="query" value="{{ .Query }}">
+  <div class="input-group-append">
+      <input type="submit" value="Search" class="btn btn-outline-secondary">
+
+  </div>
+</div>
+
+</form>
+
+
+
+
+
+    <table class="table table-sm table-striped table-bordered" id="results">
+    <thead>
+        <tr>
+            <th>Dataset</th>
+            <th>Project</th>
+            <th>Storage</th>
+            <th>Last Updated</th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+    {{ range .Items}}
+
+        <tr class="dataset-info" id="ds-{{ .Dataset.DatasetId }}">
+            <td>
+                <a href="{{$.Site.Url.ViewDataset .Dataset.DatasetId}}" class="dataset-name">{{ .Dataset.Name  }}</a>
+
+                {{ if .IsStale}}<span class="stale-status badge badge-warning">stale</span>{{end}}
+
+            </td>
+            <td><a href="{{$.Site.Url.ViewProject .Dataset.ProjectId}}" class="project-link">{{.ProjectName}}</a> </td>
+            <td>
+                <span class="zip-size">{{ $.Site.Fmt.BytesDecimal .Dataset.StorageBytes }}</span>
+                {{ if .Dataset.LocationId }}
+                <span class="text-muted">at <span class="location-id">{{ .Dataset.LocationId }}</span></span>{{end}}
+            </td>
+            <td class="update-timestamp">{{if .Dataset.UpdateTimestamp}} {{ $.Site.Fmt.Timestamp .Dataset.UpdateTimestamp }}{{end}}</td>
+        </tr>
+
+    {{ else}}
+
+
+        <tr class="table-info" >
+            <td colspan="4">
+                <em>No matching results</em>
+            </td>
+        </tr>
+
+
+    {{end}}
+
+
+    </tbody>
+    </table>
+
+
+
+{{end}}
+{{end}}
+

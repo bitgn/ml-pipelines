@@ -38,7 +38,9 @@ func main() {
 	mx := mux.NewRouter()
 	fs := http.FileServer(http.Dir("web/static/"))
 	mx.Handle("/static/", http.StripPrefix("/static/", fs))
+	mx.Path("/datasets/").Queries("query", "{query:[0-9.\\-A-Za-z]+}").HandlerFunc(simWrap(s.exploreHandler))
 	mx.HandleFunc("/datasets/{dataset_id}/", simWrap(s.datasetHandler))
+
 
 	mx.PathPrefix("/").HandlerFunc(simWrap(s.projectsHandler))
 
@@ -104,4 +106,9 @@ func (s *server) datasetHandler(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)
 
 	web.ViewDataset(s.Env, w, vars["dataset_id"])
+}
+
+func (s *server) exploreHandler(w http.ResponseWriter, r *http.Request){
+	query := r.FormValue("query")
+	web.ExploreDatasets(s.Env, w, query)
 }
