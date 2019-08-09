@@ -20,7 +20,7 @@ def given_a_dataset(t: Env):
     ds = preset.dataset_created(t, prj)
 
     t.given_events(prj, ds)
-    past = dt.datetime.utcfromtimestamp(ds.metadata.update_timestamp)
+    past = dt.datetime.utcfromtimestamp(ds.meta.update_timestamp)
     now = t.time
 
     since = pretty.timedelta(now - past)

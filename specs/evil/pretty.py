@@ -22,8 +22,11 @@ def bytes(num):
         num /= 1024.0
     return _avoid_wrapping(f"{num:.1f}Y")
 
-
 def timedelta(diff: datetime.timedelta):
+    return _avoid_wrapping(_timedelta(diff))
+
+
+def _timedelta(diff: datetime.timedelta):
 
     s = diff.seconds
     if diff.days > (365 * 2):

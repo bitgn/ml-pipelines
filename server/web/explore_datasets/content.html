@@ -65,7 +65,7 @@
                 {{ if .Dataset.LocationId }}
                 <span class="text-muted">at <span class="location-id">{{ .Dataset.LocationId }}</span></span>{{end}}
             </td>
-            <td class="update-timestamp">{{if .Dataset.UpdateTimestamp}} {{ $.Site.Fmt.Timestamp .Dataset.UpdateTimestamp }}{{end}}</td>
+            <td class="update-timestamp">{{if .Dataset.UpdateTimestamp}}{{ $.Site.Fmt.Timestamp .Dataset.UpdateTimestamp }}{{end}}</td>
         </tr>
 
     {{ else}}
