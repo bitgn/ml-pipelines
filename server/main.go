@@ -8,7 +8,10 @@ import (
 	"mlp/catalog/api"
 	"mlp/catalog/db"
 	"mlp/catalog/sim"
-	"mlp/catalog/web"
+	"mlp/catalog/web/explore_datasets"
+	"mlp/catalog/web/list_projects"
+	"mlp/catalog/web/view_dataset"
+	"mlp/catalog/web/view_project"
 	"net"
 	"net/http"
 )
@@ -38,9 +41,13 @@ func main() {
 	// static content
 	fs := http.FileServer(http.Dir("web/static/"))
 	mx.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
+	// explore datasets
 	mx.Path("/explore").Queries("query", "{query:[0-9.\\-A-Za-z]+}").HandlerFunc(simWrap(s.exploreHandler))
 	mx.Path("/explore").HandlerFunc(simWrap(s.exploreHandler))
-	mx.HandleFunc("/datasets/{dataset_id}/", simWrap(s.datasetHandler))
+	// view dataset
+	mx.HandleFunc("/datasets/{dataset_id}", simWrap(s.datasetHandler))
+	// vie project
+	mx.HandleFunc("/projects/{project_id}", simWrap(s.projectHandler))
 
 
 	mx.Path("/").HandlerFunc(simWrap(s.projectsHandler))
@@ -98,18 +105,22 @@ func simWrap(inner http.HandlerFunc) http.HandlerFunc{
 	}
 }
 
+func (s *server) projectHandler(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
 
+	view_project.Handle(s.Env, w, vars["project_id"])
+}
 
 func (s *server) projectsHandler(w http.ResponseWriter, r *http.Request) {
-		web.ListProjects(s.Env, w)
+		list_projects.Handle(s.Env, w)
 }
 func (s *server) datasetHandler(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)
 
-	web.ViewDataset(s.Env, w, vars["dataset_id"])
+	view_dataset.Handle(s.Env, w, vars["dataset_id"])
 }
 
 func (s *server) exploreHandler(w http.ResponseWriter, r *http.Request){
 	query := r.FormValue("query")
-	web.ExploreDatasets(s.Env, w, query)
+	explore_datasets.Handle(s.Env, w, query)
 }

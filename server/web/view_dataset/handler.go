@@ -1,4 +1,4 @@
-package web
+package view_dataset
 
 import (
 	"bufio"
@@ -6,11 +6,12 @@ import (
 	"html/template"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
+	"mlp/catalog/web"
 	"net/http"
 )
 
 type ViewDatsetModel struct {
-	*Site
+	*web.Site
 	Dataset     *db.DatasetData
 	Project     *db.ProjectData
 	IsStale     bool
@@ -21,7 +22,7 @@ type ViewDatsetModel struct {
 
 
 
-func ViewDataset(env *db.DB, w http.ResponseWriter, datasetId string){
+func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 	tx := env.MustRead()
 
 	defer tx.MustAbort()
@@ -32,13 +33,13 @@ func ViewDataset(env *db.DB, w http.ResponseWriter, datasetId string){
 	t := template.New("layout")
 
 
-	t, err := t.ParseFiles("web/layout.html","web/view_dataset.html")
+	t, err := t.ParseFiles("web/layout.html","web/view_dataset/content.html")
 	if err != nil{
 		http.Error(w, err.Error(), 408)
 		return
 	}
 
-	mod := &Site{}
+	mod := &web.Site{}
 	mod.ActiveMenu="projects"
 
 	model := &ViewDatsetModel{

@@ -1,0 +1,59 @@
+{{- /*gotype: mlp/catalog/web/view_project.Model*/ -}}
+{{define "content"}}
+
+<nav aria-label="breadcrumb" xmlns:explore="http://www.w3.org/1999/xhtml" xmlns:explore="http://www.w3.org/1999/xhtml">
+  <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ .Project.Name }}</li>
+  </ol>
+</nav>
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h1 class="h2">Project: {{ .Project.Name }}</h1>
+
+</div>
+
+
+
+
+
+<table class="table table-sm table-striped table-bordered">
+<thead>
+    <tr>
+        <th>Dataset</th>
+        <th>Format</th>
+        <th>Storage</th>
+        <th>Updated</th>
+    </tr>
+</thead>
+<tbody>
+
+{{range .Datasets}}
+
+
+
+    <tr class="dataset-info" id="ds-{{ .Item.DatasetId }}">
+    <td>
+        <a href="{{$.Site.Url.ViewDataset .Item.DatasetId}}" class="dataset-link">{{.Item.Name}}</a>
+        {{if .IsStale}} <span class="stale-status badge badge-warning">stale</span>{{end}}
+
+    </td>
+    <td class="data-format text-lowercase">{{.Item.DataFormat}}</td>
+    <td>
+    <span class="zip-size">{{ $.Site.Fmt.BytesDecimal .Item.StorageBytes}}</span>
+    {{if .Item.LocationId}}<span class="text-muted">at <span class="location-id">{{.Item.LocationId}}</span></span>{{end}}
+    </td>
+    <td class="update-timestamp">{{$.Site.Fmt.Timestamp .Item.UpdateTimestamp}}</td>
+
+
+    </tr>
+
+{{end}}
+
+</tbody>
+</table>
+
+
+{{end}}
+

@@ -1,19 +1,20 @@
-package web
+package list_projects
 
 import (
 	"html/template"
 	"mlp/catalog/db"
+	"mlp/catalog/web"
 
 	"net/http"
 )
 
-type ListProjectsModel struct {
-	*Site
+type Model struct {
+	*web.Site
 	Projects []*db.ProjectData
 }
 
 
-func ListProjects(env *db.DB, w http.ResponseWriter){
+func Handle(env *db.DB, w http.ResponseWriter){
 	tx := env.MustRead()
 
 	defer tx.MustAbort()
@@ -23,16 +24,16 @@ func ListProjects(env *db.DB, w http.ResponseWriter){
 	t := template.New("layout")
 
 
-	t, err := t.ParseFiles("web/layout.html","web/list_projects.html")
+	t, err := t.ParseFiles("web/layout.html","web/list_projects/content.html")
 	if err != nil{
 		http.Error(w, err.Error(), 408)
 		return
 	}
 
-	mod := &Site{}
+	mod := &web.Site{}
 	mod.ActiveMenu="projects"
 
-	if err = t.ExecuteTemplate(w, "layout",&ListProjectsModel{mod,projects}); err != nil {
+	if err = t.ExecuteTemplate(w, "layout",&Model{mod,projects}); err != nil {
 		http.Error(w, err.Error(), 408)
 	}
 }

@@ -1,28 +1,29 @@
-package web
+package explore_datasets
 
 import (
 	"html/template"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
+	"mlp/catalog/web"
 	"net/http"
 )
 
 
-type ExploreDatasetItem struct {
+type Dataset struct {
 	Dataset *db.DatasetData
 	IsStale bool
 	ProjectName string
 }
 
-type ExploreDatasetsModel struct {
-	*Site
-	Items []*ExploreDatasetItem
+type Model struct {
+	*web.Site
+	Items []*Dataset
 	Query string
 	CatalogIsEmpty bool
 }
 
 
-func ExploreDatasets(env *db.DB, w http.ResponseWriter, query string){
+func Handle(env *db.DB, w http.ResponseWriter, query string){
 	tx := env.MustRead()
 
 	defer tx.MustAbort()
@@ -33,10 +34,10 @@ func ExploreDatasets(env *db.DB, w http.ResponseWriter, query string){
 
 
 
-	var metas []*ExploreDatasetItem
+	var metas []*Dataset
 
 	for _,ds := range datasets{
-		meta := &ExploreDatasetItem{
+		meta := &Dataset{
 			Dataset:ds,
 			IsStale:domain.IsStale(ds),
 		}
@@ -45,16 +46,16 @@ func ExploreDatasets(env *db.DB, w http.ResponseWriter, query string){
 	}
 
 
-	t, err := t.ParseFiles("web/layout.html","web/explore_datasets.html")
+	t, err := t.ParseFiles("web/layout.html","web/explore_datasets/content.html")
 	if err != nil{
 		http.Error(w, err.Error(), 408)
 		return
 	}
 
-	mod := &Site{}
+	mod := &web.Site{}
 	mod.ActiveMenu="datasets"
 
-	model := &ExploreDatasetsModel{Site: mod, Items: metas, Query: query}
+	model := &Model{Site: mod, Items: metas, Query: query}
 
 	model.CatalogIsEmpty = len(datasets) == 0
 

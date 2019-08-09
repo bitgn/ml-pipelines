@@ -22,11 +22,11 @@ func (b *UrlResolver) ExploreDatasets() string{
 }
 
 func (b *UrlResolver) ViewProject(id string) string{
-	return fmt.Sprintf("/projects/%s/", id)
+	return fmt.Sprintf("/projects/%s", id)
 }
 
 func (b *UrlResolver) ViewDataset(dataset_id string) string{
-	return fmt.Sprintf("/datasets/%s/", dataset_id)
+	return fmt.Sprintf("/datasets/%s", dataset_id)
 }
 
 
