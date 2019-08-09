@@ -54,8 +54,9 @@ try:
         module = importlib.import_module(stem)
 
         doc = getdoc(module)
-
+        loc = os.path.abspath(os.path.join(root, l))
         print(f'\n{CBOLD}{stem}{CEND}: {doc or ""}')
+        print(f'  {CBEIGE}{loc}{CEND}')
 
         count = 0
         module_fails = 0
@@ -82,9 +83,11 @@ try:
                 req.Events.extend(marshal.serialize(test_env.events))
                 stub.Setup(req)
 
+
                 print(f'  {CYELLOW}{name}{CEND} - {factory.__doc__}')
 
                 for s in test_env.scenarios:
+                    print(f'    {CBOLD}when {s.when.text}{CEND}')
                     fails = []
 
                     response = s.when.action(client, webBase)
@@ -92,11 +95,11 @@ try:
                     soup = bs4.BeautifulSoup(response.content, 'lxml')
                     if response.status_code != http.HTTPStatus.OK:
                         if soup.title:
-                            fails.append(f'{response.reason}: {soup.title.text}')
+                            fails.append(f'{CBOLD}{response.reason}: {soup.title.text}')
                         elif soup.p.text:
-                            fails.append(f'{response.reason}: {soup.p.text.strip()}')
+                            fails.append(f'{CBOLD}{response.reason}: {soup.p.text.strip()}')
                         else:
-                            fails.append(f'{response.reason}: {soup}')
+                            fails.append(f'{CBOLD}{response.reason}: {soup}')
                     else:
                         if s.then:
 
@@ -108,14 +111,13 @@ try:
                             fails.append("no expectations provided")
 
                     if not fails:
-                        print(f'    {CGREEN}✔︎ when {s.when.text}{CEND}')
+                        print(f'      {CGREEN}OK{CEND}')
                         scenario_ok+=1
                     else:
-                        print(f'    {CRED}✗ when {s.when.text}{CEND}:')
                         scenario_fail+=1
                         scenario_fail_count += len(fails)
                         for fail in fails:
-                            print(f'      {fail}')
+                            print(f'      {CRED}{fail}{CEND}')
 
                     module_fails += len(fails)
             except:
@@ -127,7 +129,6 @@ try:
             print(f'  {CRED}✗ feature has no specs{CEND}')
 
         if count == 0 or module_fails > 0:
-            print(f'  {os.path.abspath(os.path.join(root, l))}')
             file_fails += 1
         else:
             file_ok += 1

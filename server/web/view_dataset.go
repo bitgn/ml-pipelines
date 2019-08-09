@@ -5,15 +5,16 @@ import (
 	"bytes"
 	"html/template"
 	"mlp/catalog/db"
+	"mlp/catalog/domain"
 	"net/http"
 )
 
 type ViewDatsetModel struct {
 	*Site
-	Dataset *db.DatasetData
-	Project *db.ProjectData
-	Stale bool
-	Lineage template.HTML
+	Dataset     *db.DatasetData
+	Project     *db.ProjectData
+	IsStale     bool
+	Lineage     template.HTML
 	Description template.HTML
 }
 
@@ -40,7 +41,13 @@ func ViewDataset(env *db.DB, w http.ResponseWriter, datasetId string){
 	mod := &Site{}
 	mod.ActiveMenu="projects"
 
-	model := &ViewDatsetModel{Site: mod, Dataset: ds, Project:pr}
+	model := &ViewDatsetModel{
+		Site:    mod,
+		Dataset: ds,
+		Project: pr,
+		IsStale: domain.IsStale(ds),
+	}
+
 	var b bytes.Buffer
 	foo := bufio.NewWriter(&b)
 	if err = t.ExecuteTemplate(foo, "layout", model); err != nil {

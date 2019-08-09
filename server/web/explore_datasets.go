@@ -3,6 +3,7 @@ package web
 import (
 	"html/template"
 	"mlp/catalog/db"
+	"mlp/catalog/domain"
 	"net/http"
 )
 
@@ -35,7 +36,10 @@ func ExploreDatasets(env *db.DB, w http.ResponseWriter, query string){
 	var metas []*ExploreDatasetItem
 
 	for _,ds := range datasets{
-		meta := &ExploreDatasetItem{Dataset:ds}
+		meta := &ExploreDatasetItem{
+			Dataset:ds,
+			IsStale:domain.IsStale(ds),
+		}
 
 		metas = append(metas, meta)
 	}

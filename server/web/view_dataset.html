@@ -15,7 +15,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2>
             Dataset: {{ .Dataset.Name }}
-            {{if .Stale}} <span class="stale-status badge badge-warning">stale</span>{{end}}
+            {{if .IsStale}}<span class="stale-status badge badge-warning">stale</span>{{end}}
         </h2>
     </div>
 
