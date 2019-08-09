@@ -53,7 +53,7 @@ func ViewDataset(env *db.DB, w http.ResponseWriter, datasetId string){
 	if err = t.ExecuteTemplate(foo, "layout", model); err != nil {
 		http.Error(w, err.Error(), 408)
 	} else {
-
+		foo.Flush()
 		b.WriteTo(w)
 
 	}

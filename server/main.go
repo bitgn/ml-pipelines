@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 	"log"
@@ -93,7 +92,7 @@ func simWrap(inner http.HandlerFunc) http.HandlerFunc{
 				}
 
 			}()
-			fmt.Println("  ", r.URL)
+			//fmt.Println("  ", r.URL)
 		}
 		inner(w, r)
 	}
