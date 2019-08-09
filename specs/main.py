@@ -45,6 +45,41 @@ scenario_ok = 0
 scenario_fail = 0
 scenario_fail_count = 0
 
+@dataclass
+class ModuleResult:
+    name:str
+    loc:str
+    doc:str
+    funcs: List['FuncResult']
+
+    def __init__(self, name, loc, doc):
+        self.name = name
+        self.loc = loc
+        self.doc = doc or ""
+        self.funcs = []
+
+    def ok(self):
+        if not self.funcs:
+            return False
+        for f in self.funcs:
+            if not f.ok():
+                return False
+        return True
+
+
+
+    def print(self):
+        print(f'\n{CBOLD}{self.name}{CEND}: {self.doc or ""}')
+        print(f'  {CBEIGE}{self.loc}{CEND}')
+
+        if not self.funcs:
+            print(f'  {CRED}No scenarios{CEND}')
+
+
+        for fr in self.funcs:
+            if not fr.ok():
+                fr.print_fails()
+
 
 @dataclass()
 class ScenarioResult:
@@ -122,8 +157,9 @@ try:
 
         doc = getdoc(module)
         loc = os.path.abspath(os.path.join(root, l))
-        print(f'\n{CBOLD}{stem}{CEND}: {doc or ""}')
-        print(f'  {CBEIGE}{loc}{CEND}')
+
+        mr = ModuleResult(stem, loc, doc)
+
 
         count = 0
         module_fails = 0
@@ -136,6 +172,7 @@ try:
             if not name.startswith('given_'):
                 continue
             fr = FuncResult(name, factory.__doc__)
+            mr.funcs.append(fr)
             try:
                 count += 1
 
@@ -188,8 +225,6 @@ try:
             except:
                 fr.exception= traceback.format_exception(*sys.exc_info(), limit=None, chain=True)
 
-            if not fr.ok():
-                fr.print_fails()
 
 
 
@@ -197,6 +232,9 @@ try:
             file_fails += 1
         else:
             file_ok += 1
+
+        if not mr.ok():
+            mr.print()
 
     if file_fails:
         print(f'{CRED}✗ File FAILS {file_fails}{CEND}')
