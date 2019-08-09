@@ -40,11 +40,6 @@ def wait_for_server_to_start():
             time.sleep(0.1)
             continue
 
-
-scenario_ok = 0
-scenario_fail = 0
-scenario_fail_count = 0
-
 @dataclass
 class ModuleResult:
     name:str
@@ -81,13 +76,71 @@ class ModuleResult:
                 fr.print_fails()
 
 
+@dataclass
+class SuiteResult:
+    modules: List[ModuleResult]
+
+    def __init__(self):
+        self.modules = []
+
+    def ok(self):
+        if not self.modules:
+            return False
+        for f in self.modules:
+            if not f.ok():
+                return False
+        return True
+
+
+
+    def print(self):
+
+        assert_count = 0
+        assert_ok = 0
+
+        scenarios_count = 0
+        scenarios_ok = 0
+
+        spec_count = 0
+        spec_ok = 0
+
+        for m in self.modules:
+
+            for f in m.funcs:
+                spec_count +=1
+                if f.ok():
+                    spec_ok +=1
+                for s in f.scenarios:
+                    assert_count += s.assert_count
+                    assert_ok += s.assert_ok
+
+                    scenarios_count +=1
+                    if s.assert_count == s.assert_ok:
+                        scenarios_ok +=1
+
+
+        if spec_ok == spec_count:
+            print(f'{CGREEN}✔ Specs:      {spec_ok} of {spec_count} OK{CEND}')
+        else:
+            print(f'{CRED}✔ Specs:      {spec_ok} of {spec_count} OK{CEND}')
+        if assert_count == assert_ok:
+            print(f"{CGREEN}✔ Assertions: {assert_ok} of {assert_count} OK{CEND}")
+        else:
+            print(f"{CRED}✗ Assertions: {assert_ok} out of {assert_count}{CEND}")
+
+
 @dataclass()
 class ScenarioResult:
     when: str
     fails: List[str]
+    assert_count:int
+    assert_ok:int
+
 
     def __init__(self):
         self.fails = []
+        self.assert_ok = 0
+        self.assert_count = 0
 
     def ok(self):
         return not self.fails
@@ -147,6 +200,8 @@ class FuncResult:
 
 try:
 
+    suite = SuiteResult()
+
     wait_for_server_to_start()
     print("Server ready!")
 
@@ -163,9 +218,9 @@ try:
 
         mr = ModuleResult(stem, loc, doc)
 
+        suite.modules.append(mr)
 
-        count = 0
-        module_fails = 0
+
 
         client = requests.sessions.Session()
 
@@ -175,7 +230,6 @@ try:
             fr = FuncResult(name, factory.__doc__)
             mr.funcs.append(fr)
             try:
-                count += 1
 
                 test_env = env.Env()
                 factory(test_env)
@@ -192,7 +246,7 @@ try:
                     fr.scenarios.append(res)
                     res.when = s.when.text
 
-                    #
+                    res.assert_count = len(s.then)
 
                     response = s.when.action(client, webBase)
 
@@ -206,21 +260,17 @@ try:
                             res.fails.append(f'{CBOLD}{response.reason}: {soup}')
                     else:
                         if s.then:
-
                             for a in s.then:
                                 result = a.action(soup)
                                 if result:
                                     res.fails.append(result)
+                                else:
+                                    res.assert_ok+=1
                         else:
                             res.fails.append("no expectations provided")
 
-                    if res.ok():
-                        scenario_ok += 1
-                    else:
-                        scenario_fail += 1
-                        scenario_fail_count += len(res.fails)
 
-                    module_fails += len(res.fails)
+
 
 
             except:
@@ -229,20 +279,11 @@ try:
 
 
 
-        if count == 0 or module_fails > 0:
-            file_fails += 1
-        else:
-            file_ok += 1
 
         if not mr.ok():
             mr.print()
 
-    if file_fails:
-        print(f'{CRED}✗ File FAILS {file_fails}{CEND}')
-    if file_ok:
-        print(f'{CGREEN}✔ File OK {file_ok}{CEND}')
-
-    print(f'Scenarios: {scenario_ok} OK, {scenario_fail} fail (fix {scenario_fail_count})')
+    suite.print()
 finally:
     try:
         stub.Kill(api.KillRequest())
