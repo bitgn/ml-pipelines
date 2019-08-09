@@ -8,7 +8,9 @@ def given_an_empty_project(t: Env):
     t.given_events(prj)
 
     t.scenario(
-        when.view_project(prj.project_id)
+        when.view_project(prj.project_id),
+
+        then.none("main .dataset-info")
     )
 
 

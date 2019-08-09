@@ -147,6 +147,9 @@ class FuncResult:
 
 try:
 
+    wait_for_server_to_start()
+    print("Server ready!")
+
     for l in os.listdir(root):
         stem = pathlib.Path(l).stem
 
@@ -165,8 +168,6 @@ try:
         module_fails = 0
 
         client = requests.sessions.Session()
-
-        wait_for_server_to_start()
 
         for name, factory in getmembers(module, isfunction):
             if not name.startswith('given_'):

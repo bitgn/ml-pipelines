@@ -31,19 +31,19 @@ def _timedelta(diff: datetime.timedelta):
 
     s = diff.seconds
     if diff.days > (365 * 2):
-        return f'{diff.days / 365:.0f} years ago'
+        return f'{diff.days // 365:.0f} years ago'
 
     if diff.days > 365:
         return 'a year ago'
 
     if diff.days > 60:
-        return f'{diff.days / 30:.0f} months ago'
+        return f'{diff.days // 30:.0f} months ago'
 
     if diff.days > 30:
         return 'a month ago'
 
     if diff.days > 14:
-        return f'{diff.days / 7:.0f} weeks ago'
+        return f'{diff.days // 7:.0f} weeks ago'
 
     if diff.days > 7:
         return 'a week ago'
@@ -63,8 +63,8 @@ def _timedelta(diff: datetime.timedelta):
     elif s < 120:
         return 'a minute ago'
     elif s < 3600:
-        return '{0:.0f} minutes ago'.format(s/60)
+        return '{0:.0f} minutes ago'.format(s//60)
     elif s < 7200:
         return 'an hour ago'
     else:
-        return '{0:.0f} hours ago'.format(s/3600)
+        return '{0:.0f} hours ago'.format(s//3600)
