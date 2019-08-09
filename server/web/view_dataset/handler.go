@@ -3,11 +3,13 @@ package view_dataset
 import (
 	"bufio"
 	"bytes"
+	"github.com/gomarkdown/markdown"
 	"html/template"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/web"
 	"net/http"
+	"strings"
 )
 
 type ViewDatsetModel struct {
@@ -47,6 +49,17 @@ func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 		Dataset: ds,
 		Project: pr,
 		IsStale: domain.IsStale(ds),
+	}
+
+	if len(ds.Description) > 0 {
+		md := string(markdown.ToHTML([]byte(ds.Description), nil,nil))
+		md = strings.Replace(md, "h1", "h4", -1)
+		md = strings.Replace(md, "h2", "h5", -1)
+		md = strings.Replace(md, "h3", "h6", -1)
+
+
+		model.Description = template.HTML(md)
+
 	}
 
 	var b bytes.Buffer
