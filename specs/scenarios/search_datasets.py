@@ -39,3 +39,7 @@ def given_a_dataset(t: Env):
 
     for q in valid_queries:
         t.scenario(when.search_datasets(q), then.exists(f'main #ds-{ds.dataset_id}'))
+
+    for q in valid_queries:
+        invalid = q + "_ZZZ"
+        t.scenario(when.search_datasets(invalid), then.none(f'main #ds-{ds.dataset_id}'))
