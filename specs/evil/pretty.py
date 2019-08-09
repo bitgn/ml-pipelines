@@ -11,15 +11,16 @@ def _avoid_wrapping(value):
 
 
 def bytes(num):
-
+    """use decimal bytes by default for consistency
+    using Ubuntu that suggest base-10 for disk and network sizes"""
     if num == 1:
         return _avoid_wrapping("1 byte")
     if num == 0:
         return _avoid_wrapping("0 bytes")
-    for unit in ['bytes','KB','MB','GB','TB','PB','EB','ZB']:
-        if abs(num) < 1024.0:
+    for unit in ['bytes','kB','MB','GB','TB','PB','EB','ZB']:
+        if abs(num) < 1000.0:
             return _avoid_wrapping(f"{num:3.1f} {unit}")
-        num /= 1024.0
+        num /= 1000.0
     return _avoid_wrapping(f"{num:.1f}Y")
 
 def timedelta(diff: datetime.timedelta):

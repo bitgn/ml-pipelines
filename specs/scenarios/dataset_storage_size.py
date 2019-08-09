@@ -1,14 +1,16 @@
 from env import *
 from evil import pretty
+from api import events_pb2 as evt
 
 def given_a_dataset_with_storage_size(t: env.Env):
     """show storage id on all related screens"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
+    size = pretty.bytes(ds.meta.storage_bytes)
+
     t.given_events(prj, ds)
 
-    size = pretty.bytes(ds.metadata.zip_bytes)
 
     t.scenario(
         when.view_dataset(ds.dataset_id),
@@ -31,7 +33,7 @@ def given_a_dataset_without_storage_size(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.metadata.del_fields.append(evt.FIELD_ZIP_BYTES)
+    ds.meta.storage_bytes_state = evt.DELETE
 
     t.given_events(prj, ds)
 
