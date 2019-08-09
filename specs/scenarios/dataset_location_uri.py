@@ -7,8 +7,8 @@ def given_a_dataset_with_storage_location(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.metadata.location_uri = "url://aws"
-    ds.metadata.set_fields.append(evt.FIELD_LOCATION_URI)
+    ds.meta.location_uri = "url://aws"
+    ds.meta.location_uri_state = evt.STATE.VALUE
 
     t.given_events(prj, ds)
 
@@ -23,7 +23,7 @@ def given_a_dataset_without_storage_location(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.metadata.del_fields.append(evt.FIELD_LOCATION_URI)
+    ds.meta.location_uri_state = evt.STATE.DELETE
 
     t.given_events(prj, ds)
 
