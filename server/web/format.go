@@ -73,20 +73,20 @@ func durationAbs(d time.Duration) string {
 
 	switch {
 	case days > 365 * 2:
-		return fmt.Sprintf("%.0f years", days/365)
+		return fmt.Sprintf("%d years", days/365)
 	case days >= 365:
 		return "a year ago"
 	case days > 60:
-		return fmt.Sprintf("%.0f months", days/30)
+		return fmt.Sprintf("%d months", days/30)
 
 	case days >= 30:
 		return "a month"
 	case days >= 14:
-		return fmt.Sprintf("%.0f weeks", days/7)
+		return fmt.Sprintf("%d weeks", days/7)
 	case days >= 7:
 		return "a week"
 	case days > 1:
-		return fmt.Sprintf("%.0f days", days)
+		return fmt.Sprintf("%d days", days)
 	case days == 1:
 		return "a day"
 
@@ -98,15 +98,15 @@ func durationAbs(d time.Duration) string {
 
 	switch {
 	case hours > 1:
-		return fmt.Sprintf("%.0f hours", hours)
+		return fmt.Sprintf("%d hours", hours)
 	case hours ==1:
 		return "an hour"
 	case sec >= 120:
-		return fmt.Sprintf("%.0f minutes", sec/60)
+		return fmt.Sprintf("%d minutes", sec/60)
 	case sec >= 60:
 		return "a minute"
 	case sec > 1:
-		return fmt.Sprintf("%.0f seconds", sec)
+		return fmt.Sprintf("%d seconds", sec)
 	}
 	return ""
 }
