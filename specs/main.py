@@ -121,9 +121,9 @@ class SuiteResult:
 
         print()
         if spec_ok == spec_count:
-            print(f'{CGREEN}✗ Specs:      {spec_ok} of {spec_count} OK{CEND}')
+            print(f'{CGREEN}✔ Specs:      {spec_ok} of {spec_count} OK{CEND}')
         else:
-            print(f'{CRED}✔ Specs:      {spec_ok} of {spec_count} FAIL{CEND}')
+            print(f'{CRED}✗ Specs:      {spec_ok} of {spec_count} FAIL{CEND}')
         if assert_count == assert_ok:
             print(f"{CGREEN}✔ Assertions: {assert_ok} of {assert_count} OK{CEND}")
         else:
