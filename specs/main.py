@@ -48,8 +48,6 @@ scenario_fail_count = 0
 
 @dataclass()
 class ScenarioResult:
-
-
     when: str
     fails: List[str]
 
@@ -59,14 +57,57 @@ class ScenarioResult:
     def ok(self):
         return not self.fails
 
+@dataclass
+class FuncResult:
+    name:str
+    doc:str
+    scenarios:List[ScenarioResult]
 
-def print_result(r: ScenarioResult):
-    print(f'    {CBOLD}when {r.when}{CEND}')
-    if not r.fails:
-        print(f'      {CGREEN}OK{CEND}')
-    else:
-        for fail in r.fails:
-            print(f'      {CRED}{fail}{CEND}')
+    exception:List[str]
+
+
+
+
+    def __init__(self, name, doc):
+        self.name = name
+        self.doc = doc
+        self.scenarios = []
+        self.exception = []
+
+    def print_fails(self):
+        print(f'  {CYELLOW}{self.name}{CEND} - {self.doc}')
+
+
+        if self.exception:
+            print(f'    {CRED}✗ {self.name}{CEND}:')
+            print(f'      {CRED}{"      ".join(self.exception).rstrip()}{CEND}')
+            return
+
+        if not self.scenarios:
+            print(f'  {CRED}✗ feature has no specs{CEND}')
+
+        for s in self.scenarios:
+            if s.ok():
+                continue
+            print(f'    {CBOLD}when {s.when}{CEND}')
+
+            for fail in s.fails:
+                print(f'      {CRED}{fail}{CEND}')
+
+    def ok(self):
+        if self.exception:
+            return False
+        if not self.scenarios:
+            return False
+        for r in self.scenarios:
+            if not r.ok():
+                return False
+
+        return True
+
+
+
+
 
 
 try:
@@ -94,6 +135,7 @@ try:
         for name, factory in getmembers(module, isfunction):
             if not name.startswith('given_'):
                 continue
+            fr = FuncResult(name, factory.__doc__)
             try:
                 count += 1
 
@@ -106,11 +148,10 @@ try:
                 req.Events.extend(marshal.serialize(test_env.events))
                 stub.Setup(req)
 
-                print(f'  {CYELLOW}{name}{CEND} - {factory.__doc__}')
-
                 for s in test_env.scenarios:
 
                     res = ScenarioResult()
+                    fr.scenarios.append(res)
                     res.when = s.when.text
 
                     #
@@ -143,15 +184,14 @@ try:
 
                     module_fails += len(res.fails)
 
-                    if not res.ok():
-                        print_result(res)
+
             except:
-                print(f'    {CRED}✗ {name}{CEND}:')
-                lines = traceback.format_exception(*sys.exc_info(), limit=None, chain=True)
-                print(f'      {CRED}{"      ".join(lines).rstrip()}{CEND}')
-                print(f'      {os.path.join(os.path.abspath(root), l) }')
-        if count == 0:
-            print(f'  {CRED}✗ feature has no specs{CEND}')
+                fr.exception= traceback.format_exception(*sys.exc_info(), limit=None, chain=True)
+
+            if not fr.ok():
+                fr.print_fails()
+
+
 
         if count == 0 or module_fails > 0:
             file_fails += 1
