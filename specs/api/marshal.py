@@ -5,10 +5,11 @@ from google.protobuf.message import Message
 from . import events_pb2 as evt
 
 map = {
-    evt.ProjectCreated: evt.Type.Event_ProjectCreated,
-    evt.DatasetCreated: evt.Type.Event_DatasetCreated,
-    evt.DatasetUpdated: evt.Type.Event_DatasetUpdated,
-    evt.Event_JobAdded: evt.Type.Event_JobAdded,
+    evt.ProjectCreated: evt.Event_ProjectCreated,
+    evt.DatasetCreated: evt.Event_DatasetCreated,
+    evt.DatasetUpdated: evt.Event_DatasetUpdated,
+    evt.JobAdded: evt.Event_JobAdded,
+    evt.ExpertAdded: evt.Event_ExpertAdded,
 }
 
 

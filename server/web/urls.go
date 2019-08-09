@@ -10,15 +10,15 @@ type UrlResolver struct {
 }
 
 func (b *UrlResolver) Static(resource string) string{
-	return path.Join("static", resource)
+	return path.Join("/static", resource)
 }
 
 func (b *UrlResolver) ListProjects() string{
-	return ""
+	return "/"
 }
 
 func (b *UrlResolver) ExploreDatasets() string{
-	return "/datasets/"
+	return "/explore"
 }
 
 func (b *UrlResolver) ViewProject(id string) string{

@@ -36,10 +36,12 @@ func main() {
 
 
 	mx := mux.NewRouter()
+	// static content
 	fs := http.FileServer(http.Dir("web/static/"))
-	mx.Handle("/static/", http.StripPrefix("/static/", fs))
-	mx.Path("/datasets/").Queries("query", "{query:[0-9.\\-A-Za-z]+}").HandlerFunc(simWrap(s.exploreHandler))
-	mx.HandleFunc("/datasets/{dataset_id:[0-9.\\-A-Za-z]+}/", simWrap(s.datasetHandler))
+	mx.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
+	mx.Path("/explore").Queries("query", "{query:[0-9.\\-A-Za-z]+}").HandlerFunc(simWrap(s.exploreHandler))
+	mx.Path("/explore").HandlerFunc(simWrap(s.exploreHandler))
+	mx.HandleFunc("/datasets/{dataset_id}/", simWrap(s.datasetHandler))
 
 
 	mx.Path("/").HandlerFunc(simWrap(s.projectsHandler))
