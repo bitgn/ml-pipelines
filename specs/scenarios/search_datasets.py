@@ -10,9 +10,9 @@ def given_a_dataset(t: Env):
     prj.name = "PROJECT_NAME"
     ds.name = "DATASET_NAME"
 
-    preset.set_sample(t, ds.metadata, """{SAMPLE_FIELD: "SAMPLE_VALUE"}""")
-    preset.set_description(t, ds.metadata, "readme: description_text is here")
-    preset.set_data_format(t, ds.metadata, "CUSTOM_FORMAT")
+    preset.set_sample(t, ds.meta, """{SAMPLE_FIELD: "SAMPLE_VALUE"}""")
+    preset.set_description(t, ds.meta, "readme: description_text is here")
+    preset.set_data_format(t, ds.meta, "CUSTOM_FORMAT")
 
     t.given_events(prj, ds)
 

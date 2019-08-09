@@ -37,43 +37,30 @@ message DatasetData {
     string project_id = 3;
 
     int64 record_count = 4;
-    bool record_count_set = 5;
+    int64 file_count = 5;
 
-    int64 file_count = 6;
-    bool file_count_set = 7;
-
-    int64 raw_bytes = 8;
-    bool raw_bytes_set = 9;
-
-    int64 zip_bytes = 10;
-    bool zip_bytes_set = 11;
+    int64 storage_bytes = 6;
+    DatasetSample sample = 7;
+    int64 update_timestamp = 8;
+    string data_format = 9;
+    string description = 10;
 
 
+    string location_id = 11;
 
-    bytes sample_body = 12;
-    SAMPLE_KIND sample_kind = 13;
-    bool sample_set = 14;
-
-    int64 update_timestamp = 15;
-    bool update_timestamp_set = 16;
-
-    string data_format = 17;
-    bool data_format_set = 18;
-    string description = 19;
-    bool description_set = 20;
+    string location_uri = 12;
 
 
-    repeated string upstream_jobs = 21;
-    repeated string downstream_jobs = 22;
 
-    repeated Expert experts = 23;
+    repeated string experts = 13;
 
-    string location_id = 24;
-    bool location_id_set = 25;
 
-    string location_uri = 26;
-    bool location_uri_set = 27;
+    repeated string upstream_jobs = 14;
+    repeated string downstream_jobs = 15;
+
+
 }
+
 
 
 

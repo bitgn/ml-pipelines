@@ -27,59 +27,24 @@ from typing_extensions import (
 )
 
 
-class FIELD_TYPES(int):
+class STATE(int):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
     @classmethod
     def Name(cls, number: int) -> str: ...
     @classmethod
-    def Value(cls, name: str) -> FIELD_TYPES: ...
+    def Value(cls, name: str) -> STATE: ...
     @classmethod
     def keys(cls) -> typing___List[str]: ...
     @classmethod
-    def values(cls) -> typing___List[FIELD_TYPES]: ...
+    def values(cls) -> typing___List[STATE]: ...
     @classmethod
-    def items(cls) -> typing___List[typing___Tuple[str, FIELD_TYPES]]: ...
-    FIELD_NONE = typing___cast(FIELD_TYPES, 0)
-    FIELD_RECORD_COUNT = typing___cast(FIELD_TYPES, 1)
-    FIELD_RAW_BYTES = typing___cast(FIELD_TYPES, 2)
-    FIELD_ZIP_BYTES = typing___cast(FIELD_TYPES, 3)
-    FIELD_SAMPLE = typing___cast(FIELD_TYPES, 4)
-    FIELD_UPDATE_TIMESTAMP = typing___cast(FIELD_TYPES, 5)
-    FIELD_FILE_COUNT = typing___cast(FIELD_TYPES, 6)
-    FIELD_DATA_FORMAT = typing___cast(FIELD_TYPES, 7)
-    FIELD_DESCRIPTION = typing___cast(FIELD_TYPES, 8)
-    FIELD_LOCATION_ID = typing___cast(FIELD_TYPES, 9)
-    FIELD_LOCATION_URI = typing___cast(FIELD_TYPES, 10)
-FIELD_NONE = typing___cast(FIELD_TYPES, 0)
-FIELD_RECORD_COUNT = typing___cast(FIELD_TYPES, 1)
-FIELD_RAW_BYTES = typing___cast(FIELD_TYPES, 2)
-FIELD_ZIP_BYTES = typing___cast(FIELD_TYPES, 3)
-FIELD_SAMPLE = typing___cast(FIELD_TYPES, 4)
-FIELD_UPDATE_TIMESTAMP = typing___cast(FIELD_TYPES, 5)
-FIELD_FILE_COUNT = typing___cast(FIELD_TYPES, 6)
-FIELD_DATA_FORMAT = typing___cast(FIELD_TYPES, 7)
-FIELD_DESCRIPTION = typing___cast(FIELD_TYPES, 8)
-FIELD_LOCATION_ID = typing___cast(FIELD_TYPES, 9)
-FIELD_LOCATION_URI = typing___cast(FIELD_TYPES, 10)
-
-class SAMPLE_KIND(int):
-    DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
-    @classmethod
-    def Name(cls, number: int) -> str: ...
-    @classmethod
-    def Value(cls, name: str) -> SAMPLE_KIND: ...
-    @classmethod
-    def keys(cls) -> typing___List[str]: ...
-    @classmethod
-    def values(cls) -> typing___List[SAMPLE_KIND]: ...
-    @classmethod
-    def items(cls) -> typing___List[typing___Tuple[str, SAMPLE_KIND]]: ...
-    TEXT = typing___cast(SAMPLE_KIND, 0)
-    TSV = typing___cast(SAMPLE_KIND, 1)
-    JSON = typing___cast(SAMPLE_KIND, 2)
-TEXT = typing___cast(SAMPLE_KIND, 0)
-TSV = typing___cast(SAMPLE_KIND, 1)
-JSON = typing___cast(SAMPLE_KIND, 2)
+    def items(cls) -> typing___List[typing___Tuple[str, STATE]]: ...
+    NONE = typing___cast(STATE, 0)
+    VALUE = typing___cast(STATE, 1)
+    DELETE = typing___cast(STATE, 2)
+NONE = typing___cast(STATE, 0)
+VALUE = typing___cast(STATE, 1)
+DELETE = typing___cast(STATE, 2)
 
 class Type(int):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
@@ -126,31 +91,29 @@ class ProjectCreated(google___protobuf___message___Message):
 class DatasetCreated(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     dataset_id = ... # type: typing___Text
-    name = ... # type: typing___Text
     project_id = ... # type: typing___Text
-    experts = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+    name = ... # type: typing___Text
 
     @property
-    def metadata(self) -> DatasetMetadata: ...
+    def meta(self) -> DatasetMetadata: ...
 
     def __init__(self,
         *,
         dataset_id : typing___Optional[typing___Text] = None,
-        name : typing___Optional[typing___Text] = None,
         project_id : typing___Optional[typing___Text] = None,
-        metadata : typing___Optional[DatasetMetadata] = None,
-        experts : typing___Optional[typing___Iterable[typing___Text]] = None,
+        name : typing___Optional[typing___Text] = None,
+        meta : typing___Optional[DatasetMetadata] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> DatasetCreated: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def HasField(self, field_name: typing_extensions___Literal[u"metadata"]) -> bool: ...
-        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",u"experts",u"metadata",u"name",u"project_id"]) -> None: ...
+        def HasField(self, field_name: typing_extensions___Literal[u"meta"]) -> bool: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",u"meta",u"name",u"project_id"]) -> None: ...
     else:
-        def HasField(self, field_name: typing_extensions___Literal[u"metadata",b"metadata"]) -> bool: ...
-        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",b"dataset_id",u"experts",b"experts",u"metadata",b"metadata",u"name",b"name",u"project_id",b"project_id"]) -> None: ...
+        def HasField(self, field_name: typing_extensions___Literal[u"meta",b"meta"]) -> bool: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",b"dataset_id",u"meta",b"meta",u"name",b"name",u"project_id",b"project_id"]) -> None: ...
 
 class DatasetUpdated(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -158,24 +121,24 @@ class DatasetUpdated(google___protobuf___message___Message):
     project_id = ... # type: typing___Text
 
     @property
-    def metadata(self) -> DatasetMetadata: ...
+    def meta(self) -> DatasetMetadata: ...
 
     def __init__(self,
         *,
         dataset_id : typing___Optional[typing___Text] = None,
         project_id : typing___Optional[typing___Text] = None,
-        metadata : typing___Optional[DatasetMetadata] = None,
+        meta : typing___Optional[DatasetMetadata] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> DatasetUpdated: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def HasField(self, field_name: typing_extensions___Literal[u"metadata"]) -> bool: ...
-        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",u"metadata",u"project_id"]) -> None: ...
+        def HasField(self, field_name: typing_extensions___Literal[u"meta"]) -> bool: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",u"meta",u"project_id"]) -> None: ...
     else:
-        def HasField(self, field_name: typing_extensions___Literal[u"metadata",b"metadata"]) -> bool: ...
-        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",b"dataset_id",u"metadata",b"metadata",u"project_id",b"project_id"]) -> None: ...
+        def HasField(self, field_name: typing_extensions___Literal[u"meta",b"meta"]) -> bool: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",b"dataset_id",u"meta",b"meta",u"project_id",b"project_id"]) -> None: ...
 
 class JobAdded(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -184,7 +147,6 @@ class JobAdded(google___protobuf___message___Message):
     inputs = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
     outputs = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
     project_id = ... # type: typing___Text
-    experts = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
 
     def __init__(self,
         *,
@@ -193,16 +155,15 @@ class JobAdded(google___protobuf___message___Message):
         inputs : typing___Optional[typing___Iterable[typing___Text]] = None,
         outputs : typing___Optional[typing___Iterable[typing___Text]] = None,
         project_id : typing___Optional[typing___Text] = None,
-        experts : typing___Optional[typing___Iterable[typing___Text]] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> JobAdded: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def ClearField(self, field_name: typing_extensions___Literal[u"experts",u"inputs",u"job_id",u"job_name",u"outputs",u"project_id"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"inputs",u"job_id",u"job_name",u"outputs",u"project_id"]) -> None: ...
     else:
-        def ClearField(self, field_name: typing_extensions___Literal[u"experts",b"experts",u"inputs",b"inputs",u"job_id",b"job_id",u"job_name",b"job_name",u"outputs",b"outputs",u"project_id",b"project_id"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"inputs",b"inputs",u"job_id",b"job_id",u"job_name",b"job_name",u"outputs",b"outputs",u"project_id",b"project_id"]) -> None: ...
 
 class ExpertAdded(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -223,46 +184,102 @@ class ExpertAdded(google___protobuf___message___Message):
     else:
         def ClearField(self, field_name: typing_extensions___Literal[u"expert_id",b"expert_id",u"expert_name",b"expert_name"]) -> None: ...
 
-class DatasetMetadata(google___protobuf___message___Message):
+class DatasetSample(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
-    set_fields = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[FIELD_TYPES]
-    del_fields = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[FIELD_TYPES]
-    record_count = ... # type: int
-    file_count = ... # type: int
-    raw_bytes = ... # type: int
-    zip_bytes = ... # type: int
-    sample_body = ... # type: bytes
-    sample_kind = ... # type: SAMPLE_KIND
-    update_timestamp = ... # type: int
-    data_format = ... # type: typing___Text
-    description = ... # type: typing___Text
-    location_id = ... # type: typing___Text
-    location_uri = ... # type: typing___Text
+    class FORMAT(int):
+        DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
+        @classmethod
+        def Name(cls, number: int) -> str: ...
+        @classmethod
+        def Value(cls, name: str) -> DatasetSample.FORMAT: ...
+        @classmethod
+        def keys(cls) -> typing___List[str]: ...
+        @classmethod
+        def values(cls) -> typing___List[DatasetSample.FORMAT]: ...
+        @classmethod
+        def items(cls) -> typing___List[typing___Tuple[str, DatasetSample.FORMAT]]: ...
+        TEXT = typing___cast(DatasetSample.FORMAT, 0)
+        TSV = typing___cast(DatasetSample.FORMAT, 1)
+        JSON = typing___cast(DatasetSample.FORMAT, 2)
+    TEXT = typing___cast(DatasetSample.FORMAT, 0)
+    TSV = typing___cast(DatasetSample.FORMAT, 1)
+    JSON = typing___cast(DatasetSample.FORMAT, 2)
+
+    format = ... # type: DatasetSample.FORMAT
+    body = ... # type: bytes
 
     def __init__(self,
         *,
-        set_fields : typing___Optional[typing___Iterable[FIELD_TYPES]] = None,
-        del_fields : typing___Optional[typing___Iterable[FIELD_TYPES]] = None,
+        format : typing___Optional[DatasetSample.FORMAT] = None,
+        body : typing___Optional[bytes] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> DatasetSample: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"body",u"format"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"body",b"body",u"format",b"format"]) -> None: ...
+
+class DatasetMetadata(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    record_count = ... # type: int
+    record_count_state = ... # type: STATE
+    file_count = ... # type: int
+    file_count_state = ... # type: STATE
+    storage_bytes = ... # type: int
+    storage_bytes_state = ... # type: STATE
+    sample_state = ... # type: STATE
+    update_timestamp = ... # type: int
+    update_timestamp_state = ... # type: STATE
+    data_format = ... # type: typing___Text
+    data_format_state = ... # type: STATE
+    description = ... # type: typing___Text
+    description_state = ... # type: STATE
+    location_id = ... # type: typing___Text
+    location_id_state = ... # type: STATE
+    location_uri = ... # type: typing___Text
+    location_uri_state = ... # type: STATE
+    experts = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+    experts_state = ... # type: STATE
+
+    @property
+    def sample(self) -> DatasetSample: ...
+
+    def __init__(self,
+        *,
         record_count : typing___Optional[int] = None,
+        record_count_state : typing___Optional[STATE] = None,
         file_count : typing___Optional[int] = None,
-        raw_bytes : typing___Optional[int] = None,
-        zip_bytes : typing___Optional[int] = None,
-        sample_body : typing___Optional[bytes] = None,
-        sample_kind : typing___Optional[SAMPLE_KIND] = None,
+        file_count_state : typing___Optional[STATE] = None,
+        storage_bytes : typing___Optional[int] = None,
+        storage_bytes_state : typing___Optional[STATE] = None,
+        sample : typing___Optional[DatasetSample] = None,
+        sample_state : typing___Optional[STATE] = None,
         update_timestamp : typing___Optional[int] = None,
+        update_timestamp_state : typing___Optional[STATE] = None,
         data_format : typing___Optional[typing___Text] = None,
+        data_format_state : typing___Optional[STATE] = None,
         description : typing___Optional[typing___Text] = None,
+        description_state : typing___Optional[STATE] = None,
         location_id : typing___Optional[typing___Text] = None,
+        location_id_state : typing___Optional[STATE] = None,
         location_uri : typing___Optional[typing___Text] = None,
+        location_uri_state : typing___Optional[STATE] = None,
+        experts : typing___Optional[typing___Iterable[typing___Text]] = None,
+        experts_state : typing___Optional[STATE] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> DatasetMetadata: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",u"del_fields",u"description",u"file_count",u"location_id",u"location_uri",u"raw_bytes",u"record_count",u"sample_body",u"sample_kind",u"set_fields",u"update_timestamp",u"zip_bytes"]) -> None: ...
+        def HasField(self, field_name: typing_extensions___Literal[u"sample"]) -> bool: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",u"data_format_state",u"description",u"description_state",u"experts",u"experts_state",u"file_count",u"file_count_state",u"location_id",u"location_id_state",u"location_uri",u"location_uri_state",u"record_count",u"record_count_state",u"sample",u"sample_state",u"storage_bytes",u"storage_bytes_state",u"update_timestamp",u"update_timestamp_state"]) -> None: ...
     else:
-        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",b"data_format",u"del_fields",b"del_fields",u"description",b"description",u"file_count",b"file_count",u"location_id",b"location_id",u"location_uri",b"location_uri",u"raw_bytes",b"raw_bytes",u"record_count",b"record_count",u"sample_body",b"sample_body",u"sample_kind",b"sample_kind",u"set_fields",b"set_fields",u"update_timestamp",b"update_timestamp",u"zip_bytes",b"zip_bytes"]) -> None: ...
+        def HasField(self, field_name: typing_extensions___Literal[u"sample",b"sample"]) -> bool: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"data_format",b"data_format",u"data_format_state",b"data_format_state",u"description",b"description",u"description_state",b"description_state",u"experts",b"experts",u"experts_state",b"experts_state",u"file_count",b"file_count",u"file_count_state",b"file_count_state",u"location_id",b"location_id",u"location_id_state",b"location_id_state",u"location_uri",b"location_uri",u"location_uri_state",b"location_uri_state",u"record_count",b"record_count",u"record_count_state",b"record_count_state",u"sample",b"sample",u"sample_state",b"sample_state",u"storage_bytes",b"storage_bytes",u"storage_bytes_state",b"storage_bytes_state",u"update_timestamp",b"update_timestamp",u"update_timestamp_state",b"update_timestamp_state"]) -> None: ...
 
 class Event(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...

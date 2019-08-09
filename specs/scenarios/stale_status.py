@@ -7,7 +7,7 @@ def given_a_dataset_updated_today(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    preset.set_update_timestamp(t, ds.metadata, 0)
+    preset.set_update_timestamp(t, ds.meta, 0)
 
     t.given_events(prj, ds)
 
@@ -36,7 +36,7 @@ def given_a_dataset_updated_week_ago(t: Env):
     """show stale status"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
-    preset.set_update_timestamp(t, ds.metadata, days=-7)
+    preset.set_update_timestamp(t, ds.meta, days=-7)
 
     t.given_events(prj, ds)
 

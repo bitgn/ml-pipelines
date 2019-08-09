@@ -11,6 +11,10 @@ func AddDataset(tx *Tx, val *DatasetData){
 
 }
 
+func UpdDataset(tx *Tx, val *DatasetData){
+	tx.PutProto(CreateKey(Range_DATASETS, val.DatasetId), val)
+}
+
 func GetDataset(tx *Tx, id string) *DatasetData{
 	val := &DatasetData{}
 	if tx.GetProto(CreateKey(Range_DATASETS, id), val){

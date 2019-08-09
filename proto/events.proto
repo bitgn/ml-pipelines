@@ -10,17 +10,15 @@ message ProjectCreated{
 
 message DatasetCreated{
     string dataset_id = 1;
-    string name = 2;
-    string project_id = 3;
-    DatasetMetadata metadata = 4;
-
-    repeated string experts = 5;
+    string project_id = 2;
+    string name = 3;
+    DatasetMetadata meta = 4;
 }
 
 message DatasetUpdated {
     string dataset_id = 1;
     string project_id = 2;
-    DatasetMetadata metadata = 4;
+    DatasetMetadata meta = 3;
 }
 
 
@@ -34,7 +32,7 @@ message JobAdded {
 
     string project_id = 5;
 
-    repeated string experts = 6;
+
 }
 
 
@@ -44,54 +42,59 @@ message ExpertAdded {
 }
 
 
-enum FIELD_TYPES {
-    FIELD_NONE = 0;
-    FIELD_RECORD_COUNT = 1;
-    FIELD_RAW_BYTES = 2;
-    FIELD_ZIP_BYTES = 3;
-    FIELD_SAMPLE = 4;
-    FIELD_UPDATE_TIMESTAMP = 5;
-    FIELD_FILE_COUNT = 6;
-    FIELD_DATA_FORMAT = 7;
-    FIELD_DESCRIPTION = 8;
-    FIELD_LOCATION_ID = 9;
-    FIELD_LOCATION_URI = 10;
+enum STATE {
+    NONE = 0;
+    VALUE = 1;
+    DELETE = 2;
 }
 
 
 
-// Sample storage format. Doesn't necessarily match
-// actual data format which could be very cryptic
-enum SAMPLE_KIND {
-    TEXT = 0;
-    TSV = 1;
-    JSON = 2;
+
+
+message DatasetSample {
+    // Sample storage format. Doesn't necessarily match
+    // actual data format which could be very cryptic
+    enum FORMAT {
+        TEXT = 0;
+        TSV = 1;
+        JSON = 2;
+    }
+
+    FORMAT format = 1;
+    bytes body = 2;
 }
 
 
 // if a field kind is set, then the corresponding property carries
 // a new value (which could be null)
 message DatasetMetadata {
-    repeated FIELD_TYPES set_fields = 1;
-    repeated FIELD_TYPES del_fields = 2;
 
-    int64 record_count = 3;
-    int64 file_count = 4;
-    int64 raw_bytes = 5;
-    int64 zip_bytes = 6;
-
-
-
-    bytes sample_body = 7;
-    SAMPLE_KIND sample_kind = 8;
+    int64 record_count = 1;
+    STATE record_count_state = 2;
+    int64 file_count = 3;
+    STATE file_count_state = 4;
+    int64 storage_bytes = 5;
+    STATE storage_bytes_state = 6;
+    DatasetSample sample = 7;
+    STATE sample_state = 8;
 
     int64 update_timestamp = 9;
+    STATE update_timestamp_state = 10;
 
-    string data_format = 10;
-    string description = 11;
-    string location_id = 12;
-    string location_uri = 13;
+    string data_format = 11;
+    STATE data_format_state = 12;
+    string description = 13;
+    STATE description_state = 14;
 
+    string location_id = 15;
+    STATE location_id_state = 16;
+    string location_uri = 17;
+    STATE location_uri_state=18;
+
+
+    repeated string experts = 19;
+    STATE experts_state = 20;
 }
 
 enum Type {

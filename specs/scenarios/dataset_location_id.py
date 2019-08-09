@@ -1,13 +1,13 @@
 from env import *
-
+from api import events_pb2 as evt
 
 def given_a_dataset_with_location_id(t: Env):
     """show location id on all related screens"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.metadata.location_id = "aws"
-    ds.metadata.set_fields.append(evt.FIELD_LOCATION_ID)
+    ds.meta.location_id = "aws"
+    ds.meta.location_id_state = evt.STATE.VALUE
 
     t.given_events(prj, ds)
 
@@ -32,7 +32,7 @@ def given_a_dataset_without_location_id(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.metadata.del_fields.append(evt.FIELD_LOCATION_ID)
+    ds.meta.location_id_state = evt.STATE.DELETE
 
     t.given_events(prj, ds)
 

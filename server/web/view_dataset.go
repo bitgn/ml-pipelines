@@ -1,6 +1,8 @@
 package web
 
 import (
+	"bufio"
+	"bytes"
 	"html/template"
 	"mlp/catalog/db"
 	"net/http"
@@ -39,8 +41,14 @@ func ViewDataset(env *db.DB, w http.ResponseWriter, datasetId string){
 	mod.ActiveMenu="projects"
 
 	model := &ViewDatsetModel{Site: mod, Dataset: ds, Project:pr}
-	if err = t.ExecuteTemplate(w, "layout", model); err != nil {
+	var b bytes.Buffer
+	foo := bufio.NewWriter(&b)
+	if err = t.ExecuteTemplate(foo, "layout", model); err != nil {
 		http.Error(w, err.Error(), 408)
+	} else {
+
+		b.WriteTo(w)
+
 	}
 }
 

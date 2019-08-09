@@ -24,27 +24,27 @@
             <div class="col">
 
                 <div>
-                    {{if .Dataset.LocationIdSet}}
+                    {{if .Dataset.LocationId }}
                         <strong>Location: </strong><span class="location-id">{{ .Dataset.LocationId }}</span><br/>
                     {{end}}
 
 
                     <strong>URI: </strong>
                     <code class="location-uri">
-                        {{if .Dataset.LocationUriSet}}{{.Dataset.LocationUri}}{{else}}N/A{{end}}
+                        {{if .Dataset.LocationUri}}{{.Dataset.LocationUri}}{{else}}N/A{{end}}
                     </code><br/>
 
 
                     <strong>Records: </strong>{{ .Dataset.RecordCount }}<br/>
                     <strong>Files: </strong> {{ .Dataset.FileCount }}<br />
-                    <strong>Size:</strong> <span class="zip-size">{{ .Site.Fmt.BytesDecimal .Dataset.ZipBytes }}</span><br/>
+                    <strong>Size:</strong> <span class="zip-size">{{ .Site.Fmt.BytesDecimal .Dataset.StorageBytes }}</span><br/>
 
 
 
-                    <strong>Format:</strong> <span class="record-format">{{if .Dataset.DataFormatSet}}{{.Dataset.DataFormat}}{{else}}N/A{{end}}</span><br/>
+                    <strong>Format:</strong> <span class="record-format">{{if .Dataset.DataFormat}}{{.Dataset.DataFormat}}{{else}}N/A{{end}}</span><br/>
 
 
-                    <strong>Last updated:</strong> <span class="last-updated">{{if .Dataset.UpdateTimestampSet}}{{.Site.Fmt.Timestamp .Dataset.UpdateTimestamp}}{{else}}N/A{{end}}</span><br/>
+                    <strong>Last updated:</strong> <span class="last-updated">{{if .Dataset.UpdateTimestamp}}{{.Site.Fmt.Timestamp .Dataset.UpdateTimestamp}}{{else}}N/A{{end}}</span><br/>
                 </div>
 
 
@@ -74,7 +74,7 @@
         <div class="col">
             <h3>Description</h3>
 
-            <article class="pt-2">
+            <article class="pt-2 description">
                 {{ .Description }}
             </article>
 
@@ -83,12 +83,12 @@
 
 
     {{end}}
-        {{if .Dataset.SampleSet}}
+        {{if .Dataset.Sample}}
           <div class="row pt-5">
         <div class="col">
             <h3>Sample</h3>
 
-            <pre class="alert alert-secondary"><code>{{ .Dataset.SampleBody }}</code></pre>
+            <pre class="alert alert-secondary"><code>{{ .Dataset.Sample.Body }}</code></pre>
 
         </div>
           </div>
