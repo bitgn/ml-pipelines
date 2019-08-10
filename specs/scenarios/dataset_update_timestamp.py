@@ -32,11 +32,12 @@ def given_a_datasets_with_various_timestamps(t: env.Env):
         timedelta(hours=1): 'an hour ago',
         timedelta(days=1): 'a day ago',
         timedelta(days=2): '2 days ago',
-        timedelta(days=355): 'a year ago',
-        timedelta(days=357): 'a year ago',
+        timedelta(days=365): 'a year ago',
+        timedelta(days=380): 'a year ago',
         timedelta(days=30): 'a month ago',
         timedelta(days=60): '2 months ago',
-
+        timedelta(days=7):'a week ago',
+        timedelta(days=14): '2 weeks ago',
     }
 
 
@@ -55,7 +56,7 @@ def given_a_datasets_with_various_timestamps(t: env.Env):
 
 
         value = _avoid_wrapping(v)
-        conditionals.append(then.text(f'main #ds-{ds.dataset_id} .update-timestamp', value),)
+        conditionals.append(then.text(f'main #ds-{ds.dataset_id} .update-timestamp', value, hint=k))
         t.given_events(ds)
 
 

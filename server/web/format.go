@@ -76,8 +76,8 @@ func durationAbs(d time.Duration) string {
 	case days > 365 * 2:
 		return fmt.Sprintf("%d years", days/365)
 	case days >= 365:
-		return "a year ago"
-	case days > 60:
+		return "a year"
+	case days >= 60:
 		return fmt.Sprintf("%d months", days/30)
 
 	case days >= 30:

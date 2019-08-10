@@ -23,13 +23,25 @@ def count(selector, c: int):
     return env.Then(_)
 
 
-def text(selector, expected: str):
+def text(selector, expected: str, hint=None):
+
+
+
     def _(s: bs4.BeautifulSoup):
         result = s.select_one(selector)
+
+        if hint:
+            pretty = f" ({hint})"
+
+
+
         if not result:
-            return f"Expected result with text '{expected}' for '{selector}'"
+            msg = f"Expected result with text '{expected}' for '{selector}'{pretty}"
+
+
+            return msg
         if result.text.strip() != expected:
-            return f"Text for '{selector}' should be '{expected}' not '{result.text}'"
+            return f"Text for '{selector}'{pretty} should be '{expected}' not '{result.text}'"
 
     return env.Then(_)
 
