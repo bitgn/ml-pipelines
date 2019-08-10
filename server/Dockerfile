@@ -41,8 +41,8 @@ RUN tar -xvf pack && rm pack
 
 
 # Expose port 8080 to the outside world
-EXPOSE 8000
-EXPOSE 50051
+EXPOSE 80
+EXPOSE 9111
 
 # Command to run the executable
-CMD ["./main"]
+CMD ["./main","-web=:80","-grpc=:9111"]
