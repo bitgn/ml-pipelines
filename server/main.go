@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"flag"
 	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 	"log"
@@ -22,11 +23,21 @@ type server struct {
 	Env *db.DB
 }
 
+var (
+	webInterface = flag.String("web", "localhost:8080", "web interface to bind to")
+	grpcInterface = flag.String("grpc", "localhost:50051", "GRPC interface to bind to")
+	dbFolder = flag.String("db", "db", "Folder to store local database")
+)
+
+
 func main() {
 
 
+	flag.Parse()
+
+
 	cfg := db.NewConfig()
-	env, err := db.New("db", cfg)
+	env, err := db.New(*dbFolder, cfg)
 	if err != nil{
 		panic(err)
 	}
@@ -57,11 +68,11 @@ func main() {
 	go runGrpc(env)
 
 
-	log.Fatal(http.ListenAndServe("localhost:8000", mx))
+	log.Fatal(http.ListenAndServe(*webInterface, mx))
 }
 
 func runGrpc(env *db.DB){
-	lis, err := net.Listen("tcp", "localhost:50051")
+	lis, err := net.Listen("tcp", *grpcInterface)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

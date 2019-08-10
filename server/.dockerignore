@@ -1,0 +1,19 @@
+**/.git
+**/.DS_Store
+Dockerfile
+
+
+.git
+.gitignore
+README.md
+
+
+#
+# OS X
+#
+.DS_Store
+.AppleDouble
+.LSOverride
+
+
+*.mdb
