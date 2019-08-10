@@ -30,10 +30,14 @@ func Handle(env *db.DB, w http.ResponseWriter){
 		return
 	}
 
-	mod := &web.Site{}
-	mod.ActiveMenu="projects"
+	site := web.LoadSite(tx)
+	site.ActiveMenu = "projects"
 
-	if err = t.ExecuteTemplate(w, "layout",&Model{mod,projects}); err != nil {
+	model := &Model{
+		Site: site,
+		Projects: projects,
+	}
+	if err = t.ExecuteTemplate(w, "layout", model); err != nil {
 		http.Error(w, err.Error(), 408)
 	}
 }

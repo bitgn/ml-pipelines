@@ -5,8 +5,13 @@ import bs4
 from dataclasses import dataclass
 import requests as r
 
+from faker import Faker
+
+
 class Env:
     def __init__(self):
+        self.faker = Faker()
+        self.faker.seed(1)
         self.events = []
         self.counter = 0
         self.time = dt.datetime.utcnow()

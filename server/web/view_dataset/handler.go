@@ -41,7 +41,7 @@ func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 		return
 	}
 
-	mod := &web.Site{}
+	mod := web.LoadSite(tx)
 	mod.ActiveMenu="projects"
 
 	model := &ViewDatsetModel{

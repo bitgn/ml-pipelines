@@ -47,7 +47,7 @@ func Handle(env *db.DB, w http.ResponseWriter, id string){
 		})
 	}
 
-	mod := &web.Site{}
+	mod := web.LoadSite(tx)
 	mod.ActiveMenu="projects"
 
 	model := &Model{

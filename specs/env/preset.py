@@ -8,6 +8,7 @@ import env
 import random
 from datetime import timedelta
 
+import faker
 
 nouns = ['data', 'trends', 'analytics', 'dump', 'dataset', 'table', 'stream', 'model', 'forecast']
 
@@ -16,8 +17,10 @@ verbs = ['research', 'demo', 'explore', 'examine', 'mine', 'analyze', 'investiga
 adj = ['learning', 'deep', 'derived', 'bot', 'iot', 'sensor', 'cargo', 'sales', 'billing', 'inventory', 'po', 'market']
 
 
-def project_created(t: env.Env):
-    id = t.next_id()
+
+
+def project_created(e: env.Env):
+    id = e.next_id()
 
     n = random.choice(nouns)
     v = random.choice(verbs)
@@ -105,6 +108,21 @@ The _seller_, or the provider of the goods or services, completes a sale in resp
         name=name,
         meta=meta
     )
+
+def job_added(e:env.Env, prj:evt.ProjectCreated) -> evt.JobAdded:
+    id  = e.next_id()
+    jid = f'job-{id}'
+
+    name = f'Job {id}'
+    return evt.JobAdded(job_id=jid, job_name=name, project_id=prj.project_id)
+
+def expert_added(e:env.Env) -> evt.ExpertAdded:
+
+    id = f'expert-{e.next_id()}'
+
+    return evt.ExpertAdded(expert_id=id, expert_name=e.faker.name())
+
+
 
 
 json_samples = [

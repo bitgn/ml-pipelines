@@ -97,8 +97,6 @@ func Handle(env *db.DB, w http.ResponseWriter, query string){
 			ProjectName:prj.Name,
 		}
 
-
-
 		if datasetMatchesQuery(meta, lines) {
 			metas = append(metas, meta)
 		}
@@ -111,10 +109,10 @@ func Handle(env *db.DB, w http.ResponseWriter, query string){
 		return
 	}
 
-	mod := &web.Site{}
-	mod.ActiveMenu="datasets"
+	site := web.LoadSite(tx)
+	site.ActiveMenu="datasets"
 
-	model := &Model{Site: mod, Items: metas, Query: query}
+	model := &Model{Site: site, Items: metas, Query: query}
 
 	model.CatalogIsEmpty = len(datasets) == 0
 

@@ -16,16 +16,39 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 	case *events.ProjectCreated:
 		db.AddProject(tx, &db.ProjectData{Id: e.ProjectId,Name: e.Name,})
+
+
+		stats := db.GetStats(tx)
+		stats.ProjectCount +=1
+		db.SetStats(tx, stats)
 	case *events.DatasetCreated:
 
 		data := &db.DatasetData{Name: e.Name, ProjectId: e.ProjectId, DatasetId: e.DatasetId}
 		mergeMetadata(e.Meta, data)
 		db.AddDataset(tx, data)
+
+		stats := db.GetStats(tx)
+		stats.DatasetCount +=1
+		db.SetStats(tx, stats)
+
 	case *events.DatasetUpdated:
 		ds := db.GetDataset(tx, e.DatasetId)
 		mergeMetadata(e.Meta, ds)
 		db.UpdDataset(tx, ds)
+
+	case *events.JobAdded:
+		stats := db.GetStats(tx)
+		stats.JobCount +=1
+		db.SetStats(tx, stats)
+
+	case *events.ExpertAdded:
+		stats := db.GetStats(tx)
+		stats.ExpertCount +=1
+		db.SetStats(tx, stats)
+
+
 	}
+
 
 }
 
