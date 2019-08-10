@@ -10,3 +10,5 @@ func GetStats(tx *Tx) *TenantStats{
 func SetStats(tx *Tx, d *TenantStats){
 	tx.PutProto(CreateKey(Range_STATS), d)
 }
+
+

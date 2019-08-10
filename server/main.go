@@ -104,7 +104,7 @@ func simWrap(inner http.HandlerFunc) http.HandlerFunc{
 						default:
 							err = errors.New("Unknown error")
 						}
-						print(err.Error())
+						println(err.Error())
 						http.Error(w, err.Error(), http.StatusInternalServerError)
 					}
 				}

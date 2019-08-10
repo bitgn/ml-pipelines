@@ -10,7 +10,7 @@ var (
 	sim_time time.Time
 	sim_set = false
 
-	sim_running = true
+	sim_running = false
 
 )
 

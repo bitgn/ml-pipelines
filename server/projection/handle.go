@@ -41,6 +41,27 @@ func Handle(tx *db.Tx, msg proto.Message){
 		stats.JobCount +=1
 		db.SetStats(tx, stats)
 
+
+		for _, input_id := range e.Inputs{
+			ds := db.GetDataset(tx, input_id)
+			ds.DownstreamJobs = append(ds.DownstreamJobs, e.JobId)
+			db.UpdDataset(tx, ds)
+		}
+		for _, output_id := range e.Outputs{
+			ds := db.GetDataset(tx, output_id)
+			ds.UpstreamJobs = append(ds.UpstreamJobs, e.JobId)
+			db.UpdDataset(tx, ds)
+		}
+
+		db.PutJob(tx, &db.Job{
+			JobId:e.JobId,
+			JobName:e.JobName,
+			Inputs:e.Inputs,
+			Outputs:e.Outputs,
+			ProjectId:e.ProjectId,
+		})
+
+
 	case *events.ExpertAdded:
 		stats := db.GetStats(tx)
 		stats.ExpertCount +=1

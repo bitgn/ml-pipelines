@@ -24,6 +24,14 @@ func (tx *Tx) Get(key []byte) (data []byte) {
 }
 
 
+func (tx *Tx) GetOwner() *DB{
+	return &DB{
+		Env:tx.Env,
+		DBI:tx.DB,
+	}
+}
+
+
 
 
 

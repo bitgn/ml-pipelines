@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"github.com/gomarkdown/markdown"
 	"html/template"
+	"io"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/web"
@@ -41,14 +42,15 @@ func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 		return
 	}
 
-	mod := web.LoadSite(tx)
-	mod.ActiveMenu="projects"
+	site := web.LoadSite(tx)
+	site.ActiveMenu="projects"
 
 	model := &ViewDatsetModel{
-		Site:    mod,
+		Site:    site,
 		Dataset: ds,
 		Project: pr,
 		IsStale: domain.IsStale(ds),
+		Lineage: renderSVG( tx,datasetId, site.Url),
 	}
 
 	if len(ds.Description) > 0 {
@@ -56,11 +58,11 @@ func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 		md = strings.Replace(md, "h1", "h4", -1)
 		md = strings.Replace(md, "h2", "h5", -1)
 		md = strings.Replace(md, "h3", "h6", -1)
-
-
 		model.Description = template.HTML(md)
-
 	}
+
+
+	io.Pipe()
 
 	var b bytes.Buffer
 	foo := bufio.NewWriter(&b)
