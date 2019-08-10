@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euxo pipefail
+
+cd ./specs
+venv/bin/python setup_demo.py &
+
+cd ../server
+go run main.go 
+cd ..
+
