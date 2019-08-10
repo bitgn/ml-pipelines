@@ -32,6 +32,8 @@ def text(selector, expected: str, hint=None):
 
         if hint:
             pretty = f" ({hint})"
+        else:
+            pretty = ""
 
 
 

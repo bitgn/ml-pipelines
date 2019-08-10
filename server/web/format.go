@@ -50,6 +50,10 @@ func bytesDecimal(b int64) string {
 }
 
 func (f *Format) Timestamp(t int64) string{
+	if t == 0{
+		return ""
+	}
+
 	now := sim.UTC()
 	stamp := time.Unix(t, 0)
 

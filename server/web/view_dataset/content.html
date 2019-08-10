@@ -44,7 +44,7 @@
                     <strong>Format:</strong> <span class="record-format">{{if .Dataset.DataFormat}}{{.Dataset.DataFormat}}{{else}}N/A{{end}}</span><br/>
 
 
-                    <strong>Last updated:</strong> <span class="last-updated">{{if .Dataset.UpdateTimestamp}}{{- .Site.Fmt.Timestamp .Dataset.UpdateTimestamp -}}{{else}}N/A{{end}}</span><br/>
+                    <strong>Last updated:</strong> <span class="last-updated">{{if .Dataset.UpdateTimestamp}}{{.Site.Fmt.Timestamp .Dataset.UpdateTimestamp}}{{else}}never{{end}}</span><br/>
                 </div>
 
 
