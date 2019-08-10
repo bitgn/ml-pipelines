@@ -1,5 +1,4 @@
 from env import *
-from evil import pretty
 from api import events_pb2 as evt
 
 

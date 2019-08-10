@@ -57,7 +57,7 @@ func (f *Format) Timestamp(t int64) string{
 
 	secs := delta.Seconds()
 	if secs <= 1 && secs >= -1 {
-		return "just now"
+		return avoidWrapping("just now")
 	}
 
 	if secs > 0 {
