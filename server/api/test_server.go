@@ -45,6 +45,7 @@ func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*OkRespo
 	for _,e := range req.Events{
 		msg := events.Unmarshal(e.Type, e.Body)
 		projection.Handle(tx, msg)
+		db.AppendEvent(tx, msg)
 	}
 
 	tx.MustCommit()
@@ -61,4 +62,6 @@ func (t *test_server) Kill(ctx context.Context, req *KillRequest) (*OkResponse, 
 func NewTestServer(db *db.DB) TestServer{
 	return &test_server{db}
 }
+
+
 

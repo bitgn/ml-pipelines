@@ -3,6 +3,7 @@ package events
 import (
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
+	"log"
 )
 
 
@@ -22,12 +23,13 @@ func getInstance(id Type) proto.Message{
 	case Type_Event_JobAdded:
 		return &JobAdded{}
 	default:
-		panic(errors.Errorf("Unknown event type %s", id))
+		log.Fatalf("Unknown event type %s", id)
+		return nil
 	}
 }
 
 
-func getContract(msg proto.Message) Type {
+func GetContract(msg proto.Message) Type {
 	switch e := msg.(type) {
 	case *ProjectCreated:
 		return Type_Event_ProjectCreated
@@ -40,7 +42,8 @@ func getContract(msg proto.Message) Type {
 	case *ExpertAdded:
 		return Type_Event_ExpertAdded
 	default:
-		panic(errors.Errorf("Uknown event %s", e))
+		log.Fatalf("Uknown event %s", e)
+		return Type_None
 
 	}
 }
@@ -56,7 +59,7 @@ func Unmarshal(types Type, buf []byte) proto.Message{
 }
 
 func Marshal(msg proto.Message) (Type, []byte){
-	id := getContract(msg)
+	id := GetContract(msg)
 	bytes, err := proto.Marshal(msg)
 	if err != nil {
 		panic(err)

@@ -3,6 +3,6 @@ set -euo pipefail
 
 cd server
 echo "Launching server..."
-go run main.go &
+go run main.go -test &
 cd ../specs
 venv/bin/python main.py

@@ -27,6 +27,10 @@ var (
 	webInterface = flag.String("web", "localhost:8080", "web interface to bind to")
 	grpcInterface = flag.String("grpc", "localhost:50051", "GRPC interface to bind to")
 	dbFolder = flag.String("db", "db", "Folder to store local database")
+
+
+
+	testMode = flag.Bool("test", false, "Enable test server and use async LMDB mode")
 )
 
 
@@ -37,6 +41,8 @@ func main() {
 
 
 	cfg := db.NewConfig()
+
+	cfg.TestMode = *testMode
 	env, err := db.New(*dbFolder, cfg)
 	if err != nil{
 		panic(err)
@@ -76,11 +82,16 @@ func runGrpc(env *db.DB){
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	testService := api.NewTestServer(env)
+
+
+
 
 	grpcServer := grpc.NewServer()
 
-	api.RegisterTestServer(grpcServer, testService)
+	if *testMode {
+		testService := api.NewTestServer(env)
+		api.RegisterTestServer(grpcServer, testService)
+	}
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

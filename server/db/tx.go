@@ -6,9 +6,19 @@ import (
 )
 
 type Tx struct {
-	DB  lmdb.DBI
-	Env *lmdb.Env
-	Tx  *lmdb.Txn
+	DB    lmdb.DBI
+	Env   *lmdb.Env
+	Tx    *lmdb.Txn
+	dirty bool
+}
+
+func newTx(env *lmdb.Env, db lmdb.DBI, tx *lmdb.Txn) *Tx{
+	return &Tx{
+		dirty: false,
+		DB:db,
+		Env:env,
+		Tx:tx,
+	}
 }
 
 func (tx *Tx) Get(key []byte) (data []byte) {
@@ -37,24 +47,33 @@ func (tx *Tx) GetOwner() *DB{
 
 
 func (tx *Tx) Commit() error {
-	return tx.Tx.Commit()
+	err := tx.Tx.Commit()
+	if err != nil {
+		tx.dirty = false
+	}
+	return err
 }
 
 func (tx *Tx) MustCommit() {
 	err := tx.Tx.Commit()
+
 	if err != nil{
 		panic(err)
 	}
+	tx.dirty = false
 }
 
 func (tx *Tx) Put(key []byte, val []byte)  {
+	tx.dirty = true
 	if err := tx.Tx.Put(tx.DB, key, val, 0); err != nil {
 		panic(errors.Wrap(err, "tx.Put"))
 	}
 
+
 }
 
 func (tx *Tx) Del(key []byte) error {
+	tx.dirty = true
 	if err := tx.Tx.Del(tx.DB, key, nil); err != nil {
 		return err
 
@@ -63,25 +82,25 @@ func (tx *Tx) Del(key []byte) error {
 }
 
 func (tx *Tx) PutReserve(key []byte, size int) ([]byte, error) {
+	tx.dirty = true
 	return tx.Tx.PutReserve(tx.DB, key, size, 0)
 }
 
-func (tx *Tx) Close() (err error) {
-	return nil
-}
 
 
 func (tx *Tx) MustAbort(){
 	tx.Tx.Abort()
+	tx.dirty = false
 }
 
-func (tx *Tx) MustClose(){
-
-	err := tx.Close()
-	if err != nil {
-		panic(err)
+func (tx *Tx) MustCleanup() {
+	if !tx.dirty {
+		tx.MustAbort()
 	}
 
+
+
 }
+
 
 

@@ -28,7 +28,7 @@ assertion_fails = 0
 channel = grpc.insecure_channel('localhost:50051')
 stub = api_pb2_grpc.TestStub(channel)
 
-webBase = "http://localhost:8000"
+webBase = "http://localhost:8080"
 
 
 def wait_for_server_to_start():
@@ -272,6 +272,12 @@ try:
 
 
 
+
+            except (ConnectionRefusedError, requests.exceptions.ConnectionError):
+                print(f"{CBOLD}{CRED}Connection refused!{CEND}")
+                # let server print its log
+                time.sleep(1)
+                quit(1)
 
 
             except:

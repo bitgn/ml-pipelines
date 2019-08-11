@@ -2,7 +2,10 @@ syntax="proto3";
 
 import "events.proto";
 
-message CreateProjectRequest{}
+message CreateProjectRequest{
+    string ProjectId = 1;
+    string ProjectName = 2;
+}
 message CreateProjectResponse{}
 
 
@@ -14,6 +17,8 @@ service Catalog {
 message OkResponse {
 
 }
+
+
 
 
 

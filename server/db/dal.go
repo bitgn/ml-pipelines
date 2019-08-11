@@ -8,14 +8,14 @@ import (
 )
 
 type Config struct {
-	EnvFlags uint
+	TestMode bool
 	SizeMbs  int64
 }
 
 func NewConfig() *Config {
 
 	return &Config{
-		EnvFlags: 0,
+		TestMode: false,
 		SizeMbs:  1024,
 
 	}
@@ -52,7 +52,14 @@ func New(folder string, cfg *Config) (*DB, error) {
 		return nil, errors.Wrap(err, "map size failed")
 	}
 
-	if err = env.SetFlags(cfg.EnvFlags); err != nil {
+	var flags uint
+
+	if cfg.TestMode {
+		flags |= lmdb.NoSync | lmdb.NoMetaSync | lmdb.NoMemInit
+
+	}
+
+	if err = env.SetFlags(flags); err != nil {
 		return nil, errors.Wrap(err, "set flag")
 	}
 
@@ -117,7 +124,7 @@ func (db *DB) CreateTransaction(flags uint) (tx *Tx, err error) {
 		return nil, errors.Wrap(err, "BeginTxn(flags)")
 	}
 
-	return &Tx{db.DBI, db.Env, txn}, nil
+	return newTx(db.Env, db.DBI, txn), nil
 }
 
 // Close the environment

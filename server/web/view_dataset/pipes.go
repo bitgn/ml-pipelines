@@ -111,14 +111,14 @@ func renderSVG(tx *db.Tx, dataset_id string, url web.UrlResolver) template.HTML{
 
 	sb.WriteString("}")
 
-	println(sb.String())
+	//println(sb.String())
 
 
 	result, err := renderDot(sb.String())
 
 
 
-	println(string(result))
+	//println(string(result))
 
 	if err != nil {
 		return template.HTML(err.Error())
