@@ -29,8 +29,13 @@ message ScenarioRequest {
     int64 timestamp = 3;
 }
 
-message ScenarioResponse {
 
+message Error {
+    string Message = 1;
+}
+
+message ScenarioResponse {
+    Error Error = 1;
 }
 message KillRequest{}
 

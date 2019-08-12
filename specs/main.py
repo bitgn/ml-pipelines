@@ -28,6 +28,8 @@ assertion_fails = 0
 channel = grpc.insecure_channel('localhost:50051')
 stub = api_pb2_grpc.TestStub(channel)
 
+catalog = api_pb2_grpc.CatalogStub(channel)
+
 webBase = "http://localhost:8080"
 
 
@@ -249,26 +251,52 @@ try:
 
                     res.assert_count = len(s.then)
 
-                    response = s.when.action(client, webBase)
+                    if s.when.web_action:
+                        response = s.when.web_action(client, webBase)
 
-                    soup = bs4.BeautifulSoup(response.content, 'lxml')
-                    if response.status_code != http.HTTPStatus.OK:
-                        if soup.title:
-                            res.fails.append(f'{CBOLD}{response.reason}: {soup.title.text}')
-                        elif soup.p.text:
-                            res.fails.append(f'{CBOLD}{response.reason}: {soup.p.text.strip()}')
+                        soup = bs4.BeautifulSoup(response.content, 'lxml')
+                        if response.status_code != http.HTTPStatus.OK:
+                            if soup.title:
+                                res.fails.append(f'{CBOLD}{response.reason}: {soup.title.text}')
+                            elif soup.p.text:
+                                res.fails.append(f'{CBOLD}{response.reason}: {soup.p.text.strip()}')
+                            else:
+                                res.fails.append(f'{CBOLD}{response.reason}: {soup}')
+
                         else:
-                            res.fails.append(f'{CBOLD}{response.reason}: {soup}')
-                    else:
-                        if s.then:
-                            for a in s.then:
-                                result = a.action(soup)
-                                if result:
-                                    res.fails.append(result)
-                                else:
-                                    res.assert_ok+=1
+                            if s.then:
+                                for a in s.then:
+                                    result = a.action(soup)
+                                    if result:
+                                        res.fails.append(result)
+                                    else:
+                                        res.assert_ok += 1
+                            else:
+                                res.fails.append("no expectations provided")
+
+
+                    elif s.when.client_action:
+                        response = s.when.client_action(catalog)
+                        print(type(response))
+                        if isinstance(response, grpc.RpcError):
+                            typed = grpc.RpcError(response)
+
+                            res.fails.append(f'{CBOLD}{typed}{CEND}')
                         else:
-                            res.fails.append("no expectations provided")
+
+                            if s.then:
+                                for a in s.then:
+                                    result = a.action(response)
+
+                                    if result:
+                                        res.fails.append(result)
+                                    else:
+                                        res.assert_ok += 1
+
+                            else:
+                                res.fails.append("no expectations provided")
+
+
 
 
 

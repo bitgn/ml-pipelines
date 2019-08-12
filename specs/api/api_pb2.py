@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\tapi.proto\x1a\x0c\x65vents.proto\"\x16\n\x14\x43reateProjectRequest\"\x17\n\x15\x43reateProjectResponse\"\x0c\n\nOkResponse\"J\n\x0fScenarioRequest\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x16\n\x06\x45vents\x18\x02 \x03(\x0b\x32\x06.Event\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x12\n\x10ScenarioResponse\"\r\n\x0bKillRequest\"\r\n\x0bPingRequest2K\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x32z\n\x04Test\x12(\n\x05Setup\x12\x10.ScenarioRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Kill\x12\x0c.KillRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Ping\x12\x0c.PingRequest\x1a\x0b.OkResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\tapi.proto\x1a\x0c\x65vents.proto\">\n\x14\x43reateProjectRequest\x12\x11\n\tProjectId\x18\x01 \x01(\t\x12\x13\n\x0bProjectName\x18\x02 \x01(\t\"\x17\n\x15\x43reateProjectResponse\"\x0c\n\nOkResponse\"J\n\x0fScenarioRequest\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x16\n\x06\x45vents\x18\x02 \x03(\x0b\x32\x06.Event\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x18\n\x05\x45rror\x12\x0f\n\x07Message\x18\x01 \x01(\t\")\n\x10ScenarioResponse\x12\x15\n\x05\x45rror\x18\x01 \x01(\x0b\x32\x06.Error\"\r\n\x0bKillRequest\"\r\n\x0bPingRequest2K\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x32z\n\x04Test\x12(\n\x05Setup\x12\x10.ScenarioRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Kill\x12\x0c.KillRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Ping\x12\x0c.PingRequest\x1a\x0b.OkResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[events__pb2.DESCRIPTOR,])
 
@@ -35,6 +35,20 @@ _CREATEPROJECTREQUEST = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='ProjectId', full_name='CreateProjectRequest.ProjectId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ProjectName', full_name='CreateProjectRequest.ProjectName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -48,7 +62,7 @@ _CREATEPROJECTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=27,
-  serialized_end=49,
+  serialized_end=89,
 )
 
 
@@ -71,8 +85,8 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=51,
-  serialized_end=74,
+  serialized_start=91,
+  serialized_end=114,
 )
 
 
@@ -95,8 +109,8 @@ _OKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=76,
-  serialized_end=88,
+  serialized_start=116,
+  serialized_end=128,
 )
 
 
@@ -140,18 +154,25 @@ _SCENARIOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=90,
-  serialized_end=164,
+  serialized_start=130,
+  serialized_end=204,
 )
 
 
-_SCENARIORESPONSE = _descriptor.Descriptor(
-  name='ScenarioResponse',
-  full_name='ScenarioResponse',
+_ERROR = _descriptor.Descriptor(
+  name='Error',
+  full_name='Error',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='Message', full_name='Error.Message', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -164,8 +185,39 @@ _SCENARIORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=166,
-  serialized_end=184,
+  serialized_start=206,
+  serialized_end=230,
+)
+
+
+_SCENARIORESPONSE = _descriptor.Descriptor(
+  name='ScenarioResponse',
+  full_name='ScenarioResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Error', full_name='ScenarioResponse.Error', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=232,
+  serialized_end=273,
 )
 
 
@@ -188,8 +240,8 @@ _KILLREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=186,
-  serialized_end=199,
+  serialized_start=275,
+  serialized_end=288,
 )
 
 
@@ -212,15 +264,17 @@ _PINGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=201,
-  serialized_end=214,
+  serialized_start=290,
+  serialized_end=303,
 )
 
 _SCENARIOREQUEST.fields_by_name['Events'].message_type = events__pb2._EVENT
+_SCENARIORESPONSE.fields_by_name['Error'].message_type = _ERROR
 DESCRIPTOR.message_types_by_name['CreateProjectRequest'] = _CREATEPROJECTREQUEST
 DESCRIPTOR.message_types_by_name['CreateProjectResponse'] = _CREATEPROJECTRESPONSE
 DESCRIPTOR.message_types_by_name['OkResponse'] = _OKRESPONSE
 DESCRIPTOR.message_types_by_name['ScenarioRequest'] = _SCENARIOREQUEST
+DESCRIPTOR.message_types_by_name['Error'] = _ERROR
 DESCRIPTOR.message_types_by_name['ScenarioResponse'] = _SCENARIORESPONSE
 DESCRIPTOR.message_types_by_name['KillRequest'] = _KILLREQUEST
 DESCRIPTOR.message_types_by_name['PingRequest'] = _PINGREQUEST
@@ -254,6 +308,13 @@ ScenarioRequest = _reflection.GeneratedProtocolMessageType('ScenarioRequest', (_
   })
 _sym_db.RegisterMessage(ScenarioRequest)
 
+Error = _reflection.GeneratedProtocolMessageType('Error', (_message.Message,), {
+  'DESCRIPTOR' : _ERROR,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:Error)
+  })
+_sym_db.RegisterMessage(Error)
+
 ScenarioResponse = _reflection.GeneratedProtocolMessageType('ScenarioResponse', (_message.Message,), {
   'DESCRIPTOR' : _SCENARIORESPONSE,
   '__module__' : 'api_pb2'
@@ -283,8 +344,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=216,
-  serialized_end=291,
+  serialized_start=305,
+  serialized_end=380,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',
@@ -307,8 +368,8 @@ _TEST = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=293,
-  serialized_end=415,
+  serialized_start=382,
+  serialized_end=504,
   methods=[
   _descriptor.MethodDescriptor(
     name='Setup',

@@ -92,6 +92,9 @@ func runGrpc(env *db.DB){
 		testService := api.NewTestServer(env)
 		api.RegisterTestServer(grpcServer, testService)
 	}
+
+	catalogService := api.NewCatalogServer(env)
+	api.RegisterCatalogServer(grpcServer, catalogService)
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

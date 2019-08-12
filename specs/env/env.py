@@ -1,10 +1,10 @@
 import datetime as dt
 from typing import List, Callable, Optional
-
+from api import api_pb2_grpc as api
 import bs4
 from dataclasses import dataclass
 import requests as r
-
+from google.protobuf.message import Message
 from faker import Faker
 
 
@@ -41,7 +41,8 @@ class Env:
 
 @dataclass
 class When:
-    action: Callable[[r.Session, str], r.Response]
+    web_action: Optional[Callable[[r.Session, str], r.Response]]
+    client_action: Optional[Callable[[api.CatalogStub], Message]]
     text: str
 
 

@@ -1,9 +1,11 @@
 package api
 
 import (
+	"fmt"
 	"github.com/golang/protobuf/proto"
-	"github.com/pkg/errors"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/events"
@@ -25,15 +27,22 @@ func (c *catalogServer) CreateProject(ctx context.Context, r *CreateProjectReque
 	tx := c.db.MustWrite()
 	defer tx.MustCleanup()
 
+
+
 	err := domain.GetProblemsWithID(r.ProjectId)
 
+
+
 	if err != nil {
-		return nil, err
+		st := status.New(codes.InvalidArgument,"invalid ProjectID")
+
+		return nil, st.Err()
 	}
 
 	project := db.GetProject(tx, r.ProjectId)
 	if project != nil {
-		return nil, errors.Errorf("Project '%s' already exists", r.ProjectId)
+		st := status.New(codes.AlreadyExists, fmt.Sprintf("Project '%s' already exists", r.ProjectId))
+		return nil, st.Err()
 	}
 
 	prj := &events.ProjectCreated{
