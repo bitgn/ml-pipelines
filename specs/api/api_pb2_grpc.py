@@ -90,6 +90,11 @@ class TestStub(object):
         request_serializer=api__pb2.PingRequest.SerializeToString,
         response_deserializer=api__pb2.OkResponse.FromString,
         )
+    self.Wipe = channel.unary_unary(
+        '/Test/Wipe',
+        request_serializer=api__pb2.WipeDatabase.SerializeToString,
+        response_deserializer=api__pb2.OkResponse.FromString,
+        )
 
 
 class TestServicer(object):
@@ -119,6 +124,13 @@ class TestServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Wipe(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_TestServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -135,6 +147,11 @@ def add_TestServicer_to_server(servicer, server):
       'Ping': grpc.unary_unary_rpc_method_handler(
           servicer.Ping,
           request_deserializer=api__pb2.PingRequest.FromString,
+          response_serializer=api__pb2.OkResponse.SerializeToString,
+      ),
+      'Wipe': grpc.unary_unary_rpc_method_handler(
+          servicer.Wipe,
+          request_deserializer=api__pb2.WipeDatabase.FromString,
           response_serializer=api__pb2.OkResponse.SerializeToString,
       ),
   }

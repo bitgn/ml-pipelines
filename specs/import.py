@@ -94,12 +94,13 @@ def gen_import_events(file_name):
                     outputs=i['outputs']
                 )
 from api import api_pb2_grpc as rpc
-
+from api import marshal
+from api import api_pb2 as api
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 
-parser.add_argument("json")
-parser.add_argument("grpc", default="dev.bitgn.com:50001")
+parser.add_argument("--json", action="store", dest="json")
+parser.add_argument("--grpc", action="store", dest="grpc", default="dev.bitgn.com:50001")
 
 args = parser.parse_args()
 
@@ -107,3 +108,11 @@ args = parser.parse_args()
 channel = grpc.insecure_channel(args.grpc)
 stub = rpc.TestStub(channel)
 catalog = rpc.CatalogStub(channel)
+
+stub.Wipe(api.WipeDatabase())
+
+
+events = gen_import_events(args.json)
+
+
+catalog.Apply(api.ApplyRequest(Events=marshal.serialize(list(events))))

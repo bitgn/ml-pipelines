@@ -23,7 +23,7 @@ type test_server struct {
 func (t *test_server) Wipe(context.Context, *WipeDatabase) (*OkResponse, error) {
 	tx := t.db.MustWrite()
 
-	tx.MustCleanup()
+	defer tx.MustCleanup()
 
 	if err := tx.Tx.Drop(tx.DB, false); err != nil {
 		panic(errors.Wrap(err, "Failed to empty the DB"))

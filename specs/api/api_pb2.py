@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\tapi.proto\x1a\x0c\x65vents.proto\">\n\x14\x43reateProjectRequest\x12\x11\n\tProjectId\x18\x01 \x01(\t\x12\x13\n\x0bProjectName\x18\x02 \x01(\t\"\x17\n\x15\x43reateProjectResponse\"&\n\x0c\x41pplyRequest\x12\x16\n\x06\x45vents\x18\x01 \x03(\x0b\x32\x06.Event\" \n\rApplyResponse\x12\x0f\n\x07Version\x18\x01 \x01(\x04\"7\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\"\x14\n\x12\x44\x61tasetRequestMeta\"\x0c\n\nOkResponse\"J\n\x0fScenarioRequest\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x16\n\x06\x45vents\x18\x02 \x03(\x0b\x32\x06.Event\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x18\n\x05\x45rror\x12\x0f\n\x07Message\x18\x01 \x01(\t\")\n\x10ScenarioResponse\x12\x15\n\x05\x45rror\x18\x01 \x01(\x0b\x32\x06.Error\"\r\n\x0bKillRequest\"\r\n\x0bPingRequest2u\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12(\n\x05\x41pply\x12\r.ApplyRequest\x1a\x0e.ApplyResponse\"\x00\x32z\n\x04Test\x12(\n\x05Setup\x12\x10.ScenarioRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Kill\x12\x0c.KillRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Ping\x12\x0c.PingRequest\x1a\x0b.OkResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\tapi.proto\x1a\x0c\x65vents.proto\">\n\x14\x43reateProjectRequest\x12\x11\n\tProjectId\x18\x01 \x01(\t\x12\x13\n\x0bProjectName\x18\x02 \x01(\t\"\x17\n\x15\x43reateProjectResponse\"&\n\x0c\x41pplyRequest\x12\x16\n\x06\x45vents\x18\x01 \x03(\x0b\x32\x06.Event\" \n\rApplyResponse\x12\x0f\n\x07Version\x18\x01 \x01(\x04\"7\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\"\x14\n\x12\x44\x61tasetRequestMeta\"\x0c\n\nOkResponse\"J\n\x0fScenarioRequest\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x16\n\x06\x45vents\x18\x02 \x03(\x0b\x32\x06.Event\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x18\n\x05\x45rror\x12\x0f\n\x07Message\x18\x01 \x01(\t\")\n\x10ScenarioResponse\x12\x15\n\x05\x45rror\x18\x01 \x01(\x0b\x32\x06.Error\"\r\n\x0bKillRequest\"\r\n\x0bPingRequest\"\x0e\n\x0cWipeDatabase2u\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12(\n\x05\x41pply\x12\r.ApplyRequest\x1a\x0e.ApplyResponse\"\x00\x32\xa0\x01\n\x04Test\x12(\n\x05Setup\x12\x10.ScenarioRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Kill\x12\x0c.KillRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Ping\x12\x0c.PingRequest\x1a\x0b.OkResponse\"\x00\x12$\n\x04Wipe\x12\r.WipeDatabase\x1a\x0b.OkResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[events__pb2.DESCRIPTOR,])
 
@@ -392,6 +392,30 @@ _PINGREQUEST = _descriptor.Descriptor(
   serialized_end=456,
 )
 
+
+_WIPEDATABASE = _descriptor.Descriptor(
+  name='WipeDatabase',
+  full_name='WipeDatabase',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=458,
+  serialized_end=472,
+)
+
 _APPLYREQUEST.fields_by_name['Events'].message_type = events__pb2._EVENT
 _SCENARIOREQUEST.fields_by_name['Events'].message_type = events__pb2._EVENT
 _SCENARIORESPONSE.fields_by_name['Error'].message_type = _ERROR
@@ -407,6 +431,7 @@ DESCRIPTOR.message_types_by_name['Error'] = _ERROR
 DESCRIPTOR.message_types_by_name['ScenarioResponse'] = _SCENARIORESPONSE
 DESCRIPTOR.message_types_by_name['KillRequest'] = _KILLREQUEST
 DESCRIPTOR.message_types_by_name['PingRequest'] = _PINGREQUEST
+DESCRIPTOR.message_types_by_name['WipeDatabase'] = _WIPEDATABASE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 CreateProjectRequest = _reflection.GeneratedProtocolMessageType('CreateProjectRequest', (_message.Message,), {
@@ -493,6 +518,13 @@ PingRequest = _reflection.GeneratedProtocolMessageType('PingRequest', (_message.
   })
 _sym_db.RegisterMessage(PingRequest)
 
+WipeDatabase = _reflection.GeneratedProtocolMessageType('WipeDatabase', (_message.Message,), {
+  'DESCRIPTOR' : _WIPEDATABASE,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:WipeDatabase)
+  })
+_sym_db.RegisterMessage(WipeDatabase)
+
 
 
 _CATALOG = _descriptor.ServiceDescriptor(
@@ -501,8 +533,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=458,
-  serialized_end=575,
+  serialized_start=474,
+  serialized_end=591,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',
@@ -534,8 +566,8 @@ _TEST = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=577,
-  serialized_end=699,
+  serialized_start=594,
+  serialized_end=754,
   methods=[
   _descriptor.MethodDescriptor(
     name='Setup',
@@ -561,6 +593,15 @@ _TEST = _descriptor.ServiceDescriptor(
     index=2,
     containing_service=None,
     input_type=_PINGREQUEST,
+    output_type=_OKRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Wipe',
+    full_name='Test.Wipe',
+    index=3,
+    containing_service=None,
+    input_type=_WIPEDATABASE,
     output_type=_OKRESPONSE,
     serialized_options=None,
   ),
