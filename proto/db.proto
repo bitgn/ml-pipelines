@@ -21,9 +21,8 @@ message ProjectData {
     string name = 1;
     string id = 2;
     int32 dataset_count = 3;
-    int64 raw_bytes = 4;
-    int64 zip_bytes = 5;
-    int32 job_count = 6;
+    int64 storage_bytes = 4;
+    int32 job_count = 5;
 }
 
 message Expert {
