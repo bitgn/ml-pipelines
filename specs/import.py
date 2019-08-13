@@ -1,13 +1,18 @@
-import parser
+import argparse
+import json
+import os
 
-parser.add_argument("--json")
+import grpc
+
+from api import events_pb2 as evt
 
 
 
 
-with lmdb.open(settings.LMDB, subdir=False) as env:
-    main = env.open_db()
-    file_name = options['json']
+
+def gen_import_events(file_name):
+
+
 
     folder = os.path.dirname(file_name)
     print(file_name)
@@ -15,58 +20,55 @@ with lmdb.open(settings.LMDB, subdir=False) as env:
         meta = json.load(f)
 
 
-    with env.begin(write=True) as tx:
-
 
         for i in meta:
             if i['type'] == 'expert':
-                e = evt.ExpertAdded(expert_id=i['expert_id'], expert_name=i['expert_name'])
-                projection.apply(e, tx)
-                continue
+                yield evt.ExpertAdded(expert_id=i['expert_id'], expert_name=i['expert_name'])
+
             if i['type'] == 'project':
-                self.create_project(i, tx)
+                yield evt.ProjectCreated(project_id=i['project_id'], name=i['project_name'])
             if i['type'] == 'dataset':
 
-                project_i d =i['project_id']
-                nam e =i['dataset_name']
+                project_id =i['project_id']
+                name =i['dataset_name']
                 dataset_id = i['dataset_id']
+
+                sample = evt.DatasetSample(
+                    body=i['sample'].encode(),
+                    format=evt.DatasetSample.FORMAT.JSON
+                )
 
                 mtd = evt.DatasetMetadata(
                     file_count=i['file_count'],
+                    file_count_set=True,
                     record_count=i['record_count'],
+                    record_count_set=True,
                     data_format=i['data_format'],
-                    zip_bytes=i['zip_bytes'],
+                    data_format_set=True,
+                    storage_bytes=i['zip_bytes'],
+                    storage_bytes_set=True,
                     update_timestamp=i['update_timestamp'],
-                    sample_body=i['sample'].encode(),
-                    sample_kind=evt.SAMPLE_KIND.JSON
+                    update_timestamp_set=True,
+                    sample=sample,
+                    sample_set=True,
                 )
 
 
 
-
-                mtd.set_fields.extend([
-                    evt.FIELD_UPDATE_TIMESTAMP,
-                    evt.FIELD_RECORD_COUNT,
-                    evt.FIELD_DATA_FORMAT,
-                    evt.FIELD_ZIP_BYTES,
-                    evt.FIELD_FILE_COUNT,
-                    evt.FIELD_SAMPLE
-                ])
-
                 if 'location_id' in i:
                     mtd.location_id = i['location_id']
-                    mtd.set_fields.append(evt.FIELD_LOCATION_ID)
+                    mtd.location_id_set = True
 
                 if 'location_uri' in i:
                     mtd.location_uri = i['location_uri']
-                    mtd.set_fields.append(evt.FIELD_LOCATION_URI)
+                    mtd.location_uri_set = True
 
                 description = os.path.join(folder, dataset_id + ".md")
                 if os.path.exists(description):
                     print(f"Import {description}")
                     with open(description, 'r') as f:
                         mtd.description = "\n".join(f.readlines())
-                        mtd.set_fields.append(evt.FIELD_DESCRIPTION)
+                        mtd.description_set = True
 
 
 
@@ -74,40 +76,34 @@ with lmdb.open(settings.LMDB, subdir=False) as env:
 
                 e = evt.DatasetCreated(project_id=project_id,
                                        name=name,
-                                       metadata=mtd,
+                                       meta=mtd,
                                        dataset_id=dataset_id)
 
                 if 'experts' in i:
-                    e.experts.extend(i['experts'])
+                    e.meta.experts.extend(i['experts'])
+                    e.meta.experts_set = True
 
-                projection.apply(e, tx)
+                yield e
 
-            if i['type' ]= ='job':
-                e = evt.JobAdded(
+            if i['type' ]=='job':
+                yield evt.JobAdded(
                     project_id=i['project_id'],
                     job_name=i['job_name'],
                     job_id=i['job_id'],
                     inputs=i['inputs'],
                     outputs=i['outputs']
                 )
-                projection.apply(e, tx)
-
-                # db.dataset_get()
+from api import api_pb2_grpc as rpc
 
 
+parser = argparse.ArgumentParser(description='Process some integers.')
+
+parser.add_argument("json")
+parser.add_argument("grpc", default="dev.bitgn.com:50001")
+
+args = parser.parse_args()
 
 
-
-
-
-
-
-
-    print(len(meta))
-
-def create_project(self, i, tx):
-    prj = db.project_get(tx, project_id=i['project_id'])
-    if not prj:
-        e = evt.ProjectCreated(project_id=i['project_id'], name=i['project_name'])
-        projection.apply(e, tx)
-
+channel = grpc.insecure_channel(args.grpc)
+stub = rpc.TestStub(channel)
+catalog = rpc.CatalogStub(channel)

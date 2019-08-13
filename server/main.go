@@ -101,10 +101,11 @@ func runGrpc(env *db.DB){
 
 	grpcServer := grpc.NewServer()
 
-	if *testMode {
+	//if *testMode {
+	// TEMP for now
 		testService := api.NewTestServer(env)
 		api.RegisterTestServer(grpcServer, testService)
-	}
+	//}
 
 	catalogService := api.NewCatalogServer(env)
 	api.RegisterCatalogServer(grpcServer, catalogService)

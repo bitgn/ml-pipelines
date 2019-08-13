@@ -23,6 +23,8 @@ service Catalog {
 }
 
 
+
+
 message CreateDataset {
     string dataset_id = 1;
     string project_id = 2;
@@ -60,6 +62,9 @@ message KillRequest{}
 
 message PingRequest{}
 
+
+message WipeDatabase{}
+
 // TODO: make this streaming
 
 
@@ -69,4 +74,5 @@ service Test {
     rpc Setup(ScenarioRequest) returns (OkResponse){}
     rpc Kill(KillRequest) returns(OkResponse){}
     rpc Ping(PingRequest) returns(OkResponse){}
+    rpc Wipe(WipeDatabase) returns (OkResponse){}
 }
