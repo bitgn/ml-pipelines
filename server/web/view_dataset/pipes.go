@@ -88,7 +88,7 @@ func renderSVG(tx *db.Tx, dataset_id string, url web.UrlResolver) template.HTML{
 		for _, input := range job.Inputs{
 			ds := db.GetDataset(tx, input)
 			sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", ds.DatasetId, ds.Name, url.ViewDataset(ds.DatasetId)))
-			sb.WriteString(fmt.Sprintf("  \"%s -> \"%s\" [arrowhead=\"none\"];", ds.DatasetId, job.JobId))
+			sb.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\" [arrowhead=\"none\"];", ds.DatasetId, job.JobId))
 		}
 
 	}

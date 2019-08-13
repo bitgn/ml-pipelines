@@ -27,7 +27,7 @@ type server struct {
 
 var (
 	webInterface = flag.String("web", "localhost:8080", "web interface to bind to")
-	grpcInterface = flag.String("grpc", "localhost:50051", "GRPC interface to bind to")
+	grpcInterface = flag.String("grpc", "localhost:9111", "GRPC interface to bind to")
 	dbFolder = flag.String("db", "db", "Folder to store local database")
 
 
