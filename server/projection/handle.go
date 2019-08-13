@@ -6,10 +6,6 @@ import (
 	"mlp/catalog/events"
 )
 
-const(
-	DEL = events.STATE_DELETE
-	VAL = events.STATE_VALUE
-)
 
 func Handle(tx *db.Tx, msg proto.Message){
 	switch e := msg.(type) {
@@ -74,54 +70,34 @@ func Handle(tx *db.Tx, msg proto.Message){
 }
 
 func mergeMetadata(src *events.DatasetMetadata, trg *db.DatasetData) {
-	if src.RecordCountState == VAL {
+	if src.RecordCountSet {
 		trg.RecordCount = src.RecordCount
-	} else if src.RecordCountState == DEL {
-		trg.RecordCount = 0
 	}
-	if src.FileCountState == VAL {
+	if src.FileCountSet {
 		trg.FileCount = src.FileCount
-	} else if src.FileCountState == DEL {
-		trg.FileCount = 0
 	}
-	if src.StorageBytesState == VAL {
+	if src.StorageBytesSet  {
 		trg.StorageBytes = src.StorageBytes
-	} else if src.StorageBytesState == DEL {
-		trg.StorageBytes = 0
 	}
-	if src.UpdateTimestampState == VAL {
+	if src.UpdateTimestampSet {
 		trg.UpdateTimestamp = src.UpdateTimestamp
-	} else if src.UpdateTimestampState == DEL {
-		trg.UpdateTimestamp = 0
 	}
-	if src.DataFormatState == VAL {
+	if src.DataFormatSet {
 		trg.DataFormat = src.DataFormat
-	} else if src.DataFormatState == DEL {
-		trg.DataFormat = ""
 	}
-	if src.DescriptionState == VAL {
+	if src.DescriptionSet {
 		trg.Description = src.Description
-	} else if src.DescriptionState == DEL {
-		trg.Description = ""
 	}
-	if src.LocationIdState == VAL {
+	if src.LocationIdSet{
 		trg.LocationId = src.LocationId
-	} else if src.LocationIdState == DEL {
-		trg.LocationId = ""
 	}
-	if src.LocationUriState == VAL {
+	if src.LocationUriSet {
 		trg.LocationUri = src.LocationUri
-	} else if src.LocationUriState == DEL {
-		trg.LocationUri = ""
 	}
-	if src.ExpertsState == VAL {
+	if src.ExpertsSet{
 		trg.Experts = src.Experts
-	} else if src.ExpertsState == DEL {
-		trg.Experts = nil
 	}
-	if src.SampleState == VAL {
+	if src.SampleSet {
 		trg.Sample = src.Sample
-	} else if src.SampleState == DEL {
-		trg.Sample = nil
 	}
 }

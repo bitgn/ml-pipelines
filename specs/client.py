@@ -18,7 +18,7 @@ class Client:
 
         request = api.CreateProjectRequest(ProjectId=project_id, ProjectName=project_name)
         resp = self.catalog.CreateProject(request)
-        
+
 
 
 def connect(url):

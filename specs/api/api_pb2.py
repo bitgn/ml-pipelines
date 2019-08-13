@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\tapi.proto\x1a\x0c\x65vents.proto\">\n\x14\x43reateProjectRequest\x12\x11\n\tProjectId\x18\x01 \x01(\t\x12\x13\n\x0bProjectName\x18\x02 \x01(\t\"\x17\n\x15\x43reateProjectResponse\"\x0c\n\nOkResponse\"J\n\x0fScenarioRequest\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x16\n\x06\x45vents\x18\x02 \x03(\x0b\x32\x06.Event\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x18\n\x05\x45rror\x12\x0f\n\x07Message\x18\x01 \x01(\t\")\n\x10ScenarioResponse\x12\x15\n\x05\x45rror\x18\x01 \x01(\x0b\x32\x06.Error\"\r\n\x0bKillRequest\"\r\n\x0bPingRequest2K\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x32z\n\x04Test\x12(\n\x05Setup\x12\x10.ScenarioRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Kill\x12\x0c.KillRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Ping\x12\x0c.PingRequest\x1a\x0b.OkResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\tapi.proto\x1a\x0c\x65vents.proto\">\n\x14\x43reateProjectRequest\x12\x11\n\tProjectId\x18\x01 \x01(\t\x12\x13\n\x0bProjectName\x18\x02 \x01(\t\"\x17\n\x15\x43reateProjectResponse\"&\n\x0c\x41pplyRequest\x12\x16\n\x06\x45vents\x18\x01 \x03(\x0b\x32\x06.Event\" \n\rApplyResponse\x12\x0f\n\x07Version\x18\x01 \x01(\x04\"7\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\"\x14\n\x12\x44\x61tasetRequestMeta\"\x0c\n\nOkResponse\"J\n\x0fScenarioRequest\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x16\n\x06\x45vents\x18\x02 \x03(\x0b\x32\x06.Event\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x18\n\x05\x45rror\x12\x0f\n\x07Message\x18\x01 \x01(\t\")\n\x10ScenarioResponse\x12\x15\n\x05\x45rror\x18\x01 \x01(\x0b\x32\x06.Error\"\r\n\x0bKillRequest\"\r\n\x0bPingRequest2u\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12(\n\x05\x41pply\x12\r.ApplyRequest\x1a\x0e.ApplyResponse\"\x00\x32z\n\x04Test\x12(\n\x05Setup\x12\x10.ScenarioRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Kill\x12\x0c.KillRequest\x1a\x0b.OkResponse\"\x00\x12#\n\x04Ping\x12\x0c.PingRequest\x1a\x0b.OkResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[events__pb2.DESCRIPTOR,])
 
@@ -90,6 +90,130 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
 )
 
 
+_APPLYREQUEST = _descriptor.Descriptor(
+  name='ApplyRequest',
+  full_name='ApplyRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Events', full_name='ApplyRequest.Events', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=116,
+  serialized_end=154,
+)
+
+
+_APPLYRESPONSE = _descriptor.Descriptor(
+  name='ApplyResponse',
+  full_name='ApplyResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Version', full_name='ApplyResponse.Version', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=156,
+  serialized_end=188,
+)
+
+
+_CREATEDATASET = _descriptor.Descriptor(
+  name='CreateDataset',
+  full_name='CreateDataset',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='dataset_id', full_name='CreateDataset.dataset_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='project_id', full_name='CreateDataset.project_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=190,
+  serialized_end=245,
+)
+
+
+_DATASETREQUESTMETA = _descriptor.Descriptor(
+  name='DatasetRequestMeta',
+  full_name='DatasetRequestMeta',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=247,
+  serialized_end=267,
+)
+
+
 _OKRESPONSE = _descriptor.Descriptor(
   name='OkResponse',
   full_name='OkResponse',
@@ -109,8 +233,8 @@ _OKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=116,
-  serialized_end=128,
+  serialized_start=269,
+  serialized_end=281,
 )
 
 
@@ -154,8 +278,8 @@ _SCENARIOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=130,
-  serialized_end=204,
+  serialized_start=283,
+  serialized_end=357,
 )
 
 
@@ -185,8 +309,8 @@ _ERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=206,
-  serialized_end=230,
+  serialized_start=359,
+  serialized_end=383,
 )
 
 
@@ -216,8 +340,8 @@ _SCENARIORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=232,
-  serialized_end=273,
+  serialized_start=385,
+  serialized_end=426,
 )
 
 
@@ -240,8 +364,8 @@ _KILLREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=275,
-  serialized_end=288,
+  serialized_start=428,
+  serialized_end=441,
 )
 
 
@@ -264,14 +388,19 @@ _PINGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=290,
-  serialized_end=303,
+  serialized_start=443,
+  serialized_end=456,
 )
 
+_APPLYREQUEST.fields_by_name['Events'].message_type = events__pb2._EVENT
 _SCENARIOREQUEST.fields_by_name['Events'].message_type = events__pb2._EVENT
 _SCENARIORESPONSE.fields_by_name['Error'].message_type = _ERROR
 DESCRIPTOR.message_types_by_name['CreateProjectRequest'] = _CREATEPROJECTREQUEST
 DESCRIPTOR.message_types_by_name['CreateProjectResponse'] = _CREATEPROJECTRESPONSE
+DESCRIPTOR.message_types_by_name['ApplyRequest'] = _APPLYREQUEST
+DESCRIPTOR.message_types_by_name['ApplyResponse'] = _APPLYRESPONSE
+DESCRIPTOR.message_types_by_name['CreateDataset'] = _CREATEDATASET
+DESCRIPTOR.message_types_by_name['DatasetRequestMeta'] = _DATASETREQUESTMETA
 DESCRIPTOR.message_types_by_name['OkResponse'] = _OKRESPONSE
 DESCRIPTOR.message_types_by_name['ScenarioRequest'] = _SCENARIOREQUEST
 DESCRIPTOR.message_types_by_name['Error'] = _ERROR
@@ -293,6 +422,34 @@ CreateProjectResponse = _reflection.GeneratedProtocolMessageType('CreateProjectR
   # @@protoc_insertion_point(class_scope:CreateProjectResponse)
   })
 _sym_db.RegisterMessage(CreateProjectResponse)
+
+ApplyRequest = _reflection.GeneratedProtocolMessageType('ApplyRequest', (_message.Message,), {
+  'DESCRIPTOR' : _APPLYREQUEST,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:ApplyRequest)
+  })
+_sym_db.RegisterMessage(ApplyRequest)
+
+ApplyResponse = _reflection.GeneratedProtocolMessageType('ApplyResponse', (_message.Message,), {
+  'DESCRIPTOR' : _APPLYRESPONSE,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:ApplyResponse)
+  })
+_sym_db.RegisterMessage(ApplyResponse)
+
+CreateDataset = _reflection.GeneratedProtocolMessageType('CreateDataset', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEDATASET,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:CreateDataset)
+  })
+_sym_db.RegisterMessage(CreateDataset)
+
+DatasetRequestMeta = _reflection.GeneratedProtocolMessageType('DatasetRequestMeta', (_message.Message,), {
+  'DESCRIPTOR' : _DATASETREQUESTMETA,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:DatasetRequestMeta)
+  })
+_sym_db.RegisterMessage(DatasetRequestMeta)
 
 OkResponse = _reflection.GeneratedProtocolMessageType('OkResponse', (_message.Message,), {
   'DESCRIPTOR' : _OKRESPONSE,
@@ -344,8 +501,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=305,
-  serialized_end=380,
+  serialized_start=458,
+  serialized_end=575,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',
@@ -354,6 +511,15 @@ _CATALOG = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CREATEPROJECTREQUEST,
     output_type=_CREATEPROJECTRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Apply',
+    full_name='Catalog.Apply',
+    index=1,
+    containing_service=None,
+    input_type=_APPLYREQUEST,
+    output_type=_APPLYRESPONSE,
     serialized_options=None,
   ),
 ])
@@ -368,8 +534,8 @@ _TEST = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=382,
-  serialized_end=504,
+  serialized_start=577,
+  serialized_end=699,
   methods=[
   _descriptor.MethodDescriptor(
     name='Setup',

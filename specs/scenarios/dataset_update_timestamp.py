@@ -42,7 +42,7 @@ def given_a_datasets_with_various_timestamps(t: env.Env):
 
         time = t.time - k
         ds.meta.update_timestamp = int(time.timestamp())
-        ds.meta.update_timestamp_state = evt.STATE.VALUE
+        ds.meta.update_timestamp_set = True
 
         value = _avoid_wrapping(v)
         conditionals.append(then.text(f'main #ds-{ds.dataset_id} .update-timestamp', value, hint=k))
@@ -57,7 +57,7 @@ def given_a_dataset_with_update_timestamp(t: env.Env):
     ds = preset.dataset_created(t, prj)
 
     ds.meta.update_timestamp = int((t.time - timedelta(days=1)).timestamp())
-    ds.meta.update_timestamp_state = evt.STATE.VALUE
+    ds.meta.update_timestamp_set = True
 
     value = _avoid_wrapping('a day ago')
 
@@ -83,7 +83,8 @@ def given_a_dataset_without_update_timestamp(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.meta.update_timestamp_state = evt.DELETE
+    ds.meta.update_timestamp = 0
+    ds.meta.update_timestamp_set = True
 
     t.given_events(prj, ds)
 

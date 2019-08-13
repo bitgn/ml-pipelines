@@ -81,7 +81,8 @@ def given_a_dataset_without_storage_size(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.meta.storage_bytes_state = evt.DELETE
+    ds.meta.storage_bytes = 0
+    ds.meta.storage_bytes_set = True
 
     t.given_events(prj, ds)
 

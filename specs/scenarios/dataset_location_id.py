@@ -7,7 +7,7 @@ def given_a_dataset_with_location_id(t: Env):
     ds = preset.dataset_created(t, prj)
 
     ds.meta.location_id = "aws"
-    ds.meta.location_id_state = evt.STATE.VALUE
+    ds.meta.location_id_set = True
 
     t.given_events(prj, ds)
 
@@ -32,7 +32,7 @@ def given_a_dataset_without_location_id(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.meta.location_id_state = evt.STATE.DELETE
+    ds.meta.location_id_set = False
 
     t.given_events(prj, ds)
 

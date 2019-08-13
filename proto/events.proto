@@ -66,12 +66,6 @@ message ExpertAdded {
 }
 
 
-enum STATE {
-    NONE = 0;
-    VALUE = 1;
-    DELETE = 2;
-}
-
 
 
 
@@ -95,30 +89,30 @@ message DatasetSample {
 message DatasetMetadata {
 
     int64 record_count = 1;
-    STATE record_count_state = 2;
+    bool record_count_set = 2;
     int64 file_count = 3;
-    STATE file_count_state = 4;
+    bool file_count_set = 4;
     int64 storage_bytes = 5;
-    STATE storage_bytes_state = 6;
+    bool storage_bytes_set = 6;
     DatasetSample sample = 7;
-    STATE sample_state = 8;
+    bool sample_set = 8;
 
     int64 update_timestamp = 9;
-    STATE update_timestamp_state = 10;
+    bool update_timestamp_set = 10;
 
     string data_format = 11;
-    STATE data_format_state = 12;
+    bool data_format_set = 12;
     string description = 13;
-    STATE description_state = 14;
+    bool description_set = 14;
 
     string location_id = 15;
-    STATE location_id_state = 16;
+    bool location_id_set = 16;
     string location_uri = 17;
-    STATE location_uri_state=18;
+    bool location_uri_set=18;
 
 
     repeated string experts = 19;
-    STATE experts_state = 20;
+    bool experts_set = 20;
 }
 
 enum Type {

@@ -33,26 +33,26 @@ def project_created(e: env.Env):
     return evt.ProjectCreated(name=name, project_id=pid)
 
 
-VAL = evt.STATE.VALUE
+
 
 def set_update_timestamp(t: env.Env, dm: evt.DatasetMetadata, days=0, minutes = 0):
     time = t.time + timedelta(days=days, minutes=minutes)
     dm.update_timestamp = int(time.timestamp())
-    dm.update_timestamp_state = evt.STATE.VALUE
+    dm.update_timestamp_set = True
 
 def set_sample(t: env.Env, dm: evt.DatasetMetadata, text: str, type=evt.DatasetSample.FORMAT.TEXT):
     dm.sample.body = text.encode()
     dm.sample.format = type
-    dm.sample_state = evt.STATE.VALUE
+    dm.sample_set = True
 
 
 def set_description(t: env.Env, dm: evt.DatasetMetadata, text: str):
     dm.description = text.encode()
-    dm.description_state = VAL
+    dm.description_set = True
 
 def set_data_format(t: env.Env, dm:evt.DatasetMetadata, text: str):
     dm.data_format = text
-    dm.data_format_state = VAL
+    dm.data_format_set = True
 
 def dataset_created(t: env.Env, e: evt.ProjectCreated):
     id = t.next_id()
@@ -64,14 +64,14 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
 
     meta = evt.DatasetMetadata()
     meta.record_count = random.randint(10, 3000)
-    meta.record_count_state = VAL
+    meta.record_count_set = True
 
     raw_bytes = random.randint(100, 2 ** 30)
     meta.storage_bytes = random.randint(int(raw_bytes / 2), int(raw_bytes))
-    meta.storage_bytes_state = VAL
+    meta.storage_bytes_set = True
 
     meta.file_count = random.randint(1, meta.record_count)
-    meta.file_count_state = VAL
+    meta.file_count_set = True
 
 
     set_update_timestamp(t, meta, minutes=-random.randint(0, 7 * 24 * 60))
@@ -90,11 +90,11 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
             meta.data_format = "json+gzip"
         else:
             meta.data_format = "json"
-        meta.data_format_state = VAL
+        meta.data_format_set = True
 
 
     if random.randint(0,2)==1:
-        meta.description_state = VAL
+        meta.description_set = True
         meta.description = """
 # Sales
 **Sales** are activities related to selling or the number of goods or services sold in a given time period.

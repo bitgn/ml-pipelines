@@ -7,7 +7,7 @@ def given_a_dataset_with_location_id(t: Env):
     ds = preset.dataset_created(t, prj)
 
     ds.meta.description = "# HELLO"
-    ds.meta.description_state = evt.STATE.VALUE
+    ds.meta.description_set = True
 
     t.given_events(prj, ds)
 
