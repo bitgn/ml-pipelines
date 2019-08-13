@@ -31,6 +31,30 @@ message JobAdded {
     repeated string outputs = 4;
 
     string project_id = 5;
+}
+
+
+message ServiceCreated {
+    string service_id = 1;
+    string project_id = 2;
+
+    ServiceMetadata meta = 3;
+}
+
+message ServiceMetadata {
+    string service_name = 1;
+    bool service_name_set = 2;
+    string location_id = 3;
+    bool location_id_set = 4;
+
+    string location_uri = 5;
+    bool location_uri_set = 6;
+
+    string description = 7;
+    bool description_set = 8;
+
+    repeated string experts = 9;
+    bool experts_set = 10;
 
 
 }
@@ -104,6 +128,7 @@ enum Type {
     Event_DatasetUpdated = 3;
     Event_ExpertAdded = 4;
     Event_JobAdded = 5;
+    Event_ServiceCreated = 6;
 }
 
 

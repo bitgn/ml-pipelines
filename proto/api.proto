@@ -23,6 +23,16 @@ service Catalog {
 }
 
 
+message CreateDataset {
+    string dataset_id = 1;
+    string project_id = 2;
+}
+
+message DatasetRequestMeta {
+
+}
+
+
 message OkResponse {
 
 }
