@@ -9,8 +9,17 @@ message CreateProjectRequest{
 message CreateProjectResponse{}
 
 
+message ApplyRequest{
+    repeated Event Events = 1;
+}
+
+message ApplyResponse{
+    uint64 Version = 1;
+}
+
 service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
+    rpc Apply(ApplyRequest) returns (ApplyResponse){}
 }
 
 

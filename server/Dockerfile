@@ -28,7 +28,7 @@ RUN find ./web -name "*.html" -o -name "*.css" | tar -cf pack -T -
 ######## Start a new stage from scratch #######
 FROM ubuntu:bionic
 
-RUN apt-get install graphviz
+RUN apt-get update && apt-get -y install graphviz
 
 WORKDIR /root/
 

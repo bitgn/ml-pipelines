@@ -17,10 +17,31 @@ type catalogServer struct{
 	db *db.DB
 }
 
+func (c *catalogServer) Apply(ctx context.Context, req *ApplyRequest) (*ApplyResponse, error) {
 
-func (c *catalogServer) publish(tx *db.Tx, e proto.Message){
+
+	tx := c.db.MustWrite()
+	defer tx.MustCleanup()
+
+	var version uint64
+
+	for _, e := range req.Events{
+		msg := events.Unmarshal(e.Type, e.Body)
+		version = c.publish(tx, msg)
+
+	}
+	tx.MustCommit()
+
+	return &ApplyResponse{
+		Version:version,
+	}, nil
+
+
+}
+
+func (c *catalogServer) publish(tx *db.Tx, e proto.Message) uint64{
 	projection.Handle(tx, e)
-	db.AppendEvent(tx, e)
+	return db.AppendEvent(tx, e)
 }
 
 func (c *catalogServer) CreateProject(ctx context.Context, r *CreateProjectRequest) (*CreateProjectResponse, error) {
