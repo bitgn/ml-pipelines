@@ -74,21 +74,21 @@ func renderSVG(tx *db.Tx, dataset_id string, url web.UrlResolver) template.HTML{
 	sb.WriteString("digraph{\n")
 	sb.WriteString("rankdir=LR;\n")
 	sb.WriteString("fontname=\"Arial\";\n")
-	sb.WriteString(`node[shape="rectangle" color="#343a40" penwidth="1.5" fontname="Arial"];`)
-	sb.WriteString(`edge[color="#343a40" penwidth="1.0"]`)
+	sb.WriteString(`node[shape="rectangle" color="#343a40" penwidth="1.5" fontname="Arial"];\n`)
+	sb.WriteString(`edge[color="#343a40" penwidth="1.0"]\n;`)
 	sb.WriteString(fmt.Sprintf("this [label=\"%s\" color=\"#28a745\"]; \n", this.Name))
 
 
 	for _, j := range this.UpstreamJobs{
 		job := db.GetJob(tx, j)
 
-		sb.WriteString(fmt.Sprintf("  %s [label=\"%s\" style=\"rounded\"]; \n", job.JobId, job.JobName))
-		sb.WriteString(fmt.Sprintf("  %s -> this;\n", job.JobId))
+		sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" style=\"rounded\"]; \n", job.JobId, job.JobName))
+		sb.WriteString(fmt.Sprintf("  \"%s\" -> this;\n", job.JobId))
 
 		for _, input := range job.Inputs{
 			ds := db.GetDataset(tx, input)
-			sb.WriteString(fmt.Sprintf("  %s [label=\"%s\" href=\"%s\"];\n", ds.DatasetId, ds.Name, url.ViewDataset(ds.DatasetId)))
-			sb.WriteString(fmt.Sprintf("  %s -> %s [arrowhead=\"none\"];", ds.DatasetId, job.JobId))
+			sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", ds.DatasetId, ds.Name, url.ViewDataset(ds.DatasetId)))
+			sb.WriteString(fmt.Sprintf("  \"%s -> \"%s\" [arrowhead=\"none\"];", ds.DatasetId, job.JobId))
 		}
 
 	}
@@ -96,13 +96,13 @@ func renderSVG(tx *db.Tx, dataset_id string, url web.UrlResolver) template.HTML{
 	for _, j := range this.DownstreamJobs{
 		job := db.GetJob(tx, j)
 
-		sb.WriteString(fmt.Sprintf("  %s [label=\"%s\" style=\"rounded\"];\n", job.JobId, job.JobName))
-		sb.WriteString(fmt.Sprintf("  this -> %s [arrowhead=\"none\"];\n", job.JobId))
+		sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" style=\"rounded\"];\n", job.JobId, job.JobName))
+		sb.WriteString(fmt.Sprintf("  this -> \"%s\" [arrowhead=\"none\"];\n", job.JobId))
 
 		for _, output := range job.Outputs{
 			ds := db.GetDataset(tx, output)
-			sb.WriteString(fmt.Sprintf("  %s [label=\"%s\" href=\"%s\"];\n", ds.DatasetId, ds.Name, url.ViewDataset(ds.DatasetId)))
-			sb.WriteString(fmt.Sprintf("  %s -> %s [arrowtail=\"none\"];", job.JobId, ds.DatasetId))
+			sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", ds.DatasetId, ds.Name, url.ViewDataset(ds.DatasetId)))
+			sb.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\" [arrowtail=\"none\"];", job.JobId, ds.DatasetId))
 
 		}
 
