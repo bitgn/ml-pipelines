@@ -121,6 +121,9 @@ func renderSVG(tx *db.Tx, dataset_id string, url web.UrlResolver) template.HTML{
 	//println(string(result))
 
 	if err != nil {
+		log.Println("Problem with SVG:", string(result))
+		log.Println("Original input:")
+		log.Println(sb.String())
 		return template.HTML(err.Error())
 	}
 

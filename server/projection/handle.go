@@ -27,6 +27,10 @@ func Handle(tx *db.Tx, msg proto.Message){
 		stats.DatasetCount +=1
 		db.SetStats(tx, stats)
 
+		prj := db.GetProject(tx, e.ProjectId)
+		prj.DatasetCount +=1
+		db.AddProject(tx, prj)
+
 	case *events.DatasetUpdated:
 		ds := db.GetDataset(tx, e.DatasetId)
 		mergeMetadata(e.Meta, ds)
@@ -36,6 +40,10 @@ func Handle(tx *db.Tx, msg proto.Message){
 		stats := db.GetStats(tx)
 		stats.JobCount +=1
 		db.SetStats(tx, stats)
+
+		prj := db.GetProject(tx, e.ProjectId)
+		prj.JobCount +=1
+		db.AddProject(tx, prj)
 
 
 		for _, input_id := range e.Inputs{

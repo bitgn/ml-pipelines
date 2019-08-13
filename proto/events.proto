@@ -80,7 +80,7 @@ message DatasetSample {
     }
 
     FORMAT format = 1;
-    bytes body = 2;
+    string body = 2;
 }
 
 
