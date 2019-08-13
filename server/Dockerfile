@@ -18,8 +18,10 @@ RUN go mod download
 # Copy the source from the current directory to the Working Directory inside the container
 COPY . .
 
+ARG VERSION=dev
+
 # Build the Go app
-RUN go build -a -installsuffix cgo -o main .
+RUN go build -ldflags "-X main.version=${VERSION}" -a -installsuffix cgo -o main .
 
 # pack the resources
 RUN find ./web -name "*.html" -o -name "*.css" | tar -cf pack -T -
@@ -44,6 +46,7 @@ COPY --from=builder /app/main .
 # import and extract the resources
 COPY --from=builder /app/pack .
 RUN tar -xvf pack && rm pack
+
 
 
 # Expose port 8080 to the outside world

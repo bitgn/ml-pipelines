@@ -9,6 +9,7 @@ import (
 	"mlp/catalog/api"
 	"mlp/catalog/db"
 	"mlp/catalog/sim"
+	"mlp/catalog/web"
 	"mlp/catalog/web/explore_datasets"
 	"mlp/catalog/web/list_projects"
 	"mlp/catalog/web/view_dataset"
@@ -21,6 +22,7 @@ import (
 
 type server struct {
 	Env *db.DB
+	version string
 }
 
 var (
@@ -31,10 +33,18 @@ var (
 
 
 	testMode = flag.Bool("test", false, "Enable test server and use async LMDB mode")
+
+
+	version = "dev"
 )
 
 
 func main() {
+
+
+	log.Printf("Starting MLP-Catalog %s", version)
+
+	web.SetVersion(version)
 
 
 	flag.Parse()
@@ -54,7 +64,7 @@ func main() {
 	defer env.Close()
 
 
-	s := &server{env}
+	s := &server{Env: env, version:version}
 
 
 	mx := mux.NewRouter()
