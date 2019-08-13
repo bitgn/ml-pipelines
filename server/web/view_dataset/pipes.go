@@ -74,8 +74,8 @@ func renderSVG(tx *db.Tx, dataset_id string, url web.UrlResolver) template.HTML{
 	sb.WriteString("digraph{\n")
 	sb.WriteString("rankdir=LR;\n")
 	sb.WriteString("fontname=\"Arial\";\n")
-	sb.WriteString(`node[shape="rectangle" color="#343a40" penwidth="1.5" fontname="Arial"];\n`)
-	sb.WriteString(`edge[color="#343a40" penwidth="1.0"]\n;`)
+	sb.WriteString("node[shape=\"rectangle\" color=\"#343a40\" penwidth=\"1.5\" fontname=\"Arial\"];\n")
+	sb.WriteString("edge[color=\"#343a40\" penwidth=\"1.0\"]\n;")
 	sb.WriteString(fmt.Sprintf("this [label=\"%s\" color=\"#28a745\"]; \n", this.Name))
 
 
