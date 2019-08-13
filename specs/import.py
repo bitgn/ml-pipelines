@@ -100,7 +100,7 @@ from api import api_pb2 as api
 parser = argparse.ArgumentParser(description='Process some integers.')
 
 parser.add_argument("--json", action="store", dest="json")
-parser.add_argument("--grpc", action="store", dest="grpc", default="dev.bitgn.com:50001")
+parser.add_argument("--grpc", action="store", dest="grpc", default="localhost:9111")
 
 args = parser.parse_args()
 
@@ -112,7 +112,6 @@ catalog = rpc.CatalogStub(channel)
 stub.Wipe(api.WipeDatabase())
 
 
-events = gen_import_events(args.json)
-
-
-catalog.Apply(api.ApplyRequest(Events=marshal.serialize(list(events))))
+if args.json:
+    events = gen_import_events(args.json)
+    catalog.Apply(api.ApplyRequest(Events=marshal.serialize(list(events))))
