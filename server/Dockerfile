@@ -36,6 +36,8 @@ WORKDIR /root/
 
 RUN mkdir db
 
+VOLUME ["/root/db"]
+
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/main .
 
@@ -48,5 +50,4 @@ RUN tar -xvf pack && rm pack
 EXPOSE 80
 EXPOSE 9111
 
-# Command to run the executable
-CMD ["./main","-web=:80","-grpc=:9111"]
+ENTRYPOINT ["./main", "-web=:80","-grpc=:9111"]

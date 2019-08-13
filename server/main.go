@@ -40,6 +40,9 @@ func main() {
 	flag.Parse()
 
 
+
+
+
 	cfg := db.NewConfig()
 
 	cfg.TestMode = *testMode
