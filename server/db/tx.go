@@ -3,6 +3,7 @@ package db
 import (
 	"github.com/bmatsuo/lmdb-go/lmdb"
 	"github.com/pkg/errors"
+	"log"
 )
 
 type Tx struct {
@@ -58,7 +59,7 @@ func (tx *Tx) MustCommit() {
 	err := tx.Tx.Commit()
 
 	if err != nil{
-		panic(err)
+		log.Fatalf("Problem in MustCommit", err)
 	}
 	tx.dirty = false
 }

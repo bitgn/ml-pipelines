@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
+	"log"
 	"mlp/catalog/db"
 	"mlp/catalog/events"
 	"mlp/catalog/projection"
@@ -21,12 +22,13 @@ type test_server struct {
 }
 
 func (t *test_server) Wipe(context.Context, *WipeDatabase) (*OkResponse, error) {
+
 	tx := t.db.MustWrite()
 
 	defer tx.MustCleanup()
 
 	if err := tx.Tx.Drop(tx.DB, false); err != nil {
-		panic(errors.Wrap(err, "Failed to empty the DB"))
+		log.Fatal(errors.Wrap(err, "Failed to empty the DB"))
 	}
 	tx.MustCommit()
 	return &OkResponse{}, nil

@@ -32,10 +32,8 @@ ready-to-test:
 	git push --tags
 	lib/deploy-qa $(PROJECT)-$(NEXT_VER)
 
-protobuf:
-	protoc -I proto proto/events.proto --go_out=server/events
-	protoc -I proto proto/db.proto --go_out=server/db
-	cd server && sed -i '' 's_events "."_events "mlp/catalog/events"_g' db/db.pb.go
-	protoc -I proto/ proto/api.proto --go_out=plugins=grpc:server/api
-	cd server && sed -i '' 's_events "."_events "mlp/catalog/events"_g' api/api.pb.go
-	#protoc --python_out=. --mypy_out=.  proto/dto.proto proto/events.proto  --plugin=protoc-gen-mypy=venv/bin/protoc-gen-mypy
+release:
+	echo "$(CURRENT_VER) - $(NEXT_VER)"
+	lib/publish-docker $(NEXT_VER)
+	git tag -a -m "Release $(NEXT_VER)" $(PROJECT)-$(NEXT_VER)
+	git push --tags

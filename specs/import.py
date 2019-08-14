@@ -106,13 +106,19 @@ args = parser.parse_args()
 
 
 channel = grpc.insecure_channel(args.grpc)
-stub = rpc.TestStub(channel)
-catalog = rpc.CatalogStub(channel)
+print("Connecting")
 
+stub = rpc.TestStub(channel)
+stub.Ping(api.PingRequest())
+
+catalog = rpc.CatalogStub(channel)
+print("Reset")
 stub.Wipe(api.WipeDatabase())
 
-
+print("Apply")
 if args.json:
     for f in args.json:
-        events = gen_import_events(f)
+        events = list(gen_import_events(f))
         catalog.Apply(api.ApplyRequest(Events=marshal.serialize(list(events))))
+        print(f"{f}: {len(events)}")
+print("Done")
