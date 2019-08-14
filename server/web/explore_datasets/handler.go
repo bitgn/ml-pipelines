@@ -1,7 +1,6 @@
 package explore_datasets
 
 import (
-	"html/template"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/web"
@@ -57,10 +56,6 @@ func datasetMatchesOne(meta *Dataset, query string) bool {
 		return true
 	}
 
-
-
-
-
 	return false
 }
 
@@ -79,15 +74,14 @@ func datasetMatchesQuery(ds *Dataset, query []string) bool {
 }
 
 
+var layout = web.DefineTemplate("web/layout.html","web/explore_datasets/content.html")
+
 func Handle(env *db.DB, w http.ResponseWriter, query string){
 	tx := env.MustRead()
 
 	defer tx.MustAbort()
 
 	datasets := db.ListAllDatasets(tx)
-
-	t := template.New("layout")
-
 
 	query = strings.ToLower(strings.TrimSpace(query))
 
@@ -108,13 +102,6 @@ func Handle(env *db.DB, w http.ResponseWriter, query string){
 		}
 	}
 
-
-	t, err := t.ParseFiles("web/layout.html","web/explore_datasets/content.html")
-	if err != nil{
-		http.Error(w, err.Error(), 408)
-		return
-	}
-
 	site := web.LoadSite(tx)
 	site.ActiveMenu="datasets"
 
@@ -122,10 +109,7 @@ func Handle(env *db.DB, w http.ResponseWriter, query string){
 
 	model.CatalogIsEmpty = len(datasets) == 0
 
-
-
-	if err = t.ExecuteTemplate(w, "layout", model); err != nil {
+	if err := layout.ExecuteTemplate(w, model); err != nil {
 		http.Error(w, err.Error(), 408)
 	}
 }
-

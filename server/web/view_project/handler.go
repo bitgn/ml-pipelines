@@ -1,7 +1,6 @@
 package view_project
 
 import (
-	"html/template"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/web"
@@ -21,6 +20,8 @@ type Model struct {
 	Datasets []*Dataset
 }
 
+var layout = web.DefineTemplate("web/layout.html","web/view_project/content.html")
+
 
 func Handle(env *db.DB, w http.ResponseWriter, id string){
 	tx := env.MustRead()
@@ -30,13 +31,7 @@ func Handle(env *db.DB, w http.ResponseWriter, id string){
 	project := db.GetProject(tx, id)
 	datasets := db.ListDatasets(tx,project.Id)
 
-	t := template.New("layout")
 
-	t, err := t.ParseFiles("web/layout.html","web/view_project/content.html")
-	if err != nil{
-		http.Error(w, err.Error(), 408)
-		return
-	}
 
 	var items []*Dataset
 
@@ -55,7 +50,8 @@ func Handle(env *db.DB, w http.ResponseWriter, id string){
 		Project: project,
 		Datasets:items,
 	}
-	if err = t.ExecuteTemplate(w, "layout", model); err != nil {
+	var err error
+	if err = layout.ExecuteTemplate(w, model); err != nil {
 		http.Error(w, err.Error(), 408)
 		panic(err)
 	}

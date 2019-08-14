@@ -29,6 +29,7 @@ var (
 	webInterface = flag.String("web", "localhost:8080", "web interface to bind to")
 	grpcInterface = flag.String("grpc", "localhost:9111", "GRPC interface to bind to")
 	dbFolder = flag.String("db", "db", "Folder to store local database")
+	devMode = flag.Bool("dev", false, "Enable dynamic template reloading")
 
 
 
@@ -45,6 +46,10 @@ func main() {
 	log.Printf("Starting MLP-Catalog %s", version)
 
 	web.SetVersion(version)
+
+	if *devMode{
+		web.EnableTemplateReloading()
+	}
 
 
 	flag.Parse()

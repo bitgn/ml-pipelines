@@ -23,7 +23,7 @@ type ViewDatsetModel struct {
 }
 
 
-
+var layout = web.DefineTemplate("web/layout.html","web/view_dataset/content.html")
 
 func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 	tx := env.MustRead()
@@ -33,14 +33,6 @@ func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 	ds := db.GetDataset(tx, datasetId)
 	pr := db.GetProject(tx, ds.ProjectId)
 
-	t := template.New("layout")
-
-
-	t, err := t.ParseFiles("web/layout.html","web/view_dataset/content.html")
-	if err != nil{
-		http.Error(w, err.Error(), 408)
-		return
-	}
 
 	site := web.LoadSite(tx)
 	site.ActiveMenu="projects"
@@ -66,7 +58,7 @@ func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 
 	var b bytes.Buffer
 	foo := bufio.NewWriter(&b)
-	if err = t.ExecuteTemplate(foo, "layout", model); err != nil {
+	if err := layout.ExecuteTemplate(foo, model); err != nil {
 		http.Error(w, err.Error(), 408)
 	} else {
 		foo.Flush()

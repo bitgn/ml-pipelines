@@ -15,6 +15,7 @@ type Site struct{
 var version = "dev"
 
 
+
 func SetVersion(ver string){
 	version = ver
 }
@@ -26,7 +27,8 @@ func LoadSite(tx *db.Tx) *Site{
 		AppVersion:version,
 	}
 	return s
-
 }
+
+
 
 

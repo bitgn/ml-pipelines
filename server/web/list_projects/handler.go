@@ -1,7 +1,6 @@
 package list_projects
 
 import (
-	"html/template"
 	"mlp/catalog/db"
 	"mlp/catalog/web"
 
@@ -13,6 +12,8 @@ type Model struct {
 	Projects []*db.ProjectData
 }
 
+var layout = web.DefineTemplate("web/layout.html","web/list_projects/content.html")
+
 
 func Handle(env *db.DB, w http.ResponseWriter){
 	tx := env.MustRead()
@@ -21,14 +22,6 @@ func Handle(env *db.DB, w http.ResponseWriter){
 
 	projects := db.ListProjects(tx)
 
-	t := template.New("layout")
-
-
-	t, err := t.ParseFiles("web/layout.html","web/list_projects/content.html")
-	if err != nil{
-		http.Error(w, err.Error(), 408)
-		return
-	}
 
 	site := web.LoadSite(tx)
 	site.ActiveMenu = "projects"
@@ -37,7 +30,8 @@ func Handle(env *db.DB, w http.ResponseWriter){
 		Site: site,
 		Projects: projects,
 	}
-	if err = t.ExecuteTemplate(w, "layout", model); err != nil {
+
+	if err:= layout.ExecuteTemplate(w, model); err != nil {
 		http.Error(w, err.Error(), 408)
 	}
 }
