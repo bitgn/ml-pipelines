@@ -14,6 +14,12 @@ def given_a_dataset(t: Env):
     preset.set_description(t, ds.meta, "readme: description_text is here")
     preset.set_data_format(t, ds.meta, "CUSTOM_FORMAT")
 
+    ds.meta.location_uri = "LOCATION_URI"
+    ds.meta.location_uri_set = True
+
+    ds.meta.location_id = "LOC_ID"
+    ds.meta.location_id_set = True
+
     t.given_events(prj, ds)
 
     invalid_queries = [
@@ -33,8 +39,12 @@ def given_a_dataset(t: Env):
         "SAMPLE_VALUE",
         "DESCRIPTION_TEXT",
         "CUSTOM_FORMAT",
+        "LOCATION_URI", 
+        "LOC_ID",
+        # multi-phrase search
         "PROJECT_N DATASET_N",
-        "PROJECT DATASET SAMPLE"
+        "PROJECT DATASET SAMPLE",
+
     ]
 
     for q in valid_queries:

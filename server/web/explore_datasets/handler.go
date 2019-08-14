@@ -47,6 +47,12 @@ func datasetMatchesOne(meta *Dataset, query string) bool {
 	if contains(ds.Description, query){
 		return true
 	}
+	if contains(ds.LocationId, query){
+		return true
+	}
+	if contains(ds.LocationUri, query){
+		return true
+	}
 	if ds.Sample != nil && contains(string(ds.Sample.Body), query){
 		return true
 	}
