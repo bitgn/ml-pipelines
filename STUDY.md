@@ -6,6 +6,12 @@ and possible applications.
 
 ## 1. Intro
 
+**Purpose of this intro**:
+
+1. Start building up an intuition about the scope of the problem.
+2. Identify for yourself if this field is something you are interested in.
+3. Set up expectations about the complexity. All the other lessons would be easier to digest.
+
 The MLP project was born out of hobby project related to replicating a
 high precision robotics arm. At this project it was frustrating to
 manage a small collection of sensor data coming from various experiments.
