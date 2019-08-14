@@ -1,9 +1,13 @@
 # ml-pipelines
 
-Applications for managing machine learning pipelines and human workflows around them, published under BSD-2 license.
+Applications for managing machine learning pipelines and human
+workflows around them, published under BSD-2 license.
 
-At the moment of writing this repository includes only the MLP Catalog - a Django application for exploring projects and datasets stored within the metadata library.
+At the moment of writing this repository includes only the MLP
+Catalog - a web aplication for exploring projects and datasets stored
+within the metadata library.
 
+To understand context of the project, check out [STUDY.md](./STUDY.md).
 
 ## Explore Datasets
 
@@ -65,6 +69,3 @@ To get started, go to the `mlp` folder and:
 3) `pip install -r requirements.txt` - install all the dependencies;
 4) `python manage.py specs` - to run tests;
 5) `python manage.py demo && python manage.py runserver` to fill up DB with demo data and launch the web UI (available at localhost:8000)
-
-
-
