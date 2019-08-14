@@ -32,3 +32,7 @@ the problem and potential solutions:
 
 For understanding the scope of the problem space, read through the
 article and watch the talk.
+
+Depending on the background, article and the talk can be a bit tricky for the 
+understanding at this point. The goal is not to understand 100%, but rather scan through these materials
+to start building up an intution about the vocabulary and the scope of the problems.
