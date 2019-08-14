@@ -4,6 +4,7 @@ import (
 	"github.com/bmatsuo/lmdb-go/lmdb"
 	"github.com/pkg/errors"
 	"log"
+	"runtime"
 )
 
 type Tx struct {
@@ -95,6 +96,8 @@ func (tx *Tx) MustAbort(){
 }
 
 func (tx *Tx) MustCleanup() {
+
+	defer runtime.UnlockOSThread()
 	if !tx.dirty {
 		tx.MustAbort()
 	}

@@ -5,6 +5,7 @@ import (
 	"github.com/bmatsuo/lmdb-go/lmdb"
 	"log"
 	"os"
+	"runtime"
 )
 
 type Config struct {
@@ -102,14 +103,13 @@ func (db *DB) MustRead() *Tx{
 }
 
 
-
-
 func (db *DB) MustWrite() *Tx{
 	tx, err := db.CreateTransaction(0)
 
 	if err != nil{
 		panic(err)
 	}
+	runtime.LockOSThread()
 	return tx
 }
 

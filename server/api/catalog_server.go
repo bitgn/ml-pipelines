@@ -18,8 +18,6 @@ type catalogServer struct{
 }
 
 func (c *catalogServer) Apply(ctx context.Context, req *ApplyRequest) (*ApplyResponse, error) {
-
-
 	tx := c.db.MustWrite()
 	defer tx.MustCleanup()
 
@@ -47,8 +45,6 @@ func (c *catalogServer) publish(tx *db.Tx, e proto.Message) uint64{
 func (c *catalogServer) CreateProject(ctx context.Context, r *CreateProjectRequest) (*CreateProjectResponse, error) {
 	tx := c.db.MustWrite()
 	defer tx.MustCleanup()
-
-
 
 	err := domain.GetProblemsWithID(r.ProjectId)
 
