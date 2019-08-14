@@ -22,7 +22,6 @@ def given_a_project(t: Env):
         then.none('main #empty-catalog-message'),
         then.count('main .project-info', 1),
         then.text(f'main #prj-{e.project_id} .project-name', e.name),
-        then.text(f'main #prj-{e.project_id} .dataset-count', '0'),
         then.link(f'main #prj-{e.project_id} .project-link', href=href, text=e.name),
     )
 

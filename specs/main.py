@@ -1,3 +1,4 @@
+import argparse
 import time
 from dataclasses import dataclass
 from typing import List
@@ -18,6 +19,15 @@ import http
 import requests
 import bs4
 
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+
+parser.add_argument("--web", action="store", dest="web", default="localhost:8080")
+parser.add_argument("--grpc", action="store", dest="grpc", default="localhost:9111")
+
+args = parser.parse_args()
+
+
 root = 'scenarios'
 sys.path.append(root)
 
@@ -25,12 +35,12 @@ file_fails = 0
 file_ok = 0
 assertion_fails = 0
 
-channel = grpc.insecure_channel('localhost:50051')
+channel = grpc.insecure_channel(args.grpc)
 stub = api_pb2_grpc.TestStub(channel)
 
 catalog = api_pb2_grpc.CatalogStub(channel)
 
-webBase = "http://localhost:8080"
+webBase = f"http://{args.web}"
 
 
 def wait_for_server_to_start():
@@ -277,7 +287,7 @@ try:
 
                     elif s.when.client_action:
                         response = s.when.client_action(catalog)
-                        print(type(response))
+                        #print(type(response))
                         if isinstance(response, grpc.RpcError):
                             typed = grpc.RpcError(response)
 

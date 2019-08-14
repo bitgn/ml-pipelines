@@ -23,7 +23,7 @@ def count(selector, c: int):
     return env.Then(_)
 
 
-def text(selector, expected: str, hint=None):
+def text(selector, expected: str, hint=None, title=None):
 
 
 
@@ -44,6 +44,8 @@ def text(selector, expected: str, hint=None):
             return msg
         if result.text.strip() != expected:
             return f"Text for '{selector}'{pretty} should be '{expected}' not '{result.text}'"
+        if title and result['title'] != title:
+                return f"Text for '{selector}'.title {pretty} should be '{title}' not '{result['title']}'"
 
     return env.Then(_)
 
