@@ -55,8 +55,21 @@ message ServiceMetadata {
 
     repeated string experts = 9;
     bool experts_set = 10;
+}
 
 
+message RelationDefined {
+    string upstream_id = 1;
+
+}
+
+
+enum ENTITY {
+    NONE = 0;
+    DATASET = 1;
+    JOB = 2;
+    SERVICE = 3;
+    MODEL = 4;
 }
 
 

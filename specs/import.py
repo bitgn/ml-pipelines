@@ -99,7 +99,7 @@ from api import api_pb2 as api
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 
-parser.add_argument("--json", action="store", dest="json")
+parser.add_argument("--json", action="append", dest="json")
 parser.add_argument("--grpc", action="store", dest="grpc", default="localhost:9111")
 
 args = parser.parse_args()
@@ -113,5 +113,6 @@ stub.Wipe(api.WipeDatabase())
 
 
 if args.json:
-    events = gen_import_events(args.json)
-    catalog.Apply(api.ApplyRequest(Events=marshal.serialize(list(events))))
+    for f in args.json:
+        events = gen_import_events(f)
+        catalog.Apply(api.ApplyRequest(Events=marshal.serialize(list(events))))
