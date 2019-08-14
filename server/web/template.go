@@ -8,8 +8,9 @@ import (
 
 var reloadTemplates = false
 
-
-func EnableTemplateReloading(){
+// AlwaysReloadTemplates - tells web server that we want to reload web templates
+// on every page refresh. This is useful for the development
+func AlwaysReloadTemplates(){
 	reloadTemplates = true
 }
 
@@ -20,10 +21,8 @@ type LoadedTemplate struct {
 	template *template.Template
 }
 
-
+// DefineTemplate - parses a new template file, failing fast if error is found
 func DefineTemplate(files ...string) *LoadedTemplate{
-
-
 	t := template.New("layout")
 
 	t, err := t.ParseFiles(files...)
@@ -38,6 +37,8 @@ func DefineTemplate(files ...string) *LoadedTemplate{
 	}
 }
 
+// ExecuteTemplate - applies the template to the data model and writes result to the output.
+// if AlwaysReloadTemplates was set, then this will trigger template reload
 func (loaded *LoadedTemplate) ExecuteTemplate(wr io.Writer, data interface{}) error {
 
 	var t *template.Template

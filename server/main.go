@@ -47,16 +47,14 @@ func main() {
 
 	web.SetVersion(version)
 
-	if *devMode{
-		web.EnableTemplateReloading()
-	}
-
 
 	flag.Parse()
 
 
-
-
+	if *devMode{
+		println("Enable dev mode")
+		web.AlwaysReloadTemplates()
+	}
 
 	cfg := db.NewConfig()
 
