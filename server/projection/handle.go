@@ -13,7 +13,6 @@ func Handle(tx *db.Tx, msg proto.Message){
 	case *events.ProjectCreated:
 		db.AddProject(tx, &db.ProjectData{Id: e.ProjectId,Name: e.Name,})
 
-
 		stats := db.GetStats(tx)
 		stats.ProjectCount +=1
 		db.SetStats(tx, stats)
@@ -60,13 +59,13 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.AddProject(tx, prj)
 
 
-		for _, input_id := range e.Inputs{
-			ds := db.GetDataset(tx, input_id)
+		for _, inputId := range e.Inputs{
+			ds := db.GetDataset(tx, inputId)
 			ds.DownstreamJobs = append(ds.DownstreamJobs, e.JobId)
 			db.UpdDataset(tx, ds)
 		}
-		for _, output_id := range e.Outputs{
-			ds := db.GetDataset(tx, output_id)
+		for _, outputId := range e.Outputs{
+			ds := db.GetDataset(tx, outputId)
 			ds.UpstreamJobs = append(ds.UpstreamJobs, e.JobId)
 			db.UpdDataset(tx, ds)
 		}
@@ -84,8 +83,6 @@ func Handle(tx *db.Tx, msg proto.Message){
 		stats := db.GetStats(tx)
 		stats.ExpertCount +=1
 		db.SetStats(tx, stats)
-
-
 	}
 
 
