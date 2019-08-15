@@ -88,9 +88,15 @@ _Stephen Pimentel_ gave a 5 minute talk on [machine learning pipelines
 at Apple](https://www.youtube.com/watch?v=16uU_Aaxp9Y). Watch it get
 an idea of what steps does the ML Pipelines involve.
 
+### Tasks
 
+1. Read a article on [How to Move Beyond a
+Monolithic Data Lake to a Distributed Data
+Mesh](https://martinfowler.com/articles/data-monolith-to-mesh.html)
+2. Watch video about [machine learning pipelines
+at Apple](https://www.youtube.com/watch?v=16uU_Aaxp9Y)
 
-### Extra Reading
+### Bonus
 
 To gain more contextual understanding about building robotic hands
 watch some [Haddington Dynamics Videos](http://hdrobotic.com/videos)
@@ -102,5 +108,26 @@ and read through these blog posts about replicating their technology:
 
   
 ## Chapter 2. Data Science is done in Python
+
+
+Python is currently the most popular day-to-day language that Data
+Scientists use to develop their models (e.g. Jupyter Notebooks,
+pandas, numpy, matplotlib). A lot of data processing is done in this
+language as well (Apache Airflow, Dask Distributed, Apache Beam).
+
+### Tasks
+
+Go through the [Jupyter Notebook
+Tutorial](https://www.dataquest.io/blog/jupyter-notebook-tutorial/). You
+would need to:
+
+- Install Python
+- Install Jupyter Notebook
+- Launch the Notebook
+- Familiarize yourself with the interface
+- Try running some python snippets in that interface
+
+
+
 
 _to be continued_
