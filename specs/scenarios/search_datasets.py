@@ -39,7 +39,7 @@ def given_a_dataset(t: Env):
         "SAMPLE_VALUE",
         "DESCRIPTION_TEXT",
         "CUSTOM_FORMAT",
-        "LOCATION_URI", 
+        "LOCATION_URI",
         "LOC_ID",
         # multi-phrase search
         "PROJECT_N DATASET_N",
