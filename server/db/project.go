@@ -15,7 +15,7 @@ func GetProject(tx *Tx, id string) (*ProjectData){
 
 func ListProjects(tx *Tx) []*ProjectData{
 	var vals []*ProjectData
-	tx.ScanRange(CreateKey(Range_PROJECTS), func(k,v []byte){
+	tx.MustScanRange(CreateKey(Range_PROJECTS), func(k,v []byte){
 		val := &ProjectData{}
 		mustUnmarshal(v, val)
 		vals = append(vals, val)

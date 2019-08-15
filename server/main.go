@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"mlp/catalog/api"
+	"mlp/catalog/core"
 	"mlp/catalog/db"
 	"mlp/catalog/sim"
 	"mlp/catalog/web"
@@ -30,12 +31,8 @@ var (
 	grpcInterface = flag.String("grpc", "localhost:9111", "GRPC interface to bind to")
 	dbFolder = flag.String("db", "db", "Folder to store local database")
 	devMode = flag.Bool("dev", false, "Enable dynamic template reloading")
-
-
-
 	testMode = flag.Bool("test", false, "Enable test server and use async LMDB mode")
-
-
+	upgrade = flag.String("upgrade", "auto", "Upgrade projections: auto, force, none")
 	version = "dev"
 )
 
@@ -46,13 +43,13 @@ func main() {
 	log.Printf("Starting MLP-Catalog %s", version)
 
 	web.SetVersion(version)
-
-
 	flag.Parse()
 
 
-	if *devMode{
-		println("Enable dev mode")
+
+
+	if *devMode {
+		log.Println("Enable template reloading")
 		web.AlwaysReloadTemplates()
 	}
 
@@ -60,15 +57,22 @@ func main() {
 
 	cfg.TestMode = *testMode
 	env, err := db.New(*dbFolder, cfg)
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 
 	defer env.Close()
 
 
-	s := &server{Env: env, version:version}
+	switch *upgrade {
+	case "auto":
+		core.UpgradeDB(env, version, core.UpgradePolicy_Auto)
+	case "force":
+		core.UpgradeDB(env, version, core.UpgradePolicy_Force)
+	}
 
+
+	s := &server{Env: env, version: version}
 
 	mx := mux.NewRouter()
 	// static content
@@ -82,16 +86,17 @@ func main() {
 	// vie project
 	mx.HandleFunc("/projects/{project_id}", simWrap(s.projectHandler))
 
-
 	mx.Path("/").HandlerFunc(simWrap(s.projectsHandler))
 
 
 
-	go runGrpc(env)
+	log.Printf("Starting web at %s gRPC at %s\n", *webInterface, *grpcInterface)
 
+	go runGrpc(env)
 
 	log.Fatal(http.ListenAndServe(*webInterface, mx))
 }
+
 
 func runGrpc(env *db.DB){
 	lis, err := net.Listen("tcp", *grpcInterface)

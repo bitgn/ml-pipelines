@@ -27,7 +27,7 @@ func GetDataset(tx *Tx, id string) *DatasetData{
 
 func ListDatasets(tx *Tx, projectId string) []*DatasetData{
 	var vals []*DatasetData
-	tx.ScanRange(CreateKey(Range_PROJECT_DATASETS, projectId), func(k,v []byte){
+	tx.MustScanRange(CreateKey(Range_PROJECT_DATASETS, projectId), func(k,v []byte){
 
 		if tpl, err := tuple.Unpack(k); err != nil {
 			panic(errors.Wrap(err, "Failed to unpack"))
@@ -43,7 +43,7 @@ func ListDatasets(tx *Tx, projectId string) []*DatasetData{
 
 func ListAllDatasets(tx *Tx) []*DatasetData{
 	var vals []*DatasetData
-	tx.ScanRange(CreateKey(Range_DATASETS), func(k,v []byte){
+	tx.MustScanRange(CreateKey(Range_DATASETS), func(k,v []byte){
 		val := &DatasetData{}
 		mustUnmarshal(v, val)
 		vals = append(vals, val)

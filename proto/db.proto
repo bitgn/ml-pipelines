@@ -14,6 +14,9 @@ enum Range {
     ASSET_CACHE= 6;
     EXPERTS=7;
 
+
+    VERSION=255;
+
 }
 
 
@@ -95,37 +98,6 @@ message AssetCache{
 }
 
 
-message ChunkData {
-    string hash = 1;
-    string name = 2;
-    int64 raw_size = 3;
-    int64 zip_size = 4;
-}
-
-
-enum LinkType {
-    UNIVERSAL=0;
-    UPLOAD=1;
-}
-
-message SourceLink {
-    LinkType kind = 1;
-    string source_name = 2;
-    string user_name = 3;
-
-}
-
-message VersionData {
-    int32 version = 1;
-    repeated ChunkData chunks = 2;
-    repeated SourceLink sources = 3;
-    int64 raw_size = 4;
-    int64 zip_size = 5;
-    string dataset_id = 6;
-
-    DatasetDescriptor descriptor = 7;
-
-}
 
 
 
@@ -139,4 +111,9 @@ message DatasetDescriptor {
     int64 record_count = 2;
     repeated FieldSchema schema = 3;
     string sample_string = 4;
+}
+
+
+message AppVersionData {
+    string ProjectionVersion = 1;
 }

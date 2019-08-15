@@ -6,6 +6,7 @@ import (
 	"github.com/bmatsuo/lmdb-go/lmdbscan"
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
+	"log"
 
 	"github.com/abdullin/lex-go/tuple"
 )
@@ -91,7 +92,7 @@ func (tx *Tx) GetPrev(key []byte) (k, v []byte, err error) {
 	return
 }
 
-func (tx *Tx) ScanRange(key []byte, row func(k, v []byte))  {
+func (tx *Tx) MustScanRange(key []byte, row func(k, v []byte))  {
 	scanner := lmdbscan.New(tx.Tx, tx.DB)
 	defer scanner.Close()
 	if !scanner.Set(key, nil, lmdb.SetRange) {
@@ -109,13 +110,27 @@ func (tx *Tx) ScanRange(key []byte, row func(k, v []byte))  {
 		panic(errors.Wrap(err, "Scanner					"))
 	}
 }
-func (t *Tx) DelRange(key []byte) error {
+
+// MustDelRangeByPrefix removes a range and returns number of deleted values
+// Panics on problems
+func (t *Tx) MustDelRangeByPrefix(key []byte) int {
+	count, err := t.DelRangeByPrefix(key)
+
+	if err != nil{
+		log.Panicln("Failed to delete range", err)
+	}
+	return count
+}
+
+func (t *Tx) DelRangeByPrefix(key []byte) (int,error) {
 
 	scanner := lmdbscan.New(t.Tx, t.DB)
 	defer scanner.Close()
 
+	count := 0
+
 	if !scanner.Set(key, nil, lmdb.SetRange) {
-		return nil
+		return count, nil
 	}
 
 	for scanner.Scan() {
@@ -125,9 +140,10 @@ func (t *Tx) DelRange(key []byte) error {
 
 		err := t.Tx.Del(t.DB, scanner.Key(), nil)
 		if err != nil {
-			return err
+			return count, err
 		}
+		count +=1
 	}
 
-	return scanner.Err()
+	return count, scanner.Err()
 }
