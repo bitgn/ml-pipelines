@@ -1,26 +1,28 @@
 # ML for Software Engineers
 
-This is the self-study course. Audience: people with software
-engineering background that want to get into the Machine Learning.
+This is the self-study course. It is aimed at **people with software
+engineering background that want to get into the Machine Learning**.
 
-Within the course we'll be sharing our experience of building and 
-evolving data science infrastructures.
+Within the course we'll be sharing our experience of building and
+evolving data science infrastructures that had productive ML as the
+ultimate goal.
 
-Purpose of this course:
+**Purpose of this course**:
 
 - strengthen our own understanding of the domain by sharing the
-  experience in a structured form; we learn more by sharing;
-- build up a small community that knows about our problems and
+  experience in a structured form; **we learn better by sharing**;
+- **build up a small community** that knows about our problems and
   tools that we use;
-- find potential colleagues to work with at future projects (both
-  within the [Software Park](https://www.softwarepark.cc) and directly at our clients).
+- maybe even **find potential colleagues to work with at future
+  projects** (both within the [Software
+  Park](https://www.softwarepark.cc) and at our clients).
   
-All of these goals are long-term: 2-10 years into the future.
-  
-The course itself is a work-in-progress. We are just getting started. 
+The course itself is a work-in-progress, and we are just getting
+started. v1.0 is expected to be done by the end of 2020 (very rough
+estimate).
 
-Planned scope of things that we work with and want to share (in no
-particular order):
+**Scope of things that we work with and want to share**, in no
+particular order:
 
 - R&D environments for the data scientists. 
 - Data extraction and transformation pipelines.
@@ -41,7 +43,7 @@ infrastructure in a company. They have to be addressed if
 Machine Learning were to be applied in a scalable, reproducible and
 productive way.
 
-Any person would have a significant value on the job market if he, she
+Any person would have a **significant value on the job market** if he, she
 or they could:
 
 - talk to the company that wants to introduce or scale its Machine
