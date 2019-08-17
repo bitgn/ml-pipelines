@@ -1,15 +1,58 @@
-# STUDY
+# ML for Software Engineers
 
+This is the self-study course. Audience: people with software
+engineering background that want to get into the Machine Learning.
 
-Let's do a dive into the world of Machine Learning Pipelines from the
-perspective of _ML Infrastructure Architect_ or _Data Platform
-Engineer_.
+Within the course we'll be sharing our experience of building and 
+evolving data science infrastructures.
 
+Purpose of this course:
 
-We will do that by going through a set of self-study materials and
-using ML-Pipelines project as a reference.
+- strengthen our own understanding of the domain by sharing the
+  experience in a structured form; we learn more by sharing;
+- build up a small community that knows about our problems and
+  tools that we use;
+- find potential colleagues to work with at future projects (both
+  within the [Software Park](https://www.softwarepark.cc) and directly at our clients).
+  
+All of these goals are long-term: 2-10 years into the future.
+  
+The course itself is a work-in-progress. We are just getting started. 
 
+Planned scope of things that we work with and want to share (in no
+particular order):
 
+- R&D environments for the data scientists. 
+- Data extraction and transformation pipelines.
+- Data lakes, data meshes and data warehouses.
+- Managing and monitoring quality of the data.
+- Research life-cycle: exploration, theory, prototypes, production.
+- Working on-the-premises and in the cloud.
+- Securing sensitive data.
+- Enabling collaboration on domain data in multi-department companies.
+- Distributed data processing.
+- Data lineage and provenance.
+- Managing models and deploying them into the production.
+- Gathering model telemetry and establishing feedback loops.
+- Kubernetes, Helm and when they are useful.
+
+These topics are important to consider when rolling out data science
+infrastructure in a company. They have to be addressed if
+Machine Learning were to be applied in a scalable, reproducible and
+productive way.
+
+Any person would have a significant value on the job market if he, she
+or they could:
+
+- talk to the company that wants to introduce or scale its Machine
+  Learning efforts;
+- understand current problems and offer actionable plan to solve them;
+- lead the way in implementing the plan (start the development
+  hands-on, hire and train teams, manage the ongoing work).
+
+Hence this course.
+
+_Shall we get started?_
 
 
 ## Chapter 1. Intro into the Domain
