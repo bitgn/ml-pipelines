@@ -135,7 +135,7 @@ an idea of what steps does the ML Pipelines involve.
 
 ### Tasks
 
-1. Read a article on [How to Move Beyond a
+1. Read an article on [How to Move Beyond a
 Monolithic Data Lake to a Distributed Data
 Mesh](https://martinfowler.com/articles/data-monolith-to-mesh.html)
 2. Watch video about [machine learning pipelines
