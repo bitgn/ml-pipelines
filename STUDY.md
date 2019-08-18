@@ -75,7 +75,7 @@ _Shall we get started?_
 > inference instead. It is seen as a subset of artificial intelligence.
 
 All this sounds nice, but how does it apply to reality? Let's consider
-an example domain of a company the specializes in producing and
+an example domain of a company that specializes in producing and
 selling robotic hands to supply warehouses and factories on a large
 scale (we are obviously taking [Haddington
 Dynamics](http://hdrobotic.com) as an inspiration).
