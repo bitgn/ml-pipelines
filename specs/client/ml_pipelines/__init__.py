@@ -4,8 +4,8 @@ name = "MLP"
 import grpc
 
 
-from . import api_pb2 as api
-from . import api_pb2_grpc as rpc
+from . import mlp_api_pb2 as api
+from . import mlp_api_pb2_grpc as rpc
 
 class Client:
     def __init__(self, catalog: rpc.CatalogStub):
@@ -14,9 +14,9 @@ class Client:
 
 
     def create_project(self, project_id: str, project_name: str):
-
         request = api.CreateProjectRequest(ProjectId=project_id, ProjectName=project_name)
         resp = self.catalog.CreateProject(request)
+        return resp
 
 
     def stats(self):

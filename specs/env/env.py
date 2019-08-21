@@ -1,12 +1,12 @@
 import datetime as dt
-from typing import List, Callable, Optional
-import test_api as api
+from typing import List, Callable, Optional, Any
 import bs4
 from dataclasses import dataclass
 import requests as r
-from google.protobuf.message import Message
 from faker import Faker
 
+
+from client import ml_pipelines as client
 
 class Env:
     def __init__(self):
@@ -42,7 +42,7 @@ class Env:
 @dataclass
 class When:
     web_action: Optional[Callable[[r.Session, str], r.Response]]
-    client_action: Optional[Callable[[api.CatalogStub], Message]]
+    client_action: Optional[Callable[[client.Client], Any]]
     text: str
 
 

@@ -20,6 +20,8 @@ import http
 import requests
 import bs4
 
+import client.ml_pipelines as client
+
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 
@@ -38,8 +40,9 @@ assertion_fails = 0
 
 channel = grpc.insecure_channel(args.grpc)
 test_service = api.TestStub(channel)
+app_client = client.connect(args.grpc)
 
-mlp_service = api.CatalogStub(channel)
+
 
 webBase = f"http://{args.web}"
 
@@ -287,7 +290,7 @@ try:
 
 
                     elif s.when.client_action:
-                        response = s.when.client_action(mlp_service)
+                        response = s.when.client_action(app_client)
                         #print(type(response))
                         if isinstance(response, grpc.RpcError):
                             typed = grpc.RpcError(response)
