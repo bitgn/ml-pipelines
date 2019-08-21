@@ -20,7 +20,10 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: BSD 2-Clause",
+        "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
+        "Development Status :: 3 - Alpha",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Education"
     ],
 )
