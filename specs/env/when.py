@@ -4,8 +4,8 @@ import env
 import urllib.parse as url
 
 
-from api import api_pb2_grpc as api
-from api import api_pb2 as ap
+from test_api import api_pb2_grpc as api
+from test_api import api_pb2 as ap
 
 def view_dataset(ds_id):
     return _get_page("view_dataset",  env.urls.view_dataset(ds_id))
