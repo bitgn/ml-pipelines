@@ -22,4 +22,4 @@ clean:
 	rm -rf mlp_client.egg-info || True
 
 dist: clean
-	VERSION=$(VERSION) python3 setuptools_client.py sdist
+	VERSION=$(VERSION) python3 setup.py sdist
