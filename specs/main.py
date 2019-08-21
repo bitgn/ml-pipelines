@@ -4,8 +4,9 @@ from dataclasses import dataclass
 from typing import List
 
 import grpc
-from test_api import api_pb2_grpc, marshal
-from test_api import api_pb2 as api
+
+import test_api as api
+
 from evil.colors import *
 import importlib
 import os
@@ -36,9 +37,9 @@ file_ok = 0
 assertion_fails = 0
 
 channel = grpc.insecure_channel(args.grpc)
-stub = api_pb2_grpc.TestStub(channel)
+test_service = api.TestStub(channel)
 
-catalog = api_pb2_grpc.CatalogStub(channel)
+mlp_service = api.CatalogStub(channel)
 
 webBase = f"http://{args.web}"
 
@@ -46,7 +47,7 @@ webBase = f"http://{args.web}"
 def wait_for_server_to_start():
     while True:
         try:
-            stub.Ping(api.PingRequest())
+            test_service.Ping(api.PingRequest())
             break
         except:
             time.sleep(0.1)
@@ -250,8 +251,8 @@ try:
                 req = api.ScenarioRequest(Name=name)
                 req.timestamp = int(test_env.time.timestamp())
 
-                req.Events.extend(marshal.serialize(test_env.events))
-                stub.Setup(req)
+                req.Events.extend(api.serialize(test_env.events))
+                test_service.Setup(req)
 
                 for s in test_env.scenarios:
 
@@ -286,7 +287,7 @@ try:
 
 
                     elif s.when.client_action:
-                        response = s.when.client_action(catalog)
+                        response = s.when.client_action(mlp_service)
                         #print(type(response))
                         if isinstance(response, grpc.RpcError):
                             typed = grpc.RpcError(response)

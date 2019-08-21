@@ -5,11 +5,14 @@ import os
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-version = os.getenv("VERSION", "0.0.1")
+version = os.getenv("VERSION")
+
+if not version:
+    version = "dev"
 
 
 setuptools.setup(
-    name="mlp-client",
+    name="ml_pipelines",
     version=version,
     author="Rinat Abdullin",
     author_email="rinat@abdullin.com",
@@ -18,6 +21,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/bitgn/ml-pipelines",
     packages=setuptools.find_packages(),
+    install_requires=[
+        'grpcio>=1.12.0',
+        'protobuf'
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: BSD License",

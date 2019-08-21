@@ -1,7 +1,0 @@
-global-exclude *.py
-
-
-include mlp_client/*.py
-include mlp_client/*.pyi
-
-include README.md

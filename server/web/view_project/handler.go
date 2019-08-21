@@ -3,7 +3,7 @@ package view_project
 import (
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
-	"mlp/catalog/web"
+	"mlp/catalog/web/shared"
 	"net/http"
 )
 
@@ -15,16 +15,29 @@ type Dataset struct {
 
 
 type Model struct {
-	*web.Site
+	*shared.Site
 	Project *db.ProjectData
 	Datasets []*Dataset
 }
 
-var layout = web.DefineTemplate("web/layout.html","web/view_project/content.html")
+
+type Handler struct {
+	Layout *shared.LoadedTemplate
+	Env    *db.DB
+}
 
 
-func Handle(env *db.DB, w http.ResponseWriter, id string){
-	tx := env.MustRead()
+
+func NewHandler(env *db.DB, tl *shared.TemplateLoader) *Handler{
+	return &Handler{
+		Layout: tl.DefineTemplate("web/layout.html","web/view_project/content.html"),
+		Env:    env,
+	}
+}
+
+
+func (h *Handler) Handle(w http.ResponseWriter, id string){
+	tx := h.Env.MustRead()
 
 	defer tx.MustAbort()
 
@@ -42,7 +55,7 @@ func Handle(env *db.DB, w http.ResponseWriter, id string){
 		})
 	}
 
-	mod := web.LoadSite(tx)
+	mod := shared.LoadSite(tx)
 	mod.ActiveMenu="projects"
 
 	model := &Model{
@@ -51,7 +64,7 @@ func Handle(env *db.DB, w http.ResponseWriter, id string){
 		Datasets:items,
 	}
 	var err error
-	if err = layout.ExecuteTemplate(w, model); err != nil {
+	if err = h.Layout.Exec(w, model); err != nil {
 		http.Error(w, err.Error(), 408)
 		panic(err)
 	}

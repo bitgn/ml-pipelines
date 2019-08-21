@@ -4,9 +4,7 @@ import env
 import urllib.parse as url
 
 
-from test_api import api_pb2_grpc as api
-from test_api import api_pb2 as ap
-
+import test_api as api
 def view_dataset(ds_id):
     return _get_page("view_dataset",  env.urls.view_dataset(ds_id))
 
@@ -27,7 +25,7 @@ def list_projects():
     return _get_page("list projects", env.urls.list_projects())
 
 
-def create_project(s: ap.CreateProjectRequest):
+def create_project(s: api.CreateProjectRequest):
 
     def _(stub: api.CatalogStub):
 

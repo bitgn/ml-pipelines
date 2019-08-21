@@ -9,15 +9,15 @@ import (
 )
 
 type Config struct {
-	TestMode bool
-	SizeMbs  int64
+	Async   bool
+	SizeMbs int64
 }
 
 func NewConfig() *Config {
 
 	return &Config{
-		TestMode: false,
-		SizeMbs:  1024,
+		Async:   false,
+		SizeMbs: 1024,
 
 	}
 
@@ -55,7 +55,7 @@ func New(folder string, cfg *Config) (*DB, error) {
 
 	var flags uint
 
-	if cfg.TestMode {
+	if cfg.Async {
 		flags |= lmdb.NoSync | lmdb.NoMetaSync | lmdb.NoMemInit
 
 	}

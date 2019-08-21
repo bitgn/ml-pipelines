@@ -2,28 +2,38 @@ package list_projects
 
 import (
 	"mlp/catalog/db"
-	"mlp/catalog/web"
+	"mlp/catalog/web/shared"
 
 	"net/http"
 )
 
 type Model struct {
-	*web.Site
+	*shared.Site
 	Projects []*db.ProjectData
 }
 
-var layout = web.DefineTemplate("web/layout.html","web/list_projects/content.html")
 
+type Handler struct {
+	env *db.DB
+	layout *shared.LoadedTemplate
+}
 
-func Handle(env *db.DB, w http.ResponseWriter){
-	tx := env.MustRead()
+func NewHandler(env *db.DB, tl *shared.TemplateLoader) *Handler{
+	return &Handler{
+		env:env,
+		layout: tl.DefineTemplate("web/layout.html","web/list_projects/content.html"),
+	}
+}
+
+func (h *Handler) Handle(w http.ResponseWriter){
+	tx := h.env.MustRead()
 
 	defer tx.MustAbort()
 
 	projects := db.ListProjects(tx)
 
 
-	site := web.LoadSite(tx)
+	site := shared.LoadSite(tx)
 	site.ActiveMenu = "projects"
 
 	model := &Model{
@@ -31,7 +41,7 @@ func Handle(env *db.DB, w http.ResponseWriter){
 		Projects: projects,
 	}
 
-	if err:= layout.ExecuteTemplate(w, model); err != nil {
+	if err:= h.layout.Exec(w, model); err != nil {
 		http.Error(w, err.Error(), 408)
 	}
 }

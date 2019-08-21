@@ -16,4 +16,7 @@ README.md
 .LSOverride
 
 
+dist
+main
+
 *.mdb

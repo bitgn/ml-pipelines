@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\tapi.proto\">\n\x14\x43reateProjectRequest\x12\x11\n\tProjectId\x18\x01 \x01(\t\x12\x13\n\x0bProjectName\x18\x02 \x01(\t\"\x17\n\x15\x43reateProjectResponse\"7\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t2K\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\tapi.proto\">\n\x14\x43reateProjectRequest\x12\x11\n\tProjectId\x18\x01 \x01(\t\x12\x13\n\x0bProjectName\x18\x02 \x01(\t\"\x17\n\x15\x43reateProjectResponse\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"7\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t2r\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -88,6 +88,61 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
 )
 
 
+_STATREQUEST = _descriptor.Descriptor(
+  name='StatRequest',
+  full_name='StatRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=102,
+  serialized_end=115,
+)
+
+
+_STATRESPONSE = _descriptor.Descriptor(
+  name='StatResponse',
+  full_name='StatResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='version', full_name='StatResponse.version', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=117,
+  serialized_end=148,
+)
+
+
 _CREATEDATASET = _descriptor.Descriptor(
   name='CreateDataset',
   full_name='CreateDataset',
@@ -121,12 +176,14 @@ _CREATEDATASET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=102,
-  serialized_end=157,
+  serialized_start=150,
+  serialized_end=205,
 )
 
 DESCRIPTOR.message_types_by_name['CreateProjectRequest'] = _CREATEPROJECTREQUEST
 DESCRIPTOR.message_types_by_name['CreateProjectResponse'] = _CREATEPROJECTRESPONSE
+DESCRIPTOR.message_types_by_name['StatRequest'] = _STATREQUEST
+DESCRIPTOR.message_types_by_name['StatResponse'] = _STATRESPONSE
 DESCRIPTOR.message_types_by_name['CreateDataset'] = _CREATEDATASET
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -144,6 +201,20 @@ CreateProjectResponse = _reflection.GeneratedProtocolMessageType('CreateProjectR
   })
 _sym_db.RegisterMessage(CreateProjectResponse)
 
+StatRequest = _reflection.GeneratedProtocolMessageType('StatRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STATREQUEST,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:StatRequest)
+  })
+_sym_db.RegisterMessage(StatRequest)
+
+StatResponse = _reflection.GeneratedProtocolMessageType('StatResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STATRESPONSE,
+  '__module__' : 'api_pb2'
+  # @@protoc_insertion_point(class_scope:StatResponse)
+  })
+_sym_db.RegisterMessage(StatResponse)
+
 CreateDataset = _reflection.GeneratedProtocolMessageType('CreateDataset', (_message.Message,), {
   'DESCRIPTOR' : _CREATEDATASET,
   '__module__' : 'api_pb2'
@@ -159,8 +230,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=159,
-  serialized_end=234,
+  serialized_start=207,
+  serialized_end=321,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',
@@ -169,6 +240,15 @@ _CATALOG = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CREATEPROJECTREQUEST,
     output_type=_CREATEPROJECTRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Stat',
+    full_name='Catalog.Stat',
+    index=1,
+    containing_service=None,
+    input_type=_STATREQUEST,
+    output_type=_STATRESPONSE,
     serialized_options=None,
   ),
 ])

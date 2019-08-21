@@ -1,6 +1,7 @@
-package api
+package test_api
 
 import (
+	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"log"
@@ -14,14 +15,42 @@ import (
 //Setup(context.Context, *ScenarioRequest) (*ScenarioResponse, error)
 
 
-type test_server struct {
-
-	// TODO: async DB would be faster for tests
+type server struct {
 	db *db.DB
-
 }
 
-func (t *test_server) Wipe(context.Context, *WipeDatabase) (*OkResponse, error) {
+func NewServer(db *db.DB) TestServer{
+	return &server{db}
+}
+
+
+
+func (c *server) Apply(ctx context.Context, req *ApplyRequest) (*ApplyResponse, error) {
+	tx := c.db.MustWrite()
+	defer tx.MustCleanup()
+
+	var version uint64
+
+	for _, e := range req.Events{
+		msg := events.Unmarshal(e.Type, e.Body)
+		version = c.publish(tx, msg)
+
+	}
+	tx.MustCommit()
+
+	return &ApplyResponse{
+		Version:version,
+	}, nil
+}
+
+
+func (c *server) publish(tx *db.Tx, e proto.Message) uint64{
+	projection.Handle(tx, e)
+	return db.AppendEvent(tx, e)
+}
+
+
+func (t *server) Wipe(context.Context, *WipeDatabase) (*OkResponse, error) {
 
 	print("Open tx to delete")
 	tx := t.db.MustWrite()
@@ -37,11 +66,11 @@ func (t *test_server) Wipe(context.Context, *WipeDatabase) (*OkResponse, error) 
 	return &OkResponse{}, nil
 }
 
-func (t *test_server) Ping(context.Context, *PingRequest) (*OkResponse, error) {
+func (t *server) Ping(context.Context, *PingRequest) (*OkResponse, error) {
 	return &OkResponse{}, nil
 }
 
-func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*OkResponse, error){
+func (t *server) Setup(ctx context.Context, req *ScenarioRequest) (*OkResponse, error){
 	//fmt.Printf("Received scenario '%s' with %d events\n", req.Name, len(req.Events))
 
 	sim.Start()
@@ -70,15 +99,13 @@ func (t *test_server) Setup(ctx context.Context, req *ScenarioRequest) (*OkRespo
 	return &OkResponse{}, nil
 }
 
-func (t *test_server) Kill(ctx context.Context, req *KillRequest) (*OkResponse, error){
+func (t *server) Kill(ctx context.Context, req *KillRequest) (*OkResponse, error){
 	os.Exit(0)
 	return &OkResponse{}, nil
 }
 
 
-func NewTestServer(db *db.DB) TestServer{
-	return &test_server{db}
-}
+
 
 
 

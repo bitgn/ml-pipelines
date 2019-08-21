@@ -3,7 +3,7 @@ package explore_datasets
 import (
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
-	"mlp/catalog/web"
+	"mlp/catalog/web/shared"
 	"net/http"
 	"strings"
 )
@@ -16,7 +16,7 @@ type Dataset struct {
 }
 
 type Model struct {
-	*web.Site
+	*shared.Site
 	Items []*Dataset
 	Query string
 	CatalogIsEmpty bool
@@ -73,11 +73,25 @@ func datasetMatchesQuery(ds *Dataset, query []string) bool {
 	return true
 }
 
+type Handler struct {
+	layout *shared.LoadedTemplate
+	env *db.DB
+}
 
-var layout = web.DefineTemplate("web/layout.html","web/explore_datasets/content.html")
 
-func Handle(env *db.DB, w http.ResponseWriter, query string){
-	tx := env.MustRead()
+func NewHandler(db *db.DB, tl *shared.TemplateLoader) *Handler{
+
+
+	return &Handler{
+		layout:tl.DefineTemplate("web/layout.html","web/explore_datasets/content.html"),
+		env:db,
+
+	}
+}
+
+
+func (h *Handler) Handle(w http.ResponseWriter, query string){
+	tx := h.env.MustRead()
 
 	defer tx.MustAbort()
 
@@ -102,14 +116,14 @@ func Handle(env *db.DB, w http.ResponseWriter, query string){
 		}
 	}
 
-	site := web.LoadSite(tx)
+	site := shared.LoadSite(tx)
 	site.ActiveMenu="datasets"
 
 	model := &Model{Site: site, Items: metas, Query: query}
 
 	model.CatalogIsEmpty = len(datasets) == 0
 
-	if err := layout.ExecuteTemplate(w, model); err != nil {
+	if err := h.layout.Exec(w, model); err != nil {
 		http.Error(w, err.Error(), 408)
 	}
 }

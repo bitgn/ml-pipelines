@@ -18,9 +18,6 @@ func Start(){
 	sim_running = true
 }
 
-func Stop() {
-	sim_running = false
-}
 
 func IsRunning() bool {
 	return sim_running

@@ -1,5 +1,5 @@
 from env import *
-from test_api import api_pb2 as api
+import test_api as api
 
 
 def given_empty_system(e: Env):

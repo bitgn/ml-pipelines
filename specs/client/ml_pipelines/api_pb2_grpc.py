@@ -19,6 +19,11 @@ class CatalogStub(object):
         request_serializer=api__pb2.CreateProjectRequest.SerializeToString,
         response_deserializer=api__pb2.CreateProjectResponse.FromString,
         )
+    self.Stat = channel.unary_unary(
+        '/Catalog/Stat',
+        request_serializer=api__pb2.StatRequest.SerializeToString,
+        response_deserializer=api__pb2.StatResponse.FromString,
+        )
 
 
 class CatalogServicer(object):
@@ -32,6 +37,13 @@ class CatalogServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Stat(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_CatalogServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -39,6 +51,11 @@ def add_CatalogServicer_to_server(servicer, server):
           servicer.CreateProject,
           request_deserializer=api__pb2.CreateProjectRequest.FromString,
           response_serializer=api__pb2.CreateProjectResponse.SerializeToString,
+      ),
+      'Stat': grpc.unary_unary_rpc_method_handler(
+          servicer.Stat,
+          request_deserializer=api__pb2.StatRequest.FromString,
+          response_serializer=api__pb2.StatResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

@@ -1,38 +1,38 @@
 package main
 
 import (
-	"errors"
 	"flag"
-	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 	"log"
-	"mlp/catalog/api"
 	"mlp/catalog/core"
 	"mlp/catalog/db"
+	"mlp/catalog/mlp_api"
 	"mlp/catalog/sim"
+	"mlp/catalog/test_api"
 	"mlp/catalog/web"
-	"mlp/catalog/web/explore_datasets"
-	"mlp/catalog/web/list_projects"
-	"mlp/catalog/web/view_dataset"
-	"mlp/catalog/web/view_project"
 	"net"
 	"net/http"
+	"os"
 )
 
 
 
-type server struct {
-	Env *db.DB
-	version string
-}
+
 
 var (
-	webInterface = flag.String("web", "localhost:8080", "web interface to bind to")
-	grpcInterface = flag.String("grpc", "localhost:9111", "GRPC interface to bind to")
-	dbFolder = flag.String("db", "db", "Folder to store local database")
-	devMode = flag.Bool("dev", false, "Enable dynamic template reloading")
-	testMode = flag.Bool("test", false, "Enable test server and use async LMDB mode")
-	upgrade = flag.String("upgrade", "auto", "Upgrade projections: auto, force, none")
+
+	fs = flag.NewFlagSet("mlp-server", flag.ExitOnError)
+
+	webInterface  = fs.String("web", "localhost:8080", "web interface to bind to")
+	grpcInterface = fs.String("grpc", "localhost:9111", "GRPC interface to bind to")
+	dbFolder      = fs.String("db", "db", "Folder to store local database")
+	devMode       = fs.Bool("dev", false, "Enable dynamic template reloading")
+	testAPI       = fs.Bool("test-api", false, "Enable test server")
+	upgrade       = fs.String("upgrade", "auto", "Upgrade projections: auto, force, none")
+	specsMode     = fs.Bool("specs", false, "Enable spec-runner mode")
+	templatePath  = fs.String("template-path", "", "HTML Layout root")
+
+	// build script will replace this one
 	version = "dev"
 )
 
@@ -40,22 +40,23 @@ var (
 func main() {
 
 
-	log.Printf("Starting MLP-Catalog %s", version)
-
-	web.SetVersion(version)
-	flag.Parse()
+	//log.Printf("Starting MLP-Catalog %s with args %v/n", version, os.Args)
 
 
 
-
-	if *devMode {
-		log.Println("Enable template reloading")
-		web.AlwaysReloadTemplates()
+	if err := fs.Parse(os.Args[1:]); err != nil {
+		log.Fatalln("Error", err.Error())
 	}
+
+	if *specsMode{
+		// test API is implied for specs
+		*testAPI = true
+	}
+
 
 	cfg := db.NewConfig()
 
-	cfg.TestMode = *testMode
+	cfg.Async = *specsMode
 	env, err := db.New(*dbFolder, cfg)
 	if err != nil {
 		panic(err)
@@ -72,29 +73,18 @@ func main() {
 	}
 
 
-	s := &server{Env: env, version: version}
-
-	mx := mux.NewRouter()
-	// static content
-	fs := http.FileServer(http.Dir("web/static/"))
-	mx.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
-	// explore datasets
-	mx.Path("/explore").Queries("query", "{query:[0-9.\\-A-Za-z]+}").HandlerFunc(simWrap(s.exploreHandler))
-	mx.Path("/explore").HandlerFunc(simWrap(s.exploreHandler))
-	// view dataset
-	mx.HandleFunc("/datasets/{dataset_id}", simWrap(s.datasetHandler))
-	// vie project
-	mx.HandleFunc("/projects/{project_id}", simWrap(s.projectHandler))
-
-	mx.Path("/").HandlerFunc(simWrap(s.projectsHandler))
-
-
 
 	log.Printf("Starting web at %s gRPC at %s\n", *webInterface, *grpcInterface)
 
 	go runGrpc(env)
 
-	log.Fatal(http.ListenAndServe(*webInterface, mx))
+	if *specsMode{
+		sim.Start()
+	}
+
+	server := web.NewServer(env, *templatePath, *devMode, *specsMode, version)
+
+	log.Fatal(http.ListenAndServe(*webInterface, server))
 }
 
 
@@ -109,65 +99,15 @@ func runGrpc(env *db.DB){
 
 	grpcServer := grpc.NewServer()
 
-	//if *testMode {
-	// TEMP for now
-		testService := api.NewTestServer(env)
-		api.RegisterTestServer(grpcServer, testService)
-	//}
+	if *testAPI {
+		log.Println("Enabling TEST interface")
+		testService := test_api.NewServer(env)
+		test_api.RegisterTestServer(grpcServer, testService)
+	}
 
-	catalogService := api.NewCatalogServer(env)
-	api.RegisterCatalogServer(grpcServer, catalogService)
+	catalogService := mlp_api.NewServer(env, version)
+	mlp_api.RegisterCatalogServer(grpcServer, catalogService)
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
-}
-
-func simWrap(inner http.HandlerFunc) http.HandlerFunc{
-	return func(w http.ResponseWriter, r *http.Request){
-
-		if sim.IsRunning(){
-
-			var err error
-			defer func() {
-				rec := recover()
-				if rec != nil {
-					if r != nil {
-						switch t := rec.(type) {
-						case string:
-							err = errors.New(t)
-						case error:
-							err = t
-						default:
-							err = errors.New("Unknown error")
-						}
-						println(err.Error())
-						http.Error(w, err.Error(), http.StatusInternalServerError)
-					}
-				}
-
-			}()
-			//fmt.Println("  ", r.URL)
-		}
-		inner(w, r)
-	}
-}
-
-func (s *server) projectHandler(w http.ResponseWriter, r *http.Request){
-	vars := mux.Vars(r)
-
-	view_project.Handle(s.Env, w, vars["project_id"])
-}
-
-func (s *server) projectsHandler(w http.ResponseWriter, r *http.Request) {
-		list_projects.Handle(s.Env, w)
-}
-func (s *server) datasetHandler(w http.ResponseWriter, r *http.Request){
-	vars := mux.Vars(r)
-
-	view_dataset.Handle(s.Env, w, vars["dataset_id"])
-}
-
-func (s *server) exploreHandler(w http.ResponseWriter, r *http.Request){
-	query := r.FormValue("query")
-	explore_datasets.Handle(s.Env, w, query)
 }

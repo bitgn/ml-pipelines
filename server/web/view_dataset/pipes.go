@@ -7,7 +7,7 @@ import (
 	"io"
 	"log"
 	"mlp/catalog/db"
-	"mlp/catalog/web"
+	"mlp/catalog/web/shared"
 	"os/exec"
 	"strings"
 )
@@ -66,7 +66,7 @@ def build_lineage(dataset_id, tx):
     return dot
  */
 
-func renderSVG(tx *db.Tx, dataset_id string, url web.UrlResolver) template.HTML{
+func renderSVG(tx *db.Tx, dataset_id string, url shared.UrlResolver) template.HTML{
 
 	this := db.GetDataset(tx, dataset_id)
 

@@ -8,13 +8,13 @@ import (
 	"io"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
-	"mlp/catalog/web"
+	"mlp/catalog/web/shared"
 	"net/http"
 	"strings"
 )
 
 type ViewDatsetModel struct {
-	*web.Site
+	*shared.Site
 	Dataset     *db.DatasetData
 	Project     *db.ProjectData
 	IsStale     bool
@@ -22,11 +22,22 @@ type ViewDatsetModel struct {
 	Description template.HTML
 }
 
+type Handler struct {
+	env *db.DB
+	layout *shared.LoadedTemplate
+}
 
-var layout = web.DefineTemplate("web/layout.html","web/view_dataset/content.html")
+func NewHandler(env *db.DB, tl *shared.TemplateLoader) *Handler{
+	return &Handler{
+		env:env,
+		layout:tl.DefineTemplate("web/layout.html","web/view_dataset/content.html"),
+	}
+}
 
-func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
-	tx := env.MustRead()
+
+
+func (h *Handler) Handle(w http.ResponseWriter, datasetId string){
+	tx := h.env.MustRead()
 
 	defer tx.MustAbort()
 
@@ -34,7 +45,7 @@ func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 	pr := db.GetProject(tx, ds.ProjectId)
 
 
-	site := web.LoadSite(tx)
+	site := shared.LoadSite(tx)
 	site.ActiveMenu="projects"
 
 	model := &ViewDatsetModel{
@@ -58,7 +69,7 @@ func Handle(env *db.DB, w http.ResponseWriter, datasetId string){
 
 	var b bytes.Buffer
 	foo := bufio.NewWriter(&b)
-	if err := layout.ExecuteTemplate(foo, model); err != nil {
+	if err := h.layout.Exec(foo, model); err != nil {
 		http.Error(w, err.Error(), 408)
 	} else {
 		foo.Flush()

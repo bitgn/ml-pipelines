@@ -6,9 +6,16 @@ message CreateProjectRequest{
 }
 message CreateProjectResponse{}
 
+message StatRequest{}
+
+message StatResponse{
+    string version = 1;
+}
+
 
 service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
+    rpc Stat(StatRequest) returns (StatResponse){}
 
 }
 

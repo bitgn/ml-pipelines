@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-cd server
+make -C server clean build
 echo "Launching server..."
-go run main.go -test --grpc localhost:9111 --web localhost:8080 &
-cd ../specs --grpc localhost:9111 --web localhost:8080
-venv/bin/python main.py
+server/dist/mlp-server --template-path=server --specs  --grpc localhost:9111 --web localhost:8080 &
+cd specs 
+venv/bin/python main.py --grpc localhost:9111 --web localhost:8080

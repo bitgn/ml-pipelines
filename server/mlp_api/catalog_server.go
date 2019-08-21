@@ -1,4 +1,4 @@
-package api
+package mlp_api
 
 import (
 	"fmt"
@@ -13,36 +13,22 @@ import (
 )
 
 
-type catalogServer struct{
+type server struct{
 	db *db.DB
+	version string
 }
 
-func (c *catalogServer) Apply(ctx context.Context, req *ApplyRequest) (*ApplyResponse, error) {
-	tx := c.db.MustWrite()
-	defer tx.MustCleanup()
+func NewServer(db *db.DB, version string) CatalogServer{
+	return &server{db, version}
+}
 
-	var version uint64
-
-	for _, e := range req.Events{
-		msg := events.Unmarshal(e.Type, e.Body)
-		version = c.publish(tx, msg)
-
-	}
-	tx.MustCommit()
-
-	return &ApplyResponse{
-		Version:version,
+func (c *server) Stat(context.Context, *StatRequest) (*StatResponse, error) {
+	return &StatResponse{
+		Version:c.version,
 	}, nil
-
-
 }
 
-func (c *catalogServer) publish(tx *db.Tx, e proto.Message) uint64{
-	projection.Handle(tx, e)
-	return db.AppendEvent(tx, e)
-}
-
-func (c *catalogServer) CreateProject(ctx context.Context, r *CreateProjectRequest) (*CreateProjectResponse, error) {
+func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*CreateProjectResponse, error) {
 	tx := c.db.MustWrite()
 	defer tx.MustCleanup()
 
@@ -73,9 +59,13 @@ func (c *catalogServer) CreateProject(ctx context.Context, r *CreateProjectReque
 	return &CreateProjectResponse{}, nil
 }
 
-func NewCatalogServer(db *db.DB) CatalogServer{
-	return &catalogServer{db}
+
+func (c *server) publish(tx *db.Tx, e proto.Message) uint64{
+	projection.Handle(tx, e)
+	return db.AppendEvent(tx, e)
 }
+
+
 
 
 
