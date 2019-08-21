@@ -37,8 +37,8 @@ release:
 	echo "$(CURRENT_VER) - $(NEXT_VER)"
 
 
-	lib/release-server-docker $(NEXT_VER)
 	lib/release-client $(NEXT_VER)
+	lib/release-server-docker $(NEXT_VER)
 
 	git tag -a -m "Release $(NEXT_VER)" $(PROJECT)-$(NEXT_VER)
 	git push --tags
