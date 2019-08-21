@@ -1,7 +1,7 @@
 import grpc
 
-from api import api_pb2_grpc as rpc
-from api import api_pb2 as api
+from test_api import api_pb2_grpc as rpc
+from test_api import api_pb2 as api
 name = "client"
 
 

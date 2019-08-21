@@ -4,7 +4,7 @@ import os
 
 import grpc
 
-from api import events_pb2 as evt
+from test_api import events_pb2 as evt
 
 
 
@@ -93,9 +93,9 @@ def gen_import_events(file_name):
                     inputs=i['inputs'],
                     outputs=i['outputs']
                 )
-from api import api_pb2_grpc as rpc
-from api import marshal
-from api import api_pb2 as api
+from test_api import api_pb2_grpc as rpc
+from test_api import marshal
+from test_api import api_pb2 as api
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 

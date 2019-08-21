@@ -1,7 +1,5 @@
 syntax="proto3";
 
-import "events.proto";
-
 message CreateProjectRequest{
     string ProjectId = 1;
     string ProjectName = 2;
@@ -9,70 +7,18 @@ message CreateProjectRequest{
 message CreateProjectResponse{}
 
 
-message ApplyRequest{
-    repeated Event Events = 1;
-}
-
-message ApplyResponse{
-    uint64 Version = 1;
-}
-
 service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
-    rpc Apply(ApplyRequest) returns (ApplyResponse){}
+
 }
-
-
-
 
 message CreateDataset {
     string dataset_id = 1;
     string project_id = 2;
 }
 
-message DatasetRequestMeta {
-
-}
-
-
-message OkResponse {
-
-}
 
 
 
 
 
-
-message ScenarioRequest {
-    string Name = 1;
-    repeated Event Events = 2;
-    int64 timestamp = 3;
-}
-
-
-message Error {
-    string Message = 1;
-}
-
-message ScenarioResponse {
-    Error Error = 1;
-}
-message KillRequest{}
-
-message PingRequest{}
-
-
-message WipeDatabase{}
-
-// TODO: make this streaming
-
-
-// Test service helps to automate specification checks, screenshots and tutorials
-service Test {
-    // Setup a given state in the database
-    rpc Setup(ScenarioRequest) returns (OkResponse){}
-    rpc Kill(KillRequest) returns(OkResponse){}
-    rpc Ping(PingRequest) returns(OkResponse){}
-    rpc Wipe(WipeDatabase) returns (OkResponse){}
-}

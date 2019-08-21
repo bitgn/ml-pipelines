@@ -1,5 +1,5 @@
 from env import *
-from api import events_pb2 as evt
+from test_api import events_pb2 as evt
 
 
 def _avoid_wrapping(value):

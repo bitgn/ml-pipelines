@@ -4,8 +4,8 @@ from dataclasses import dataclass
 from typing import List
 
 import grpc
-from api import api_pb2_grpc, marshal
-from api import api_pb2 as api
+from test_api import api_pb2_grpc, marshal
+from test_api import api_pb2 as api
 from evil.colors import *
 import importlib
 import os

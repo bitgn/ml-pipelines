@@ -1,6 +1,6 @@
 from google.protobuf.internal import well_known_types as wkt
 
-from api import events_pb2 as evt
+from test_api import events_pb2 as evt
 
 import test
 import json

@@ -2,8 +2,8 @@ import time
 
 import grpc
 
-from api import api_pb2_grpc, marshal
-from api import api_pb2 as api
+from test_api import api_pb2_grpc, marshal
+from test_api import api_pb2 as api
 
 from demo import analytics
 

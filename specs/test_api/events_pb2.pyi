@@ -27,6 +27,29 @@ from typing_extensions import (
 )
 
 
+class ENTITY(int):
+    DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
+    @classmethod
+    def Name(cls, number: int) -> str: ...
+    @classmethod
+    def Value(cls, name: str) -> ENTITY: ...
+    @classmethod
+    def keys(cls) -> typing___List[str]: ...
+    @classmethod
+    def values(cls) -> typing___List[ENTITY]: ...
+    @classmethod
+    def items(cls) -> typing___List[typing___Tuple[str, ENTITY]]: ...
+    NONE = typing___cast(ENTITY, 0)
+    DATASET = typing___cast(ENTITY, 1)
+    JOB = typing___cast(ENTITY, 2)
+    SERVICE = typing___cast(ENTITY, 3)
+    MODEL = typing___cast(ENTITY, 4)
+NONE = typing___cast(ENTITY, 0)
+DATASET = typing___cast(ENTITY, 1)
+JOB = typing___cast(ENTITY, 2)
+SERVICE = typing___cast(ENTITY, 3)
+MODEL = typing___cast(ENTITY, 4)
+
 class Type(int):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
     @classmethod
@@ -208,6 +231,23 @@ class ServiceMetadata(google___protobuf___message___Message):
     else:
         def ClearField(self, field_name: typing_extensions___Literal[u"description",b"description",u"description_set",b"description_set",u"experts",b"experts",u"experts_set",b"experts_set",u"location_id",b"location_id",u"location_id_set",b"location_id_set",u"location_uri",b"location_uri",u"location_uri_set",b"location_uri_set",u"service_name",b"service_name",u"service_name_set",b"service_name_set"]) -> None: ...
 
+class RelationDefined(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    upstream_id = ... # type: typing___Text
+
+    def __init__(self,
+        *,
+        upstream_id : typing___Optional[typing___Text] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> RelationDefined: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"upstream_id"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"upstream_id",b"upstream_id"]) -> None: ...
+
 class ExpertAdded(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     expert_id = ... # type: typing___Text
@@ -249,12 +289,12 @@ class DatasetSample(google___protobuf___message___Message):
     JSON = typing___cast(DatasetSample.FORMAT, 2)
 
     format = ... # type: DatasetSample.FORMAT
-    body = ... # type: bytes
+    body = ... # type: typing___Text
 
     def __init__(self,
         *,
         format : typing___Optional[DatasetSample.FORMAT] = None,
-        body : typing___Optional[bytes] = None,
+        body : typing___Optional[typing___Text] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> DatasetSample: ...

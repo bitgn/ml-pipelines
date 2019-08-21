@@ -11,7 +11,7 @@ from .then import *
 from . import urls
 from . import preset
 
-from api import events_pb2 as evt
+from test_api import events_pb2 as evt
 
 
 
