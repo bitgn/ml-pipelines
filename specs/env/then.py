@@ -3,7 +3,8 @@ from typing import Any
 import bs4
 import grpc
 
-from client.ml_pipelines.client import ArgumentError
+from client import ml_pipelines as client
+from client.ml_pipelines import InvalidArgument
 from . import env
 
 
@@ -29,10 +30,17 @@ def count(selector, c: int):
 
 
 
-def invalid_argument():
+def invalid_argument(subject_id=None):
     def _(response: Any):
-        if not isinstance(response, ArgumentError):
-            return "Expected ArgumentError"
+        if not isinstance(response, client.InvalidArgument):
+            return "Expected InvalidArgument"
+
+        ex: InvalidArgument = response
+        if subject_id:
+            if ex.subject_id != subject_id:
+                return f'Expected subject {subject_id} got {ex.subject_id}'
+
+
     return env.Then(None, _)
 
 def client_ok():

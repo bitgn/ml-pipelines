@@ -309,14 +309,6 @@ try:
                     elif s.when.client_action:
                         response = s.when.client_action(app_client)
 
-                        """
-                        #print(type(response))
-                        if isinstance(response, grpc.RpcError):
-                            typed = grpc.RpcError(response)
-
-                            res.fails.append(f'{CBOLD}{typed}{CEND}')
-                        else:
-"""
                         if s.then and s.then:
                             for a in s.then:
                                 result = a.client_action(response)

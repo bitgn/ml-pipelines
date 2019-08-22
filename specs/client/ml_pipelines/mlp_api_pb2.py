@@ -4,6 +4,7 @@
 
 import sys
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -21,10 +22,110 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"O\n\x14\x43reateProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\"\x17\n\x15\x43reateProjectResponse\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"\\\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta2r\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"O\n\x14\x43reateProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\"1\n\x15\x43reateProjectResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"\\\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"[\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x12\n\nsubject_id\x18\x03 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x04 \x03(\t*\xbd\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x32r\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
+_STATUSCODE = _descriptor.EnumDescriptor(
+  name='StatusCode',
+  full_name='StatusCode',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='OK', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CANCELLED', index=1, number=1,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UNKNOWN', index=2, number=2,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='INVALID_ARGUMENT', index=3, number=3,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DEADLINE_EXCEEDED', index=4, number=4,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='NOT_FOUND', index=5, number=5,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ALREADY_EXISTS', index=6, number=6,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PERMISSION_DENIED', index=7, number=7,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UNAUTHENTICATED', index=8, number=16,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='RESOURCE_EXHAUSTED', index=9, number=8,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FAILED_PRECONDITION', index=10, number=9,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ABORTED', index=11, number=10,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='OUT_OF_RANGE', index=12, number=11,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UNIMPLEMENTED', index=13, number=12,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='INTERNAL', index=14, number=13,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UNAVAILABLE', index=15, number=14,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DATA_LOSS', index=16, number=15,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=395,
+  serialized_end=712,
+)
+_sym_db.RegisterEnumDescriptor(_STATUSCODE)
+
+StatusCode = enum_type_wrapper.EnumTypeWrapper(_STATUSCODE)
+OK = 0
+CANCELLED = 1
+UNKNOWN = 2
+INVALID_ARGUMENT = 3
+DEADLINE_EXCEEDED = 4
+NOT_FOUND = 5
+ALREADY_EXISTS = 6
+PERMISSION_DENIED = 7
+UNAUTHENTICATED = 16
+RESOURCE_EXHAUSTED = 8
+FAILED_PRECONDITION = 9
+ABORTED = 10
+OUT_OF_RANGE = 11
+UNIMPLEMENTED = 12
+INTERNAL = 13
+UNAVAILABLE = 14
+DATA_LOSS = 15
 
 
 
@@ -73,6 +174,13 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='error', full_name='CreateProjectResponse.error', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -86,7 +194,7 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=108,
-  serialized_end=131,
+  serialized_end=157,
 )
 
 
@@ -109,8 +217,8 @@ _STATREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=133,
-  serialized_end=146,
+  serialized_start=159,
+  serialized_end=172,
 )
 
 
@@ -140,8 +248,8 @@ _STATRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=148,
-  serialized_end=179,
+  serialized_start=174,
+  serialized_end=205,
 )
 
 
@@ -185,17 +293,73 @@ _CREATEDATASET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=181,
-  serialized_end=273,
+  serialized_start=207,
+  serialized_end=299,
+)
+
+
+_APIERROR = _descriptor.Descriptor(
+  name='ApiError',
+  full_name='ApiError',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='code', full_name='ApiError.code', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='ApiError.message', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='subject_id', full_name='ApiError.subject_id', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='details', full_name='ApiError.details', index=3,
+      number=4, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=301,
+  serialized_end=392,
 )
 
 _CREATEPROJECTREQUEST.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
+_CREATEPROJECTRESPONSE.fields_by_name['error'].message_type = _APIERROR
 _CREATEDATASET.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
+_APIERROR.fields_by_name['code'].enum_type = _STATUSCODE
 DESCRIPTOR.message_types_by_name['CreateProjectRequest'] = _CREATEPROJECTREQUEST
 DESCRIPTOR.message_types_by_name['CreateProjectResponse'] = _CREATEPROJECTRESPONSE
 DESCRIPTOR.message_types_by_name['StatRequest'] = _STATREQUEST
 DESCRIPTOR.message_types_by_name['StatResponse'] = _STATRESPONSE
 DESCRIPTOR.message_types_by_name['CreateDataset'] = _CREATEDATASET
+DESCRIPTOR.message_types_by_name['ApiError'] = _APIERROR
+DESCRIPTOR.enum_types_by_name['StatusCode'] = _STATUSCODE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 CreateProjectRequest = _reflection.GeneratedProtocolMessageType('CreateProjectRequest', (_message.Message,), {
@@ -233,6 +397,13 @@ CreateDataset = _reflection.GeneratedProtocolMessageType('CreateDataset', (_mess
   })
 _sym_db.RegisterMessage(CreateDataset)
 
+ApiError = _reflection.GeneratedProtocolMessageType('ApiError', (_message.Message,), {
+  'DESCRIPTOR' : _APIERROR,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:ApiError)
+  })
+_sym_db.RegisterMessage(ApiError)
+
 
 
 _CATALOG = _descriptor.ServiceDescriptor(
@@ -241,8 +412,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=275,
-  serialized_end=389,
+  serialized_start=714,
+  serialized_end=828,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',

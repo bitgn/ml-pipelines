@@ -6,7 +6,7 @@ def given_empty_system(e: Env):
 
     e.scenario(
         when.create_project(project_id='ds!!', project_name="some"),
-        then.invalid_argument()
+        then.invalid_argument(subject_id='project_id')
     )
 
     e.scenario(

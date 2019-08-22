@@ -1,19 +1,30 @@
-from typing import Optional
+from typing import Optional, Callable
 
 from . import mlp_api_pb2 as api
 from . import mlp_api_pb2_grpc as rpc
 from . import vo_pb2 as vo
 
+from . import errors
 import grpc
+import google.protobuf.message as pb
 
-
-
-class ArgumentError(ValueError):
-    pass
 
 class Client:
+
     def __init__(self, catalog: rpc.CatalogStub):
         self.catalog = catalog
+
+    def _rpc(self, callable: Callable[[], pb.Message]):
+        try:
+
+            resp = callable()
+
+            if resp.error.code != 0:
+                raise errors.from_error(resp.error)
+
+            return resp
+        except grpc.RpcError as e:
+            raise errors.from_exception(e)
 
     def create_project(self, project_id: str,
                        project_name: Optional[str] = None):
@@ -26,22 +37,8 @@ class Client:
         request = api.CreateProjectRequest(
             project_id=project_id,
             meta=delta)
-        try:
 
-            resp = self.catalog.CreateProject(request)
-            return resp
-        except grpc.RpcError as e:
-            code: grpc.StatusCode = e.code()
-
-            if code == grpc.StatusCode.INVALID_ARGUMENT:
-                print(f"Got error {e}")
-
-                raise ArgumentError() from e
-
-            raise RuntimeError() from e
-            
-
-
+        return self._rpc(lambda: self.catalog.CreateProject(request))
 
     def stats(self):
         request = api.StatRequest()

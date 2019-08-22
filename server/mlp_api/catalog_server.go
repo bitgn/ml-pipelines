@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/proto"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/events"
@@ -30,6 +28,8 @@ func (c *server) Stat(context.Context, *StatRequest) (*StatResponse, error) {
 
 func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*CreateProjectResponse, error) {
 	tx := c.db.MustWrite()
+
+	resp := &CreateProjectResponse{}
 	defer tx.MustCleanup()
 
 	err := domain.GetProblemsWithID(r.ProjectId)
@@ -37,15 +37,27 @@ func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*C
 
 
 	if err != nil {
-		st := status.New(codes.InvalidArgument,"invalid ProjectID")
+		apiError := &ApiError{
+			Message: "Invalid ProjectID",
+			SubjectId: "project_id",
+			Code:StatusCode_INVALID_ARGUMENT,
+			Details:[]string{err.Error()},
+		}
+		resp.Error = apiError
 
-		return nil, st.Err()
+		return resp, nil
 	}
 
 	project := db.GetProject(tx, r.ProjectId)
 	if project != nil {
-		st := status.New(codes.AlreadyExists, fmt.Sprintf("Project '%s' already exists", r.ProjectId))
-		return nil, st.Err()
+		return &CreateProjectResponse{
+			Error:&ApiError{
+				Code:StatusCode_ALREADY_EXISTS,
+				Message:fmt.Sprintf("Project '%s' already exists", r.ProjectId),
+				SubjectId:r.ProjectId,
+
+			},
+		},nil
 	}
 
 	prj := &events.ProjectCreated{
