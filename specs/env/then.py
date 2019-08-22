@@ -1,10 +1,8 @@
 from typing import Any
 
 import bs4
-import grpc
 
 from client import ml_pipelines as client
-from client.ml_pipelines import InvalidArgument
 from . import env
 
 
@@ -35,7 +33,20 @@ def invalid_argument(subject_id=None):
         if not isinstance(response, client.InvalidArgument):
             return "Expected InvalidArgument"
 
-        ex: InvalidArgument = response
+        ex: client.InvalidArgument = response
+        if subject_id:
+            if ex.subject_id != subject_id:
+                return f'Expected subject {subject_id} got {ex.subject_id}'
+
+
+    return env.Then(None, _)
+
+def already_exists(subject_id=None):
+    def _(response: Any):
+        if not isinstance(response, client.AlreadyExists):
+            return "Expected AlreadyExists"
+
+        ex: client.AlreadyExists = response
         if subject_id:
             if ex.subject_id != subject_id:
                 return f'Expected subject {subject_id} got {ex.subject_id}'

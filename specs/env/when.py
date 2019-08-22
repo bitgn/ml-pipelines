@@ -28,7 +28,7 @@ def list_projects():
     return _get_page("list projects", env.urls.list_projects())
 
 
-def create_project(project_id: str, project_name: str):
+def client_create_project(project_id: str, project_name: str = None):
     def _(c: client.Client):
         try:
             return c.create_project(project_id=project_id, project_name=project_name)
