@@ -1,4 +1,4 @@
-.PHONY: protobuf
+.PHONY: pb
 
 PYLINT = mlp/venv/bin/pylint
 GET_VERSION=./lib/get-version
@@ -42,3 +42,7 @@ release:
 
 	git tag -a -m "Release $(NEXT_VER)" $(PROJECT)-$(NEXT_VER)
 	git push --tags
+
+pb:
+	$(MAKE) -C specs pb
+	$(MAKE) -C server pb
