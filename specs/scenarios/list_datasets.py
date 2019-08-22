@@ -24,7 +24,7 @@ def given_a_dataset(t: Env):
         when.list_datasets(),
         then.none('main #empty-catalog-message'),
         then.count('main .dataset-info', 1),
-        then.text(f'main #ds-{ds.dataset_id} .dataset-name', ds.name),
-        then.link(f'main #ds-{ds.dataset_id} .project-link', href=href, text=prj.name),
+        then.text(f'main #ds-{ds.dataset_id} .dataset-name', ds.meta.name),
+        then.link(f'main #ds-{ds.dataset_id} .project-link', href=href, text=prj.meta.name),
 
     )

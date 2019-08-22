@@ -4,6 +4,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"mlp/catalog/db"
 	"mlp/catalog/events"
+	"mlp/catalog/vo"
 )
 
 
@@ -11,15 +12,18 @@ func Handle(tx *db.Tx, msg proto.Message){
 	switch e := msg.(type) {
 
 	case *events.ProjectCreated:
-		db.AddProject(tx, &db.ProjectData{Id: e.ProjectId,Name: e.Name,})
+		data := &db.ProjectData{Id: e.ProjectId}
+		mergeProjectMeta(e.Meta, data)
+
+		db.AddProject(tx, data)
 
 		stats := db.GetStats(tx)
 		stats.ProjectCount +=1
 		db.SetStats(tx, stats)
 	case *events.DatasetCreated:
 
-		data := &db.DatasetData{Name: e.Name, ProjectId: e.ProjectId, DatasetId: e.DatasetId}
-		mergeMetadata(e.Meta, data)
+		data := &db.DatasetData{ProjectId: e.ProjectId, DatasetId: e.DatasetId}
+		mergeDatasetMeta(e.Meta, data)
 		db.AddDataset(tx, data)
 
 		stats := db.GetStats(tx)
@@ -35,7 +39,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 	case *events.DatasetUpdated:
 		ds := db.GetDataset(tx, e.DatasetId)
-		mergeMetadata(e.Meta, ds)
+		mergeDatasetMeta(e.Meta, ds)
 		db.UpdDataset(tx, ds)
 
 		// recompute storage
@@ -88,35 +92,48 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 }
 
-func mergeMetadata(src *events.DatasetMetadata, trg *db.DatasetData) {
-	if src.RecordCountSet {
-		trg.RecordCount = src.RecordCount
+func mergeProjectMeta(d *vo.ProjectMetadataDelta, trg *db.ProjectData){
+	if d.NameSet{
+		trg.Name = d.Name
 	}
-	if src.FileCountSet {
-		trg.FileCount = src.FileCount
+	if d.DescriptionSet{
+		trg.Description = d.Description
 	}
-	if src.StorageBytesSet  {
-		trg.StorageBytes = src.StorageBytes
+
+}
+
+func mergeDatasetMeta(d *vo.DatasetMetadataDelta, trg *db.DatasetData) {
+	if d.NameSet {
+		trg.Name = d.Name
 	}
-	if src.UpdateTimestampSet {
-		trg.UpdateTimestamp = src.UpdateTimestamp
+	if d.RecordCountSet {
+		trg.RecordCount = d.RecordCount
 	}
-	if src.DataFormatSet {
-		trg.DataFormat = src.DataFormat
+	if d.FileCountSet {
+		trg.FileCount = d.FileCount
 	}
-	if src.DescriptionSet {
-		trg.Description = src.Description
+	if d.StorageBytesSet  {
+		trg.StorageBytes = d.StorageBytes
 	}
-	if src.LocationIdSet{
-		trg.LocationId = src.LocationId
+	if d.UpdateTimestampSet {
+		trg.UpdateTimestamp = d.UpdateTimestamp
 	}
-	if src.LocationUriSet {
-		trg.LocationUri = src.LocationUri
+	if d.DataFormatSet {
+		trg.DataFormat = d.DataFormat
 	}
-	if src.ExpertsSet{
-		trg.Experts = src.Experts
+	if d.DescriptionSet {
+		trg.Description = d.Description
 	}
-	if src.SampleSet {
-		trg.Sample = src.Sample
+	if d.LocationIdSet{
+		trg.LocationId = d.LocationId
+	}
+	if d.LocationUriSet {
+		trg.LocationUri = d.LocationUri
+	}
+	if d.ExpertsSet{
+		trg.Experts = d.Experts
+	}
+	if d.SampleSet {
+		trg.Sample = d.Sample
 	}
 }

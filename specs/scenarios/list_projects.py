@@ -21,8 +21,8 @@ def given_a_project(t: Env):
         when.list_projects(),
         then.none('main #empty-catalog-message'),
         then.count('main .project-info', 1),
-        then.text(f'main #prj-{e.project_id} .project-name', e.name),
-        then.link(f'main #prj-{e.project_id} .project-link', href=href, text=e.name),
+        then.text(f'main #prj-{e.project_id} .project-name', e.meta.name),
+        then.link(f'main #prj-{e.project_id} .project-link', href=href, text=e.meta.name),
     )
 
 

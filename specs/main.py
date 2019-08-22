@@ -21,17 +21,19 @@ import requests
 import bs4
 
 import client.ml_pipelines as client
-
+import subprocess
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 
 parser.add_argument("--web", action="store", dest="web", default="localhost:8080")
 parser.add_argument("--grpc", action="store", dest="grpc", default="localhost:9111")
 
+parser.add_argument("--executable", action="store", dest="executable", required=True)
+parser.add_argument("--template-path", action="store", dest="template_path", required=True)
 args = parser.parse_args()
 
 
-root = 'scenarios'
+root = os.path.join(os.path.dirname(__file__), 'scenarios')
 sys.path.append(root)
 
 file_fails = 0
@@ -41,6 +43,8 @@ assertion_fails = 0
 channel = grpc.insecure_channel(args.grpc)
 test_service = api.TestStub(channel)
 app_client = client.connect(args.grpc)
+
+
 
 
 
@@ -219,6 +223,19 @@ try:
 
     suite = SuiteResult()
 
+    nested = [
+        args.executable,
+        "--specs",
+        "--grpc", args.grpc,
+        "--web", args.web,
+        "--template-path", args.template_path
+                             ]
+    print(f"Launching server: {nested}")
+
+    proc = subprocess.Popen(nested)
+
+
+
     wait_for_server_to_start()
     print("Server ready!")
 
@@ -335,6 +352,7 @@ try:
     suite.print()
 finally:
     try:
-        stub.Kill(api.KillRequest())
+        test_service.Kill(api.KillRequest())
     except:
         pass
+

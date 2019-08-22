@@ -13,6 +13,6 @@ def given_a_dataset_with_metadata(t: Env):
         when.view_dataset(ds.dataset_id),
         then.link('main .project-link',
                   href=urls.view_project(ds.project_id),
-                  text=prj.name),
+                  text=prj.meta.name),
 
     )

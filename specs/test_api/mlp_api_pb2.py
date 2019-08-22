@@ -13,6 +13,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from . import vo_pb2 as vo__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,8 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\rmlp_api.proto\">\n\x14\x43reateProjectRequest\x12\x11\n\tProjectId\x18\x01 \x01(\t\x12\x13\n\x0bProjectName\x18\x02 \x01(\t\"\x17\n\x15\x43reateProjectResponse\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"7\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t2r\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
-)
+  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"O\n\x14\x43reateProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\"\x17\n\x15\x43reateProjectResponse\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"\\\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta2r\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
+  ,
+  dependencies=[vo__pb2.DESCRIPTOR,])
 
 
 
@@ -34,16 +36,16 @@ _CREATEPROJECTREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ProjectId', full_name='CreateProjectRequest.ProjectId', index=0,
+      name='project_id', full_name='CreateProjectRequest.project_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='ProjectName', full_name='CreateProjectRequest.ProjectName', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='meta', full_name='CreateProjectRequest.meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -59,8 +61,8 @@ _CREATEPROJECTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17,
-  serialized_end=79,
+  serialized_start=27,
+  serialized_end=106,
 )
 
 
@@ -83,8 +85,8 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=81,
-  serialized_end=104,
+  serialized_start=108,
+  serialized_end=131,
 )
 
 
@@ -107,8 +109,8 @@ _STATREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=106,
-  serialized_end=119,
+  serialized_start=133,
+  serialized_end=146,
 )
 
 
@@ -138,8 +140,8 @@ _STATRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=121,
-  serialized_end=152,
+  serialized_start=148,
+  serialized_end=179,
 )
 
 
@@ -164,6 +166,13 @@ _CREATEDATASET = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='meta', full_name='CreateDataset.meta', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -176,10 +185,12 @@ _CREATEDATASET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=154,
-  serialized_end=209,
+  serialized_start=181,
+  serialized_end=273,
 )
 
+_CREATEPROJECTREQUEST.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
+_CREATEDATASET.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
 DESCRIPTOR.message_types_by_name['CreateProjectRequest'] = _CREATEPROJECTREQUEST
 DESCRIPTOR.message_types_by_name['CreateProjectResponse'] = _CREATEPROJECTRESPONSE
 DESCRIPTOR.message_types_by_name['StatRequest'] = _STATREQUEST
@@ -230,8 +241,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=211,
-  serialized_end=325,
+  serialized_start=275,
+  serialized_end=389,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',

@@ -50,7 +50,7 @@ func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*C
 
 	prj := &events.ProjectCreated{
 		ProjectId:r.ProjectId,
-		Name:r.ProjectName,
+		Meta:r.Meta,
 	}
 
 	c.publish(tx, prj)

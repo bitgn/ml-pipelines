@@ -14,7 +14,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+from . import vo_pb2 as vo__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -22,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"2\n\x0eProjectCreated\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"f\n\x0e\x44\x61tasetCreated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1e\n\x04meta\x18\x04 \x01(\x0b\x32\x10.DatasetMetadata\"X\n\x0e\x44\x61tasetUpdated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12\x1e\n\x04meta\x18\x03 \x01(\x0b\x32\x10.DatasetMetadata\"a\n\x08JobAdded\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x10\n\x08job_name\x18\x02 \x01(\t\x12\x0e\n\x06inputs\x18\x03 \x03(\t\x12\x0f\n\x07outputs\x18\x04 \x03(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\"X\n\x0eServiceCreated\x12\x12\n\nservice_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12\x1e\n\x04meta\x18\x03 \x01(\x0b\x32\x10.ServiceMetadata\"\xf3\x01\n\x0fServiceMetadata\x12\x14\n\x0cservice_name\x18\x01 \x01(\t\x12\x18\n\x10service_name_set\x18\x02 \x01(\x08\x12\x13\n\x0blocation_id\x18\x03 \x01(\t\x12\x17\n\x0flocation_id_set\x18\x04 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x05 \x01(\t\x12\x18\n\x10location_uri_set\x18\x06 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x08 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\t \x03(\t\x12\x13\n\x0b\x65xperts_set\x18\n \x01(\x08\"&\n\x0fRelationDefined\x12\x13\n\x0bupstream_id\x18\x01 \x01(\t\"5\n\x0b\x45xpertAdded\x12\x11\n\texpert_id\x18\x01 \x01(\t\x12\x13\n\x0b\x65xpert_name\x18\x02 \x01(\t\"k\n\rDatasetSample\x12%\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x15.DatasetSample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"%\n\x06\x46ORMAT\x12\x08\n\x04TEXT\x10\x00\x12\x07\n\x03TSV\x10\x01\x12\x08\n\x04JSON\x10\x02\"\xeb\x03\n\x0f\x44\x61tasetMetadata\x12\x14\n\x0crecord_count\x18\x01 \x01(\x03\x12\x18\n\x10record_count_set\x18\x02 \x01(\x08\x12\x12\n\nfile_count\x18\x03 \x01(\x03\x12\x16\n\x0e\x66ile_count_set\x18\x04 \x01(\x08\x12\x15\n\rstorage_bytes\x18\x05 \x01(\x03\x12\x19\n\x11storage_bytes_set\x18\x06 \x01(\x08\x12\x1e\n\x06sample\x18\x07 \x01(\x0b\x32\x0e.DatasetSample\x12\x12\n\nsample_set\x18\x08 \x01(\x08\x12\x18\n\x10update_timestamp\x18\t \x01(\x03\x12\x1c\n\x14update_timestamp_set\x18\n \x01(\x08\x12\x13\n\x0b\x64\x61ta_format\x18\x0b \x01(\t\x12\x17\n\x0f\x64\x61ta_format_set\x18\x0c \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\r \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x0e \x01(\x08\x12\x13\n\x0blocation_id\x18\x0f \x01(\t\x12\x17\n\x0flocation_id_set\x18\x10 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x11 \x01(\t\x12\x18\n\x10location_uri_set\x18\x12 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\x13 \x03(\t\x12\x13\n\x0b\x65xperts_set\x18\x14 \x01(\x08\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*@\n\x06\x45NTITY\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07\x44\x41TASET\x10\x01\x12\x07\n\x03JOB\x10\x02\x12\x0b\n\x07SERVICE\x10\x03\x12\t\n\x05MODEL\x10\x04*\xa3\x01\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x62\x06proto3')
+  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"I\n\x0eProjectCreated\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\"]\n\x0e\x44\x61tasetCreated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\"]\n\x0e\x44\x61tasetUpdated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"a\n\x08JobAdded\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x10\n\x08job_name\x18\x02 \x01(\t\x12\x0e\n\x06inputs\x18\x03 \x03(\t\x12\x0f\n\x07outputs\x18\x04 \x03(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\"]\n\x0eServiceCreated\x12\x12\n\nservice_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ServiceMetadataDelta\"&\n\x0fRelationDefined\x12\x13\n\x0bupstream_id\x18\x01 \x01(\t\"5\n\x0b\x45xpertAdded\x12\x11\n\texpert_id\x18\x01 \x01(\t\x12\x13\n\x0b\x65xpert_name\x18\x02 \x01(\t\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*@\n\x06\x45NTITY\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07\x44\x41TASET\x10\x01\x12\x07\n\x03JOB\x10\x02\x12\x0b\n\x07SERVICE\x10\x03\x12\t\n\x05MODEL\x10\x04*\xa3\x01\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x62\x06proto3')
   ,
-  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
+  dependencies=[vo__pb2.DESCRIPTOR,])
 
 _ENTITY = _descriptor.EnumDescriptor(
   name='ENTITY',
@@ -55,8 +55,8 @@ _ENTITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1472,
-  serialized_end=1536,
+  serialized_start=624,
+  serialized_end=688,
 )
 _sym_db.RegisterEnumDescriptor(_ENTITY)
 
@@ -98,8 +98,8 @@ _TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1539,
-  serialized_end=1702,
+  serialized_start=691,
+  serialized_end=854,
 )
 _sym_db.RegisterEnumDescriptor(_TYPE)
 
@@ -118,32 +118,6 @@ Event_JobAdded = 5
 Event_ServiceCreated = 6
 
 
-_DATASETSAMPLE_FORMAT = _descriptor.EnumDescriptor(
-  name='FORMAT',
-  full_name='DatasetSample.FORMAT',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='TEXT', index=0, number=0,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='TSV', index=1, number=1,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='JSON', index=2, number=2,
-      serialized_options=None,
-      type=None),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=895,
-  serialized_end=932,
-)
-_sym_db.RegisterEnumDescriptor(_DATASETSAMPLE_FORMAT)
-
 
 _PROJECTCREATED = _descriptor.Descriptor(
   name='ProjectCreated',
@@ -160,9 +134,9 @@ _PROJECTCREATED = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='ProjectCreated.name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='meta', full_name='ProjectCreated.meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -178,7 +152,7 @@ _PROJECTCREATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=49,
+  serialized_start=26,
   serialized_end=99,
 )
 
@@ -205,14 +179,7 @@ _DATASETCREATED = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='DatasetCreated.name', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='meta', full_name='DatasetCreated.meta', index=3,
+      name='meta', full_name='DatasetCreated.meta', index=2,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -231,7 +198,7 @@ _DATASETCREATED = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=101,
-  serialized_end=203,
+  serialized_end=194,
 )
 
 
@@ -275,8 +242,8 @@ _DATASETUPDATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=205,
-  serialized_end=293,
+  serialized_start=196,
+  serialized_end=289,
 )
 
 
@@ -334,8 +301,8 @@ _JOBADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=295,
-  serialized_end=392,
+  serialized_start=291,
+  serialized_end=388,
 )
 
 
@@ -379,102 +346,8 @@ _SERVICECREATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=394,
-  serialized_end=482,
-)
-
-
-_SERVICEMETADATA = _descriptor.Descriptor(
-  name='ServiceMetadata',
-  full_name='ServiceMetadata',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='service_name', full_name='ServiceMetadata.service_name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='service_name_set', full_name='ServiceMetadata.service_name_set', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='location_id', full_name='ServiceMetadata.location_id', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='location_id_set', full_name='ServiceMetadata.location_id_set', index=3,
-      number=4, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='location_uri', full_name='ServiceMetadata.location_uri', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='location_uri_set', full_name='ServiceMetadata.location_uri_set', index=5,
-      number=6, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='ServiceMetadata.description', index=6,
-      number=7, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description_set', full_name='ServiceMetadata.description_set', index=7,
-      number=8, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='experts', full_name='ServiceMetadata.experts', index=8,
-      number=9, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='experts_set', full_name='ServiceMetadata.experts_set', index=9,
-      number=10, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=485,
-  serialized_end=728,
+  serialized_start=390,
+  serialized_end=483,
 )
 
 
@@ -504,8 +377,8 @@ _RELATIONDEFINED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=730,
-  serialized_end=768,
+  serialized_start=485,
+  serialized_end=523,
 )
 
 
@@ -542,211 +415,8 @@ _EXPERTADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=770,
-  serialized_end=823,
-)
-
-
-_DATASETSAMPLE = _descriptor.Descriptor(
-  name='DatasetSample',
-  full_name='DatasetSample',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='format', full_name='DatasetSample.format', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='body', full_name='DatasetSample.body', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-    _DATASETSAMPLE_FORMAT,
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=825,
-  serialized_end=932,
-)
-
-
-_DATASETMETADATA = _descriptor.Descriptor(
-  name='DatasetMetadata',
-  full_name='DatasetMetadata',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='record_count', full_name='DatasetMetadata.record_count', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='record_count_set', full_name='DatasetMetadata.record_count_set', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='file_count', full_name='DatasetMetadata.file_count', index=2,
-      number=3, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='file_count_set', full_name='DatasetMetadata.file_count_set', index=3,
-      number=4, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='storage_bytes', full_name='DatasetMetadata.storage_bytes', index=4,
-      number=5, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='storage_bytes_set', full_name='DatasetMetadata.storage_bytes_set', index=5,
-      number=6, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='sample', full_name='DatasetMetadata.sample', index=6,
-      number=7, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='sample_set', full_name='DatasetMetadata.sample_set', index=7,
-      number=8, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='update_timestamp', full_name='DatasetMetadata.update_timestamp', index=8,
-      number=9, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='update_timestamp_set', full_name='DatasetMetadata.update_timestamp_set', index=9,
-      number=10, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='data_format', full_name='DatasetMetadata.data_format', index=10,
-      number=11, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='data_format_set', full_name='DatasetMetadata.data_format_set', index=11,
-      number=12, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='DatasetMetadata.description', index=12,
-      number=13, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description_set', full_name='DatasetMetadata.description_set', index=13,
-      number=14, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='location_id', full_name='DatasetMetadata.location_id', index=14,
-      number=15, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='location_id_set', full_name='DatasetMetadata.location_id_set', index=15,
-      number=16, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='location_uri', full_name='DatasetMetadata.location_uri', index=16,
-      number=17, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='location_uri_set', full_name='DatasetMetadata.location_uri_set', index=17,
-      number=18, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='experts', full_name='DatasetMetadata.experts', index=18,
-      number=19, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='experts_set', full_name='DatasetMetadata.experts_set', index=19,
-      number=20, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=935,
-  serialized_end=1426,
+  serialized_start=525,
+  serialized_end=578,
 )
 
 
@@ -783,27 +453,22 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1428,
-  serialized_end=1470,
+  serialized_start=580,
+  serialized_end=622,
 )
 
-_DATASETCREATED.fields_by_name['meta'].message_type = _DATASETMETADATA
-_DATASETUPDATED.fields_by_name['meta'].message_type = _DATASETMETADATA
-_SERVICECREATED.fields_by_name['meta'].message_type = _SERVICEMETADATA
-_DATASETSAMPLE.fields_by_name['format'].enum_type = _DATASETSAMPLE_FORMAT
-_DATASETSAMPLE_FORMAT.containing_type = _DATASETSAMPLE
-_DATASETMETADATA.fields_by_name['sample'].message_type = _DATASETSAMPLE
+_PROJECTCREATED.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
+_DATASETCREATED.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
+_DATASETUPDATED.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
+_SERVICECREATED.fields_by_name['meta'].message_type = vo__pb2._SERVICEMETADATADELTA
 _EVENT.fields_by_name['Type'].enum_type = _TYPE
 DESCRIPTOR.message_types_by_name['ProjectCreated'] = _PROJECTCREATED
 DESCRIPTOR.message_types_by_name['DatasetCreated'] = _DATASETCREATED
 DESCRIPTOR.message_types_by_name['DatasetUpdated'] = _DATASETUPDATED
 DESCRIPTOR.message_types_by_name['JobAdded'] = _JOBADDED
 DESCRIPTOR.message_types_by_name['ServiceCreated'] = _SERVICECREATED
-DESCRIPTOR.message_types_by_name['ServiceMetadata'] = _SERVICEMETADATA
 DESCRIPTOR.message_types_by_name['RelationDefined'] = _RELATIONDEFINED
 DESCRIPTOR.message_types_by_name['ExpertAdded'] = _EXPERTADDED
-DESCRIPTOR.message_types_by_name['DatasetSample'] = _DATASETSAMPLE
-DESCRIPTOR.message_types_by_name['DatasetMetadata'] = _DATASETMETADATA
 DESCRIPTOR.message_types_by_name['Event'] = _EVENT
 DESCRIPTOR.enum_types_by_name['ENTITY'] = _ENTITY
 DESCRIPTOR.enum_types_by_name['Type'] = _TYPE
@@ -844,13 +509,6 @@ ServiceCreated = _reflection.GeneratedProtocolMessageType('ServiceCreated', (_me
   })
 _sym_db.RegisterMessage(ServiceCreated)
 
-ServiceMetadata = _reflection.GeneratedProtocolMessageType('ServiceMetadata', (_message.Message,), {
-  'DESCRIPTOR' : _SERVICEMETADATA,
-  '__module__' : 'events_pb2'
-  # @@protoc_insertion_point(class_scope:ServiceMetadata)
-  })
-_sym_db.RegisterMessage(ServiceMetadata)
-
 RelationDefined = _reflection.GeneratedProtocolMessageType('RelationDefined', (_message.Message,), {
   'DESCRIPTOR' : _RELATIONDEFINED,
   '__module__' : 'events_pb2'
@@ -864,20 +522,6 @@ ExpertAdded = _reflection.GeneratedProtocolMessageType('ExpertAdded', (_message.
   # @@protoc_insertion_point(class_scope:ExpertAdded)
   })
 _sym_db.RegisterMessage(ExpertAdded)
-
-DatasetSample = _reflection.GeneratedProtocolMessageType('DatasetSample', (_message.Message,), {
-  'DESCRIPTOR' : _DATASETSAMPLE,
-  '__module__' : 'events_pb2'
-  # @@protoc_insertion_point(class_scope:DatasetSample)
-  })
-_sym_db.RegisterMessage(DatasetSample)
-
-DatasetMetadata = _reflection.GeneratedProtocolMessageType('DatasetMetadata', (_message.Message,), {
-  'DESCRIPTOR' : _DATASETMETADATA,
-  '__module__' : 'events_pb2'
-  # @@protoc_insertion_point(class_scope:DatasetMetadata)
-  })
-_sym_db.RegisterMessage(DatasetMetadata)
 
 Event = _reflection.GeneratedProtocolMessageType('Event', (_message.Message,), {
   'DESCRIPTOR' : _EVENT,

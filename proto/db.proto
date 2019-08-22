@@ -1,8 +1,6 @@
 syntax = "proto3";
 
-
-import "events.proto";
-
+import "vo.proto";
 
 enum Range {
     Events = 0;
@@ -26,6 +24,7 @@ message ProjectData {
     int32 dataset_count = 3;
     int64 storage_bytes = 4;
     int32 job_count = 5;
+    string description = 6;
 }
 
 message Expert {

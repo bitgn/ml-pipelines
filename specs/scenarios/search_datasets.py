@@ -7,8 +7,9 @@ def given_a_dataset(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    prj.name = "PROJECT_NAME"
-    ds.name = "DATASET_NAME"
+    prj.meta.name = "PROJECT_NAME"
+
+    ds.meta.name = "DATASET_NAME"
 
     preset.set_sample(t, ds.meta, """{SAMPLE_FIELD: "SAMPLE_VALUE"}""")
     preset.set_description(t, ds.meta, "readme: description_text is here")

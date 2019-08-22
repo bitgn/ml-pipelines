@@ -1,24 +1,25 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
+
+import "vo.proto";
 
 
 message ProjectCreated{
     string project_id = 1;
-    string name = 2;
+    ProjectMetadataDelta meta = 2;
 }
+
 
 message DatasetCreated{
     string dataset_id = 1;
     string project_id = 2;
-    string name = 3;
-    DatasetMetadata meta = 4;
+    DatasetMetadataDelta meta = 4;
 }
 
 message DatasetUpdated {
     string dataset_id = 1;
     string project_id = 2;
-    DatasetMetadata meta = 3;
+    DatasetMetadataDelta meta = 3;
 }
 
 
@@ -38,23 +39,7 @@ message ServiceCreated {
     string service_id = 1;
     string project_id = 2;
 
-    ServiceMetadata meta = 3;
-}
-
-message ServiceMetadata {
-    string service_name = 1;
-    bool service_name_set = 2;
-    string location_id = 3;
-    bool location_id_set = 4;
-
-    string location_uri = 5;
-    bool location_uri_set = 6;
-
-    string description = 7;
-    bool description_set = 8;
-
-    repeated string experts = 9;
-    bool experts_set = 10;
+    ServiceMetadataDelta meta = 3;
 }
 
 
@@ -79,54 +64,6 @@ message ExpertAdded {
 }
 
 
-
-
-
-
-message DatasetSample {
-    // Sample storage format. Doesn't necessarily match
-    // actual data format which could be very cryptic
-    enum FORMAT {
-        TEXT = 0;
-        TSV = 1;
-        JSON = 2;
-    }
-
-    FORMAT format = 1;
-    string body = 2;
-}
-
-
-// if a field kind is set, then the corresponding property carries
-// a new value (which could be null)
-message DatasetMetadata {
-
-    int64 record_count = 1;
-    bool record_count_set = 2;
-    int64 file_count = 3;
-    bool file_count_set = 4;
-    int64 storage_bytes = 5;
-    bool storage_bytes_set = 6;
-    DatasetSample sample = 7;
-    bool sample_set = 8;
-
-    int64 update_timestamp = 9;
-    bool update_timestamp_set = 10;
-
-    string data_format = 11;
-    bool data_format_set = 12;
-    string description = 13;
-    bool description_set = 14;
-
-    string location_id = 15;
-    bool location_id_set = 16;
-    string location_uri = 17;
-    bool location_uri_set=18;
-
-
-    repeated string experts = 19;
-    bool experts_set = 20;
-}
 
 enum Type {
     None = 0;

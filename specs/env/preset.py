@@ -1,7 +1,7 @@
 from google.protobuf.internal import well_known_types as wkt
 
 from test_api import events_pb2 as evt
-
+from test_api import vo_pb2 as vo
 import test
 import json
 import env
@@ -30,27 +30,32 @@ def project_created(e: env.Env):
 
     pid = f'{v}-{a}-{n}-{id}'
 
-    return evt.ProjectCreated(name=name, project_id=pid)
+    d = vo.ProjectMetadataDelta(
+        name=name,
+        name_set=True,
+    )
+
+    return evt.ProjectCreated(project_id=pid, meta=d)
 
 
 
 
-def set_update_timestamp(t: env.Env, dm: evt.DatasetMetadata, days=0, minutes = 0):
+def set_update_timestamp(t: env.Env, dm: vo.DatasetMetadataDelta, days=0, minutes = 0):
     time = t.time + timedelta(days=days, minutes=minutes)
     dm.update_timestamp = int(time.timestamp())
     dm.update_timestamp_set = True
 
-def set_sample(t: env.Env, dm: evt.DatasetMetadata, text: str, type=evt.DatasetSample.FORMAT.TEXT):
+def set_sample(t: env.Env, dm: vo.DatasetMetadataDelta, text: str, type=vo.DatasetSample.FORMAT.TEXT):
     dm.sample.body = text.encode()
     dm.sample.format = type
     dm.sample_set = True
 
 
-def set_description(t: env.Env, dm: evt.DatasetMetadata, text: str):
+def set_description(t: env.Env, dm: vo.DatasetMetadataDelta, text: str):
     dm.description = text.encode()
     dm.description_set = True
 
-def set_data_format(t: env.Env, dm:evt.DatasetMetadata, text: str):
+def set_data_format(t: env.Env, dm:vo.DatasetMetadataDelta, text: str):
     dm.data_format = text
     dm.data_format_set = True
 
@@ -62,7 +67,13 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
     name = f'{a} {n} ds{id}'.title()
     did = f'{id:08x}'
 
-    meta = evt.DatasetMetadata()
+
+
+    meta = vo.DatasetMetadataDelta()
+
+    meta.name = name
+    meta.name_set = True
+
     meta.record_count = random.randint(10, 3000)
     meta.record_count_set = True
 
@@ -84,7 +95,7 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
     if kind == 1:
         text = random.choice(json_samples)
         text = json.dumps(json.loads(text), indent=2)
-        set_sample(t, meta, text, evt.DatasetSample.FORMAT.JSON)
+        set_sample(t, meta, text, vo.DatasetSample.FORMAT.JSON)
 
         if archive:
             meta.data_format = "json+gzip"
@@ -105,7 +116,6 @@ The _seller_, or the provider of the goods or services, completes a sale in resp
     return evt.DatasetCreated(
         dataset_id=did,
         project_id=e.project_id,
-        name=name,
         meta=meta
     )
 

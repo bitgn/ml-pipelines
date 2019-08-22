@@ -1,8 +1,12 @@
 syntax="proto3";
 
+import "vo.proto";
+
+
 message CreateProjectRequest{
-    string ProjectId = 1;
-    string ProjectName = 2;
+    string project_id = 1;
+    ProjectMetadataDelta meta = 2;
+
 }
 message CreateProjectResponse{}
 
@@ -22,7 +26,13 @@ service Catalog {
 message CreateDataset {
     string dataset_id = 1;
     string project_id = 2;
+
+    DatasetMetadataDelta meta = 3;
+
+
 }
+
+
 
 
 

@@ -23,8 +23,8 @@ def given_a_project_with_a_dataset(t: Env):
     t.scenario(
         when.view_project(prj.project_id),
         then.count('main .dataset-info', 1),
-        then.text(f'main #ds-{ds.dataset_id} .dataset-link', ds.name),
+        then.text(f'main #ds-{ds.dataset_id} .dataset-link', ds.meta.name),
         then.link(f'main #ds-{ds.dataset_id} .dataset-link',
                   href=urls.view_dataset(ds.dataset_id),
-                  text=ds.name),
+                  text=ds.meta.name),
     )
