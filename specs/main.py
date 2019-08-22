@@ -297,7 +297,7 @@ try:
                         else:
                             if s.then:
                                 for a in s.then:
-                                    result = a.action(soup)
+                                    result = a.web_action(soup)
                                     if result:
                                         res.fails.append(result)
                                     else:
@@ -308,24 +308,26 @@ try:
 
                     elif s.when.client_action:
                         response = s.when.client_action(app_client)
+
+                        """
                         #print(type(response))
                         if isinstance(response, grpc.RpcError):
                             typed = grpc.RpcError(response)
 
                             res.fails.append(f'{CBOLD}{typed}{CEND}')
                         else:
+"""
+                        if s.then and s.then:
+                            for a in s.then:
+                                result = a.client_action(response)
 
-                            if s.then:
-                                for a in s.then:
-                                    result = a.action(response)
+                                if result:
+                                    res.fails.append(result)
+                                else:
+                                    res.assert_ok += 1
 
-                                    if result:
-                                        res.fails.append(result)
-                                    else:
-                                        res.assert_ok += 1
-
-                            else:
-                                res.fails.append("no expectations provided")
+                        else:
+                            res.fails.append("no expectations provided")
 
 
 

@@ -1,8 +1,13 @@
+from typing import Any
+
 import bs4
+import grpc
 
-
-
+from client.ml_pipelines.client import ArgumentError
 from . import env
+
+
+
 
 def none(selector):
     def _(s: bs4.BeautifulSoup):
@@ -10,7 +15,7 @@ def none(selector):
         if len(matches) > 0:
             return f"Expected no matches for '{selector}' got {len(matches)}"
 
-    return env.Then(_)
+    return env.Then(_, None)
 
 
 def count(selector, c: int):
@@ -20,8 +25,22 @@ def count(selector, c: int):
         if val != c:
             return f"Expected {c} match(es) for '{selector}' got {val}"
 
-    return env.Then(_)
+    return env.Then(_, None)
 
+
+
+def invalid_argument():
+    def _(response: Any):
+        if not isinstance(response, ArgumentError):
+            return "Expected ArgumentError"
+    return env.Then(None, _)
+
+def client_ok():
+    def _(response: Any):
+        if isinstance(response, Exception):
+            return f"Expected valid response, got ({type(response)}) {response}"
+
+    return env.Then(None, _)
 
 def text(selector, expected: str, hint=None, title=None):
 
@@ -47,7 +66,7 @@ def text(selector, expected: str, hint=None, title=None):
         if title and result['title'] != title:
                 return f"Text for '{selector}'.title {pretty} should be '{title}' not '{result['title']}'"
 
-    return env.Then(_)
+    return env.Then(_, None)
 
 
 def link(selector, href=str, text=str):
@@ -62,7 +81,7 @@ def link(selector, href=str, text=str):
         if text and result.text != text:
             return f"Link '{selector}' should have text '{text}' not '{result.text}'"
 
-    return env.Then(_)
+    return env.Then(_, None)
 
 
 def exists(selector):

@@ -31,7 +31,7 @@ def create_project(project_id:str, project_name:str):
     def _(c: client.Client):
         try:
             return c.create_project(project_id=project_id,project_name=project_name)
-        except grpc.RpcError as e:
+        except Exception as e:
             return e
 
 

@@ -5,7 +5,7 @@ import (
 	"regexp"
 )
 
-var re = regexp.MustCompile(`^[0-9A-Za-z._-]{3,38}$`)
+var re = regexp.MustCompile(`^[0-9A-Za-z._-]{2,38}$`)
 
 func GetProblemsWithID(id string) (error) {
 	if re.MatchString(id){

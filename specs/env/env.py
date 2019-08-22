@@ -48,7 +48,8 @@ class When:
 
 @dataclass
 class Then:
-    action: Callable[[bs4.BeautifulSoup], Optional[str]]
+    web_action: Optional[Callable[[bs4.BeautifulSoup], Optional[str]]]
+    client_action: Optional[Callable[[Any], Optional[str]]]
 
 
 @dataclass

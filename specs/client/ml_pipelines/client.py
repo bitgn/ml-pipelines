@@ -7,6 +7,10 @@ from . import vo_pb2 as vo
 import grpc
 
 
+
+class ArgumentError(ValueError):
+    pass
+
 class Client:
     def __init__(self, catalog: rpc.CatalogStub):
         self.catalog = catalog
@@ -22,8 +26,22 @@ class Client:
         request = api.CreateProjectRequest(
             project_id=project_id,
             meta=delta)
-        resp = self.catalog.CreateProject(request)
-        return resp
+        try:
+
+            resp = self.catalog.CreateProject(request)
+            return resp
+        except grpc.RpcError as e:
+            code: grpc.StatusCode = e.code()
+
+            if code == grpc.StatusCode.INVALID_ARGUMENT:
+                print(f"Got error {e}")
+
+                raise ArgumentError() from e
+
+            raise RuntimeError() from e
+            
+
+
 
     def stats(self):
         request = api.StatRequest()
