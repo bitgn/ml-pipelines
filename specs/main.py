@@ -161,6 +161,13 @@ class SuiteResult:
         print("             FAIL   OK    Δ")
 
 
+        def delta(n):
+            color = ""
+            if n < 0:
+                color=CRED
+            if n > 0:
+                color = CGREEN
+            return f'{color}{n:4d}{CEND}'
 
         def bad(n):
             if n > 0:
@@ -179,7 +186,7 @@ class SuiteResult:
             print(f'{CRED}✗ Specs{CEND}      ', end='')
 
 
-        print(f"{bad(spec_count-spec_ok)} {good(spec_ok)} {good(delta_specs)}")
+        print(f"{bad(spec_count-spec_ok)} {good(spec_ok)} {delta(delta_specs)}")
 
 
         if assert_count == assert_ok:
@@ -187,7 +194,7 @@ class SuiteResult:
         else:
             print(f"{CRED}x Assertions{CEND} ", end='')
 
-        print(f"{bad(assert_count-assert_ok)} {good(assert_ok)} {good(delta_assert)}")
+        print(f"{bad(assert_count-assert_ok)} {good(assert_ok)} {delta(delta_assert)}")
 
 
         with open(join, 'w') as o:
