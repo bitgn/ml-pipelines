@@ -2,6 +2,7 @@ package shared
 
 import (
 	"fmt"
+	"log"
 	"path"
 )
 
@@ -26,6 +27,17 @@ func (b *UrlResolver) ViewProject(name string) string{
 }
 
 func (b *UrlResolver) ViewDataset(project, dataset string) string{
+
+	// sanity
+	if len(project)==0{
+		log.Panicln("Project name can't be nil")
+	}
+	if len(dataset) == 0 {
+		log.Panicln("Dataset name can't be nil")
+	}
+
+
+
 	return fmt.Sprintf("/projects/%s/datasets/%s", project, dataset)
 }
 

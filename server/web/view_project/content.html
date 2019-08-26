@@ -35,7 +35,7 @@
 
     <tr class="dataset-info" id="ds-{{ $.Site.Fmt.Uid .Item.Uid }}">
     <td>
-        <a href="{{$.Site.Url.ViewDataset .Item.ProjectName .Item.Name}}" class="dataset-link">{{.Item.Name}}</a>
+        <a href="{{$.Site.Url.ViewDataset .Item.ProjectName .Item.Name}}" class="dataset-link">{{.Item.Title}}</a>
         {{if .IsStale}} <span class="stale-status badge badge-warning">stale</span>{{end}}
 
     </td>

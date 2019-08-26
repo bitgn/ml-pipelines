@@ -17,6 +17,9 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Name: e.Name,
 		}
 		mergeProjectMeta(e.Meta, data)
+		if len(data.Title) == 0{
+			data.Title = data.Name
+		}
 
 		db.PutProject(tx, data)
 		db.NameProject(tx, e.Uid, e.Name)
@@ -24,8 +27,8 @@ func Handle(tx *db.Tx, msg proto.Message){
 		stats := db.GetStats(tx)
 		stats.ProjectCount +=1
 		db.SetStats(tx, stats)
-	case *events.DatasetCreated:
 
+	case *events.DatasetCreated:
 		data := &db.DatasetData{
 			ProjectUid:  e.ProjectUid,
 			Uid:         e.Uid,
@@ -34,7 +37,13 @@ func Handle(tx *db.Tx, msg proto.Message){
 		}
 		mergeDatasetMeta(e.Meta, data)
 
+		if len(data.Title) == 0{
+			data.Title = data.Name
+		}
+
 		db.PutDataset(tx, data)
+
+
 
 		db.AddDatasetToProject(tx, e.ProjectUid, e.Uid)
 		db.NameDataset(tx, e.ProjectName, e.Name, e.Uid)
@@ -51,9 +60,13 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutProject(tx, prj)
 
 	case *events.DatasetUpdated:
-		ds := db.GetDataset(tx, e.Uid)
-		mergeDatasetMeta(e.Meta, ds)
-		db.PutDataset(tx, ds)
+		data := db.GetDataset(tx, e.Uid)
+		mergeDatasetMeta(e.Meta, data)
+
+		if len(data.Title) == 0{
+			data.Title = data.Name
+		}
+		db.PutDataset(tx, data)
 
 		// recompute storage
 		var storage int64
@@ -95,14 +108,23 @@ func Handle(tx *db.Tx, msg proto.Message){
 			}
 		}
 
-		db.PutJob(tx, &db.Job{
+
+
+		data := db.Job{
 			Uid:        e.Uid,
 			Title:      e.Meta.Title,
 			Name:       e.Name,
 			Inputs:     e.Meta.Inputs,
 			Outputs:    e.Meta.Outputs,
 			ProjectUid: e.ProjectUid,
-		})
+		}
+		if len(data.Title) == 0{
+			data.Title = data.Name
+		}
+		db.PutJob(tx, &data)
+
+
+		db.NameJob(tx, e.ProjectName, e.Name, e.Uid)
 
 
 	case *events.ExpertAdded:

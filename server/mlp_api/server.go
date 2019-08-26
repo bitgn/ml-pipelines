@@ -12,9 +12,6 @@ type server struct{
 	version string
 }
 
-
-
-
 func genError(err *ApiError) (*ApiResponse, error){
 	return &ApiResponse{
 		Error:err,

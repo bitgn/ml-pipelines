@@ -8,11 +8,11 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*CreateDatasetResponse, error) {
+func (c *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobResponse, error) {
 
 
-	genError := func (err *ApiError) (*CreateDatasetResponse, error){
-		return &CreateDatasetResponse{
+	genError := func (err *ApiError) (*CreateJobResponse, error){
+		return &CreateJobResponse{
 			Error:err,
 		}, nil
 	}
@@ -20,7 +20,7 @@ func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 
 	err := domain.GetProblemsWithName(r.Name)
 	if err != nil {
-		return genError(badName(vo.ENTITY_DATASET, r.Name, err))
+		return genError(badName(vo.ENTITY_JOB, r.Name, err))
 	}
 
 
@@ -37,29 +37,30 @@ func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 	}
 
 
-	exists := db.LookupDataset(tx, prj.Name, r.Name)
+	exists := db.LookupJob(tx, prj.Name, r.Name)
 	if exists != nil {
-		return genError(alreadyExists(vo.ENTITY_DATASET, r.Name, exists))
+		return genError(alreadyExists(vo.ENTITY_JOB, r.Name, exists))
 	}
 
 
 	uid := newID()
 
-	e := &events.DatasetCreated{
+	e := &events.JobAdded{
 		Name:       r.Name,
 		ProjectUid: r.ProjectUid,
 		Uid:        uid,
 		Meta:       r.Meta,
-		ProjectName: prj.Name,
+		ProjectName:r.Name,
 	}
 
 	c.publish(tx, e)
 	tx.MustCommit()
 
 
-	return &CreateDatasetResponse{
+	return &CreateJobResponse{
 		Uid:uid,
 	}, nil
 
 
 }
+

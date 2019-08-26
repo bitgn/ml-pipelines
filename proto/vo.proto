@@ -61,7 +61,10 @@ message JobMetadataDelta {
     bool title_set = 2;
 
     repeated JobInput inputs = 3;
-    repeated JobOutput outputs = 4;
+    bool inputs_set = 4;
+
+    repeated JobOutput outputs = 5;
+    bool outputs_set = 6;
 }
 
 

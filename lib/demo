@@ -5,6 +5,7 @@ cd ./specs
 venv/bin/python setup_demo.py &
 
 cd ../server
-go run main.go 
+rm -rf tmp/demo || echo "OK"
+go run main.go --db tmp/demo
 cd ..
 

@@ -41,6 +41,8 @@ message JobAdded {
 
     JobMetadataDelta meta = 4;
 
+    string project_name = 5;
+
 }
 
 
@@ -51,6 +53,8 @@ message ServiceCreated {
     string name = 3;
 
     ServiceMetadataDelta meta = 4;
+
+    string project_name = 5;
 }
 
 

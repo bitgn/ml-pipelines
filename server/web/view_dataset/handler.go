@@ -40,7 +40,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 	defer tx.MustAbort()
 
 
-	// TODO: join into a single lookup
+
 	did := db.LookupDataset(tx, project, dataset)
 	if did == nil {
 		http.Error(w, "dataset not found", http.StatusNotFound)

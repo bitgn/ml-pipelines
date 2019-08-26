@@ -2,31 +2,35 @@
 Generate demo data from the web analytics domain
 """
 
-
 import datetime
 from dataclasses import dataclass
 from typing import List
 from test_api import events_pb2 as evt
+from test_api import vo_pb2 as vo
+
+from client import ml_pipelines as client
 
 import faker
 
+
 @dataclass
 class Node:
-    id: str
     name: str
+    title: str
     format: str
     file_count: int
     file_size: int
     record_count: int
     last_update: datetime.datetime
     description: str
-    location_id:str
+    location_id: str
+    uid: bytes
 
 
 @dataclass
 class Process:
-    id: str
     name: str
+    title: str
     sources: List[Node]
     outputs: List[Node]
 
@@ -35,6 +39,7 @@ _counter = 0
 f = faker.Faker()
 
 storages = ['gcs-eu', 'gcs-us', 'vm-ds']
+
 
 def _next_id():
     global _counter
@@ -47,23 +52,18 @@ import random
 random.seed(1)
 
 
-def _node(name: str, format=None, size_mb=None, description=None, file_count=None, minutes=None) -> 'Node':
-    id = f'analytics_n_{_next_id()}'
-    n = Node(id, name, format, 0, 0, 0, None, description, 'gcp-vm1')
+def _node(title: str, format=None, size_mb=None, description=None, file_count=None, minutes=None) -> 'Node':
+    name = f'analytics_n_{_next_id()}'
+    n = Node(name, title, format, 0, 0, 0, None, description, 'gcp-vm1', b'')
 
-
-
-
-
-
-    if 'tsv' in name:
+    if 'tsv' in title:
         n.format = 'TSV'
         n.file_count = 1
 
         n.last_update = datetime.datetime.utcnow() - datetime.timedelta(hours=3)
         n.storage_id = 'gcp-eu'
 
-    if 'metric' in name or 'Influx' in name:
+    if 'metric' in title or 'Influx' in title:
         n.format = 'INFLUX_DB'
         n.last_update = datetime.datetime.utcnow()
 
@@ -105,63 +105,57 @@ For example, once a user has been authenticated to the web server, the user's ne
 For a discussion of the methods used to accomplish this see _HTTP cookie_ and _Session ID_.
 ```"""
 
-
-
 BID_ERROR_METRIC = """# Bid Errors
 
 Side channel for returning any errors"""
 
-
-
-
-
 _nodes: List[Node] = []
 _pipelines: List[Process] = []
 
-api = _node(name='Analytics API')
+api = _node(title='Analytics API')
 
-rt2 = _node(name='InfluxDB: auction_perf')
-rt3 = _node(name="InfluxDB: auction_wins")
-rt4 = _node(name="InfluxDB: auction_errors", description=BID_ERROR_METRIC)
+rt2 = _node(title='InfluxDB: auction_perf')
+rt3 = _node(title="InfluxDB: auction_wins")
+rt4 = _node(title="InfluxDB: auction_errors", description=BID_ERROR_METRIC)
 
 _proc([api], [rt2, rt3, rt4], name="Realtime processing")
 
-fast = _node(name='Offline event-store', format='protobuf', size_mb=500000, minutes=4, file_count=442)
+fast = _node(title='Offline event-store', format='protobuf', size_mb=500000, minutes=4, file_count=442)
 _proc([api], [fast], name='Ingestion')
 
-s1 = _node(name="sessions_in_progress.lmdb", format='LMDB+PB')
+s1 = _node(title="sessions_in_progress.lmdb", format='LMDB+PB')
 
-s2 = _node(name="InfluxDB: user_sessions", format='InfluxDB', description=SESSION_METRIC)
+s2 = _node(title="InfluxDB: user_sessions", format='InfluxDB', description=SESSION_METRIC)
 
-gr = _node(name="Grafana")
+gr = _node(title="grafana")
 _proc([rt2, rt3, rt4, s2], [gr], name="reporting")
 
 _proc([fast], [s1, s2], name="manage_sessions")
 
-tsv1 = _node(name="lifetime_value.tsv", size_mb=10)
-tsv2 = _node(name="lifecycle_category.tsv", size_mb=3)
-tsv3 = _node(name="users_per_property.tsv", size_mb=10)
-tsv4 = _node(name="revenue_per_property.tsv", size_mb=0.05)
-tsv5 = _node(name="revenue_per_bidder.tsv", size_mb=0.05)
-tsv6 = _node(name="revenue_per_device.tsv", size_mb=0.01)
-tsv7 = _node(name="revenue_per_age.tsv", size_mb=0.1)
-tsv8 = _node(name="revenue_per_device.tsv", size_mb=0.05)
-tsv9 = _node(name="revenue_per_gender.tsv", size_mb=0.05)
-tsv10 = _node(name="revenue_per_user.tsv", size_mb=20)
-tsv11 = _node(name="cpm_per_age_by_property.tsv", size_mb=0.1)
-tsv12 = _node(name="users_per_property_7d.tsv", size_mb=20)
+tsv1 = _node(title="lifetime_value.tsv", size_mb=10)
+tsv2 = _node(title="lifecycle_category.tsv", size_mb=3)
+tsv3 = _node(title="users_per_property.tsv", size_mb=10)
+tsv4 = _node(title="revenue_per_property.tsv", size_mb=0.05)
+tsv5 = _node(title="revenue_per_bidder.tsv", size_mb=0.05)
+tsv6 = _node(title="revenue_per_device.tsv", size_mb=0.01)
+tsv7 = _node(title="revenue_per_age.tsv", size_mb=0.1)
+tsv8 = _node(title="revenue_per_device.tsv", size_mb=0.05)
+tsv9 = _node(title="revenue_per_gender.tsv", size_mb=0.05)
+tsv10 = _node(title="revenue_per_user.tsv", size_mb=20)
+tsv11 = _node(title="cpm_per_age_by_property.tsv", size_mb=0.1)
+tsv12 = _node(title="users_per_property_7d.tsv", size_mb=20)
 
 _proc([fast], [tsv1, tsv2, tsv3, tsv4, tsv5, tsv6, tsv7, tsv8, tsv9, tsv10, tsv11, tsv12], name="store_scan_job")
 
-r1 = _node(name="Revenue by property")
-r2 = _node(name="Sessions by property")
-r3 = _node(name="Ads by property")
-r4 = _node(name="Revenue per bidder")
-r5 = _node(name="Revenue per user")
-r6 = _node(name="Weekly active users")
-r7 = _node(name="User distribution by revenue segments")
-r8 = _node(name="CPM distribution")
-r9 = _node(name="Anonymous auctions")
+r1 = _node(title="Revenue by property")
+r2 = _node(title="Sessions by property")
+r3 = _node(title="Ads by property")
+r4 = _node(title="Revenue per bidder")
+r5 = _node(title="Revenue per user")
+r6 = _node(title="Weekly active users")
+r7 = _node(title="User distribution by revenue segments")
+r8 = _node(title="CPM distribution")
+r9 = _node(title="Anonymous auctions")
 
 _proc([tsv12], [r6], name="render_active_users")
 _proc([tsv2], [r9], name="render_anonymous_users")
@@ -172,55 +166,41 @@ _proc([tsv5, tsv6], [], name="render_generic_daily_stats")
 _proc([tsv10], [r7], name="render_user_groups")
 _proc([tsv7], [r7], name="render_revenue_per_age")
 
-VAL = evt.STATE.VALUE
 
-def setup_analytics_demo():
+def setup_analytics_demo(cl: client.Client):
+    resp = cl.create_project("web_01", "Web Analytics")
 
-    project = evt.ProjectCreated(project_id='web_01', name="Web Analytics")
-    yield project
-
-
+    pid = resp.uid
 
     for n in _nodes:
 
-        meta = evt.DatasetMetadata()
-
-        if n.format:
-            meta.data_format = n.format
-            meta.data_format_state = VAL
-
-        if n.file_count:
-            meta.file_count = n.file_count
-            meta.file_count_state = VAL
-
-        if n.file_size:
-            meta.storage_bytes = n.file_size
-            meta.storage_bytes_state = VAL
-        else:
-            meta.storage_bytes = random.randint(10000, 100000)
-            meta.storage_bytes_state = VAL
-        if n.record_count:
-            meta.record_count = n.record_count
-            meta.record_count_state = VAL
-
-        if n.last_update:
-            meta.update_timestamp = int(n.last_update.timestamp())
-            meta.update_timestamp_state = VAL
+        if not n.file_size:
+            n.file_size = random.randint(10000, 100000)
 
         if n.description:
-            meta.description = n.description.strip(' \n\r')
-            meta.description_state = VAL
+            n.description = n.description.strip(' \n\r')
 
-        if n.location_id:
-            meta.location_id = n.location_id
-            meta.location_id_state = VAL
+        ts = None
 
-        ds = evt.DatasetCreated(dataset_id=n.id, name=n.name, project_id=project.project_id, meta=meta)
-        yield ds
+        if n.last_update:
+            ts = int(n.last_update.timestamp())
+
+        resp = cl.create_dataset(
+            project_uid=pid,
+            name=n.name,
+            title=n.title,
+            data_format=n.format,
+            file_count=n.file_count,
+            storage_bytes=n.file_size,
+            record_count=n.record_count,
+            description=n.description,
+            location_id=n.location_id,
+            update_timestamp=ts,
+        )
+        n.uid = resp.uid
 
     for p in _pipelines:
-        inputs = [x.id for x in p.sources]
-        outputs = [x.id for x in p.outputs]
+        inputs = [x.uid for x in p.sources]
+        outputs = [x.uid for x in p.outputs]
 
-        link = evt.JobAdded(job_id=p.id, job_name=p.name, inputs=inputs, outputs=outputs, project_id=project.project_id)
-        yield link
+        cl.create_job(project_uid=pid, name=p.name,title=p.title, inputs = inputs, outputs=outputs)

@@ -25,5 +25,5 @@ def given_a_project_with_a_dataset(t: Env):
         then.count('main .dataset-info', 1),
         then.link(f'main #ds-{ds.uid.hex()} .dataset-link',
                   href=urls.view_dataset(ds.project_name, ds.name),
-                  text=ds.name),
+                  text=ds.meta.title),
     )

@@ -26,10 +26,24 @@ message StatResponse{
 }
 
 
+
+message CreateJobRequest{
+    bytes project_uid = 1;
+    string name = 2;
+
+    JobMetadataDelta meta = 3;
+}
+
+message CreateJobResponse{
+    ApiError error = 1;
+    bytes uid = 2;
+}
+
 service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
     rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse){}
     rpc UpdateDataset(UpdateDatasetRequest) returns (ApiResponse){}
+    rpc CreateJob(CreateJobRequest) returns (CreateJobResponse){}
     rpc Stat(StatRequest) returns (StatResponse){}
 
 }

@@ -29,6 +29,11 @@ class CatalogStub(object):
         request_serializer=mlp__api__pb2.UpdateDatasetRequest.SerializeToString,
         response_deserializer=mlp__api__pb2.ApiResponse.FromString,
         )
+    self.CreateJob = channel.unary_unary(
+        '/Catalog/CreateJob',
+        request_serializer=mlp__api__pb2.CreateJobRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.CreateJobResponse.FromString,
+        )
     self.Stat = channel.unary_unary(
         '/Catalog/Stat',
         request_serializer=mlp__api__pb2.StatRequest.SerializeToString,
@@ -61,6 +66,13 @@ class CatalogServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def CreateJob(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def Stat(self, request, context):
     # missing associated documentation comment in .proto file
     pass
@@ -85,6 +97,11 @@ def add_CatalogServicer_to_server(servicer, server):
           servicer.UpdateDataset,
           request_deserializer=mlp__api__pb2.UpdateDatasetRequest.FromString,
           response_serializer=mlp__api__pb2.ApiResponse.SerializeToString,
+      ),
+      'CreateJob': grpc.unary_unary_rpc_method_handler(
+          servicer.CreateJob,
+          request_deserializer=mlp__api__pb2.CreateJobRequest.FromString,
+          response_serializer=mlp__api__pb2.CreateJobResponse.SerializeToString,
       ),
       'Stat': grpc.unary_unary_rpc_method_handler(
           servicer.Stat,
