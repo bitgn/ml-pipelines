@@ -1,11 +1,11 @@
-{{- /*gotype: mlp/catalog/web.Model*/ -}}
+{{- /*gotype: mlp/catalog/web/explore_datasets.Model*/ -}}
 {{ define "content" }}
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h1 class="h2">Explore Datasets</h1>
     </div>
 
 
-        {{if .CatalogIsEmpty}}
+    {{if .CatalogIsEmpty}}
 
 
 
@@ -52,14 +52,14 @@
     <tbody>
     {{ range .Items}}
 
-        <tr class="dataset-info" id="ds-{{ .Dataset.DatasetId }}">
+        <tr class="dataset-info" id="ds-{{$.Site.Fmt.Uid  .Dataset.Uid }}">
             <td>
-                <a href="{{$.Site.Url.ViewDataset .Dataset.DatasetId}}" class="dataset-name">{{ .Dataset.Name  }}</a>
+                <a href="{{$.Site.Url.ViewDataset .Dataset.ProjectName .Dataset.Name}}" class="dataset-name">{{ .Dataset.Name  }}</a>
 
                 {{ if .IsStale}}<span class="stale-status badge badge-warning">stale</span>{{end}}
 
             </td>
-            <td><a href="{{$.Site.Url.ViewProject .Dataset.ProjectId}}" class="project-link">{{.ProjectName}}</a> </td>
+            <td><a href="{{$.Site.Url.ViewProject .Dataset.ProjectName}}" class="project-link">{{.Dataset.ProjectName}}</a> </td>
             <td>
                 <span class="zip-size">{{ $.Site.Fmt.BytesDecimal .Dataset.StorageBytes }}</span>
                 {{ if .Dataset.LocationId }}

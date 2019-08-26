@@ -5,62 +5,64 @@ import "vo.proto";
 
 
 message ProjectCreated{
-    string project_id = 1;
-    ProjectMetadataDelta meta = 2;
+    bytes uid = 1;
+    string name = 2;
+
+    ProjectMetadataDelta meta = 3;
 }
 
 
 message DatasetCreated{
-    string dataset_id = 1;
-    string project_id = 2;
+    bytes project_uid = 1;
+    bytes uid = 2;
+
+    string name = 3;
+
+
     DatasetMetadataDelta meta = 4;
+
+    string project_name = 5;
 }
 
 message DatasetUpdated {
-    string dataset_id = 1;
-    string project_id = 2;
+    bytes uid = 1;
+    bytes project_uid = 2;
+
     DatasetMetadataDelta meta = 3;
 }
 
 
 
 message JobAdded {
-    string job_id = 1;
-    string job_name = 2;
+    bytes uid = 1;
+    bytes project_uid = 2;
 
-    repeated string inputs = 3;
-    repeated string outputs = 4;
+    string name = 3;
 
-    string project_id = 5;
+    JobMetadataDelta meta = 4;
+
 }
 
 
 message ServiceCreated {
-    string service_id = 1;
-    string project_id = 2;
+    bytes uid = 1;
+    bytes project_uid = 2;
 
-    ServiceMetadataDelta meta = 3;
+    string name = 3;
+
+    ServiceMetadataDelta meta = 4;
 }
 
 
-message RelationDefined {
-    string upstream_id = 1;
 
-}
-
-
-enum ENTITY {
-    NONE = 0;
-    DATASET = 1;
-    JOB = 2;
-    SERVICE = 3;
-    MODEL = 4;
-}
 
 
 message ExpertAdded {
-    string expert_id = 1;
-    string expert_name = 2;
+    bytes uid = 1;
+    string name = 2;
+
+    ExpertMetadataDelta meta = 3;
+
 }
 
 

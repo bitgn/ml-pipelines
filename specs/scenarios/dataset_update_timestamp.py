@@ -45,7 +45,7 @@ def given_a_datasets_with_various_timestamps(t: env.Env):
         ds.meta.update_timestamp_set = True
 
         value = _avoid_wrapping(v)
-        conditionals.append(then.text(f'main #ds-{ds.dataset_id} .update-timestamp', value, hint=k))
+        conditionals.append(then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', value, hint=k))
         t.given_events(ds)
 
     t.scenario(*conditionals)
@@ -63,18 +63,18 @@ def given_a_dataset_with_update_timestamp(t: env.Env):
 
     t.given_events(prj, ds)
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.text(f'main #ds-{ds.dataset_id} .update-timestamp', value),
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', value),
     )
 
     t.scenario(
         when.list_datasets(),
-        then.text(f'main #ds-{ds.dataset_id} .update-timestamp', value),
+        then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', value),
     )
 
     t.scenario(
-        when.view_project(prj.project_id),
-        then.text(f'main #ds-{ds.dataset_id} .update-timestamp', value),
+        when.view_project(prj.name),
+        then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', value),
     )
 
 
@@ -91,16 +91,16 @@ def given_a_dataset_without_update_timestamp(t: Env):
 
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.text(f'main #ds-{ds.dataset_id} .update-timestamp', 'never'),
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', 'never'),
     )
 
     t.scenario(
         when.list_datasets(),
-        then.text(f'main #ds-{ds.dataset_id} .update-timestamp', ''),
+        then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', ''),
     )
 
     t.scenario(
-        when.view_project(prj.project_id),
-        then.text(f'main #ds-{ds.dataset_id} .update-timestamp', ''),
+        when.view_project(prj.name),
+        then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', ''),
     )

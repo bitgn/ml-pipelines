@@ -4,12 +4,19 @@ import "vo.proto";
 
 
 message CreateProjectRequest{
-    string project_id = 1;
+    string name = 1;
     ProjectMetadataDelta meta = 2;
 
 }
 message CreateProjectResponse{
     ApiError error = 1;
+    bytes uid = 2;
+}
+
+
+message CreateDatasetResponse{
+    ApiError error = 1;
+    bytes uid = 2;
 }
 
 message StatRequest{}
@@ -21,15 +28,30 @@ message StatResponse{
 
 service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
+    rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse){}
+    rpc UpdateDataset(UpdateDatasetRequest) returns (ApiResponse){}
     rpc Stat(StatRequest) returns (StatResponse){}
 
 }
 
-message CreateDataset {
-    string dataset_id = 1;
-    string project_id = 2;
+message ApiResponse{
+    ApiError error = 1;
+}
+
+message CreateDatasetRequest {
+    bytes project_uid = 1;
+
+    string name = 2;
+
 
     DatasetMetadataDelta meta = 3;
+}
+
+
+message UpdateDatasetRequest {
+    // option 1
+    bytes uid = 1;
+    DatasetMetadataDelta meta = 2;
 }
 
 
@@ -37,8 +59,11 @@ message ApiError {
     StatusCode code = 1;
     string message = 2;
     // For API matching and tests
-    string subject_id = 3;
-    repeated string details = 4;
+    bytes subject_uid = 3;
+    string subject_name = 4;
+    string field_name = 5;
+
+    repeated string details = 6;
 }
 
 enum StatusCode {
@@ -139,6 +164,16 @@ enum StatusCode {
 
     // Unrecoverable data loss or corruption.
     DATA_LOSS = 15;
+
+
+    // OUR own errors
+
+
+    // Bad entity name was supplied
+    BAD_NAME = 100;
+
+
+    NAME_TAKEN=101;
 }
 
 

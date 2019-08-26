@@ -4,9 +4,9 @@ import (
 	"flag"
 	"google.golang.org/grpc"
 	"log"
-	"mlp/catalog/core"
 	"mlp/catalog/db"
 	"mlp/catalog/mlp_api"
+	"mlp/catalog/projection"
 	"mlp/catalog/sim"
 	"mlp/catalog/test_api"
 	"mlp/catalog/web"
@@ -26,7 +26,7 @@ var (
 	webInterface  = fs.String("web", "localhost:8080", "web interface to bind to")
 	grpcInterface = fs.String("grpc", "localhost:9111", "GRPC interface to bind to")
 	dbFolder      = fs.String("db", "db", "Folder to store local database")
-	devMode       = fs.Bool("dev", false, "Enable dynamic template reloading")
+	devMode       = fs.Bool("dev", false, "Dev features: template reloading, asserts")
 	testAPI       = fs.Bool("test-api", false, "Enable test server")
 	upgrade       = fs.String("upgrade", "auto", "Upgrade projections: auto, force, none")
 	specsMode     = fs.Bool("specs", false, "Enable spec-runner mode")
@@ -67,9 +67,9 @@ func main() {
 
 	switch *upgrade {
 	case "auto":
-		core.UpgradeDB(env, version, core.UpgradePolicy_Auto)
+		projection.UpgradeDB(env, version, projection.UpgradePolicy_Auto)
 	case "force":
-		core.UpgradeDB(env, version, core.UpgradePolicy_Force)
+		projection.UpgradeDB(env, version, projection.UpgradePolicy_Force)
 	}
 
 
@@ -93,9 +93,6 @@ func runGrpc(env *db.DB){
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-
-
-
 
 	grpcServer := grpc.NewServer()
 

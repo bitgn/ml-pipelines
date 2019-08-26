@@ -12,6 +12,6 @@ def given_a_dataset_with_location_id(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.text(f'main #ds-{ds.dataset_id} .description h4', 'HELLO'),
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .description h4', 'HELLO'),
     )

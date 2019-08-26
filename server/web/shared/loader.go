@@ -1,9 +1,13 @@
 package shared
 
 import (
+	"bufio"
+	"bytes"
+	"github.com/pkg/errors"
 	"html/template"
 	"io"
 	"log"
+	"net/http"
 	"path"
 )
 
@@ -59,9 +63,27 @@ func (tl *TemplateLoader) DefineTemplate(files ...string) *LoadedTemplate{
 	}
 }
 
+
+func (loaded *LoadedTemplate) Render(w http.ResponseWriter, model interface{}){
+
+
+	var b bytes.Buffer
+	foo := bufio.NewWriter(&b)
+
+
+	if err := loaded.exec(foo, model); err != nil {
+		http.Error(w, err.Error(), 408)
+	} else {
+		foo.Flush()
+		b.WriteTo(w)
+
+	}
+
+
+}
 // ExecuteTemplate - applies the template to the data model and writes result to the output.
 // if AlwaysReloadTemplates was set, then this will trigger template reload
-func (loaded *LoadedTemplate) Exec(wr io.Writer, data interface{}) error {
+func (loaded *LoadedTemplate) exec(wr io.Writer, data interface{}) error {
 
 	var t *template.Template
 
@@ -77,5 +99,9 @@ func (loaded *LoadedTemplate) Exec(wr io.Writer, data interface{}) error {
 		t = loaded.template
 	}
 
-	return t.ExecuteTemplate(wr, "layout", data)
+	err2 := t.ExecuteTemplate(wr, "layout", data)
+	if err2 != nil {
+		return errors.WithMessagef(err2, "%v", loaded.files)
+	}
+	return nil
 }

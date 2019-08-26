@@ -95,7 +95,7 @@ func (h *Handler) Handle(w http.ResponseWriter, query string){
 
 	defer tx.MustAbort()
 
-	datasets := db.ListAllDatasets(tx)
+	datasets := db.ListDatasets(tx)
 
 	query = strings.ToLower(strings.TrimSpace(query))
 
@@ -104,7 +104,7 @@ func (h *Handler) Handle(w http.ResponseWriter, query string){
 	var metas []*Dataset
 
 	for _,ds := range datasets{
-		prj := db.GetProject(tx, ds.ProjectId)
+		prj := db.GetProject(tx, ds.ProjectUid)
 		meta := &Dataset{
 			Dataset:ds,
 			IsStale:domain.IsStale(ds),
@@ -123,7 +123,5 @@ func (h *Handler) Handle(w http.ResponseWriter, query string){
 
 	model.CatalogIsEmpty = len(datasets) == 0
 
-	if err := h.layout.Exec(w, model); err != nil {
-		http.Error(w, err.Error(), 408)
-	}
+	h.layout.Render(w, model)
 }

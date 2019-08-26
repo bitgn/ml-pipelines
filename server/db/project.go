@@ -1,10 +1,12 @@
 package db
 
-func AddProject(tx *Tx, val *ProjectData){
-	tx.PutProto(CreateKey(Range_PROJECTS, val.Id), val)
+func PutProject(tx *Tx, val *ProjectData){
+	tx.PutProto(CreateKey(Range_PROJECTS, val.Uid), val)
 }
 
-func GetProject(tx *Tx, id string) (*ProjectData){
+
+
+func GetProject(tx *Tx, id []byte) (*ProjectData){
 	d := &ProjectData{}
 	if tx.GetProto(CreateKey(Range_PROJECTS, id), d) {
 		return d

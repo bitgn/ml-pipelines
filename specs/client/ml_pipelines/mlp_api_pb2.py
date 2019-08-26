@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"O\n\x14\x43reateProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\"1\n\x15\x43reateProjectResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"\\\n\rCreateDataset\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"[\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x12\n\nsubject_id\x18\x03 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x04 \x03(\t*\xbd\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x32r\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"I\n\x14\x43reateProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\">\n\x15\x43reateProjectResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\">\n\x15\x43reateDatasetResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"\'\n\x0b\x41piResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\"^\n\x14\x43reateDatasetRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"H\n\x14UpdateDatasetRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x86\x01\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0bsubject_uid\x18\x03 \x01(\x0c\x12\x14\n\x0csubject_name\x18\x04 \x01(\t\x12\x12\n\nfield_name\x18\x05 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x03(\t*\xdb\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x32\xec\x01\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12@\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x16.CreateDatasetResponse\"\x00\x12\x36\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0c.ApiResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
@@ -100,11 +100,19 @@ _STATUSCODE = _descriptor.EnumDescriptor(
       name='DATA_LOSS', index=16, number=15,
       serialized_options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='BAD_NAME', index=17, number=100,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='NAME_TAKEN', index=18, number=101,
+      serialized_options=None,
+      type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=395,
-  serialized_end=712,
+  serialized_start=627,
+  serialized_end=974,
 )
 _sym_db.RegisterEnumDescriptor(_STATUSCODE)
 
@@ -126,6 +134,8 @@ UNIMPLEMENTED = 12
 INTERNAL = 13
 UNAVAILABLE = 14
 DATA_LOSS = 15
+BAD_NAME = 100
+NAME_TAKEN = 101
 
 
 
@@ -137,7 +147,7 @@ _CREATEPROJECTREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='project_id', full_name='CreateProjectRequest.project_id', index=0,
+      name='name', full_name='CreateProjectRequest.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -163,7 +173,7 @@ _CREATEPROJECTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=27,
-  serialized_end=106,
+  serialized_end=100,
 )
 
 
@@ -181,6 +191,13 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='CreateProjectResponse.uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -193,8 +210,46 @@ _CREATEPROJECTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=108,
-  serialized_end=157,
+  serialized_start=102,
+  serialized_end=164,
+)
+
+
+_CREATEDATASETRESPONSE = _descriptor.Descriptor(
+  name='CreateDatasetResponse',
+  full_name='CreateDatasetResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='error', full_name='CreateDatasetResponse.error', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='CreateDatasetResponse.uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=166,
+  serialized_end=228,
 )
 
 
@@ -217,8 +272,8 @@ _STATREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=159,
-  serialized_end=172,
+  serialized_start=230,
+  serialized_end=243,
 )
 
 
@@ -248,34 +303,65 @@ _STATRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=174,
-  serialized_end=205,
+  serialized_start=245,
+  serialized_end=276,
 )
 
 
-_CREATEDATASET = _descriptor.Descriptor(
-  name='CreateDataset',
-  full_name='CreateDataset',
+_APIRESPONSE = _descriptor.Descriptor(
+  name='ApiResponse',
+  full_name='ApiResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='dataset_id', full_name='CreateDataset.dataset_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='error', full_name='ApiResponse.error', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=278,
+  serialized_end=317,
+)
+
+
+_CREATEDATASETREQUEST = _descriptor.Descriptor(
+  name='CreateDatasetRequest',
+  full_name='CreateDatasetRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='project_uid', full_name='CreateDatasetRequest.project_uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='project_id', full_name='CreateDataset.project_id', index=1,
+      name='name', full_name='CreateDatasetRequest.name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='meta', full_name='CreateDataset.meta', index=2,
+      name='meta', full_name='CreateDatasetRequest.meta', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -293,8 +379,46 @@ _CREATEDATASET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=207,
-  serialized_end=299,
+  serialized_start=319,
+  serialized_end=413,
+)
+
+
+_UPDATEDATASETREQUEST = _descriptor.Descriptor(
+  name='UpdateDatasetRequest',
+  full_name='UpdateDatasetRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='UpdateDatasetRequest.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='meta', full_name='UpdateDatasetRequest.meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=415,
+  serialized_end=487,
 )
 
 
@@ -320,15 +444,29 @@ _APIERROR = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='subject_id', full_name='ApiError.subject_id', index=2,
-      number=3, type=9, cpp_type=9, label=1,
+      name='subject_uid', full_name='ApiError.subject_uid', index=2,
+      number=3, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='subject_name', full_name='ApiError.subject_name', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='details', full_name='ApiError.details', index=3,
-      number=4, type=9, cpp_type=9, label=3,
+      name='field_name', full_name='ApiError.field_name', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='details', full_name='ApiError.details', index=5,
+      number=6, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -345,19 +483,25 @@ _APIERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=301,
-  serialized_end=392,
+  serialized_start=490,
+  serialized_end=624,
 )
 
 _CREATEPROJECTREQUEST.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
 _CREATEPROJECTRESPONSE.fields_by_name['error'].message_type = _APIERROR
-_CREATEDATASET.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
+_CREATEDATASETRESPONSE.fields_by_name['error'].message_type = _APIERROR
+_APIRESPONSE.fields_by_name['error'].message_type = _APIERROR
+_CREATEDATASETREQUEST.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
+_UPDATEDATASETREQUEST.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
 _APIERROR.fields_by_name['code'].enum_type = _STATUSCODE
 DESCRIPTOR.message_types_by_name['CreateProjectRequest'] = _CREATEPROJECTREQUEST
 DESCRIPTOR.message_types_by_name['CreateProjectResponse'] = _CREATEPROJECTRESPONSE
+DESCRIPTOR.message_types_by_name['CreateDatasetResponse'] = _CREATEDATASETRESPONSE
 DESCRIPTOR.message_types_by_name['StatRequest'] = _STATREQUEST
 DESCRIPTOR.message_types_by_name['StatResponse'] = _STATRESPONSE
-DESCRIPTOR.message_types_by_name['CreateDataset'] = _CREATEDATASET
+DESCRIPTOR.message_types_by_name['ApiResponse'] = _APIRESPONSE
+DESCRIPTOR.message_types_by_name['CreateDatasetRequest'] = _CREATEDATASETREQUEST
+DESCRIPTOR.message_types_by_name['UpdateDatasetRequest'] = _UPDATEDATASETREQUEST
 DESCRIPTOR.message_types_by_name['ApiError'] = _APIERROR
 DESCRIPTOR.enum_types_by_name['StatusCode'] = _STATUSCODE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -376,6 +520,13 @@ CreateProjectResponse = _reflection.GeneratedProtocolMessageType('CreateProjectR
   })
 _sym_db.RegisterMessage(CreateProjectResponse)
 
+CreateDatasetResponse = _reflection.GeneratedProtocolMessageType('CreateDatasetResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEDATASETRESPONSE,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:CreateDatasetResponse)
+  })
+_sym_db.RegisterMessage(CreateDatasetResponse)
+
 StatRequest = _reflection.GeneratedProtocolMessageType('StatRequest', (_message.Message,), {
   'DESCRIPTOR' : _STATREQUEST,
   '__module__' : 'mlp_api_pb2'
@@ -390,12 +541,26 @@ StatResponse = _reflection.GeneratedProtocolMessageType('StatResponse', (_messag
   })
 _sym_db.RegisterMessage(StatResponse)
 
-CreateDataset = _reflection.GeneratedProtocolMessageType('CreateDataset', (_message.Message,), {
-  'DESCRIPTOR' : _CREATEDATASET,
+ApiResponse = _reflection.GeneratedProtocolMessageType('ApiResponse', (_message.Message,), {
+  'DESCRIPTOR' : _APIRESPONSE,
   '__module__' : 'mlp_api_pb2'
-  # @@protoc_insertion_point(class_scope:CreateDataset)
+  # @@protoc_insertion_point(class_scope:ApiResponse)
   })
-_sym_db.RegisterMessage(CreateDataset)
+_sym_db.RegisterMessage(ApiResponse)
+
+CreateDatasetRequest = _reflection.GeneratedProtocolMessageType('CreateDatasetRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEDATASETREQUEST,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:CreateDatasetRequest)
+  })
+_sym_db.RegisterMessage(CreateDatasetRequest)
+
+UpdateDatasetRequest = _reflection.GeneratedProtocolMessageType('UpdateDatasetRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPDATEDATASETREQUEST,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:UpdateDatasetRequest)
+  })
+_sym_db.RegisterMessage(UpdateDatasetRequest)
 
 ApiError = _reflection.GeneratedProtocolMessageType('ApiError', (_message.Message,), {
   'DESCRIPTOR' : _APIERROR,
@@ -412,8 +577,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=714,
-  serialized_end=828,
+  serialized_start=977,
+  serialized_end=1213,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',
@@ -425,9 +590,27 @@ _CATALOG = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
+    name='CreateDataset',
+    full_name='Catalog.CreateDataset',
+    index=1,
+    containing_service=None,
+    input_type=_CREATEDATASETREQUEST,
+    output_type=_CREATEDATASETRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='UpdateDataset',
+    full_name='Catalog.UpdateDataset',
+    index=2,
+    containing_service=None,
+    input_type=_UPDATEDATASETREQUEST,
+    output_type=_APIRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
     name='Stat',
     full_name='Catalog.Stat',
-    index=1,
+    index=3,
     containing_service=None,
     input_type=_STATREQUEST,
     output_type=_STATRESPONSE,

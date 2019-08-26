@@ -5,14 +5,14 @@ import (
 	"regexp"
 )
 
-var re = regexp.MustCompile(`^[0-9A-Za-z._-]{2,38}$`)
+var re = regexp.MustCompile(`^[0-9a-z._-]{3,128}$`)
 
-func GetProblemsWithID(id string) (error) {
-	if re.MatchString(id){
+func GetProblemsWithName(name string) (error) {
+	if re.MatchString(name){
 		return nil
 	}
 
-	return errors.New("ID must be 3-38 characters long and contain only A-Z,a-z, '-', '.','_' and digits")
+	return errors.New("Name must be 3-128 characters long and contain only a-z, '-', '.','_' and digits")
 
 
 }

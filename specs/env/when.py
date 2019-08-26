@@ -1,3 +1,5 @@
+from typing import Optional
+
 import grpc
 import requests as r
 import env
@@ -8,8 +10,8 @@ from client import ml_pipelines as client
 import test_api as api
 
 
-def view_dataset(ds_id):
-    return _get_page("view_dataset", env.urls.view_dataset(ds_id))
+def view_dataset(project, dataset):
+    return _get_page("view_dataset", env.urls.view_dataset(project, dataset))
 
 
 def search_datasets(query):
@@ -28,10 +30,10 @@ def list_projects():
     return _get_page("list projects", env.urls.list_projects())
 
 
-def client_create_project(project_id: str, project_name: str = None):
+def client_create_project(name: str, title: Optional[str] = None):
     def _(c: client.Client):
         try:
-            return c.create_project(project_id=project_id, project_name=project_name)
+            return c.create_project(name=name)
         except Exception as e:
             return e
 

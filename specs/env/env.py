@@ -1,11 +1,12 @@
 import datetime as dt
+import uuid
 from typing import List, Callable, Optional, Any
 import bs4
 from dataclasses import dataclass
 import requests as r
 from faker import Faker
 
-
+import struct
 from client import ml_pipelines as client
 
 class Env:
@@ -34,9 +35,21 @@ class Env:
 
         self.scenarios.append(Scenario(when=when, then=then))
 
-    def next_id(self):
+    def next_uid(self):
+        id = self.counter
+        arr = bytearray(16)
+
+        struct.pack_into("<I", arr, 0, id)
+
         self.counter += 1
-        return self.counter - 1
+        return bytes(arr)
+
+    def next_id(self):
+
+        id = self.counter
+
+        self.counter += 1
+        return id
 
 
 @dataclass

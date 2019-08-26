@@ -8,7 +8,7 @@ def given_an_empty_project(t: Env):
     t.given_events(prj)
 
     t.scenario(
-        when.view_project(prj.project_id),
+        when.view_project(prj.name),
 
         then.none("main .dataset-info")
     )
@@ -21,10 +21,9 @@ def given_a_project_with_a_dataset(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_project(prj.project_id),
+        when.view_project(prj.name),
         then.count('main .dataset-info', 1),
-        then.text(f'main #ds-{ds.dataset_id} .dataset-link', ds.meta.name),
-        then.link(f'main #ds-{ds.dataset_id} .dataset-link',
-                  href=urls.view_dataset(ds.dataset_id),
-                  text=ds.meta.name),
+        then.link(f'main #ds-{ds.uid.hex()} .dataset-link',
+                  href=urls.view_dataset(ds.project_name, ds.name),
+                  text=ds.name),
     )

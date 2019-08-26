@@ -26,19 +26,20 @@ class Client:
         except grpc.RpcError as e:
             raise errors.from_exception(e)
 
-    def create_project(self, project_id: str,
-                       project_name: Optional[str] = None):
+    def create_project(self, name: str, title: Optional[str] = None):
         delta = vo.ProjectMetadataDelta()
 
-        if project_name:
-            delta.name = project_name
-            delta.name_set = True
+        if title:
+            delta.title = title
+            delta.title_set = True
 
         request = api.CreateProjectRequest(
-            project_id=project_id,
+            name=name,
             meta=delta)
 
         return self._rpc(lambda: self.catalog.CreateProject(request))
+
+
 
     def stats(self):
         request = api.StatRequest()

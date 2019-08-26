@@ -13,8 +13,8 @@ def given_a_dataset_with_storage_location(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.text(f'main #ds-{ds.dataset_id} .location-uri', "url://aws"),
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .location-uri', "url://aws"),
     )
 
 
@@ -29,6 +29,6 @@ def given_a_dataset_without_storage_location(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.text(f'main #ds-{ds.dataset_id} .location-uri', "N/A"),
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .location-uri', "N/A"),
     )

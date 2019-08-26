@@ -6,11 +6,22 @@ enum Range {
     Events = 0;
     PROJECTS = 1;
     DATASETS = 2;
-    PROJECT_DATASETS =3;
+
     JOBS =4;
     STATS=5;
     ASSET_CACHE= 6;
     EXPERTS=7;
+
+
+
+    PROJECT_NAMES=10;
+
+    // scoped to project
+    DATASET_NAMES_SCOPED=11;
+
+
+
+    IDX_PROJECT_DATASETS =20;
 
 
     VERSION=255;
@@ -18,48 +29,51 @@ enum Range {
 }
 
 
+
+
 message ProjectData {
-    string name = 1;
-    string id = 2;
-    int32 dataset_count = 3;
-    int64 storage_bytes = 4;
-    int32 job_count = 5;
-    string description = 6;
+    string title = 1;
+    string name = 2;
+    bytes uid = 3;
+    int32 dataset_count = 4;
+    int64 storage_bytes = 5;
+    int32 job_count = 6;
+    string description = 7;
 }
 
 message Expert {
-    string expert_id = 1;
-    string expert_name = 2;
+
+    string name = 1;
+    bytes uid = 2;
+    string full_name = 3;
+    string email = 4;
 }
 
 message DatasetData {
-    string dataset_id = 1;
+    bytes uid = 1;
+
     string name = 2;
-    string project_id = 3;
+    string title = 3;
+    bytes project_uid = 4;
 
-    int64 record_count = 4;
-    int64 file_count = 5;
+    int64 record_count = 5;
+    int64 file_count = 6;
 
-    int64 storage_bytes = 6;
-    DatasetSample sample = 7;
-    int64 update_timestamp = 8;
-    string data_format = 9;
-    string description = 10;
-
-
-    string location_id = 11;
-
-    string location_uri = 12;
+    int64 storage_bytes = 7;
+    DatasetSample sample = 8;
+    int64 update_timestamp = 9;
+    string data_format = 10;
+    string description = 11;
 
 
+    string location_id = 12;
 
-    repeated string experts = 13;
+    string location_uri = 13;
+    repeated bytes experts = 14;
+    repeated bytes upstream_jobs = 15;
+    repeated bytes downstream_jobs = 16;
 
-
-    repeated string upstream_jobs = 14;
-    repeated string downstream_jobs = 15;
-
-
+    string project_name = 17;
 }
 
 
@@ -67,14 +81,17 @@ message DatasetData {
 
 
 message Job{
-    string job_id = 1;
-    string job_name = 2;
-    string project_id = 3;
+    bytes uid = 1;
+    bytes project_uid = 2;
+    string name = 3;
 
-    repeated string inputs = 4;
-    repeated string outputs = 5;
 
-    repeated Expert experts = 6;
+    string title = 4;
+
+    repeated JobInput inputs = 5;
+    repeated JobOutput outputs = 6;
+
+    repeated bytes experts = 7;
 }
 
 

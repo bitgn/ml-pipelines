@@ -7,9 +7,11 @@ def given_a_dataset(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    prj.meta.name = "PROJECT_NAME"
+    prj.name = "PROJECT_NAME"
 
-    ds.meta.name = "DATASET_NAME"
+    ds.name = "DATASET_NAME"
+
+
 
     preset.set_sample(t, ds.meta, """{SAMPLE_FIELD: "SAMPLE_VALUE"}""")
     preset.set_description(t, ds.meta, "readme: description_text is here")
@@ -49,8 +51,8 @@ def given_a_dataset(t: Env):
     ]
 
     for q in valid_queries:
-        t.scenario(when.search_datasets(q), then.exists(f'main #ds-{ds.dataset_id}'))
+        t.scenario(when.search_datasets(q), then.exists(f'main #ds-{ds.uid.hex()}'))
 
     for q in valid_queries:
         invalid = q + "_ZZZ"
-        t.scenario(when.search_datasets(invalid), then.none(f'main #ds-{ds.dataset_id}'))
+        t.scenario(when.search_datasets(invalid), then.none(f'main #ds-{ds.uid.hex()}'))

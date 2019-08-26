@@ -12,23 +12,23 @@ def given_a_dataset_updated_today(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_project(prj.project_id),
-        then.none(f'main #ds-{ds.dataset_id} .stale-status')
+        when.view_project(prj.name),
+        then.none(f'main #ds-{ds.uid.hex()} .stale-status')
     )
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
+        when.view_dataset(ds.project_name, ds.name),
         then.none('main .stale-status')
     )
 
     t.scenario(
         when.list_datasets(),
-        then.none(f'main #ds-{ds.dataset_id} .stale-status')
+        then.none(f'main #ds-{ds.uid.hex()} .stale-status')
     )
 
     t.scenario(
         when.search_datasets("stale"),
-        then.none(f'main #ds-{ds.dataset_id}')
+        then.none(f'main #ds-{ds.uid.hex()}')
     )
 
 
@@ -41,21 +41,21 @@ def given_a_dataset_updated_week_ago(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_project(prj.project_id),
-        then.exists(f'main #ds-{ds.dataset_id} .stale-status')
+        when.view_project(prj.name),
+        then.exists(f'main #ds-{ds.uid.hex()} .stale-status')
     )
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
+        when.view_dataset(prj.name, ds.name),
         then.exists('main .stale-status')
     )
 
     t.scenario(
         when.list_datasets(),
-        then.exists(f'main #ds-{ds.dataset_id} .stale-status')
+        then.exists(f'main #ds-{ds.uid.hex()} .stale-status')
     )
 
     t.scenario(
         when.search_datasets("stale"),
-        then.exists(f'main #ds-{ds.dataset_id} .stale-status')
+        then.exists(f'main #ds-{ds.uid.hex()} .stale-status')
     )

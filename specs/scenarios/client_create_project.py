@@ -5,12 +5,12 @@ def given_empty_system(e: Env):
     """create project if all arguments are valid"""
 
     e.scenario(
-        when.client_create_project(project_id='ds!!', project_name="some"),
-        then.invalid_argument(subject_id='project_id')
+        when.client_create_project(name="ds!!"),
+        then.bad_name("ds!!")
     )
 
     e.scenario(
-        when.client_create_project(project_id='ds', project_name="some"),
+        when.client_create_project(name="some"),
         then.client_ok()
     )
 
@@ -20,6 +20,8 @@ def given_existing_project(e: Env):
     prj = preset.project_created(e)
     e.given_events(prj)
     e.scenario(
-        when.client_create_project(project_id=prj.project_id),
-        then.already_exists(subject_id=prj.project_id)
+        when.client_create_project(name=prj.name),
+        then.name_taken(prj.uid, prj.name)
     )
+
+

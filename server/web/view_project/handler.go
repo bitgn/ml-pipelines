@@ -36,13 +36,20 @@ func NewHandler(env *db.DB, tl *shared.TemplateLoader) *Handler{
 }
 
 
-func (h *Handler) Handle(w http.ResponseWriter, id string){
+func (h *Handler) Handle(w http.ResponseWriter, name string){
 	tx := h.Env.MustRead()
 
 	defer tx.MustAbort()
 
-	project := db.GetProject(tx, id)
-	datasets := db.ListDatasets(tx,project.Id)
+
+	pid := db.LookupProject(tx, name)
+	if pid == nil {
+		http.Error(w, "Project not found", http.StatusNotFound)
+		return
+	}
+
+	project := db.GetProject(tx, pid)
+	datasets := db.ListDatasetsFromProject(tx, pid)
 
 
 
@@ -63,9 +70,6 @@ func (h *Handler) Handle(w http.ResponseWriter, id string){
 		Project: project,
 		Datasets:items,
 	}
-	var err error
-	if err = h.Layout.Exec(w, model); err != nil {
-		http.Error(w, err.Error(), 408)
-		panic(err)
-	}
+
+	h.Layout.Render(w, model)
 }

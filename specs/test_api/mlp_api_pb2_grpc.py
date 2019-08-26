@@ -19,6 +19,16 @@ class CatalogStub(object):
         request_serializer=mlp__api__pb2.CreateProjectRequest.SerializeToString,
         response_deserializer=mlp__api__pb2.CreateProjectResponse.FromString,
         )
+    self.CreateDataset = channel.unary_unary(
+        '/Catalog/CreateDataset',
+        request_serializer=mlp__api__pb2.CreateDatasetRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.CreateDatasetResponse.FromString,
+        )
+    self.UpdateDataset = channel.unary_unary(
+        '/Catalog/UpdateDataset',
+        request_serializer=mlp__api__pb2.UpdateDatasetRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.ApiResponse.FromString,
+        )
     self.Stat = channel.unary_unary(
         '/Catalog/Stat',
         request_serializer=mlp__api__pb2.StatRequest.SerializeToString,
@@ -31,6 +41,20 @@ class CatalogServicer(object):
   pass
 
   def CreateProject(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def CreateDataset(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def UpdateDataset(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -51,6 +75,16 @@ def add_CatalogServicer_to_server(servicer, server):
           servicer.CreateProject,
           request_deserializer=mlp__api__pb2.CreateProjectRequest.FromString,
           response_serializer=mlp__api__pb2.CreateProjectResponse.SerializeToString,
+      ),
+      'CreateDataset': grpc.unary_unary_rpc_method_handler(
+          servicer.CreateDataset,
+          request_deserializer=mlp__api__pb2.CreateDatasetRequest.FromString,
+          response_serializer=mlp__api__pb2.CreateDatasetResponse.SerializeToString,
+      ),
+      'UpdateDataset': grpc.unary_unary_rpc_method_handler(
+          servicer.UpdateDataset,
+          request_deserializer=mlp__api__pb2.UpdateDatasetRequest.FromString,
+          response_serializer=mlp__api__pb2.ApiResponse.SerializeToString,
       ),
       'Stat': grpc.unary_unary_rpc_method_handler(
           servicer.Stat,

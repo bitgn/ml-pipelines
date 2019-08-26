@@ -12,17 +12,17 @@ def given_no_projects(e: Env):
 
 def given_a_project(t: Env):
     """show a project overview with a link to a project"""
-    e = preset.project_created(t)
+    prj = preset.project_created(t)
 
-    t.given_events(e)
+    t.given_events(prj)
 
-    href = urls.view_project(e.project_id)
+    href = urls.view_project(prj.name)
     t.scenario(
         when.list_projects(),
         then.none('main #empty-catalog-message'),
         then.count('main .project-info', 1),
-        then.text(f'main #prj-{e.project_id} .project-name', e.meta.name),
-        then.link(f'main #prj-{e.project_id} .project-link', href=href, text=e.meta.name),
+
+        then.link(f'main #prj-{prj.uid.hex()} .project-link', href=href, text=prj.name),
     )
 
 

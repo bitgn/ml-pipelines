@@ -55,7 +55,14 @@ func ReplayEvents(tx *Tx, p Projector) int{
 			log.Panicln("Failed to parse event type from the db:", t[2])
 		}
 
-		event :=events.Unmarshal(events.Type(kind), v)
+		i := events.Type(kind)
+		event := events.Unmarshal(i, v)
+
+		defer func() {
+			if r := recover(); r != nil {
+				log.Panicln("Failure while processing ", events.Type_name[int32(i)], "body", event, r)
+			}
+		}()
 
 		p(tx, event)
 

@@ -10,9 +10,8 @@ def given_a_dataset_with_metadata(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
+        when.view_dataset(prj.name, ds.name),
         then.link('main .project-link',
-                  href=urls.view_project(ds.project_id),
-                  text=prj.meta.name),
-
+                  href=urls.view_project(prj.name),
+                  text=prj.name),
     )

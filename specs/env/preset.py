@@ -6,6 +6,7 @@ import test
 import json
 import env
 import random
+
 from datetime import timedelta
 
 import faker
@@ -26,16 +27,16 @@ def project_created(e: env.Env):
     v = random.choice(verbs)
     a = random.choice(adj)
 
-    name = f'{v.title()} {a} {n} prj{id}'
+    title = f'{v.title()} {a} {n} prj{id}'
 
-    pid = f'{v}-{a}-{n}-{id}'
+    name = f'{v}-{a}-{n}-{id}'
 
     d = vo.ProjectMetadataDelta(
-        name=name,
-        name_set=True,
+        title=title,
+        title_set=True,
     )
 
-    return evt.ProjectCreated(project_id=pid, meta=d)
+    return evt.ProjectCreated(uid=e.next_uid(), name=name, meta=d)
 
 
 
@@ -65,14 +66,14 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
     n = random.choice(nouns)
 
     name = f'{a} {n} ds{id}'.title()
-    did = f'{id:08x}'
+    did = f'ds_{id:08x}'
 
 
 
     meta = vo.DatasetMetadataDelta()
 
-    meta.name = name
-    meta.name_set = True
+    meta.title = name
+    meta.title_set = True
 
     meta.record_count = random.randint(10, 3000)
     meta.record_count_set = True
@@ -113,24 +114,36 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
 The _seller_, or the provider of the goods or services, completes a sale in response to an acquisition, appropriation,[1] requisition, or a direct interaction with the buyer at the point of sale. There is a passing of title (property or ownership) of the item, and the settlement of a price, in which agreement is reached on a price for which transfer of ownership of the item will occur. The seller, not the purchaser, typically executes the sale and it may be completed prior to the obligation of payment. In the case of indirect interaction, a person who sells goods or service on behalf of the owner is known as a salesman or saleswoman or salesperson, but this often refers to someone selling goods in a store/shop, in which case other terms are also common, including salesclerk, shop assistant, and retail clerk.        
         """.strip()
 
+    uid = t.next_uid()
+
     return evt.DatasetCreated(
-        dataset_id=did,
-        project_id=e.project_id,
-        meta=meta
+        uid=uid,
+        project_uid=e.uid,
+        meta=meta,
+        project_name=e.name,
+        name=did,
     )
 
 def job_added(e:env.Env, prj:evt.ProjectCreated) -> evt.JobAdded:
     id  = e.next_id()
-    jid = f'job-{id}'
-
-    name = f'Job {id}'
-    return evt.JobAdded(job_id=jid, job_name=name, project_id=prj.project_id)
+    name = f'job-{id}'
+    uid = e.next_uid()
+    title = f'Job {id}'
+    return evt.JobAdded(
+        uid=uid,
+        project_uid=prj.uid,
+        name=name,
+        meta=vo.JobMetadataDelta(title=title, title_set=True))
 
 def expert_added(e:env.Env) -> evt.ExpertAdded:
 
-    id = f'expert-{e.next_id()}'
+    name = f'expert-{e.next_id()}'
+    uid = e.next_uid()
 
-    return evt.ExpertAdded(expert_id=id, expert_name=e.faker.name())
+    return evt.ExpertAdded(
+        uid=uid,
+        name=name,
+        meta=vo.ExpertMetadataDelta(full_name=e.faker.name(), full_name_set=True))
 
 
 

@@ -14,16 +14,18 @@ class ClientError(Exception):
     status_code = None
 
 
-    def __init__(self, status_code:api.StatusCode, message:str, subject_id:str, details:List[str]):
+    def __init__(self, status_code:api.StatusCode, message:str, subject_uid:bytes,
+                 subject_name:str,details:List[str]):
         super(ClientError, self).__init__(message)
         self.message = message
         self.details = details
         self.status_code = status_code
-        self.subject_id=subject_id
+        self.subject_uid=subject_uid
+        self.subject_name=subject_name
 
 
     def __str__(self):
-        return f'{self.status_code} {self.message}'
+        return f'{self.status_code} {self.message} {self.details}'
 
 
 
@@ -33,15 +35,21 @@ class InvalidArgument(ClientError):
 class AlreadyExists(ClientError):
     pass
 
+class BadName(InvalidArgument):
+    pass
+
+
 
 MAP= {
     api.StatusCode.INVALID_ARGUMENT: InvalidArgument,
-    api.StatusCode.ALREADY_EXISTS:AlreadyExists
+    api.StatusCode.ALREADY_EXISTS:AlreadyExists,
+    api.StatusCode.BAD_NAME:BadName,
+
 }
 
 def from_error(e: api.ApiError) -> ClientError:
     ctor = MAP.get(e.code, ClientError)
-    return ctor(e.code, e.message, e.subject_id, list(e.details))
+    return ctor(e.code, e.message, e.subject_uid, e.subject_name, list(e.details))
 
 
 def from_exception(e: grpc.RpcError):

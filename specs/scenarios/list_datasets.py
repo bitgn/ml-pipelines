@@ -19,12 +19,12 @@ def given_a_dataset(t: Env):
 
     t.given_events(prj, ds)
 
-    href = urls.view_project(ds.project_id)
+    href = urls.view_project(ds.project_name)
     t.scenario(
         when.list_datasets(),
         then.none('main #empty-catalog-message'),
         then.count('main .dataset-info', 1),
-        then.text(f'main #ds-{ds.dataset_id} .dataset-name', ds.meta.name),
-        then.link(f'main #ds-{ds.dataset_id} .project-link', href=href, text=prj.meta.name),
+        then.text(f'main #ds-{ds.uid.hex()} .dataset-name', ds.name),
+        then.link(f'main #ds-{ds.uid.hex()} .project-link', href=href, text=prj.name),
 
     )

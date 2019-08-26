@@ -12,18 +12,18 @@ def given_a_dataset_with_location_id(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.text(f'main #ds-{ds.dataset_id} .location-id', 'aws'),
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .location-id', 'aws'),
     )
 
     t.scenario(
         when.list_datasets(),
-        then.text(f'main #ds-{ds.dataset_id} .location-id', 'aws')
+        then.text(f'main #ds-{ds.uid.hex()} .location-id', 'aws')
     )
 
     t.scenario(
-        when.view_project(prj.project_id),
-        then.text(f'main #ds-{ds.dataset_id} .location-id', 'aws')
+        when.view_project(prj.name),
+        then.text(f'main #ds-{ds.uid.hex()} .location-id', 'aws')
     )
 
 
@@ -37,16 +37,16 @@ def given_a_dataset_without_location_id(t: Env):
     t.given_events(prj, ds)
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.none(f'main #ds-{ds.dataset_id} .location-id'),
+        when.view_dataset(ds.project_name, ds.name),
+        then.none(f'main #ds-{ds.uid.hex()} .location-id'),
     )
 
     t.scenario(
         when.list_datasets(),
-        then.none(f'main #ds-{ds.dataset_id} .location-id')
+        then.none(f'main #ds-{ds.uid.hex()} .location-id')
     )
 
     t.scenario(
-        when.view_project(prj.project_id),
-        then.none(f'main #ds-{ds.dataset_id} .location-id')
+        when.view_project(prj.name),
+        then.none(f'main #ds-{ds.uid.hex()} .location-id')
     )

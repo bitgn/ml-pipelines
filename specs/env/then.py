@@ -28,28 +28,46 @@ def count(selector, c: int):
 
 
 
-def invalid_argument(subject_id=None):
+def bad_name(name:str):
+    def _(response: Any):
+        if not isinstance(response, client.BadName):
+            return "Expected BadName"
+
+        ex: client.BadName = response
+        if ex.subject_name != name:
+            return f'Expected subject {name} got {ex.subject_name}'
+    return env.Then(None, _)
+
+
+
+def invalid_argument(subject_uid=None, subject_name=None):
     def _(response: Any):
         if not isinstance(response, client.InvalidArgument):
             return "Expected InvalidArgument"
 
         ex: client.InvalidArgument = response
-        if subject_id:
-            if ex.subject_id != subject_id:
-                return f'Expected subject {subject_id} got {ex.subject_id}'
+        if subject_uid:
+            if ex.subject_uid != subject_uid:
+                return f'Expected subject {subject_uid} got {ex.subject_uid}'
 
 
+        if subject_name:
+            if ex.subject_name != subject_name:
+                return f'Expected subject {subject_name} got {ex.subject_name}'
     return env.Then(None, _)
 
-def already_exists(subject_id=None):
+def name_taken(subject_uid, subject_name):
     def _(response: Any):
         if not isinstance(response, client.AlreadyExists):
-            return "Expected AlreadyExists"
+            return f"Expected {client.AlreadyExists.__name__}, got {type(response).__name__}: {response}"
 
         ex: client.AlreadyExists = response
-        if subject_id:
-            if ex.subject_id != subject_id:
-                return f'Expected subject {subject_id} got {ex.subject_id}'
+        if ex.subject_uid != subject_uid:
+            return f'Expected subject {subject_uid} got {ex.subject_uid}'
+
+        if ex.subject_name != subject_name:
+            return f'Expected subject {subject_name} got {ex.subject_name}'
+
 
 
     return env.Then(None, _)

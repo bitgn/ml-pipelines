@@ -22,9 +22,9 @@ def given_a_populated_project(t: env.Env):
 
     t.scenario(
         when.list_projects(),
-        then.text(f'main #prj-{prj.project_id} .storage-size', nbsp('3.0 kB'), title='3000'),
-        then.text(f'main #prj-{prj.project_id} .dataset-count', "2"),
-        then.text(f'main #prj-{prj.project_id} .job-count', "3")
+        then.text(f'main #prj-{prj.uid.hex()} .storage-size', nbsp('3.0 kB'), title='3000'),
+        then.text(f'main #prj-{prj.uid.hex()} .dataset-count', "2"),
+        then.text(f'main #prj-{prj.uid.hex()} .job-count', "3")
     )
 
 
@@ -35,7 +35,7 @@ def given_an_empty_project(t: env.Env):
 
     t.scenario(
         when.list_projects(),
-        then.text(f'main #prj-{prj.project_id} .storage-size', nbsp('0 bytes'), title='0'),
-        then.text(f'main #prj-{prj.project_id} .dataset-count', "0"),
-        then.text(f'main #prj-{prj.project_id} .job-count', "0")
+        then.text(f'main #prj-{prj.uid.hex()} .storage-size', nbsp('0 bytes'), title='0'),
+        then.text(f'main #prj-{prj.uid.hex()} .dataset-count', "0"),
+        then.text(f'main #prj-{prj.uid.hex()} .job-count', "0")
     )

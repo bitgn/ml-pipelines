@@ -22,45 +22,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"I\n\x0eProjectCreated\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\"]\n\x0e\x44\x61tasetCreated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\"]\n\x0e\x44\x61tasetUpdated\x12\x12\n\ndataset_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"a\n\x08JobAdded\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x10\n\x08job_name\x18\x02 \x01(\t\x12\x0e\n\x06inputs\x18\x03 \x03(\t\x12\x0f\n\x07outputs\x18\x04 \x03(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\"]\n\x0eServiceCreated\x12\x12\n\nservice_id\x18\x01 \x01(\t\x12\x12\n\nproject_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ServiceMetadataDelta\"&\n\x0fRelationDefined\x12\x13\n\x0bupstream_id\x18\x01 \x01(\t\"5\n\x0b\x45xpertAdded\x12\x11\n\texpert_id\x18\x01 \x01(\t\x12\x13\n\x0b\x65xpert_name\x18\x02 \x01(\t\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*@\n\x06\x45NTITY\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07\x44\x41TASET\x10\x01\x12\x07\n\x03JOB\x10\x02\x12\x0b\n\x07SERVICE\x10\x03\x12\t\n\x05MODEL\x10\x04*\xa3\x01\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x62\x06proto3')
+  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"P\n\x0eProjectCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ProjectMetadataDelta\"{\n\x0e\x44\x61tasetCreated\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"W\n\x0e\x44\x61tasetUpdated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"[\n\x08JobAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1f\n\x04meta\x18\x04 \x01(\x0b\x32\x11.JobMetadataDelta\"e\n\x0eServiceCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.ServiceMetadataDelta\"L\n\x0b\x45xpertAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\"\n\x04meta\x18\x03 \x01(\x0b\x32\x14.ExpertMetadataDelta\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*\xa3\x01\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
-_ENTITY = _descriptor.EnumDescriptor(
-  name='ENTITY',
-  full_name='ENTITY',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='NONE', index=0, number=0,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DATASET', index=1, number=1,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='JOB', index=2, number=2,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SERVICE', index=3, number=3,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MODEL', index=4, number=4,
-      serialized_options=None,
-      type=None),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=624,
-  serialized_end=688,
-)
-_sym_db.RegisterEnumDescriptor(_ENTITY)
-
-ENTITY = enum_type_wrapper.EnumTypeWrapper(_ENTITY)
 _TYPE = _descriptor.EnumDescriptor(
   name='Type',
   full_name='Type',
@@ -98,17 +63,12 @@ _TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=691,
-  serialized_end=854,
+  serialized_start=641,
+  serialized_end=804,
 )
 _sym_db.RegisterEnumDescriptor(_TYPE)
 
 Type = enum_type_wrapper.EnumTypeWrapper(_TYPE)
-NONE = 0
-DATASET = 1
-JOB = 2
-SERVICE = 3
-MODEL = 4
 globals()['None'] = 0
 Event_ProjectCreated = 1
 Event_DatasetCreated = 2
@@ -127,15 +87,22 @@ _PROJECTCREATED = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='project_id', full_name='ProjectCreated.project_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='uid', full_name='ProjectCreated.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='ProjectCreated.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='meta', full_name='ProjectCreated.meta', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='meta', full_name='ProjectCreated.meta', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -153,7 +120,7 @@ _PROJECTCREATED = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=26,
-  serialized_end=99,
+  serialized_end=106,
 )
 
 
@@ -165,23 +132,37 @@ _DATASETCREATED = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='dataset_id', full_name='DatasetCreated.dataset_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='project_uid', full_name='DatasetCreated.project_uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='DatasetCreated.uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='DatasetCreated.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='project_id', full_name='DatasetCreated.project_id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='meta', full_name='DatasetCreated.meta', index=2,
+      name='meta', full_name='DatasetCreated.meta', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='project_name', full_name='DatasetCreated.project_name', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -197,8 +178,8 @@ _DATASETCREATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=101,
-  serialized_end=194,
+  serialized_start=108,
+  serialized_end=231,
 )
 
 
@@ -210,16 +191,16 @@ _DATASETUPDATED = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='dataset_id', full_name='DatasetUpdated.dataset_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='uid', full_name='DatasetUpdated.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='project_id', full_name='DatasetUpdated.project_id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='project_uid', full_name='DatasetUpdated.project_uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -242,8 +223,8 @@ _DATASETUPDATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=196,
-  serialized_end=289,
+  serialized_start=233,
+  serialized_end=320,
 )
 
 
@@ -255,37 +236,30 @@ _JOBADDED = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='job_id', full_name='JobAdded.job_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='uid', full_name='JobAdded.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='project_uid', full_name='JobAdded.project_uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='JobAdded.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='job_name', full_name='JobAdded.job_name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='inputs', full_name='JobAdded.inputs', index=2,
-      number=3, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='outputs', full_name='JobAdded.outputs', index=3,
-      number=4, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='project_id', full_name='JobAdded.project_id', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='meta', full_name='JobAdded.meta', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -301,8 +275,8 @@ _JOBADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=291,
-  serialized_end=388,
+  serialized_start=322,
+  serialized_end=413,
 )
 
 
@@ -314,21 +288,73 @@ _SERVICECREATED = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='service_id', full_name='ServiceCreated.service_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='uid', full_name='ServiceCreated.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='project_uid', full_name='ServiceCreated.project_uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='ServiceCreated.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='project_id', full_name='ServiceCreated.project_id', index=1,
+      name='meta', full_name='ServiceCreated.meta', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=415,
+  serialized_end=516,
+)
+
+
+_EXPERTADDED = _descriptor.Descriptor(
+  name='ExpertAdded',
+  full_name='ExpertAdded',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='ExpertAdded.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='ExpertAdded.name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='meta', full_name='ServiceCreated.meta', index=2,
+      name='meta', full_name='ExpertAdded.meta', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -346,77 +372,8 @@ _SERVICECREATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=390,
-  serialized_end=483,
-)
-
-
-_RELATIONDEFINED = _descriptor.Descriptor(
-  name='RelationDefined',
-  full_name='RelationDefined',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='upstream_id', full_name='RelationDefined.upstream_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=485,
-  serialized_end=523,
-)
-
-
-_EXPERTADDED = _descriptor.Descriptor(
-  name='ExpertAdded',
-  full_name='ExpertAdded',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='expert_id', full_name='ExpertAdded.expert_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='expert_name', full_name='ExpertAdded.expert_name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=525,
-  serialized_end=578,
+  serialized_start=518,
+  serialized_end=594,
 )
 
 
@@ -453,24 +410,24 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=580,
-  serialized_end=622,
+  serialized_start=596,
+  serialized_end=638,
 )
 
 _PROJECTCREATED.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
 _DATASETCREATED.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
 _DATASETUPDATED.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
+_JOBADDED.fields_by_name['meta'].message_type = vo__pb2._JOBMETADATADELTA
 _SERVICECREATED.fields_by_name['meta'].message_type = vo__pb2._SERVICEMETADATADELTA
+_EXPERTADDED.fields_by_name['meta'].message_type = vo__pb2._EXPERTMETADATADELTA
 _EVENT.fields_by_name['Type'].enum_type = _TYPE
 DESCRIPTOR.message_types_by_name['ProjectCreated'] = _PROJECTCREATED
 DESCRIPTOR.message_types_by_name['DatasetCreated'] = _DATASETCREATED
 DESCRIPTOR.message_types_by_name['DatasetUpdated'] = _DATASETUPDATED
 DESCRIPTOR.message_types_by_name['JobAdded'] = _JOBADDED
 DESCRIPTOR.message_types_by_name['ServiceCreated'] = _SERVICECREATED
-DESCRIPTOR.message_types_by_name['RelationDefined'] = _RELATIONDEFINED
 DESCRIPTOR.message_types_by_name['ExpertAdded'] = _EXPERTADDED
 DESCRIPTOR.message_types_by_name['Event'] = _EVENT
-DESCRIPTOR.enum_types_by_name['ENTITY'] = _ENTITY
 DESCRIPTOR.enum_types_by_name['Type'] = _TYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -508,13 +465,6 @@ ServiceCreated = _reflection.GeneratedProtocolMessageType('ServiceCreated', (_me
   # @@protoc_insertion_point(class_scope:ServiceCreated)
   })
 _sym_db.RegisterMessage(ServiceCreated)
-
-RelationDefined = _reflection.GeneratedProtocolMessageType('RelationDefined', (_message.Message,), {
-  'DESCRIPTOR' : _RELATIONDEFINED,
-  '__module__' : 'events_pb2'
-  # @@protoc_insertion_point(class_scope:RelationDefined)
-  })
-_sym_db.RegisterMessage(RelationDefined)
 
 ExpertAdded = _reflection.GeneratedProtocolMessageType('ExpertAdded', (_message.Message,), {
   'DESCRIPTOR' : _EXPERTADDED,

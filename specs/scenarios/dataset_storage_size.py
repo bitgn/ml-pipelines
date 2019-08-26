@@ -37,7 +37,7 @@ def given_a_datasets_with_various_storage_sizes(t: env.Env):
         ds = preset.dataset_created(t, prj)
         ds.meta.storage_bytes = k
         value = _avoid_wrapping(v)
-        conditionals.append(then.text(f'main #ds-{ds.dataset_id} .zip-size', value),)
+        conditionals.append(then.text(f'main #ds-{ds.uid.hex()} .zip-size', value),)
         t.given_events(ds)
 
 
@@ -59,18 +59,18 @@ def given_a_dataset_with_storage_size(t: env.Env):
 
     t.given_events(prj, ds)
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.text(f'main #ds-{ds.dataset_id} .zip-size', size),
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
     )
 
     t.scenario(
         when.list_datasets(),
-        then.text(f'main #ds-{ds.dataset_id} .zip-size', size),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
     )
 
     t.scenario(
-        when.view_project(prj.project_id),
-        then.text(f'main #ds-{ds.dataset_id} .zip-size', size),
+        when.view_project(prj.name),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
     )
 
 
@@ -89,16 +89,16 @@ def given_a_dataset_without_storage_size(t: Env):
     size = _avoid_wrapping('0 bytes')
 
     t.scenario(
-        when.view_dataset(ds.dataset_id),
-        then.text(f'main #ds-{ds.dataset_id} .zip-size', size),
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
     )
 
     t.scenario(
         when.list_datasets(),
-        then.text(f'main #ds-{ds.dataset_id} .zip-size', size),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
     )
 
     t.scenario(
-        when.view_project(prj.project_id),
-        then.text(f'main #ds-{ds.dataset_id} .zip-size', size),
+        when.view_project(prj.name),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
     )

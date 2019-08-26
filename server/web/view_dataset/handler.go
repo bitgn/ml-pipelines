@@ -1,8 +1,6 @@
 package view_dataset
 
 import (
-	"bufio"
-	"bytes"
 	"github.com/gomarkdown/markdown"
 	"html/template"
 	"io"
@@ -36,13 +34,22 @@ func NewHandler(env *db.DB, tl *shared.TemplateLoader) *Handler{
 
 
 
-func (h *Handler) Handle(w http.ResponseWriter, datasetId string){
+func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 	tx := h.env.MustRead()
 
 	defer tx.MustAbort()
 
-	ds := db.GetDataset(tx, datasetId)
-	pr := db.GetProject(tx, ds.ProjectId)
+
+	// TODO: join into a single lookup
+	did := db.LookupDataset(tx, project, dataset)
+	if did == nil {
+		http.Error(w, "dataset not found", http.StatusNotFound)
+		return
+	}
+
+
+	ds := db.GetDataset(tx, did)
+	pr := db.GetProject(tx, ds.ProjectUid)
 
 
 	site := shared.LoadSite(tx)
@@ -53,7 +60,7 @@ func (h *Handler) Handle(w http.ResponseWriter, datasetId string){
 		Dataset: ds,
 		Project: pr,
 		IsStale: domain.IsStale(ds),
-		Lineage: renderSVG( tx,datasetId, site.Url),
+		Lineage: renderSVG( tx,ds.Uid, site.Url),
 	}
 
 	if len(ds.Description) > 0 {
@@ -67,14 +74,6 @@ func (h *Handler) Handle(w http.ResponseWriter, datasetId string){
 
 	io.Pipe()
 
-	var b bytes.Buffer
-	foo := bufio.NewWriter(&b)
-	if err := h.layout.Exec(foo, model); err != nil {
-		http.Error(w, err.Error(), 408)
-	} else {
-		foo.Flush()
-		b.WriteTo(w)
-
-	}
+	h.layout.Render(w, model)
 }
 

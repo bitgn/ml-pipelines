@@ -1,4 +1,5 @@
 import argparse
+import json
 import time
 from dataclasses import dataclass
 from typing import List
@@ -113,6 +114,8 @@ class SuiteResult:
 
 
 
+
+
     def print(self):
 
         assert_count = 0
@@ -139,15 +142,56 @@ class SuiteResult:
                         scenarios_ok +=1
 
 
+
+
+        join = os.path.join(root, "stats.json")
+        st = None
+        if os.path.exists(join):
+            with open(join, 'r') as o:
+                st = json.load(o)
+        else:
+            st = { 'assert_ok': 0, 'spec_ok':0 }
+
+
+
+        delta_assert = assert_ok - st['assert_ok']
+        delta_specs = spec_ok - st['spec_ok']
+
         print()
+        print("             FAIL   OK    Δ")
+
+
+
+        def bad(n):
+            if n > 0:
+                return f'{CRED}{n:4d}{CEND}'
+            return f'{CGREEN}{n:4d}{CEND}'
+
+        def good(n):
+            if n < 0:
+                return f'{CRED}{n:4d}{CEND}'
+            return f'{CGREEN}{n:4d}{CEND}'
+
+
         if spec_ok == spec_count:
-            print(f'{CGREEN}✔ Specs:      {spec_ok} of {spec_count} OK{CEND}')
+            print(f'{CGREEN}✔ Specs{CEND}      ', end='')
         else:
-            print(f'{CRED}✗ Specs:      {spec_ok} of {spec_count} FAIL{CEND}')
+            print(f'{CRED}✗ Specs{CEND}      ', end='')
+
+
+        print(f"{bad(spec_count-spec_ok)} {good(spec_ok)} {good(delta_specs)}")
+
+
         if assert_count == assert_ok:
-            print(f"{CGREEN}✔ Assertions: {assert_ok} of {assert_count} OK{CEND}")
+            print(f"{CGREEN}✔ Assertions{CEND} ", end='')
         else:
-            print(f"{CRED}✗ Assertions: {assert_ok} of {assert_count} FAIL{CEND}")
+            print(f"{CRED}x Assertions{CEND} ", end='')
+
+        print(f"{bad(assert_count-assert_ok)} {good(assert_ok)} {good(delta_assert)}")
+
+
+        with open(join, 'w') as o:
+            json.dump({'assert_ok':assert_ok, 'spec_ok':spec_ok}, o)
 
 
 @dataclass()
@@ -228,7 +272,10 @@ try:
         "--specs",
         "--grpc", args.grpc,
         "--web", args.web,
-        "--template-path", args.template_path
+        "--template-path", args.template_path,
+        # we are going to wipe things anyway
+        # TODO: wipe db instead
+        "--upgrade", "none"
                              ]
     print(f"Launching server: {nested}")
 
@@ -240,7 +287,11 @@ try:
     print("Server ready!")
 
     for l in os.listdir(root):
+
+        if not l.endswith('.py'):
+            continue
         stem = pathlib.Path(l).stem
+
 
         if stem.startswith('_') or stem in ['preset', 'when']:
             continue

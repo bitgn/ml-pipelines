@@ -41,17 +41,17 @@ func NewServer(env *db.DB, templatePath string, devMode bool, specsMode bool, ve
 
 
 	projectHandler := view_project.NewHandler(env, tl)
-	mx.HandleFunc("/projects/{project_id}", func(w http.ResponseWriter, r *http.Request) {
+	mx.HandleFunc("/projects/{name}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		projectHandler.Handle(w, vars["project_id"])
+		projectHandler.Handle(w, vars["name"])
 	})
 
 
 
 	viewDatasetHandler := view_dataset.NewHandler(env, tl)
-	mx.HandleFunc("/datasets/{dataset_id}", func(w http.ResponseWriter, r *http.Request) {
+	mx.HandleFunc("/projects/{project}/datasets/{dataset}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		viewDatasetHandler.Handle(w, vars["dataset_id"])
+		viewDatasetHandler.Handle(w, vars["project"], vars["dataset"])
 	})
 
 

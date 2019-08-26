@@ -1,6 +1,7 @@
 package shared
 
 import (
+	"encoding/hex"
 	"fmt"
 	"math"
 	"mlp/catalog/sim"
@@ -17,6 +18,10 @@ type Format struct {
 
 func (f *Format) BytesDecimal(b int64) string{
 	return avoidWrapping(bytesDecimal(b))
+}
+
+func (f *Format) Uid(uid []byte) string{
+	return hex.EncodeToString(uid)
 }
 
 

@@ -41,7 +41,5 @@ func (h *Handler) Handle(w http.ResponseWriter){
 		Projects: projects,
 	}
 
-	if err:= h.layout.Exec(w, model); err != nil {
-		http.Error(w, err.Error(), 408)
-	}
+	h.layout.Render(w, model)
 }

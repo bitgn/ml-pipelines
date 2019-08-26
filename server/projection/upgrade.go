@@ -1,9 +1,8 @@
-package core
+package projection
 
 import (
 	"log"
 	"mlp/catalog/db"
-	"mlp/catalog/projection"
 	"strings"
 )
 
@@ -19,10 +18,6 @@ func UpgradeDB(env *db.DB, version string, mode UpgradePolicy) {
 	tx := env.MustWrite()
 	defer tx.MustCleanup()
 
-
-
-
-
 	ver := db.GetVersion(tx)
 	if !upgradeNeeded(version, ver, mode){
 		return
@@ -30,7 +25,7 @@ func UpgradeDB(env *db.DB, version string, mode UpgradePolicy) {
 
 	log.Printf("Upgrade is needed from '%s' to '%s' under policy %v\n", version, ver.ProjectionVersion, string(mode))
 	deleted := db.WipeViewTables(tx)
-	replayed := db.ReplayEvents(tx, projection.Handle)
+	replayed := db.ReplayEvents(tx, Handle)
 
 	ver.ProjectionVersion = version
 	db.PutVersion(tx, ver)

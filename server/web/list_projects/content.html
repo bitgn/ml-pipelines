@@ -20,9 +20,9 @@
         {{range .Projects}}
 
 
-        <tr class="project-info" id="prj-{{ .Id }}">
+        <tr class="project-info" id="prj-{{ $.Site.Fmt.Uid .Uid }}">
             <td>
-                <a href="{{$.Site.Url.ViewProject .Id }}" class="project-name project-link">{{ .Name }}</a>
+                <a href="{{$.Site.Url.ViewProject .Name }}" class="project-name project-link">{{ .Name }}</a>
             </td>
             <td class="dataset-count">{{ .DatasetCount }}</td>
             <td class="job-count">{{ .JobCount }}</td>
