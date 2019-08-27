@@ -1,11 +1,11 @@
-from typing import Optional
+from typing import Optional, Callable, Any
 
 import grpc
 import requests as r
 import env
 import urllib.parse as url
-
-from client import ml_pipelines as client
+import inspect
+from client import ml_pipelines as cl
 
 import test_api as api
 
@@ -29,15 +29,17 @@ def list_datasets():
 def list_projects():
     return _get_page("list projects", env.urls.list_projects())
 
-
-def client_create_project(name: str, title: Optional[str] = None):
-    def _(c: client.Client):
+def client(l: Callable[[cl.Client], Any], text:Optional[str]=None):
+    def _(c: cl.Client):
         try:
-            return c.create_project(name=name)
+            return l(c)
         except Exception as e:
             return e
 
-    return env.When(web_action=None, text="create project", client_action=_)
+    if not text:
+        text = '('+inspect.getsource(l).replace("when.client(lambda c:", "").strip('\n ,')
+
+    return env.When(web_action=None, client_action=_, text=text)
 
 
 def _get_page(text, uri):

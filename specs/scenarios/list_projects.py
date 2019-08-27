@@ -22,7 +22,7 @@ def given_a_project(t: Env):
         then.none('main #empty-catalog-message'),
         then.count('main .project-info', 1),
 
-        then.link(f'main #prj-{prj.uid.hex()} .project-link', href=href, text=prj.name),
+        then.link(f'main #prj-{prj.uid.hex()} .project-link', href=href, text=prj.meta.title),
     )
 
 
