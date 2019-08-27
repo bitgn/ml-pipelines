@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 import bs4
 
@@ -39,6 +39,23 @@ def bad_name(name:str):
     return env.Then(None, _)
 
 
+def not_found(subject_uid:Optional[bytes]=None, subject_name:Optional[str]=None):
+    def _(response: Any):
+        if not isinstance(response, client.NotFound):
+            return "Expected NotFound"
+
+        ex: client.NotFound = response
+        if subject_uid:
+            if ex.subject_uid != subject_uid:
+                return f'Expected subject {subject_uid} got {ex.subject_uid}'
+
+
+        if subject_name:
+            if ex.subject_name != subject_name:
+                return f'Expected subject {subject_name} got {ex.subject_name}'
+    return env.Then(None, _)
+
+
 
 def invalid_argument(subject_uid=None, subject_name=None):
     def _(response: Any):
@@ -72,10 +89,17 @@ def name_taken(subject_uid, subject_name):
 
     return env.Then(None, _)
 
-def client_ok():
+def client_ok(**kwargs):
     def _(response: Any):
         if isinstance(response, Exception):
             return f"Expected valid response, got ({type(response)}) {response}"
+
+        for k,v in kwargs.items():
+            actual = getattr(response, k, None)
+
+            if v != actual:
+                return f"Expected response.{k} to be '{v}' got '{actual}'"
+
 
     return env.Then(None, _)
 

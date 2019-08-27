@@ -33,7 +33,7 @@ func (c *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobRe
 
 	prj := db.GetProject(tx,r.ProjectUid)
 	if prj == nil {
-		return genError(errNotFound(vo.ENTITY_PROJECT, r.ProjectUid))
+		return genError(notFound(vo.ENTITY_PROJECT, r.ProjectUid))
 	}
 
 

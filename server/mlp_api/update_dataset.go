@@ -14,7 +14,7 @@ func (c *server) UpdateDataset(ctx context.Context, r *UpdateDatasetRequest) (*A
 	ds := db.GetDataset(tx,r.Uid)
 
 	if ds == nil {
-		return genError(errNotFound(vo.ENTITY_DATASET, r.Uid))
+		return genError(notFound(vo.ENTITY_DATASET, r.Uid))
 	}
 
 	// TODO publish only deltas

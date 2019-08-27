@@ -33,7 +33,7 @@ func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 
 	prj := db.GetProject(tx,r.ProjectUid)
 	if prj == nil {
-		return genError(errNotFound(vo.ENTITY_PROJECT, r.ProjectUid))
+		return genError(notFound(vo.ENTITY_PROJECT, r.ProjectUid))
 	}
 
 

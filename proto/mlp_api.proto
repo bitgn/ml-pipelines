@@ -39,12 +39,26 @@ message CreateJobResponse{
     bytes uid = 2;
 }
 
+
+message LookupProjectRequest{
+    string name = 1;
+}
+
+message LookupProjectResponse{
+    ApiError error = 1;
+    bytes uid = 2;
+}
+
+
+
 service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
     rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse){}
     rpc UpdateDataset(UpdateDatasetRequest) returns (ApiResponse){}
     rpc CreateJob(CreateJobRequest) returns (CreateJobResponse){}
     rpc Stat(StatRequest) returns (StatResponse){}
+
+    rpc LookupProject(LookupProjectRequest) returns (LookupProjectResponse){}
 
 }
 

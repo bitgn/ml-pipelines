@@ -9,13 +9,24 @@ import (
 
 
 
-func errNotFound(kind vo.ENTITY, uid []byte) *ApiError{
+func notFound(kind vo.ENTITY, uid []byte) *ApiError{
 
 	name := vo.ENTITY_name[int32(kind)]
 	return &ApiError{
 		Code:StatusCode_NOT_FOUND,
 		Message:fmt.Sprintf("%s '%s' not found", name, hex.EncodeToString(uid)),
 		SubjectUid:uid,
+
+	}
+}
+
+func unknownProjectName(name string) *ApiError{
+
+	typ := vo.ENTITY_name[int32(vo.ENTITY_PROJECT)]
+	return &ApiError{
+		Code:StatusCode_NOT_FOUND,
+		Message:fmt.Sprintf("%s '%s' not found", typ, name),
+		SubjectName:name,
 
 	}
 }

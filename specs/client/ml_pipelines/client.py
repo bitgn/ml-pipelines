@@ -1,5 +1,7 @@
 from typing import Optional, Callable, List
 
+from google.protobuf.message import Message
+
 from . import mlp_api_pb2 as api
 from . import mlp_api_pb2_grpc as rpc
 from . import vo_pb2 as vo
@@ -70,7 +72,8 @@ class Client:
 
         return self._rpc(lambda: self.catalog.CreateJob(r))
 
-    def create_dataset(self, project_uid: bytes, name: str,
+    def create_dataset(self, project_name: str,
+                       name: str,
                        title: Optional[str] = None,
                        data_format: Optional[str] = None,
                        file_count: Optional[int] = None,
@@ -80,6 +83,11 @@ class Client:
                        location_id:Optional[str] = None,
                        location_uri: Optional[str] = None,
                        update_timestamp: Optional[int] = None) -> api.CreateDatasetResponse:
+
+
+
+
+        prj: api.LookupProjectResponse = self._rpc(lambda: self.catalog.LookupProject(api.LookupProjectRequest(name=project_name)))
 
         d = vo.DatasetMetadataDelta()
 
@@ -124,7 +132,7 @@ class Client:
         request = api.CreateDatasetRequest(
             name=name,
             meta=d,
-            project_uid=project_uid,
+            project_uid=prj.uid,
         )
 
         return self._rpc(lambda: self.catalog.CreateDataset(request))

@@ -34,8 +34,10 @@ class InvalidArgument(ClientError):
     pass
 class AlreadyExists(ClientError):
     pass
-
 class BadName(InvalidArgument):
+    pass
+
+class NotFound(InvalidArgument):
     pass
 
 
@@ -44,6 +46,7 @@ MAP= {
     api.StatusCode.INVALID_ARGUMENT: InvalidArgument,
     api.StatusCode.ALREADY_EXISTS:AlreadyExists,
     api.StatusCode.BAD_NAME:BadName,
+    api.StatusCode.NOT_FOUND:NotFound,
 
 }
 
