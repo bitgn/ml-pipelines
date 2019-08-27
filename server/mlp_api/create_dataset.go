@@ -5,6 +5,7 @@ import (
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/events"
+	"mlp/catalog/sim"
 	"mlp/catalog/vo"
 )
 
@@ -43,7 +44,7 @@ func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 	}
 
 
-	uid := newID()
+	uid := sim.NewID()
 
 	e := &events.DatasetCreated{
 		Name:       r.Name,

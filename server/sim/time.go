@@ -11,11 +11,13 @@ var (
 	sim_set = false
 
 	sim_running = false
+	sim_counter uint64
 
 )
 
 func Start(){
 	sim_running = true
+	sim_counter = 0
 }
 
 

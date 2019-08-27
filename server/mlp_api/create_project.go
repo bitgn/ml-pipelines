@@ -5,6 +5,7 @@ import (
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/events"
+	"mlp/catalog/sim"
 	"mlp/catalog/vo"
 )
 
@@ -34,7 +35,7 @@ func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*C
 	}
 
 
-	pid = newID()
+	pid = sim.NewID()
 
 	prj := &events.ProjectCreated{
 		Uid:  pid,
