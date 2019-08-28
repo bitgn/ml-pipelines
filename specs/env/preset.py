@@ -60,8 +60,8 @@ def set_data_format(t: env.Env, dm:vo.DatasetMetadataDelta, text: str):
     dm.data_format = text
     dm.data_format_set = True
 
-def dataset_created(t: env.Env, e: evt.ProjectCreated):
-    id = t.next_id()
+def dataset_created(e: env.Env, prj: evt.ProjectCreated):
+    id = e.next_id()
     a = random.choice(adj)
     n = random.choice(nouns)
 
@@ -86,7 +86,7 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
     meta.file_count_set = True
 
 
-    set_update_timestamp(t, meta, minutes=-random.randint(0, 7 * 24 * 60))
+    set_update_timestamp(e, meta, minutes=-random.randint(0, 7 * 24 * 60))
 
 
 
@@ -96,7 +96,7 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
     if kind == 1:
         text = random.choice(json_samples)
         text = json.dumps(json.loads(text), indent=2)
-        set_sample(t, meta, text, vo.DatasetSample.FORMAT.JSON)
+        set_sample(e, meta, text, vo.DatasetSample.FORMAT.JSON)
 
         if archive:
             meta.data_format = "json+gzip"
@@ -114,13 +114,13 @@ def dataset_created(t: env.Env, e: evt.ProjectCreated):
 The _seller_, or the provider of the goods or services, completes a sale in response to an acquisition, appropriation,[1] requisition, or a direct interaction with the buyer at the point of sale. There is a passing of title (property or ownership) of the item, and the settlement of a price, in which agreement is reached on a price for which transfer of ownership of the item will occur. The seller, not the purchaser, typically executes the sale and it may be completed prior to the obligation of payment. In the case of indirect interaction, a person who sells goods or service on behalf of the owner is known as a salesman or saleswoman or salesperson, but this often refers to someone selling goods in a store/shop, in which case other terms are also common, including salesclerk, shop assistant, and retail clerk.        
         """.strip()
 
-    uid = t.next_uid()
+    uid = e.next_uid()
 
     return evt.DatasetCreated(
         uid=uid,
-        project_uid=e.uid,
+        project_uid=prj.uid,
         meta=meta,
-        project_name=e.name,
+        project_name=prj.name,
         name=did,
     )
 

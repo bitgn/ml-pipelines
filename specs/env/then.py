@@ -42,7 +42,7 @@ def bad_name(name:str):
 def not_found(subject_uid:Optional[bytes]=None, subject_name:Optional[str]=None):
     def _(response: Any):
         if not isinstance(response, client.NotFound):
-            return "Expected NotFound"
+            return f"Expected {client.NotFound.__name__} error, got {type(response).__name__}: {response}"
 
         ex: client.NotFound = response
         if subject_uid:

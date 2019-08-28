@@ -9,7 +9,7 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (c *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobResponse, error) {
+func (s *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobResponse, error) {
 
 
 	genError := func (err *ApiError) (*CreateJobResponse, error){
@@ -25,7 +25,7 @@ func (c *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobRe
 	}
 
 
-	tx := c.db.MustWrite()
+	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
 
 	prj := db.GetProject(tx,r.ProjectUid)
@@ -50,7 +50,7 @@ func (c *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobRe
 		ProjectName:r.Name,
 	}
 
-	c.publish(tx, e)
+	s.publish(tx, e)
 	tx.MustCommit()
 
 

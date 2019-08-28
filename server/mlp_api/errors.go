@@ -32,6 +32,8 @@ func unknownProjectName(name string) *ApiError{
 }
 
 
+
+
 func badName(entity vo.ENTITY, name string, err error) *ApiError{
 	entityName := vo.ENTITY_name[int32(entity)]
 	return &ApiError{
@@ -48,6 +50,8 @@ func badName(entity vo.ENTITY, name string, err error) *ApiError{
 
 
 
+
+
 func alreadyExists(entity vo.ENTITY, project_name, name string, id []byte) *ApiError{
 	entityName := vo.ENTITY_name[int32(entity)]
 	return &ApiError{
@@ -56,6 +60,19 @@ func alreadyExists(entity vo.ENTITY, project_name, name string, id []byte) *ApiE
 
 		SubjectName:name,
 		SubjectUid:id,
+		ProjectName:project_name,
+
+	}
+}
+
+
+func nameNotFound(entity vo.ENTITY, project_name, name string) *ApiError{
+	entityName := vo.ENTITY_name[int32(entity)]
+	return &ApiError{
+		Code:StatusCode_NOT_FOUND,
+		Message:fmt.Sprintf("%s named '%s' not found in %s", entityName, name, project_name),
+
+		SubjectName:name,
 		ProjectName:project_name,
 
 	}

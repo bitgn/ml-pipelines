@@ -56,6 +56,9 @@ enum ENTITY {
 
 
 
+
+
+
 message JobMetadataDelta {
     string title = 1;
     bool title_set = 2;
@@ -87,6 +90,17 @@ message JobOutput {
         Dataset = 1;
     }
     Type type = 2;
+}
+
+
+message DatasetVerInput {
+    bytes uid = 1;
+    TYPE type = 2;
+
+    enum TYPE {
+        NONE = 0;
+        JOB_RUN = 1;
+    }
 }
 
 
@@ -123,6 +137,13 @@ message DatasetMetadataDelta {
     bool title_set = 22;
 }
 
+
+message DatasetItem {
+    string name = 1;
+    int64 storage_bytes = 2;
+    int64 records = 3;
+    bytes uid = 4;
+}
 
 
 

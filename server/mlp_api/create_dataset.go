@@ -9,7 +9,7 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*CreateDatasetResponse, error) {
+func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*CreateDatasetResponse, error) {
 
 
 	genError := func (err *ApiError) (*CreateDatasetResponse, error){
@@ -26,7 +26,7 @@ func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 
 
 
-	tx := c.db.MustWrite()
+	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
 
 	prj := db.GetProject(tx,r.ProjectUid)
@@ -51,7 +51,7 @@ func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 		ProjectName: prj.Name,
 	}
 
-	c.publish(tx, e)
+	s.publish(tx, e)
 	tx.MustCommit()
 
 

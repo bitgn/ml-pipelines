@@ -43,6 +43,25 @@ class Client:
         response: api.CreateProjectResponse = self._rpc(lambda: self.catalog.CreateProject(request))
         return ProjectCreated(uid=response.uid)
 
+    def add_dataset_version(self, project_name: str, dataset_name: str, items:List['DatasetItem'], title: Optional[str]=None, inputs:List[bytes]=()):
+
+        prj = self._lookup_dataset(project_name, dataset_name)
+
+        vo.DatasetItem()
+
+
+
+
+        req = api.AddDatasetVersionRequest(
+            dataset_uid=prj.dataset_uid,
+            title=title,
+            inputs=inputs,
+        )
+
+        response: api.AddDatasetVersionResponse = self._rpc(lambda: self.catalog.AddDatasetVersion(req))
+
+        return response
+
     def create_job(
             self, project_name: str, name: str,
             title: Optional[str] = None,
@@ -50,8 +69,7 @@ class Client:
             outputs: List[bytes] = ()
     ) -> 'JobCreated':
 
-        prj: api.LookupProjectResponse = self._rpc(
-            lambda: self.catalog.LookupProject(api.LookupProjectRequest(name=project_name)))
+        prj = self._lookup_project(project_name)
 
         d = vo.JobMetadataDelta()
 
@@ -78,8 +96,18 @@ class Client:
         response: api.CreateJobResponse = self._rpc(lambda: self.catalog.CreateJob(r))
         return JobCreated(uid=response.uid)
 
+    def _lookup_project(self, project_name: str):
+        prj: api.LookupProjectResponse = self._rpc(
+            lambda: self.catalog.LookupProject(api.LookupProjectRequest(name=project_name)))
+        return prj
 
+    def _lookup_dataset(self, project_name:str, dataset_name: str) -> api.LookupDatasetResponse:
+        request = api.LookupDatasetRequest(
+            project_name=project_name,
+            dataset_name=dataset_name)
 
+        prj: api.LookupDatasetResponse = self._rpc(lambda: self.catalog.LookupDataset(request))
+        return prj
 
     def create_dataset(self, project_name: str,
                        name: str,
@@ -96,7 +124,7 @@ class Client:
 
 
 
-        prj: api.LookupProjectResponse = self._rpc(lambda: self.catalog.LookupProject(api.LookupProjectRequest(name=project_name)))
+        prj = self._lookup_project(project_name=project_name)
 
         d = vo.DatasetMetadataDelta()
 
@@ -165,6 +193,21 @@ class DatasetCreated:
 
     def __str__(self):
         return f'Dataset {self.uid.hex()}'
+
+@dataclass
+class DatasetItem:
+    name: str
+    storage_bytes: int
+    records: int
+    def __init__(self, name:str, storage_bytes:int, records:Optional[int]=0):
+        self.name=name
+        self.storage_bytes=storage_bytes
+        if records:
+            self.records=records
+
+
+
+
 
 @dataclass
 class JobCreated:

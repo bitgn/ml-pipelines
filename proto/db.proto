@@ -11,6 +11,7 @@ enum Range {
     STATS=5;
     ASSET_CACHE= 6;
     EXPERTS=7;
+    DATASET_VERSIONS = 8;
 
 
 
@@ -19,9 +20,6 @@ enum Range {
     // scoped to project
     NAMES_SCOPED=11;
 
-
-
-
     IDX_PROJECT_DATASETS =20;
 
 
@@ -29,11 +27,11 @@ enum Range {
 
 }
 
+
 message EntityRef {
     ENTITY kind = 1;
     bytes uid = 2;
 }
-
 
 
 

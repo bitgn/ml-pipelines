@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x08vo.proto\"f\n\x14ProjectMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x04 \x01(\x08\"\xea\x01\n\x14ServiceMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x13\n\x0blocation_id\x18\x03 \x01(\t\x12\x17\n\x0flocation_id_set\x18\x04 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x05 \x01(\t\x12\x18\n\x10location_uri_set\x18\x06 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x08 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\t \x03(\t\x12\x13\n\x0b\x65xperts_set\x18\n \x01(\x08\"a\n\x13\x45xpertMetadataDelta\x12\x11\n\tfull_name\x18\x01 \x01(\t\x12\x15\n\rfull_name_set\x18\x02 \x01(\x08\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x11\n\temail_set\x18\x04 \x01(\x08\";\n\x08Relation\x12\x11\n\ttarget_id\x18\x01 \x01(\x0c\x12\x1c\n\x0btarget_type\x18\x02 \x01(\x0e\x32\x07.ENTITY\"\x95\x01\n\x10JobMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x19\n\x06inputs\x18\x03 \x03(\x0b\x32\t.JobInput\x12\x12\n\ninputs_set\x18\x04 \x01(\x08\x12\x1b\n\x07outputs\x18\x05 \x03(\x0b\x32\n.JobOutput\x12\x13\n\x0boutputs_set\x18\x06 \x01(\x08\"Z\n\x08JobInput\x12\x11\n\tsource_id\x18\x01 \x01(\x0c\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.JobInput.Type\"\x1d\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x0b\n\x07\x44\x61taset\x10\x01\"\\\n\tJobOutput\x12\x11\n\ttarget_id\x18\x01 \x01(\x0c\x12\x1d\n\x04type\x18\x02 \x01(\x0e\x32\x0f.JobOutput.Type\"\x1d\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x0b\n\x07\x44\x61taset\x10\x01\"\x92\x04\n\x14\x44\x61tasetMetadataDelta\x12\x14\n\x0crecord_count\x18\x01 \x01(\x03\x12\x18\n\x10record_count_set\x18\x02 \x01(\x08\x12\x12\n\nfile_count\x18\x03 \x01(\x03\x12\x16\n\x0e\x66ile_count_set\x18\x04 \x01(\x08\x12\x15\n\rstorage_bytes\x18\x05 \x01(\x03\x12\x19\n\x11storage_bytes_set\x18\x06 \x01(\x08\x12\x1e\n\x06sample\x18\x07 \x01(\x0b\x32\x0e.DatasetSample\x12\x12\n\nsample_set\x18\x08 \x01(\x08\x12\x18\n\x10update_timestamp\x18\t \x01(\x03\x12\x1c\n\x14update_timestamp_set\x18\n \x01(\x08\x12\x13\n\x0b\x64\x61ta_format\x18\x0b \x01(\t\x12\x17\n\x0f\x64\x61ta_format_set\x18\x0c \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\r \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x0e \x01(\x08\x12\x13\n\x0blocation_id\x18\x0f \x01(\t\x12\x17\n\x0flocation_id_set\x18\x10 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x11 \x01(\t\x12\x18\n\x10location_uri_set\x18\x12 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\x13 \x03(\x0c\x12\x13\n\x0b\x65xperts_set\x18\x14 \x01(\x08\x12\r\n\x05title\x18\x15 \x01(\t\x12\x11\n\ttitle_set\x18\x16 \x01(\x08\"k\n\rDatasetSample\x12%\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x15.DatasetSample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"%\n\x06\x46ORMAT\x12\x08\n\x04TEXT\x10\x00\x12\x07\n\x03TSV\x10\x01\x12\x08\n\x04JSON\x10\x02*M\n\x06\x45NTITY\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07\x44\x41TASET\x10\x01\x12\x07\n\x03JOB\x10\x02\x12\x0b\n\x07SERVICE\x10\x03\x12\t\n\x05MODEL\x10\x04\x12\x0b\n\x07PROJECT\x10\x05\x62\x06proto3')
+  serialized_pb=_b('\n\x08vo.proto\"f\n\x14ProjectMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x04 \x01(\x08\"\xea\x01\n\x14ServiceMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x13\n\x0blocation_id\x18\x03 \x01(\t\x12\x17\n\x0flocation_id_set\x18\x04 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x05 \x01(\t\x12\x18\n\x10location_uri_set\x18\x06 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x08 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\t \x03(\t\x12\x13\n\x0b\x65xperts_set\x18\n \x01(\x08\"a\n\x13\x45xpertMetadataDelta\x12\x11\n\tfull_name\x18\x01 \x01(\t\x12\x15\n\rfull_name_set\x18\x02 \x01(\x08\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x11\n\temail_set\x18\x04 \x01(\x08\";\n\x08Relation\x12\x11\n\ttarget_id\x18\x01 \x01(\x0c\x12\x1c\n\x0btarget_type\x18\x02 \x01(\x0e\x32\x07.ENTITY\"\x95\x01\n\x10JobMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x19\n\x06inputs\x18\x03 \x03(\x0b\x32\t.JobInput\x12\x12\n\ninputs_set\x18\x04 \x01(\x08\x12\x1b\n\x07outputs\x18\x05 \x03(\x0b\x32\n.JobOutput\x12\x13\n\x0boutputs_set\x18\x06 \x01(\x08\"Z\n\x08JobInput\x12\x11\n\tsource_id\x18\x01 \x01(\x0c\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.JobInput.Type\"\x1d\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x0b\n\x07\x44\x61taset\x10\x01\"\\\n\tJobOutput\x12\x11\n\ttarget_id\x18\x01 \x01(\x0c\x12\x1d\n\x04type\x18\x02 \x01(\x0e\x32\x0f.JobOutput.Type\"\x1d\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x0b\n\x07\x44\x61taset\x10\x01\"b\n\x0f\x44\x61tasetVerInput\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12#\n\x04type\x18\x02 \x01(\x0e\x32\x15.DatasetVerInput.TYPE\"\x1d\n\x04TYPE\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07JOB_RUN\x10\x01\"\x92\x04\n\x14\x44\x61tasetMetadataDelta\x12\x14\n\x0crecord_count\x18\x01 \x01(\x03\x12\x18\n\x10record_count_set\x18\x02 \x01(\x08\x12\x12\n\nfile_count\x18\x03 \x01(\x03\x12\x16\n\x0e\x66ile_count_set\x18\x04 \x01(\x08\x12\x15\n\rstorage_bytes\x18\x05 \x01(\x03\x12\x19\n\x11storage_bytes_set\x18\x06 \x01(\x08\x12\x1e\n\x06sample\x18\x07 \x01(\x0b\x32\x0e.DatasetSample\x12\x12\n\nsample_set\x18\x08 \x01(\x08\x12\x18\n\x10update_timestamp\x18\t \x01(\x03\x12\x1c\n\x14update_timestamp_set\x18\n \x01(\x08\x12\x13\n\x0b\x64\x61ta_format\x18\x0b \x01(\t\x12\x17\n\x0f\x64\x61ta_format_set\x18\x0c \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\r \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x0e \x01(\x08\x12\x13\n\x0blocation_id\x18\x0f \x01(\t\x12\x17\n\x0flocation_id_set\x18\x10 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x11 \x01(\t\x12\x18\n\x10location_uri_set\x18\x12 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\x13 \x03(\x0c\x12\x13\n\x0b\x65xperts_set\x18\x14 \x01(\x08\x12\r\n\x05title\x18\x15 \x01(\t\x12\x11\n\ttitle_set\x18\x16 \x01(\x08\"P\n\x0b\x44\x61tasetItem\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rstorage_bytes\x18\x02 \x01(\x03\x12\x0f\n\x07records\x18\x03 \x01(\x03\x12\x0b\n\x03uid\x18\x04 \x01(\x0c\"k\n\rDatasetSample\x12%\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x15.DatasetSample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"%\n\x06\x46ORMAT\x12\x08\n\x04TEXT\x10\x00\x12\x07\n\x03TSV\x10\x01\x12\x08\n\x04JSON\x10\x02*M\n\x06\x45NTITY\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07\x44\x41TASET\x10\x01\x12\x07\n\x03JOB\x10\x02\x12\x0b\n\x07SERVICE\x10\x03\x12\t\n\x05MODEL\x10\x04\x12\x0b\n\x07PROJECT\x10\x05\x62\x06proto3')
 )
 
 _ENTITY = _descriptor.EnumDescriptor(
@@ -57,8 +57,8 @@ _ENTITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1493,
-  serialized_end=1570,
+  serialized_start=1675,
+  serialized_end=1752,
 )
 _sym_db.RegisterEnumDescriptor(_ENTITY)
 
@@ -115,6 +115,28 @@ _JOBOUTPUT_TYPE = _descriptor.EnumDescriptor(
 )
 _sym_db.RegisterEnumDescriptor(_JOBOUTPUT_TYPE)
 
+_DATASETVERINPUT_TYPE = _descriptor.EnumDescriptor(
+  name='TYPE',
+  full_name='DatasetVerInput.TYPE',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='NONE', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='JOB_RUN', index=1, number=1,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=920,
+  serialized_end=949,
+)
+_sym_db.RegisterEnumDescriptor(_DATASETVERINPUT_TYPE)
+
 _DATASETSAMPLE_FORMAT = _descriptor.EnumDescriptor(
   name='FORMAT',
   full_name='DatasetSample.FORMAT',
@@ -136,8 +158,8 @@ _DATASETSAMPLE_FORMAT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1454,
-  serialized_end=1491,
+  serialized_start=1636,
+  serialized_end=1673,
 )
 _sym_db.RegisterEnumDescriptor(_DATASETSAMPLE_FORMAT)
 
@@ -522,6 +544,45 @@ _JOBOUTPUT = _descriptor.Descriptor(
 )
 
 
+_DATASETVERINPUT = _descriptor.Descriptor(
+  name='DatasetVerInput',
+  full_name='DatasetVerInput',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='DatasetVerInput.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='DatasetVerInput.type', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _DATASETVERINPUT_TYPE,
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=851,
+  serialized_end=949,
+)
+
+
 _DATASETMETADATADELTA = _descriptor.Descriptor(
   name='DatasetMetadataDelta',
   full_name='DatasetMetadataDelta',
@@ -695,8 +756,60 @@ _DATASETMETADATADELTA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=852,
-  serialized_end=1382,
+  serialized_start=952,
+  serialized_end=1482,
+)
+
+
+_DATASETITEM = _descriptor.Descriptor(
+  name='DatasetItem',
+  full_name='DatasetItem',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='DatasetItem.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='storage_bytes', full_name='DatasetItem.storage_bytes', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='records', full_name='DatasetItem.records', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='DatasetItem.uid', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1484,
+  serialized_end=1564,
 )
 
 
@@ -734,8 +847,8 @@ _DATASETSAMPLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1384,
-  serialized_end=1491,
+  serialized_start=1566,
+  serialized_end=1673,
 )
 
 _RELATION.fields_by_name['target_type'].enum_type = _ENTITY
@@ -745,6 +858,8 @@ _JOBINPUT.fields_by_name['type'].enum_type = _JOBINPUT_TYPE
 _JOBINPUT_TYPE.containing_type = _JOBINPUT
 _JOBOUTPUT.fields_by_name['type'].enum_type = _JOBOUTPUT_TYPE
 _JOBOUTPUT_TYPE.containing_type = _JOBOUTPUT
+_DATASETVERINPUT.fields_by_name['type'].enum_type = _DATASETVERINPUT_TYPE
+_DATASETVERINPUT_TYPE.containing_type = _DATASETVERINPUT
 _DATASETMETADATADELTA.fields_by_name['sample'].message_type = _DATASETSAMPLE
 _DATASETSAMPLE.fields_by_name['format'].enum_type = _DATASETSAMPLE_FORMAT
 _DATASETSAMPLE_FORMAT.containing_type = _DATASETSAMPLE
@@ -755,7 +870,9 @@ DESCRIPTOR.message_types_by_name['Relation'] = _RELATION
 DESCRIPTOR.message_types_by_name['JobMetadataDelta'] = _JOBMETADATADELTA
 DESCRIPTOR.message_types_by_name['JobInput'] = _JOBINPUT
 DESCRIPTOR.message_types_by_name['JobOutput'] = _JOBOUTPUT
+DESCRIPTOR.message_types_by_name['DatasetVerInput'] = _DATASETVERINPUT
 DESCRIPTOR.message_types_by_name['DatasetMetadataDelta'] = _DATASETMETADATADELTA
+DESCRIPTOR.message_types_by_name['DatasetItem'] = _DATASETITEM
 DESCRIPTOR.message_types_by_name['DatasetSample'] = _DATASETSAMPLE
 DESCRIPTOR.enum_types_by_name['ENTITY'] = _ENTITY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -809,12 +926,26 @@ JobOutput = _reflection.GeneratedProtocolMessageType('JobOutput', (_message.Mess
   })
 _sym_db.RegisterMessage(JobOutput)
 
+DatasetVerInput = _reflection.GeneratedProtocolMessageType('DatasetVerInput', (_message.Message,), {
+  'DESCRIPTOR' : _DATASETVERINPUT,
+  '__module__' : 'vo_pb2'
+  # @@protoc_insertion_point(class_scope:DatasetVerInput)
+  })
+_sym_db.RegisterMessage(DatasetVerInput)
+
 DatasetMetadataDelta = _reflection.GeneratedProtocolMessageType('DatasetMetadataDelta', (_message.Message,), {
   'DESCRIPTOR' : _DATASETMETADATADELTA,
   '__module__' : 'vo_pb2'
   # @@protoc_insertion_point(class_scope:DatasetMetadataDelta)
   })
 _sym_db.RegisterMessage(DatasetMetadataDelta)
+
+DatasetItem = _reflection.GeneratedProtocolMessageType('DatasetItem', (_message.Message,), {
+  'DESCRIPTOR' : _DATASETITEM,
+  '__module__' : 'vo_pb2'
+  # @@protoc_insertion_point(class_scope:DatasetItem)
+  })
+_sym_db.RegisterMessage(DatasetItem)
 
 DatasetSample = _reflection.GeneratedProtocolMessageType('DatasetSample', (_message.Message,), {
   'DESCRIPTOR' : _DATASETSAMPLE,

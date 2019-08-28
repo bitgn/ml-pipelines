@@ -12,6 +12,8 @@ type server struct{
 	version string
 }
 
+
+
 func genError(err *ApiError) (*ApiResponse, error){
 	return &ApiResponse{
 		Error:err,
@@ -26,7 +28,7 @@ func NewServer(db *db.DB, version string) CatalogServer{
 
 
 
-func (c *server) publish(tx *db.Tx, e proto.Message) uint64{
+func (s *server) publish(tx *db.Tx, e proto.Message) uint64{
 	projection.Handle(tx, e)
 	return db.AppendEvent(tx, e)
 }

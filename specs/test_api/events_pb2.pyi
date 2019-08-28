@@ -5,11 +5,16 @@ from google.protobuf.descriptor import (
     EnumDescriptor as google___protobuf___descriptor___EnumDescriptor,
 )
 
+from google.protobuf.internal.containers import (
+    RepeatedCompositeFieldContainer as google___protobuf___internal___containers___RepeatedCompositeFieldContainer,
+)
+
 from google.protobuf.message import (
     Message as google___protobuf___message___Message,
 )
 
 from typing import (
+    Iterable as typing___Iterable,
     List as typing___List,
     Optional as typing___Optional,
     Text as typing___Text,
@@ -22,7 +27,9 @@ from typing_extensions import (
 )
 
 from vo_pb2 import (
+    DatasetItem as vo_pb2___DatasetItem,
     DatasetMetadataDelta as vo_pb2___DatasetMetadataDelta,
+    DatasetVerInput as vo_pb2___DatasetVerInput,
     ExpertMetadataDelta as vo_pb2___ExpertMetadataDelta,
     JobMetadataDelta as vo_pb2___JobMetadataDelta,
     ProjectMetadataDelta as vo_pb2___ProjectMetadataDelta,
@@ -48,12 +55,14 @@ class Type(int):
     Event_ExpertAdded = typing___cast(Type, 4)
     Event_JobAdded = typing___cast(Type, 5)
     Event_ServiceCreated = typing___cast(Type, 6)
+    Event_DatasetVersionAdded = typing___cast(Type, 7)
 Event_ProjectCreated = typing___cast(Type, 1)
 Event_DatasetCreated = typing___cast(Type, 2)
 Event_DatasetUpdated = typing___cast(Type, 3)
 Event_ExpertAdded = typing___cast(Type, 4)
 Event_JobAdded = typing___cast(Type, 5)
 Event_ServiceCreated = typing___cast(Type, 6)
+Event_DatasetVersionAdded = typing___cast(Type, 7)
 
 class ProjectCreated(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -191,6 +200,41 @@ class ServiceCreated(google___protobuf___message___Message):
     else:
         def HasField(self, field_name: typing_extensions___Literal[u"meta",b"meta"]) -> bool: ...
         def ClearField(self, field_name: typing_extensions___Literal[u"meta",b"meta",u"name",b"name",u"project_name",b"project_name",u"project_uid",b"project_uid",u"uid",b"uid"]) -> None: ...
+
+class DatasetVersionAdded(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    uid = ... # type: bytes
+    project_uid = ... # type: bytes
+    parent_uid = ... # type: bytes
+    project_name = ... # type: typing___Text
+    title = ... # type: typing___Text
+    timestamp = ... # type: int
+
+    @property
+    def items(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[vo_pb2___DatasetItem]: ...
+
+    @property
+    def inputs(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[vo_pb2___DatasetVerInput]: ...
+
+    def __init__(self,
+        *,
+        uid : typing___Optional[bytes] = None,
+        project_uid : typing___Optional[bytes] = None,
+        parent_uid : typing___Optional[bytes] = None,
+        project_name : typing___Optional[typing___Text] = None,
+        title : typing___Optional[typing___Text] = None,
+        timestamp : typing___Optional[int] = None,
+        items : typing___Optional[typing___Iterable[vo_pb2___DatasetItem]] = None,
+        inputs : typing___Optional[typing___Iterable[vo_pb2___DatasetVerInput]] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> DatasetVersionAdded: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"inputs",u"items",u"parent_uid",u"project_name",u"project_uid",u"timestamp",u"title",u"uid"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"inputs",b"inputs",u"items",b"items",u"parent_uid",b"parent_uid",u"project_name",b"project_name",u"project_uid",b"project_uid",u"timestamp",b"timestamp",u"title",b"title",u"uid",b"uid"]) -> None: ...
 
 class ExpertAdded(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...

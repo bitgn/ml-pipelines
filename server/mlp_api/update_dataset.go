@@ -7,8 +7,8 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (c *server) UpdateDataset(ctx context.Context, r *UpdateDatasetRequest) (*ApiResponse, error) {
-	tx := c.db.MustWrite()
+func (s *server) UpdateDataset(ctx context.Context, r *UpdateDatasetRequest) (*ApiResponse, error) {
+	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
 
 	ds := db.GetDataset(tx,r.Uid)
@@ -19,7 +19,7 @@ func (c *server) UpdateDataset(ctx context.Context, r *UpdateDatasetRequest) (*A
 
 	// TODO publish only deltas
 
-	c.publish(tx, &events.DatasetUpdated{
+	s.publish(tx, &events.DatasetUpdated{
 		Uid:        r.Uid,
 		ProjectUid: ds.ProjectUid,
 		Meta:       r.Meta,

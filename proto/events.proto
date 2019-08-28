@@ -58,6 +58,21 @@ message ServiceCreated {
 }
 
 
+message DatasetVersionAdded {
+    bytes uid = 1;
+    bytes project_uid = 2;
+
+    bytes parent_uid = 3;
+    string project_name = 4;
+    string title = 5;
+    int64 timestamp = 6;
+
+    repeated DatasetItem items = 7;
+    repeated DatasetVerInput inputs = 8;
+}
+
+
+
 
 
 
@@ -79,6 +94,7 @@ enum Type {
     Event_ExpertAdded = 4;
     Event_JobAdded = 5;
     Event_ServiceCreated = 6;
+    Event_DatasetVersionAdded = 7;
 }
 
 

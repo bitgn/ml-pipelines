@@ -22,6 +22,8 @@ func getInstance(id Type) proto.Message{
 		return  &ExpertAdded{}
 	case Type_Event_JobAdded:
 		return &JobAdded{}
+	case Type_Event_DatasetVersionAdded:
+		return &DatasetVersionAdded{}
 	default:
 		log.Fatalf("Unknown event type %s", id)
 		return nil
@@ -41,8 +43,10 @@ func GetContract(msg proto.Message) Type {
 		return Type_Event_JobAdded
 	case *ExpertAdded:
 		return Type_Event_ExpertAdded
+	case *DatasetVersionAdded:
+		return Type_Event_DatasetVersionAdded
 	default:
-		log.Fatalf("Uknown event %s", e)
+		log.Fatalf("Uknown event %T", e)
 		return Type_None
 
 	}

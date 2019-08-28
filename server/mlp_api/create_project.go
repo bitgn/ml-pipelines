@@ -9,7 +9,7 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*CreateProjectResponse, error) {
+func (s *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*CreateProjectResponse, error) {
 
 	wrap := func (err *ApiError) (*CreateProjectResponse, error){
 		return &CreateProjectResponse{
@@ -25,7 +25,7 @@ func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*C
 	}
 
 
-	tx := c.db.MustWrite()
+	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
 
 
@@ -43,7 +43,7 @@ func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*C
 		Meta: r.Meta,
 	}
 
-	c.publish(tx, prj)
+	s.publish(tx, prj)
 	tx.MustCommit()
 
 	return &CreateProjectResponse{
