@@ -157,7 +157,7 @@ class SuiteResult:
         delta_assert = assert_ok - st['assert_ok']
         delta_specs = spec_ok - st['spec_ok']
 
-        print()
+
         print("             FAIL   OK    Δ")
 
 
@@ -284,7 +284,7 @@ try:
         # TODO: wipe db instead
         "--upgrade", "none"
                              ]
-    print(f"Launching server: {nested}")
+    print(f"Launching server: {CYELLOW}{' '.join(nested)}{CEND}")
 
     proc = subprocess.Popen(nested)
 

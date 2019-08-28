@@ -33,7 +33,7 @@ def client(l: Callable[[cl.Client], Any], text:Optional[str]=None):
     def _(c: cl.Client):
         try:
             return l(c)
-        except Exception as e:
+        except cl.ClientError as e:
             return e
 
     if not text:

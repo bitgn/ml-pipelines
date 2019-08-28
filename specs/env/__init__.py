@@ -1,4 +1,5 @@
 
+
 from .env import Env
 
 from .env import When
@@ -21,3 +22,7 @@ def nbsp(value):
     spaces where there previously were normal spaces.
     """
     return value.replace(" ", "\xa0")
+
+def uid(i):
+    import struct
+    return struct.pack(">llll",0,0, 0,  i)

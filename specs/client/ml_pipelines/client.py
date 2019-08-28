@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Optional, Callable, List
 
 from google.protobuf.message import Message
@@ -28,7 +29,7 @@ class Client:
         except grpc.RpcError as e:
             raise errors.from_exception(e)
 
-    def create_project(self, name: str, title: Optional[str] = None) -> api.CreateProjectResponse:
+    def create_project(self, name: str, title: Optional[str] = None) -> 'ProjectCreated':
         delta = vo.ProjectMetadataDelta()
 
         if title:
@@ -39,14 +40,18 @@ class Client:
             name=name,
             meta=delta)
 
-        return self._rpc(lambda: self.catalog.CreateProject(request))
+        response: api.CreateProjectResponse = self._rpc(lambda: self.catalog.CreateProject(request))
+        return ProjectCreated(uid=response.uid)
 
     def create_job(
-            self, project_uid: bytes, name: str,
-            title: Optional[str],
-            inputs: List[bytes] = None,
-            outputs: List[bytes] = None
-    ):
+            self, project_name: str, name: str,
+            title: Optional[str] = None,
+            inputs: List[bytes] = (),
+            outputs: List[bytes] = ()
+    ) -> 'JobCreated':
+
+        prj: api.LookupProjectResponse = self._rpc(
+            lambda: self.catalog.LookupProject(api.LookupProjectRequest(name=project_name)))
 
         d = vo.JobMetadataDelta()
 
@@ -63,14 +68,18 @@ class Client:
 
 
         r = api.CreateJobRequest(
-            project_uid=project_uid,
+            project_uid=prj.uid,
             name=name,
             meta=d
         )
 
 
 
-        return self._rpc(lambda: self.catalog.CreateJob(r))
+        response: api.CreateJobResponse = self._rpc(lambda: self.catalog.CreateJob(r))
+        return JobCreated(uid=response.uid)
+
+
+
 
     def create_dataset(self, project_name: str,
                        name: str,
@@ -82,7 +91,7 @@ class Client:
                        description:Optional[str] = None,
                        location_id:Optional[str] = None,
                        location_uri: Optional[str] = None,
-                       update_timestamp: Optional[int] = None) -> api.CreateDatasetResponse:
+                       update_timestamp: Optional[int] = None) -> 'DatasetCreated':
 
 
 
@@ -135,11 +144,34 @@ class Client:
             project_uid=prj.uid,
         )
 
-        return self._rpc(lambda: self.catalog.CreateDataset(request))
+        response: api.CreateDatasetResponse = self._rpc(lambda: self.catalog.CreateDataset(request))
+        return DatasetCreated(uid=response.uid)
 
     def stats(self):
         request = api.StatRequest()
         return self.catalog.Stat(request)
+
+
+@dataclass
+class ProjectCreated:
+    uid: bytes
+
+    def __str__(self):
+        return f'Project {self.uid.hex()}'
+
+@dataclass
+class DatasetCreated:
+    uid: bytes
+
+    def __str__(self):
+        return f'Dataset {self.uid.hex()}'
+
+@dataclass
+class JobCreated:
+    uid: bytes
+
+    def __str__(self):
+        return f'Job {self.uid.hex()}'
 
 
 def connect(url):

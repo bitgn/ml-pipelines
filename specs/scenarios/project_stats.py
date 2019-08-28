@@ -18,8 +18,6 @@ def given_a_populated_project(t: env.Env):
                    preset.job_added(t, prj)
                    )
 
-
-
     t.scenario(
         when.list_projects(),
         then.text(f'main #prj-{prj.uid.hex()} .storage-size', nbsp('3.0 kB'), title='3000'),

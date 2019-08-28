@@ -73,14 +73,22 @@ def invalid_argument(subject_uid=None, subject_name=None):
                 return f'Expected subject {subject_name} got {ex.subject_name}'
     return env.Then(None, _)
 
+def pretty(o):
+
+    if isinstance(o, bytes):
+        return o.hex()
+
+
+    return str(o)
+
 def name_taken(subject_uid, subject_name):
     def _(response: Any):
         if not isinstance(response, client.AlreadyExists):
-            return f"Expected {client.AlreadyExists.__name__}, got {type(response).__name__}: {response}"
+            return f"Expected {client.AlreadyExists.__name__} error, got {type(response).__name__}: {response}"
 
         ex: client.AlreadyExists = response
         if ex.subject_uid != subject_uid:
-            return f'Expected subject {subject_uid} got {ex.subject_uid}'
+            return f'Expected subject {pretty(subject_uid)} got {pretty(ex.subject_uid)}'
 
         if ex.subject_name != subject_name:
             return f'Expected subject {subject_name} got {ex.subject_name}'

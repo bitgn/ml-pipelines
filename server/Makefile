@@ -19,6 +19,5 @@ pb:
 
 clean:
 	rm -rf dist || True
-
 build:
 	go build -o dist/mlp-server

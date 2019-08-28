@@ -11,8 +11,6 @@ def given_empty_system(e: Env):
         then.not_found(subject_name='non-existent')
     )
 
-def uid(i):
-    return struct.pack(">llll",0,0, 0,  i)
 
 
 def given_a_project(e: Env):
@@ -23,7 +21,7 @@ def given_a_project(e: Env):
 
     e.scenario(
         when.client(lambda c: c.create_dataset(name="test", project_name=prj.name)),
-        then.client_ok(uid=uid(0))
+        then.client_ok(uid=uid(1))
     )
 
 def given_a_dataset(e: Env):
