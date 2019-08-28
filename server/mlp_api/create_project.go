@@ -31,7 +31,7 @@ func (c *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*C
 
 	pid := db.LookupProject(tx, r.Name)
 	if len(pid)>0{
-		return wrap(alreadyExists(vo.ENTITY_PROJECT, r.Name, pid))
+		return wrap(alreadyExists(vo.ENTITY_PROJECT, r.Name, r.Name, pid))
 	}
 
 

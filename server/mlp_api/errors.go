@@ -40,6 +40,7 @@ func badName(entity vo.ENTITY, name string, err error) *ApiError{
 		Details:[]string{err.Error()},
 		SubjectName:name,
 		FieldName:"name",
+
 	}
 }
 
@@ -47,14 +48,15 @@ func badName(entity vo.ENTITY, name string, err error) *ApiError{
 
 
 
-func alreadyExists(entity vo.ENTITY, name string, id []byte) *ApiError{
+func alreadyExists(entity vo.ENTITY, project_name, name string, id []byte) *ApiError{
 	entityName := vo.ENTITY_name[int32(entity)]
 	return &ApiError{
 		Code:StatusCode_ALREADY_EXISTS,
-		Message:fmt.Sprintf("%s named '%s' already exists", entityName, name),
+		Message:fmt.Sprintf("%s named '%s' already exists in %s", entityName, name, project_name),
 
 		SubjectName:name,
 		SubjectUid:id,
+		ProjectName:project_name,
 
 	}
 }

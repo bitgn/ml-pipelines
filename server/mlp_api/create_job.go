@@ -28,19 +28,15 @@ func (c *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobRe
 	tx := c.db.MustWrite()
 	defer tx.MustCleanup()
 
-
-
-
-
 	prj := db.GetProject(tx,r.ProjectUid)
 	if prj == nil {
 		return genError(notFound(vo.ENTITY_PROJECT, r.ProjectUid))
 	}
 
 
-	exists := db.LookupJob(tx, prj.Name, r.Name)
+	exists := db.Lookup(tx, prj.Name, r.Name)
 	if exists != nil {
-		return genError(alreadyExists(vo.ENTITY_JOB, r.Name, exists))
+		return genError(alreadyExists(exists.Kind, prj.Name, r.Name, exists.Uid))
 	}
 
 

@@ -2,16 +2,27 @@ package projection
 
 import (
 	"github.com/golang/protobuf/proto"
+	"log"
 	"mlp/catalog/db"
 	"mlp/catalog/events"
 	"mlp/catalog/vo"
 )
 
 
+func mustName(val string){
+	if len(val)==0{
+		log.Panicf("Name can't be nil")
+	}
+}
+
+
+
 func Handle(tx *db.Tx, msg proto.Message){
 	switch e := msg.(type) {
 
 	case *events.ProjectCreated:
+		mustName(e.Name)
+
 		data := &db.ProjectData{
 			Uid:  e.Uid,
 			Name: e.Name,
@@ -29,6 +40,10 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.SetStats(tx, stats)
 
 	case *events.DatasetCreated:
+
+		mustName(e.Name)
+		mustName(e.ProjectName)
+
 		data := &db.DatasetData{
 			ProjectUid:  e.ProjectUid,
 			Uid:         e.Uid,
@@ -46,7 +61,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 
 		db.AddDatasetToProject(tx, e.ProjectUid, e.Uid)
-		db.NameDataset(tx, e.ProjectName, e.Name, e.Uid)
+		db.Name(tx, e.ProjectName, e.Name, vo.ENTITY_DATASET, e.Uid)
 
 		stats := db.GetStats(tx)
 		stats.DatasetCount +=1
@@ -60,6 +75,8 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutProject(tx, prj)
 
 	case *events.DatasetUpdated:
+
+
 		data := db.GetDataset(tx, e.Uid)
 		mergeDatasetMeta(e.Meta, data)
 
@@ -80,6 +97,10 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 
 	case *events.JobAdded:
+
+		mustName(e.Name)
+		mustName(e.ProjectName)
+
 		stats := db.GetStats(tx)
 		stats.JobCount +=1
 		db.SetStats(tx, stats)
@@ -124,7 +145,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutJob(tx, &data)
 
 
-		db.NameJob(tx, e.ProjectName, e.Name, e.Uid)
+		db.Name(tx, e.ProjectName, e.Name, vo.ENTITY_JOB, e.Uid)
 
 
 	case *events.ExpertAdded:

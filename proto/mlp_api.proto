@@ -92,6 +92,9 @@ message ApiError {
     string field_name = 5;
 
     repeated string details = 6;
+
+    string project_name = 7;
+    string project_uid = 8;
 }
 
 enum StatusCode {

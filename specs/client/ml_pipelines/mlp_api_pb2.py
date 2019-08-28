@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"I\n\x14\x43reateProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\">\n\x15\x43reateProjectResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\">\n\x15\x43reateDatasetResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"V\n\x10\x43reateJobRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x1f\n\x04meta\x18\x03 \x01(\x0b\x32\x11.JobMetadataDelta\":\n\x11\x43reateJobResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\"$\n\x14LookupProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\">\n\x15LookupProjectResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\"\'\n\x0b\x41piResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\"^\n\x14\x43reateDatasetRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"H\n\x14UpdateDatasetRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x86\x01\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0bsubject_uid\x18\x03 \x01(\x0c\x12\x14\n\x0csubject_name\x18\x04 \x01(\t\x12\x12\n\nfield_name\x18\x05 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x03(\t*\xdb\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x32\xe4\x02\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12@\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x16.CreateDatasetResponse\"\x00\x12\x36\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0c.ApiResponse\"\x00\x12\x34\n\tCreateJob\x12\x11.CreateJobRequest\x1a\x12.CreateJobResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x12@\n\rLookupProject\x12\x15.LookupProjectRequest\x1a\x16.LookupProjectResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"I\n\x14\x43reateProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\">\n\x15\x43reateProjectResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\">\n\x15\x43reateDatasetResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\"\r\n\x0bStatRequest\"\x1f\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\"V\n\x10\x43reateJobRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x1f\n\x04meta\x18\x03 \x01(\x0b\x32\x11.JobMetadataDelta\":\n\x11\x43reateJobResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\"$\n\x14LookupProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\">\n\x15LookupProjectResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\"\'\n\x0b\x41piResponse\x12\x18\n\x05\x65rror\x18\x01 \x01(\x0b\x32\t.ApiError\"^\n\x14\x43reateDatasetRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"H\n\x14UpdateDatasetRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\xb1\x01\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0bsubject_uid\x18\x03 \x01(\x0c\x12\x14\n\x0csubject_name\x18\x04 \x01(\t\x12\x12\n\nfield_name\x18\x05 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x03(\t\x12\x14\n\x0cproject_name\x18\x07 \x01(\t\x12\x13\n\x0bproject_uid\x18\x08 \x01(\t*\xdb\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x32\xe4\x02\n\x07\x43\x61talog\x12@\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x16.CreateProjectResponse\"\x00\x12@\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x16.CreateDatasetResponse\"\x00\x12\x36\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0c.ApiResponse\"\x00\x12\x34\n\tCreateJob\x12\x11.CreateJobRequest\x1a\x12.CreateJobResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x12@\n\rLookupProject\x12\x15.LookupProjectRequest\x1a\x16.LookupProjectResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
@@ -111,8 +111,8 @@ _STATUSCODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=877,
-  serialized_end=1224,
+  serialized_start=920,
+  serialized_end=1267,
 )
 _sym_db.RegisterEnumDescriptor(_STATUSCODE)
 
@@ -623,6 +623,20 @@ _APIERROR = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='project_name', full_name='ApiError.project_name', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='project_uid', full_name='ApiError.project_uid', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -636,7 +650,7 @@ _APIERROR = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=740,
-  serialized_end=874,
+  serialized_end=917,
 )
 
 _CREATEPROJECTREQUEST.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
@@ -764,8 +778,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1227,
-  serialized_end=1583,
+  serialized_start=1270,
+  serialized_end=1626,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',

@@ -21,7 +21,7 @@ def given_existing_project(e: Env):
     e.given_events(prj)
     e.scenario(
         when.client(lambda c: c.create_project(name=prj.name)),
-        then.name_taken(prj.uid, prj.name)
+        then.already_exists(prj.uid, prj.name)
     )
 
 

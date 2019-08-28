@@ -17,8 +17,8 @@ enum Range {
     PROJECT_NAMES=10;
 
     // scoped to project
-    DATASET_NAMES_SCOPED=11;
-    JOB_NAMES_SCOPED=12;
+    NAMES_SCOPED=11;
+
 
 
 
@@ -27,6 +27,11 @@ enum Range {
 
     VERSION=255;
 
+}
+
+message EntityRef {
+    ENTITY kind = 1;
+    bytes uid = 2;
 }
 
 

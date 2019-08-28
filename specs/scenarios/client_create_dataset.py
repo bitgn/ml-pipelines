@@ -33,7 +33,7 @@ def given_a_dataset(e: Env):
 
     e.scenario(
         when.client(lambda c: c.create_dataset(name=ds.name, project_name=prj.name)),
-        then.name_taken(subject_uid=ds.uid, subject_name=ds.name)
+        then.already_exists(subject_uid=ds.uid, subject_name=ds.name)
     )
 
 

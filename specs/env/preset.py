@@ -133,6 +133,7 @@ def job_added(e:env.Env, prj:evt.ProjectCreated) -> evt.JobAdded:
         uid=uid,
         project_uid=prj.uid,
         name=name,
+        project_name=prj.name,
         meta=vo.JobMetadataDelta(title=title, title_set=True))
 
 def expert_added(e:env.Env) -> evt.ExpertAdded:

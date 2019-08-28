@@ -11,11 +11,11 @@ def given_an_existing_job(e: Env):
     e.scenario(
         when.client(lambda c:
                     c.create_dataset(project_name=prj.name, name=job.name)),
-        then.name_taken(subject_uid=job.uid, subject_name=job.name)
+        then.already_exists(subject_uid=job.uid, subject_name=job.name)
     )
 
     e.scenario(
         when.client(lambda c:
                     c.create_job(project_name=prj.name, name=job.name)),
-        then.name_taken(subject_uid=job.uid, subject_name=job.name)
+        then.already_exists(subject_uid=job.uid, subject_name=job.name)
     )

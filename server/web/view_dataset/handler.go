@@ -6,6 +6,7 @@ import (
 	"io"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
+	"mlp/catalog/vo"
 	"mlp/catalog/web/shared"
 	"net/http"
 	"strings"
@@ -41,14 +42,16 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 
 
 
-	did := db.LookupDataset(tx, project, dataset)
-	if did == nil {
+	did := db.Lookup(tx, project, dataset)
+	if did == nil || did.Kind != vo.ENTITY_DATASET {
 		http.Error(w, "dataset not found", http.StatusNotFound)
 		return
 	}
 
 
-	ds := db.GetDataset(tx, did)
+
+
+	ds := db.GetDataset(tx, did.Uid)
 	pr := db.GetProject(tx, ds.ProjectUid)
 
 

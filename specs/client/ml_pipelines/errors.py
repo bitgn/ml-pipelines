@@ -15,13 +15,15 @@ class ClientError(Exception):
 
 
     def __init__(self, status_code:api.StatusCode, message:str, subject_uid:bytes,
-                 subject_name:str,details:List[str]):
+                 subject_name:str, details:List[str], project_name: str, project_uid: str):
         super(ClientError, self).__init__(message)
         self.message = message
         self.details = details
         self.status_code = status_code
         self.subject_uid=subject_uid
         self.subject_name=subject_name
+        self.project_name = project_name
+        self.project_uid = project_uid
 
 
     def __str__(self):
@@ -52,7 +54,7 @@ MAP= {
 
 def from_error(e: api.ApiError) -> ClientError:
     ctor = MAP.get(e.code, ClientError)
-    return ctor(e.code, e.message, e.subject_uid, e.subject_name, list(e.details))
+    return ctor(e.code, e.message, e.subject_uid, e.subject_name, list(e.details), e.project_name, e.project_uid)
 
 
 def from_exception(e: grpc.RpcError):

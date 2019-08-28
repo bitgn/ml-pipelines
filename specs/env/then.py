@@ -81,7 +81,7 @@ def pretty(o):
 
     return str(o)
 
-def name_taken(subject_uid, subject_name):
+def already_exists(subject_uid, subject_name):
     def _(response: Any):
         if not isinstance(response, client.AlreadyExists):
             return f"Expected {client.AlreadyExists.__name__} error, got {type(response).__name__}: {response}"

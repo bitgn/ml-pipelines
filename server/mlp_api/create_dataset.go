@@ -25,12 +25,9 @@ func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 	}
 
 
+
 	tx := c.db.MustWrite()
 	defer tx.MustCleanup()
-
-
-
-
 
 	prj := db.GetProject(tx,r.ProjectUid)
 	if prj == nil {
@@ -38,9 +35,9 @@ func (c *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 	}
 
 
-	exists := db.LookupDataset(tx, prj.Name, r.Name)
+	exists := db.Lookup(tx, prj.Name, r.Name)
 	if exists != nil {
-		return genError(alreadyExists(vo.ENTITY_DATASET, r.Name, exists))
+		return genError(alreadyExists(exists.Kind, prj.Name, r.Name, exists.Uid))
 	}
 
 
