@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"P\n\x0eProjectCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ProjectMetadataDelta\"{\n\x0e\x44\x61tasetCreated\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"W\n\x0e\x44\x61tasetUpdated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"q\n\x08JobAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1f\n\x04meta\x18\x04 \x01(\x0b\x32\x11.JobMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"{\n\x0eServiceCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.ServiceMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"\xd7\x01\n\x13\x44\x61tasetVersionAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x12\n\nparent_uid\x18\x03 \x01(\x0c\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\x12\x1b\n\x05items\x18\x07 \x03(\x0b\x32\x0c.DatasetItem\x12 \n\x06inputs\x18\x08 \x03(\x0b\x32\x10.DatasetVerInput\x12\x13\n\x0b\x64\x61taset_uid\x18\t \x01(\x0c\"L\n\x0b\x45xpertAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\"\n\x04meta\x18\x03 \x01(\x0b\x32\x14.ExpertMetadataDelta\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*\xc2\x01\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x12\x1d\n\x19\x45vent_DatasetVersionAdded\x10\x07\x62\x06proto3')
+  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"P\n\x0eProjectCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ProjectMetadataDelta\"{\n\x0e\x44\x61tasetCreated\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"W\n\x0e\x44\x61tasetUpdated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"q\n\x08JobAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1f\n\x04meta\x18\x04 \x01(\x0b\x32\x11.JobMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"{\n\x0eServiceCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.ServiceMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"\xf5\x01\n\x13\x44\x61tasetVersionAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x12\n\nparent_uid\x18\x03 \x01(\x0c\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\x12\x1b\n\x05items\x18\x07 \x03(\x0b\x32\x0c.DatasetItem\x12\x1c\n\x06remove\x18\n \x03(\x0b\x32\x0c.DatasetItem\x12 \n\x06inputs\x18\x08 \x03(\x0b\x32\x10.DatasetVerInput\x12\x13\n\x0b\x64\x61taset_uid\x18\t \x01(\x0c\"L\n\x0b\x45xpertAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\"\n\x04meta\x18\x03 \x01(\x0b\x32\x14.ExpertMetadataDelta\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*\xc2\x01\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x12\x1d\n\x19\x45vent_DatasetVersionAdded\x10\x07\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
@@ -67,8 +67,8 @@ _TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=903,
-  serialized_end=1097,
+  serialized_start=933,
+  serialized_end=1127,
 )
 _sym_db.RegisterEnumDescriptor(_TYPE)
 
@@ -408,14 +408,21 @@ _DATASETVERSIONADDED = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='inputs', full_name='DatasetVersionAdded.inputs', index=7,
+      name='remove', full_name='DatasetVersionAdded.remove', index=7,
+      number=10, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='inputs', full_name='DatasetVersionAdded.inputs', index=8,
       number=8, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='dataset_uid', full_name='DatasetVersionAdded.dataset_uid', index=8,
+      name='dataset_uid', full_name='DatasetVersionAdded.dataset_uid', index=9,
       number=9, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
@@ -434,7 +441,7 @@ _DATASETVERSIONADDED = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=563,
-  serialized_end=778,
+  serialized_end=808,
 )
 
 
@@ -478,8 +485,8 @@ _EXPERTADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=780,
-  serialized_end=856,
+  serialized_start=810,
+  serialized_end=886,
 )
 
 
@@ -516,8 +523,8 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=858,
-  serialized_end=900,
+  serialized_start=888,
+  serialized_end=930,
 )
 
 _PROJECTCREATED.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
@@ -526,6 +533,7 @@ _DATASETUPDATED.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADE
 _JOBADDED.fields_by_name['meta'].message_type = vo__pb2._JOBMETADATADELTA
 _SERVICECREATED.fields_by_name['meta'].message_type = vo__pb2._SERVICEMETADATADELTA
 _DATASETVERSIONADDED.fields_by_name['items'].message_type = vo__pb2._DATASETITEM
+_DATASETVERSIONADDED.fields_by_name['remove'].message_type = vo__pb2._DATASETITEM
 _DATASETVERSIONADDED.fields_by_name['inputs'].message_type = vo__pb2._DATASETVERINPUT
 _EXPERTADDED.fields_by_name['meta'].message_type = vo__pb2._EXPERTMETADATADELTA
 _EVENT.fields_by_name['Type'].enum_type = _TYPE

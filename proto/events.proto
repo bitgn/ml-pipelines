@@ -68,6 +68,9 @@ message DatasetVersionAdded {
     int64 timestamp = 6;
 
     repeated DatasetItem items = 7;
+    repeated DatasetItem remove = 10;
+
+
     repeated DatasetVerInput inputs = 8;
 
     bytes dataset_uid = 9;

@@ -119,6 +119,20 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		ds := db.GetDataset(tx, e.DatasetUid)
 		ds.UpdateTimestamp = e.Timestamp
+
+		if ver.HasParent() {
+			// TODO: count total of all versions
+			ds.RecordCount = ver.RecordCount
+			ds.StorageBytes = ver.StorageBytes
+			ds.FileCount = int32(len(ver.Items))
+
+
+
+		} else {
+			ds.RecordCount = ver.RecordCount
+			ds.StorageBytes = ver.StorageBytes
+			ds.FileCount = int32(len(ver.Items))
+		}
 		db.PutDataset(tx, ds)
 
 
