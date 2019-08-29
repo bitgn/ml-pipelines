@@ -95,6 +95,23 @@ func Handle(tx *db.Tx, msg proto.Message){
 		prj.StorageBytes = storage
 		db.PutProject(tx, prj)
 
+	case *events.DatasetVersionAdded:
+		ver := &db.DatasetVersionData{
+			DatasetUid:e.DatasetUid,
+			ParentUid:e.ParentUid,
+			Title:e.Title,
+			Uid:e.Uid,
+			Items:e.Items,
+			Inputs:e.Inputs,
+		}
+
+		for _, i := range e.Items{
+			ver.StorageBytes += i.StorageBytes
+			ver.RecordCount += i.Records
+		}
+
+		db.PutDatasetVersion(tx,ver)
+
 
 	case *events.JobAdded:
 
@@ -170,18 +187,6 @@ func mergeProjectMeta(d *vo.ProjectMetadataDelta, trg *db.ProjectData){
 func mergeDatasetMeta(d *vo.DatasetMetadataDelta, trg *db.DatasetData) {
 	if d.TitleSet {
 		trg.Title = d.Title
-	}
-	if d.RecordCountSet {
-		trg.RecordCount = d.RecordCount
-	}
-	if d.FileCountSet {
-		trg.FileCount = d.FileCount
-	}
-	if d.StorageBytesSet  {
-		trg.StorageBytes = d.StorageBytes
-	}
-	if d.UpdateTimestampSet {
-		trg.UpdateTimestamp = d.UpdateTimestamp
 	}
 	if d.DataFormatSet {
 		trg.DataFormat = d.DataFormat

@@ -52,6 +52,7 @@ enum ENTITY {
     SERVICE = 3;
     MODEL = 4;
     PROJECT=5;
+    DATASET_VERSION=6;
 }
 
 
@@ -107,17 +108,8 @@ message DatasetVerInput {
 // if a field kind is set, then the corresponding property carries
 // a new value (which could be null)
 message DatasetMetadataDelta {
-    int64 record_count = 1;
-    bool record_count_set = 2;
-    int64 file_count = 3;
-    bool file_count_set = 4;
-    int64 storage_bytes = 5;
-    bool storage_bytes_set = 6;
     DatasetSample sample = 7;
     bool sample_set = 8;
-
-    int64 update_timestamp = 9;
-    bool update_timestamp_set = 10;
 
     string data_format = 11;
     bool data_format_set = 12;

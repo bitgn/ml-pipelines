@@ -27,6 +27,22 @@ enum Range {
 
 }
 
+message DatasetVersionData{
+    bytes uid = 1;
+    bytes parent_uid = 2;
+
+    string title = 3;
+
+    int64 record_count = 4;
+
+
+    int64 storage_bytes = 6;
+
+    repeated DatasetVerInput inputs = 7;
+    repeated DatasetItem items = 8;
+    bytes dataset_uid = 9;
+}
+
 
 message EntityRef {
     ENTITY kind = 1;

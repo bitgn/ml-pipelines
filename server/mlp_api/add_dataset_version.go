@@ -5,9 +5,18 @@ import (
 	"mlp/catalog/db"
 	"mlp/catalog/events"
 	"mlp/catalog/sim"
+	"mlp/catalog/vo"
 )
 
 func (s *server) AddDatasetVersion(c context.Context, r *AddDatasetVersionRequest) (*AddDatasetVersionResponse, error) {
+
+	wrap := func (err *ApiError) (*AddDatasetVersionResponse, error){
+		return &AddDatasetVersionResponse{
+			Error:err,
+		}, nil
+	}
+
+
 
 	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
@@ -29,15 +38,25 @@ func (s *server) AddDatasetVersion(c context.Context, r *AddDatasetVersionReques
 
 	 */
 
+	if len(r.ParentUid) != 0 {
+		found := db.GetDatasetVersion(tx, r.DatasetUid, r.ParentUid)
+		if found == nil {
+			return wrap(notFound(vo.ENTITY_DATASET_VERSION, r.ParentUid))
+		}
+	}
+
 	e := &events.DatasetVersionAdded{
 		Uid:sim.NewID(),
-		Timestamp:sim.Unix(),
+
 		ProjectUid:ds.ProjectUid,
 		ProjectName:ds.ProjectName,
 		Title:r.Title,
 		ParentUid:r.ParentUid,
 		Items:r.Items,
+	}
 
+	if r.Timestamp == 0{
+		e.Timestamp = sim.Unix()
 	}
 
 	s.publish(tx, e)

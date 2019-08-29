@@ -69,6 +69,8 @@ message DatasetVersionAdded {
 
     repeated DatasetItem items = 7;
     repeated DatasetVerInput inputs = 8;
+
+    bytes dataset_uid = 9;
 }
 
 

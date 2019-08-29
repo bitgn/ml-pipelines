@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x08vo.proto\"f\n\x14ProjectMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x04 \x01(\x08\"\xea\x01\n\x14ServiceMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x13\n\x0blocation_id\x18\x03 \x01(\t\x12\x17\n\x0flocation_id_set\x18\x04 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x05 \x01(\t\x12\x18\n\x10location_uri_set\x18\x06 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x08 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\t \x03(\t\x12\x13\n\x0b\x65xperts_set\x18\n \x01(\x08\"a\n\x13\x45xpertMetadataDelta\x12\x11\n\tfull_name\x18\x01 \x01(\t\x12\x15\n\rfull_name_set\x18\x02 \x01(\x08\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x11\n\temail_set\x18\x04 \x01(\x08\";\n\x08Relation\x12\x11\n\ttarget_id\x18\x01 \x01(\x0c\x12\x1c\n\x0btarget_type\x18\x02 \x01(\x0e\x32\x07.ENTITY\"\x95\x01\n\x10JobMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x19\n\x06inputs\x18\x03 \x03(\x0b\x32\t.JobInput\x12\x12\n\ninputs_set\x18\x04 \x01(\x08\x12\x1b\n\x07outputs\x18\x05 \x03(\x0b\x32\n.JobOutput\x12\x13\n\x0boutputs_set\x18\x06 \x01(\x08\"Z\n\x08JobInput\x12\x11\n\tsource_id\x18\x01 \x01(\x0c\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.JobInput.Type\"\x1d\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x0b\n\x07\x44\x61taset\x10\x01\"\\\n\tJobOutput\x12\x11\n\ttarget_id\x18\x01 \x01(\x0c\x12\x1d\n\x04type\x18\x02 \x01(\x0e\x32\x0f.JobOutput.Type\"\x1d\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x0b\n\x07\x44\x61taset\x10\x01\"b\n\x0f\x44\x61tasetVerInput\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12#\n\x04type\x18\x02 \x01(\x0e\x32\x15.DatasetVerInput.TYPE\"\x1d\n\x04TYPE\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07JOB_RUN\x10\x01\"\x92\x04\n\x14\x44\x61tasetMetadataDelta\x12\x14\n\x0crecord_count\x18\x01 \x01(\x03\x12\x18\n\x10record_count_set\x18\x02 \x01(\x08\x12\x12\n\nfile_count\x18\x03 \x01(\x03\x12\x16\n\x0e\x66ile_count_set\x18\x04 \x01(\x08\x12\x15\n\rstorage_bytes\x18\x05 \x01(\x03\x12\x19\n\x11storage_bytes_set\x18\x06 \x01(\x08\x12\x1e\n\x06sample\x18\x07 \x01(\x0b\x32\x0e.DatasetSample\x12\x12\n\nsample_set\x18\x08 \x01(\x08\x12\x18\n\x10update_timestamp\x18\t \x01(\x03\x12\x1c\n\x14update_timestamp_set\x18\n \x01(\x08\x12\x13\n\x0b\x64\x61ta_format\x18\x0b \x01(\t\x12\x17\n\x0f\x64\x61ta_format_set\x18\x0c \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\r \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x0e \x01(\x08\x12\x13\n\x0blocation_id\x18\x0f \x01(\t\x12\x17\n\x0flocation_id_set\x18\x10 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x11 \x01(\t\x12\x18\n\x10location_uri_set\x18\x12 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\x13 \x03(\x0c\x12\x13\n\x0b\x65xperts_set\x18\x14 \x01(\x08\x12\r\n\x05title\x18\x15 \x01(\t\x12\x11\n\ttitle_set\x18\x16 \x01(\x08\"P\n\x0b\x44\x61tasetItem\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rstorage_bytes\x18\x02 \x01(\x03\x12\x0f\n\x07records\x18\x03 \x01(\x03\x12\x0b\n\x03uid\x18\x04 \x01(\x0c\"k\n\rDatasetSample\x12%\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x15.DatasetSample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"%\n\x06\x46ORMAT\x12\x08\n\x04TEXT\x10\x00\x12\x07\n\x03TSV\x10\x01\x12\x08\n\x04JSON\x10\x02*M\n\x06\x45NTITY\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07\x44\x41TASET\x10\x01\x12\x07\n\x03JOB\x10\x02\x12\x0b\n\x07SERVICE\x10\x03\x12\t\n\x05MODEL\x10\x04\x12\x0b\n\x07PROJECT\x10\x05\x62\x06proto3')
+  serialized_pb=_b('\n\x08vo.proto\"f\n\x14ProjectMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x04 \x01(\x08\"\xea\x01\n\x14ServiceMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x13\n\x0blocation_id\x18\x03 \x01(\t\x12\x17\n\x0flocation_id_set\x18\x04 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x05 \x01(\t\x12\x18\n\x10location_uri_set\x18\x06 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x08 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\t \x03(\t\x12\x13\n\x0b\x65xperts_set\x18\n \x01(\x08\"a\n\x13\x45xpertMetadataDelta\x12\x11\n\tfull_name\x18\x01 \x01(\t\x12\x15\n\rfull_name_set\x18\x02 \x01(\x08\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x11\n\temail_set\x18\x04 \x01(\x08\";\n\x08Relation\x12\x11\n\ttarget_id\x18\x01 \x01(\x0c\x12\x1c\n\x0btarget_type\x18\x02 \x01(\x0e\x32\x07.ENTITY\"\x95\x01\n\x10JobMetadataDelta\x12\r\n\x05title\x18\x01 \x01(\t\x12\x11\n\ttitle_set\x18\x02 \x01(\x08\x12\x19\n\x06inputs\x18\x03 \x03(\x0b\x32\t.JobInput\x12\x12\n\ninputs_set\x18\x04 \x01(\x08\x12\x1b\n\x07outputs\x18\x05 \x03(\x0b\x32\n.JobOutput\x12\x13\n\x0boutputs_set\x18\x06 \x01(\x08\"Z\n\x08JobInput\x12\x11\n\tsource_id\x18\x01 \x01(\x0c\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.JobInput.Type\"\x1d\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x0b\n\x07\x44\x61taset\x10\x01\"\\\n\tJobOutput\x12\x11\n\ttarget_id\x18\x01 \x01(\x0c\x12\x1d\n\x04type\x18\x02 \x01(\x0e\x32\x0f.JobOutput.Type\"\x1d\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x0b\n\x07\x44\x61taset\x10\x01\"b\n\x0f\x44\x61tasetVerInput\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12#\n\x04type\x18\x02 \x01(\x0e\x32\x15.DatasetVerInput.TYPE\"\x1d\n\x04TYPE\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07JOB_RUN\x10\x01\"\xcc\x02\n\x14\x44\x61tasetMetadataDelta\x12\x1e\n\x06sample\x18\x07 \x01(\x0b\x32\x0e.DatasetSample\x12\x12\n\nsample_set\x18\x08 \x01(\x08\x12\x13\n\x0b\x64\x61ta_format\x18\x0b \x01(\t\x12\x17\n\x0f\x64\x61ta_format_set\x18\x0c \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\r \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x0e \x01(\x08\x12\x13\n\x0blocation_id\x18\x0f \x01(\t\x12\x17\n\x0flocation_id_set\x18\x10 \x01(\x08\x12\x14\n\x0clocation_uri\x18\x11 \x01(\t\x12\x18\n\x10location_uri_set\x18\x12 \x01(\x08\x12\x0f\n\x07\x65xperts\x18\x13 \x03(\x0c\x12\x13\n\x0b\x65xperts_set\x18\x14 \x01(\x08\x12\r\n\x05title\x18\x15 \x01(\t\x12\x11\n\ttitle_set\x18\x16 \x01(\x08\"P\n\x0b\x44\x61tasetItem\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rstorage_bytes\x18\x02 \x01(\x03\x12\x0f\n\x07records\x18\x03 \x01(\x03\x12\x0b\n\x03uid\x18\x04 \x01(\x0c\"k\n\rDatasetSample\x12%\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x15.DatasetSample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"%\n\x06\x46ORMAT\x12\x08\n\x04TEXT\x10\x00\x12\x07\n\x03TSV\x10\x01\x12\x08\n\x04JSON\x10\x02*b\n\x06\x45NTITY\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07\x44\x41TASET\x10\x01\x12\x07\n\x03JOB\x10\x02\x12\x0b\n\x07SERVICE\x10\x03\x12\t\n\x05MODEL\x10\x04\x12\x0b\n\x07PROJECT\x10\x05\x12\x13\n\x0f\x44\x41TASET_VERSION\x10\x06\x62\x06proto3')
 )
 
 _ENTITY = _descriptor.EnumDescriptor(
@@ -54,11 +54,15 @@ _ENTITY = _descriptor.EnumDescriptor(
       name='PROJECT', index=5, number=5,
       serialized_options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DATASET_VERSION', index=6, number=6,
+      serialized_options=None,
+      type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1675,
-  serialized_end=1752,
+  serialized_start=1477,
+  serialized_end=1575,
 )
 _sym_db.RegisterEnumDescriptor(_ENTITY)
 
@@ -69,6 +73,7 @@ JOB = 2
 SERVICE = 3
 MODEL = 4
 PROJECT = 5
+DATASET_VERSION = 6
 
 
 _JOBINPUT_TYPE = _descriptor.EnumDescriptor(
@@ -158,8 +163,8 @@ _DATASETSAMPLE_FORMAT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1636,
-  serialized_end=1673,
+  serialized_start=1438,
+  serialized_end=1475,
 )
 _sym_db.RegisterEnumDescriptor(_DATASETSAMPLE_FORMAT)
 
@@ -591,154 +596,98 @@ _DATASETMETADATADELTA = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='record_count', full_name='DatasetMetadataDelta.record_count', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='record_count_set', full_name='DatasetMetadataDelta.record_count_set', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='file_count', full_name='DatasetMetadataDelta.file_count', index=2,
-      number=3, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='file_count_set', full_name='DatasetMetadataDelta.file_count_set', index=3,
-      number=4, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='storage_bytes', full_name='DatasetMetadataDelta.storage_bytes', index=4,
-      number=5, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='storage_bytes_set', full_name='DatasetMetadataDelta.storage_bytes_set', index=5,
-      number=6, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='sample', full_name='DatasetMetadataDelta.sample', index=6,
+      name='sample', full_name='DatasetMetadataDelta.sample', index=0,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='sample_set', full_name='DatasetMetadataDelta.sample_set', index=7,
+      name='sample_set', full_name='DatasetMetadataDelta.sample_set', index=1,
       number=8, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='update_timestamp', full_name='DatasetMetadataDelta.update_timestamp', index=8,
-      number=9, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='update_timestamp_set', full_name='DatasetMetadataDelta.update_timestamp_set', index=9,
-      number=10, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='data_format', full_name='DatasetMetadataDelta.data_format', index=10,
+      name='data_format', full_name='DatasetMetadataDelta.data_format', index=2,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='data_format_set', full_name='DatasetMetadataDelta.data_format_set', index=11,
+      name='data_format_set', full_name='DatasetMetadataDelta.data_format_set', index=3,
       number=12, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='description', full_name='DatasetMetadataDelta.description', index=12,
+      name='description', full_name='DatasetMetadataDelta.description', index=4,
       number=13, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='description_set', full_name='DatasetMetadataDelta.description_set', index=13,
+      name='description_set', full_name='DatasetMetadataDelta.description_set', index=5,
       number=14, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='location_id', full_name='DatasetMetadataDelta.location_id', index=14,
+      name='location_id', full_name='DatasetMetadataDelta.location_id', index=6,
       number=15, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='location_id_set', full_name='DatasetMetadataDelta.location_id_set', index=15,
+      name='location_id_set', full_name='DatasetMetadataDelta.location_id_set', index=7,
       number=16, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='location_uri', full_name='DatasetMetadataDelta.location_uri', index=16,
+      name='location_uri', full_name='DatasetMetadataDelta.location_uri', index=8,
       number=17, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='location_uri_set', full_name='DatasetMetadataDelta.location_uri_set', index=17,
+      name='location_uri_set', full_name='DatasetMetadataDelta.location_uri_set', index=9,
       number=18, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='experts', full_name='DatasetMetadataDelta.experts', index=18,
+      name='experts', full_name='DatasetMetadataDelta.experts', index=10,
       number=19, type=12, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='experts_set', full_name='DatasetMetadataDelta.experts_set', index=19,
+      name='experts_set', full_name='DatasetMetadataDelta.experts_set', index=11,
       number=20, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='title', full_name='DatasetMetadataDelta.title', index=20,
+      name='title', full_name='DatasetMetadataDelta.title', index=12,
       number=21, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='title_set', full_name='DatasetMetadataDelta.title_set', index=21,
+      name='title_set', full_name='DatasetMetadataDelta.title_set', index=13,
       number=22, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -757,7 +706,7 @@ _DATASETMETADATADELTA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=952,
-  serialized_end=1482,
+  serialized_end=1284,
 )
 
 
@@ -808,8 +757,8 @@ _DATASETITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1484,
-  serialized_end=1564,
+  serialized_start=1286,
+  serialized_end=1366,
 )
 
 
@@ -847,8 +796,8 @@ _DATASETSAMPLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1566,
-  serialized_end=1673,
+  serialized_start=1368,
+  serialized_end=1475,
 )
 
 _RELATION.fields_by_name['target_type'].enum_type = _ENTITY

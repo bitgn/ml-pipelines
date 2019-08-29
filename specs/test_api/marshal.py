@@ -10,6 +10,8 @@ map = {
     evt.DatasetUpdated: evt.Event_DatasetUpdated,
     evt.JobAdded: evt.Event_JobAdded,
     evt.ExpertAdded: evt.Event_ExpertAdded,
+    evt.DatasetVersionAdded: evt.Event_DatasetVersionAdded,
+
 }
 
 
@@ -18,6 +20,10 @@ def serialize(msgs: List[Message]):
     for m in msgs:
         bytes = m.SerializeToString()
 
-        envelope = evt.Event(Body=bytes, Type=map[type(m)])
+        typ = type(m)
+        if not typ in map:
+            raise KeyError(f'Unknown event type {typ.__name__}')
+
+        envelope = evt.Event(Body=bytes, Type=map[typ])
         result.append(envelope)
     return result

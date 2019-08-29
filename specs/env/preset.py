@@ -60,6 +60,37 @@ def set_data_format(t: env.Env, dm:vo.DatasetMetadataDelta, text: str):
     dm.data_format = text
     dm.data_format_set = True
 
+def dataset_version_added(t: env.Env, ds:evt.DatasetCreated, v:evt.DatasetVersionAdded = None, ts: timedelta = timedelta()):
+
+    uid = t.next_uid()
+    updated = t.time + ts
+    ver = evt.DatasetVersionAdded(
+        uid=uid,
+        project_name=ds.project_name,
+        dataset_uid=ds.uid,
+        title=f'Version {uid.hex()}',
+        items=[vo.DatasetItem(
+            uid=t.next_uid(),
+            name=f'{random.choice(nouns)}_{random.choice(verbs)}_{random.randint(0,100)}.tsv',
+            storage_bytes=random.randint(1000,1000000)
+        )],
+        project_uid=ds.project_uid,
+        timestamp=int(updated.timestamp()),
+
+
+
+
+    )
+
+
+
+    if v:
+        ver.parent_uid = v.uid
+    return ver
+
+
+
+
 def dataset_created(e: env.Env, prj: evt.ProjectCreated):
     id = e.next_id()
     a = random.choice(adj)
@@ -75,18 +106,20 @@ def dataset_created(e: env.Env, prj: evt.ProjectCreated):
     meta.title = name
     meta.title_set = True
 
-    meta.record_count = random.randint(10, 3000)
-    meta.record_count_set = True
-
-    raw_bytes = random.randint(100, 2 ** 30)
-    meta.storage_bytes = random.randint(int(raw_bytes / 2), int(raw_bytes))
-    meta.storage_bytes_set = True
-
-    meta.file_count = random.randint(1, meta.record_count)
-    meta.file_count_set = True
 
 
-    set_update_timestamp(e, meta, minutes=-random.randint(0, 7 * 24 * 60))
+    #meta.record_count = random.randint(10, 3000)
+    #meta.record_count_set = True
+
+    #raw_bytes = random.randint(100, 2 ** 30)
+    #meta.storage_bytes = random.randint(int(raw_bytes / 2), int(raw_bytes))
+    #meta.storage_bytes_set = True
+
+    #meta.file_count = random.randint(1, meta.record_count)
+    #meta.file_count_set = True
+
+
+    #set_update_timestamp(e, meta, minutes=-random.randint(0, 7 * 24 * 60))
 
 
 

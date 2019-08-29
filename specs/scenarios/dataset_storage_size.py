@@ -1,5 +1,5 @@
 from env import *
-from test_api import events_pb2 as evt
+from test_api import vo_pb2 as vo
 
 
 def _avoid_wrapping(value):
@@ -35,10 +35,14 @@ def given_a_datasets_with_various_storage_sizes(t: env.Env):
 
     for k,v in map.items():
         ds = preset.dataset_created(t, prj)
-        ds.meta.storage_bytes = k
+        ver = preset.dataset_version_added(t, ds)
+
+        del ver.items[:]
+        ver.items.append(vo.DatasetItem(name='file', storage_bytes=k, records=1, uid=t.next_uid()))
+
         value = _avoid_wrapping(v)
         conditionals.append(then.text(f'main #ds-{ds.uid.hex()} .zip-size', value),)
-        t.given_events(ds)
+        t.given_events(ds, ver)
 
 
 
@@ -54,10 +58,13 @@ def given_a_dataset_with_storage_size(t: env.Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.meta.storage_bytes = 1100
+    ver = preset.dataset_version_added(t, ds)
+    del ver.items[:]
+    ver.items.append(vo.DatasetItem(name='file', storage_bytes=1100, records=1, uid=t.next_uid()))
+
     size = _avoid_wrapping('1.1 kB')
 
-    t.given_events(prj, ds)
+    t.given_events(prj, ds, ver)
     t.scenario(
         when.view_dataset(ds.project_name, ds.name),
         then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
@@ -81,8 +88,7 @@ def given_a_dataset_without_storage_size(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.meta.storage_bytes = 0
-    ds.meta.storage_bytes_set = True
+
 
     t.given_events(prj, ds)
 

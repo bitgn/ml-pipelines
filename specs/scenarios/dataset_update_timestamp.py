@@ -39,14 +39,11 @@ def given_a_datasets_with_various_timestamps(t: env.Env):
 
     for k, v in assertions.items():
         ds = preset.dataset_created(t, prj)
-
-        time = t.time - k
-        ds.meta.update_timestamp = int(time.timestamp())
-        ds.meta.update_timestamp_set = True
+        ver = preset.dataset_version_added(t, ds, ts=-k)
 
         value = _avoid_wrapping(v)
         conditionals.append(then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', value, hint=k))
-        t.given_events(ds)
+        t.given_events(ds, ver)
 
     t.scenario(*conditionals)
 
@@ -56,12 +53,12 @@ def given_a_dataset_with_update_timestamp(t: env.Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.meta.update_timestamp = int((t.time - timedelta(days=1)).timestamp())
-    ds.meta.update_timestamp_set = True
+    ver = preset.dataset_version_added(t, ds, ts=timedelta(days=-1))
+
 
     value = _avoid_wrapping('a day ago')
 
-    t.given_events(prj, ds)
+    t.given_events(prj, ds, ver)
     t.scenario(
         when.view_dataset(ds.project_name, ds.name),
         then.text(f'main #ds-{ds.uid.hex()} .update-timestamp', value),
@@ -83,12 +80,7 @@ def given_a_dataset_without_update_timestamp(t: Env):
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
 
-    ds.meta.update_timestamp = 0
-    ds.meta.update_timestamp_set = True
-
     t.given_events(prj, ds)
-
-
 
     t.scenario(
         when.view_dataset(ds.project_name, ds.name),

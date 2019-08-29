@@ -1,5 +1,5 @@
 from env import *
-from test_api import events_pb2 as evt
+from test_api import vo_pb2 as vo
 
 
 def given_a_populated_project(t: env.Env):
@@ -9,13 +9,18 @@ def given_a_populated_project(t: env.Env):
     ds1 = preset.dataset_created(t, prj)
     ds2 = preset.dataset_created(t, prj)
 
-    ds1.meta.storage_bytes = 1000
-    ds2.meta.storage_bytes = 2000
+    ver = preset.dataset_version_added(t, ds1)
+
+    del ver.items[:]
+    ver.items.append(vo.DatasetItem(name='file', storage_bytes=3000, records=2, uid=t.next_uid()))
+
+
 
     t.given_events(prj, ds1, ds2,
                    preset.job_added(t, prj),
                    preset.job_added(t, prj),
-                   preset.job_added(t, prj)
+                   preset.job_added(t, prj),
+                   ver,
                    )
 
     t.scenario(

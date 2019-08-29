@@ -43,19 +43,24 @@ class Client:
         response: api.CreateProjectResponse = self._rpc(lambda: self.catalog.CreateProject(request))
         return ProjectCreated(uid=response.uid)
 
-    def add_dataset_version(self, project_name: str, dataset_name: str, items:List['DatasetItem'], title: Optional[str]=None, inputs:List[bytes]=()):
+    def add_dataset_version(self,
+                            project_name: str,
+                            dataset_name: str,
+                            items:List['DatasetItem'],
+                            title: Optional[str]=None,
+                            inputs:List[bytes]=(),
+                            parent_uid:Optional[bytes]=None):
 
         prj = self._lookup_dataset(project_name, dataset_name)
 
         vo.DatasetItem()
 
 
-
-
         req = api.AddDatasetVersionRequest(
             dataset_uid=prj.dataset_uid,
             title=title,
             inputs=inputs,
+            parent_uid=parent_uid,
         )
 
         response: api.AddDatasetVersionResponse = self._rpc(lambda: self.catalog.AddDatasetVersion(req))
