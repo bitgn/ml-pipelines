@@ -330,7 +330,16 @@ try:
                 req.timestamp = int(test_env.time.timestamp())
 
                 req.Events.extend(api.serialize(test_env.events))
-                test_service.Setup(req)
+
+                try:
+                    test_service.Setup(req)
+                except grpc.RpcError as e:
+                    if e.code() == grpc.StatusCode.UNAVAILABLE:
+                        raise ConnectionRefusedError() from e
+                    raise
+
+
+
 
                 for s in test_env.scenarios:
 
@@ -385,7 +394,7 @@ try:
 
 
             except (ConnectionRefusedError, requests.exceptions.ConnectionError):
-                print(f"{CBOLD}{CRED}Connection refused!{CEND}")
+                print(f"{CBOLD}{CRED}Connection refused, Terminating!{CEND}")
                 # let server print its log
                 time.sleep(1)
                 quit(1)
