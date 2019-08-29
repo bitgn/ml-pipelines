@@ -11,6 +11,8 @@ def _avoid_wrapping(value):
 
 
 
+
+
 def given_a_datasets_with_various_storage_sizes(t: env.Env):
     """show formatted storage value"""
     prj = preset.project_created(t)
@@ -53,7 +55,7 @@ def given_a_datasets_with_various_storage_sizes(t: env.Env):
 
 
 
-def given_a_dataset_with_storage_size(t: env.Env):
+def given_a_dataset_with_a_single_version(t: env.Env):
     """show formatted size on all screens"""
     prj = preset.project_created(t)
     ds = preset.dataset_created(t, prj)
@@ -63,23 +65,91 @@ def given_a_dataset_with_storage_size(t: env.Env):
     ver.items.append(vo.DatasetItem(name='file', storage_bytes=1100, records=1, uid=t.next_uid()))
 
     size = _avoid_wrapping('1.1 kB')
+    title="1100"
 
     t.given_events(prj, ds, ver)
     t.scenario(
         when.view_dataset(ds.project_name, ds.name),
-        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size, title=title),
     )
 
     t.scenario(
         when.list_datasets(),
-        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size, title=title),
     )
 
     t.scenario(
         when.view_project(prj.name),
-        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', size, title=title),
     )
 
+
+def given_a_dataset_with_multiple_additive_versions(t: env.Env):
+    """render final size"""
+    prj = preset.project_created(t)
+    ds = preset.dataset_created(t, prj)
+
+    v1 = preset.dataset_version_added(t, ds)
+    del v1.items[:]
+    v1.items.append(vo.DatasetItem(name='file', storage_bytes=1100, records=1, uid=t.next_uid()))
+
+    v2 = preset.dataset_version_added(t, ds, v1)
+    del v2.items[:]
+    v2.items.append(vo.DatasetItem(name='file', storage_bytes=2200, records=1, uid=t.next_uid()))
+
+
+
+
+    t.given_events(prj, ds, v1, v2)
+    t.scenario(
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', title="3300"),
+    )
+
+    t.scenario(
+        when.list_datasets(),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', title="3300"),
+    )
+
+    t.scenario(
+        when.view_project(prj.name),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', title="3300"),
+    )
+
+def given_a_dataset_with_multiple_mutating_versions(t: env.Env):
+
+    """show formatted size on all screens"""
+    prj = preset.project_created(t)
+    ds = preset.dataset_created(t, prj)
+
+    v1 = preset.dataset_version_added(t, ds)
+    del v1.items[:]
+    item1 = vo.DatasetItem(name='file', storage_bytes=1100, records=1, uid=t.next_uid())
+    item2 = vo.DatasetItem(name='file', storage_bytes=2200, records=1, uid=t.next_uid())
+
+    v1.items.extend([item1,item2])
+
+    v2 = preset.dataset_version_added(t, ds)
+    del v2.items[:]
+    del v2.remove[:]
+
+    v2.remove.append(item1)
+
+    t.given_events(prj, ds, v1, v2)
+    t.scenario(
+        when.view_dataset(ds.project_name, ds.name),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', title="2200"),
+    )
+
+    t.scenario(
+        when.list_datasets(),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', title="2200"),
+    )
+
+    t.scenario(
+        when.view_project(prj.name),
+        then.text(f'main #ds-{ds.uid.hex()} .zip-size', title="2200"),
+    )
 
 
 

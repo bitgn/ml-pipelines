@@ -61,7 +61,7 @@
             </td>
             <td><a href="{{$.Site.Url.ViewProject .Dataset.ProjectName}}" class="project-link">{{.Dataset.ProjectName}}</a> </td>
             <td>
-                <span class="zip-size">{{ $.Site.Fmt.BytesDecimal .Dataset.StorageBytes }}</span>
+                <span class="zip-size" title="{{.Dataset.StorageBytes}}">{{ $.Site.Fmt.BytesDecimal .Dataset.StorageBytes }}</span>
                 {{ if .Dataset.LocationId }}
                 <span class="text-muted">at <span class="location-id">{{ .Dataset.LocationId }}</span></span>{{end}}
             </td>

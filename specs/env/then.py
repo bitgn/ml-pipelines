@@ -111,7 +111,7 @@ def client_ok(**kwargs):
 
     return env.Then(None, _)
 
-def text(selector, expected: str, hint=None, title=None):
+def text(selector:str, expected: str=None, hint=None, title=None):
 
 
 
@@ -130,10 +130,13 @@ def text(selector, expected: str, hint=None, title=None):
 
 
             return msg
-        if result.text.strip() != expected:
+
+        if expected and result.text.strip() != expected:
             return f"Text for '{selector}'{pretty} should be '{expected}' not '{result.text}'"
-        if title and result['title'] != title:
-                return f"Text for '{selector}'.title {pretty} should be '{title}' not '{result['title']}'"
+        if title:
+            actual = result.get('title', "<none>")
+            if actual != title:
+                return f"Text for '{selector}'.title {pretty} should be '{title}' not '{actual}'"
 
     return env.Then(_, None)
 

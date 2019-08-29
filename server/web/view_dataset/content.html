@@ -37,7 +37,7 @@
 
                     <strong>Records: </strong>{{ .Dataset.RecordCount }}<br/>
                     <strong>Files: </strong> {{ .Dataset.FileCount }}<br />
-                    <strong>Size:</strong> <span class="zip-size">{{ .Site.Fmt.BytesDecimal .Dataset.StorageBytes }}</span><br/>
+                    <strong>Size:</strong> <span class="zip-size" title="{{.Dataset.StorageBytes}}">{{ .Site.Fmt.BytesDecimal .Dataset.StorageBytes }}</span><br/>
 
 
 
