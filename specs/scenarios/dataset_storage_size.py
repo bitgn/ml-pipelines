@@ -91,11 +91,11 @@ def given_a_dataset_with_multiple_additive_versions(t: env.Env):
 
     v1 = preset.dataset_version_added(t, ds)
     del v1.items[:]
-    v1.items.append(vo.DatasetItem(name='file', storage_bytes=1100, records=1, uid=t.next_uid()))
+    v1.items.append(vo.DatasetItem(name='file1', storage_bytes=1100, records=1, uid=t.next_uid()))
 
     v2 = preset.dataset_version_added(t, ds, v1)
     del v2.items[:]
-    v2.items.append(vo.DatasetItem(name='file', storage_bytes=2200, records=1, uid=t.next_uid()))
+    v2.items.append(vo.DatasetItem(name='file2', storage_bytes=2200, records=1, uid=t.next_uid()))
 
 
 
@@ -124,12 +124,12 @@ def given_a_dataset_with_multiple_mutating_versions(t: env.Env):
 
     v1 = preset.dataset_version_added(t, ds)
     del v1.items[:]
-    item1 = vo.DatasetItem(name='file', storage_bytes=1100, records=1, uid=t.next_uid())
-    item2 = vo.DatasetItem(name='file', storage_bytes=2200, records=1, uid=t.next_uid())
+    item1 = vo.DatasetItem(name='file1', storage_bytes=1100, records=1, uid=t.next_uid())
+    item2 = vo.DatasetItem(name='file2', storage_bytes=2200, records=1, uid=t.next_uid())
 
     v1.items.extend([item1,item2])
 
-    v2 = preset.dataset_version_added(t, ds)
+    v2 = preset.dataset_version_added(t, ds, v1)
     del v2.items[:]
     del v2.remove[:]
 

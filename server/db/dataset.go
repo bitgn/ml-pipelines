@@ -8,6 +8,12 @@ func mustUid(uid []byte){
 	}
 }
 
+func mustName(name string){
+	if len(name)==0{
+		log.Panicln("Name can't be nil")
+	}
+}
+
 
 func PutDataset(tx *Tx, val *DatasetData){
 	tx.PutProto(CreateKey(Range_DATASETS, val.Uid), val)

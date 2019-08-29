@@ -15,6 +15,13 @@ func CreateKey(r Range, args ...tuple.Element) []byte {
 
 	var slice []tuple.Element
 	slice = append(slice, int(r))
+
+	for i, a := range args{
+		if a == nil{
+			log.Panicln("Element",i,"can't be nil")
+		}
+	}
+
 	slice = append(slice, args...)
 
 

@@ -83,6 +83,13 @@ func (tx *Tx) Del(key []byte) error {
 	return nil
 }
 
+func (tx *Tx) MustDel(key []byte){
+
+	if err := tx.Del(key); err != nil {
+		panic(errors.Wrap(err,"tx.Del"))
+	}
+}
+
 func (tx *Tx) PutReserve(key []byte, size int) ([]byte, error) {
 	tx.dirty = true
 	return tx.Tx.PutReserve(tx.DB, key, size, 0)

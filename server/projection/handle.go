@@ -110,29 +110,53 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Inputs:e.Inputs,
 		}
 
-		for _, i := range e.Items{
-			ver.StorageBytes += i.StorageBytes
-			ver.RecordCount += i.Records
+
+		if !ver.HasParent(){
+			db.DeleteDatasetHead(tx, e.DatasetUid)
 		}
+
+		for _, i := range e.Items{
+			db.PutDatasetHeadItem(tx, e.DatasetUid, &db.DatasetItemData{
+				Name:i.Name,
+				StorageBytes:i.StorageBytes,
+				RecordsCount:i.Records,
+			})
+		}
+
+		for _,i := range e.Remove{
+			db.DelDatasetHeadItem(tx, e.DatasetUid, i.Name)
+		}
+
+
+		var (
+			storage_bytes int64
+			record_count int64
+			item_count int64
+
+		)
+
+		for _, x := range db.ListDatasetHeadItems(tx, e.DatasetUid){
+			item_count+=1
+			record_count += x.RecordsCount
+			storage_bytes += x.StorageBytes
+		}
+
+
+
+		ver.RecordCount = record_count
+		ver.StorageBytes = storage_bytes
+		ver.ItemCount = item_count
 
 		db.PutDatasetVersion(tx,ver)
 
 		ds := db.GetDataset(tx, e.DatasetUid)
 		ds.UpdateTimestamp = e.Timestamp
 
-		if ver.HasParent() {
-			// TODO: count total of all versions
-			ds.RecordCount = ver.RecordCount
-			ds.StorageBytes = ver.StorageBytes
-			ds.FileCount = int32(len(ver.Items))
 
+		ds.RecordCount = ver.RecordCount
+		ds.StorageBytes = ver.StorageBytes
+		ds.FileCount = ver.ItemCount
 
-
-		} else {
-			ds.RecordCount = ver.RecordCount
-			ds.StorageBytes = ver.StorageBytes
-			ds.FileCount = int32(len(ver.Items))
-		}
 		db.PutDataset(tx, ds)
 
 
