@@ -14,6 +14,11 @@ func mustName(val string){
 		log.Panicf("Name can't be nil")
 	}
 }
+func must(i interface{}){
+	if i == nil {
+		log.Panicln("Value can't be null")
+	}
+}
 
 
 
@@ -111,6 +116,10 @@ func Handle(tx *db.Tx, msg proto.Message){
 		}
 
 		db.PutDatasetVersion(tx,ver)
+
+		ds := db.GetDataset(tx, e.DatasetUid)
+		ds.UpdateTimestamp = e.Timestamp
+		db.PutDataset(tx, ds)
 
 
 	case *events.JobAdded:

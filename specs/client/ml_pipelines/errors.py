@@ -4,6 +4,9 @@ import grpc
 
 from . import mlp_api_pb2 as api
 
+def from_exception(e: grpc.RpcError):
+    ctor = MAP.get(e.code(), ClientError)
+    return ctor(e.code(), str(e))
 
 
 
@@ -14,8 +17,8 @@ class ClientError(Exception):
     status_code = None
 
 
-    def __init__(self, status_code:api.StatusCode, message:str, subject_uid:bytes,
-                 subject_name:str, details:List[str], project_name: str, project_uid: str):
+    def __init__(self, status_code:api.StatusCode, message:str, subject_uid:bytes=None,
+                 subject_name:str=None, details:List[str]=(), project_name: str=None, project_uid: str=None):
         super(ClientError, self).__init__(message)
         self.message = message
         self.details = details
@@ -57,6 +60,3 @@ def from_error(e: api.ApiError) -> ClientError:
     return ctor(e.code, e.message, e.subject_uid, e.subject_name, list(e.details), e.project_name, e.project_uid)
 
 
-def from_exception(e: grpc.RpcError):
-    ctor = MAP.get(e.code(), ClientError)
-    return ctor(e.code(), str(e), None, None)

@@ -47,7 +47,7 @@ func (s *server) AddDatasetVersion(c context.Context, r *AddDatasetVersionReques
 
 	e := &events.DatasetVersionAdded{
 		Uid:sim.NewID(),
-
+		DatasetUid:ds.Uid,
 		ProjectUid:ds.ProjectUid,
 		ProjectName:ds.ProjectName,
 		Title:r.Title,

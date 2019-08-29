@@ -1,5 +1,12 @@
 package db
 
+import "log"
+
+func mustUid(uid []byte){
+	if len(uid)==0{
+		log.Panicln("UID can't be nil")
+	}
+}
 
 
 func PutDataset(tx *Tx, val *DatasetData){
@@ -7,6 +14,9 @@ func PutDataset(tx *Tx, val *DatasetData){
 }
 
 func GetDataset(tx *Tx, uid []byte) *DatasetData{
+	mustUid(uid)
+
+
 	val := &DatasetData{}
 	if tx.GetProto(CreateKey(Range_DATASETS, uid), val){
 		return val

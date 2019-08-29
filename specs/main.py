@@ -293,7 +293,12 @@ try:
     wait_for_server_to_start()
     print("Server ready!")
 
+    terminate = False
+
     for l in os.listdir(root):
+
+        if terminate:
+            break;
 
         if not l.endswith('.py'):
             continue
@@ -319,6 +324,8 @@ try:
         for name, factory in getmembers(module, isfunction):
             if not name.startswith('given_'):
                 continue
+            if terminate:
+                break
             fr = FuncResult(name, factory.__doc__)
             mr.funcs.append(fr)
             try:
@@ -395,11 +402,11 @@ try:
 
             except (ConnectionRefusedError, requests.exceptions.ConnectionError):
                 print(f"{CBOLD}{CRED}Connection refused, Terminating!{CEND}")
+
+                fr.exception = traceback.format_exception(*sys.exc_info(), limit=None, chain=True)
                 # let server print its log
                 time.sleep(1)
-                quit(1)
-
-
+                terminate = True
             except:
                 fr.exception= traceback.format_exception(*sys.exc_info(), limit=None, chain=True)
 
