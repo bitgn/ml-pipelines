@@ -68,7 +68,7 @@ def build_lineage(dataset_id, tx):
     return dot
  */
 
-func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver) template.HTML{
+func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, title string) template.HTML{
 
 	this := db.GetDatasetVersion(tx, uid)
 
@@ -81,7 +81,7 @@ func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver) temp
 	sb.WriteString("fontname=\"Arial\";\n")
 	sb.WriteString("node[shape=\"rectangle\" color=\"#343a40\" penwidth=\"1.5\" fontname=\"Arial\"];\n")
 	sb.WriteString("edge[color=\"#343a40\" penwidth=\"1.0\"]\n;")
-	sb.WriteString(fmt.Sprintf("this [label=\"%s\" color=\"#28a745\"]; \n", this.Title))
+	sb.WriteString(fmt.Sprintf("this [label=\"%s\" color=\"#28a745\"]; \n", title))
 
 	if this != nil {
 
