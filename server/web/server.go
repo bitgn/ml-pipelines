@@ -1,6 +1,7 @@
 package web
 
 import (
+	"encoding/hex"
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
 	"mlp/catalog/db"
@@ -49,9 +50,21 @@ func NewServer(env *db.DB, templatePath string, devMode bool, specsMode bool, ve
 
 
 	viewDatasetHandler := view_dataset.NewHandler(env, tl)
+	mx.HandleFunc("/projects/{project}/datasets/{dataset}/ver/{version}", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+
+		ver, err := hex.DecodeString(vars["version"])
+		if err != nil {
+			http.Error(w, "Dataset version is in invalid format", http.StatusBadRequest)
+			return
+		}
+		viewDatasetHandler.Handle(w, vars["project"], vars["dataset"], ver)
+	})
 	mx.HandleFunc("/projects/{project}/datasets/{dataset}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		viewDatasetHandler.Handle(w, vars["project"], vars["dataset"])
+
+
+		viewDatasetHandler.Handle(w, vars["project"], vars["dataset"], nil)
 	})
 
 

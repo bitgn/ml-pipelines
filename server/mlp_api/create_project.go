@@ -9,10 +9,10 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (s *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*CreateProjectResponse, error) {
+func (s *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*ProjectInfoResponse, error) {
 
-	wrap := func (err *ApiError) (*CreateProjectResponse, error){
-		return &CreateProjectResponse{
+	wrap := func (err *ApiError) (*ProjectInfoResponse, error){
+		return &ProjectInfoResponse{
 			Error:err,
 		}, nil
 	}
@@ -46,8 +46,9 @@ func (s *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*C
 	s.publish(tx, prj)
 	tx.MustCommit()
 
-	return &CreateProjectResponse{
+	return &ProjectInfoResponse{
 		Uid:pid,
+		Name:r.Name,
 	}, nil
 }
 

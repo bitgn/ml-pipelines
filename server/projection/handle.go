@@ -141,6 +141,18 @@ func Handle(tx *db.Tx, msg proto.Message){
 			storage_bytes += x.StorageBytes
 		}
 
+		for _,input :=range e.Inputs{
+			switch input.Type {
+			case vo.DatasetVerInput_JOB_RUN:
+				run := db.GetJobRun(tx, input.Uid)
+				run.Outputs = append(run.Outputs, &vo.JobRunOutput{
+					Type:vo.JobRunOutput_DatasetVer,
+					Uid:e.Uid,
+				})
+				db.PutJobRun(tx, run)
+			}
+		}
+
 
 
 		ver.RecordCount = record_count
@@ -159,6 +171,30 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		db.PutDataset(tx, ds)
 
+	case *events.JobRunStarted:
+
+		run := &db.JobRunData{
+			Uid:e.Uid,
+			JobUid:e.JobUid,
+			Title:e.Title,
+			Timestamp:e.Timestamp,
+			Inputs:e.Inputs,
+		}
+
+		db.PutJobRun(tx, run)
+
+		// reverse link to the dataset
+		for _, input := range run.Inputs{
+			switch input.Type {
+			case vo.JobRunInput_DatasetVer:
+				ds := db.GetDatasetVersion(tx, input.Uid)
+				ds.Outputs = append(ds.Outputs, &vo.DatasetVerOutput{
+					Type:vo.DatasetVerOutput_JOB_RUN,
+					Uid:run.JobUid,
+				})
+				db.PutDatasetVersion(tx, ds)
+			}
+		}
 
 	case *events.JobAdded:
 
@@ -174,24 +210,6 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutProject(tx, prj)
 
 
-		for _, input := range e.Meta.Inputs{
-
-			switch input.Type {
-			case vo.JobInput_Dataset:
-				ds := db.GetDataset(tx, input.SourceId)
-				ds.DownstreamJobs = append(ds.DownstreamJobs, e.Uid)
-				db.PutDataset(tx, ds)
-			}
-		}
-		for _, output := range e.Meta.Outputs{
-			switch output.Type {
-			case vo.JobOutput_Dataset:
-				ds := db.GetDataset(tx, output.TargetId)
-				ds.UpstreamJobs = append(ds.UpstreamJobs, e.Uid)
-				db.PutDataset(tx, ds)
-
-			}
-		}
 
 
 
@@ -199,8 +217,6 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Uid:        e.Uid,
 			Title:      e.Meta.Title,
 			Name:       e.Name,
-			Inputs:     e.Meta.Inputs,
-			Outputs:    e.Meta.Outputs,
 			ProjectUid: e.ProjectUid,
 		}
 		if len(data.Title) == 0{

@@ -17,33 +17,20 @@ enum Range {
 
 
     PROJECT_NAMES=10;
+    JOB_RUNS = 12;
 
     // scoped to project
     NAMES_SCOPED=11;
 
     IDX_PROJECT_DATASETS =20;
+    IDX_DATASET_VERSIONS = 21;
 
 
     VERSION=255;
 
 }
 
-message DatasetVersionData{
-    bytes uid = 1;
-    bytes parent_uid = 2;
 
-    string title = 3;
-
-
-    // total
-    int64 record_count = 4;
-    int64 item_count = 5;
-    int64 storage_bytes = 6;
-
-    repeated DatasetVerInput inputs = 7;
-    repeated DatasetItem items = 8;
-    bytes dataset_uid = 9;
-}
 
 
 message EntityRef {
@@ -94,11 +81,31 @@ message DatasetData {
 
     string location_uri = 13;
     repeated bytes experts = 14;
-    repeated bytes upstream_jobs = 15;
-    repeated bytes downstream_jobs = 16;
+
 
     string project_name = 17;
 }
+
+
+message DatasetVersionData{
+    bytes uid = 1;
+    bytes parent_uid = 2;
+
+    string title = 3;
+
+
+    // total
+    int64 record_count = 4;
+    int64 item_count = 5;
+    int64 storage_bytes = 6;
+
+    repeated DatasetVerInput inputs = 7;
+    repeated DatasetItem items = 8;
+    bytes dataset_uid = 9;
+
+    repeated DatasetVerOutput outputs = 10;
+}
+
 
 message DatasetItemData {
     string name = 2;
@@ -117,11 +124,24 @@ message Job{
 
     string title = 4;
 
-    repeated JobInput inputs = 5;
-    repeated JobOutput outputs = 6;
-
     repeated bytes experts = 7;
 }
+
+
+
+message JobRunData {
+
+    bytes uid = 1;
+    bytes job_uid = 2;
+
+    string title = 3;
+
+    repeated JobRunInput inputs = 4;
+    repeated JobRunOutput outputs = 5;
+    int64 timestamp = 6;
+
+}
+
 
 
 

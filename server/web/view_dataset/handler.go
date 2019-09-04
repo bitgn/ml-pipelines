@@ -35,7 +35,7 @@ func NewHandler(env *db.DB, tl *shared.TemplateLoader) *Handler{
 
 
 
-func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
+func (h *Handler) Handle(w http.ResponseWriter, project, dataset string, verUid []byte){
 	tx := h.env.MustRead()
 
 	defer tx.MustAbort()
@@ -58,12 +58,26 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 	site := shared.LoadSite(tx)
 	site.ActiveMenu="projects"
 
+
+	var ver *db.DatasetVersionData
+	if verUid == nil {
+		ver = db.GetLastDatasetVersion(tx, did.Uid)
+		if ver != nil {
+			verUid = ver.Uid
+		}
+	} else {
+		ver = db.GetDatasetVersion(tx, verUid)
+	}
+
+
+
+
 	model := &ViewDatsetModel{
 		Site:    site,
 		Dataset: ds,
 		Project: pr,
 		IsStale: domain.IsStale(ds),
-		Lineage: renderSVG( tx,ds.Uid, site.Url),
+		Lineage: renderDatasetVersionSVG( tx,verUid, site.Url),
 	}
 
 	if len(ds.Description) > 0 {

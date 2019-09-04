@@ -12,6 +12,48 @@ message ProjectCreated{
 }
 
 
+// JOBS -----------------------------------------------------
+
+message JobAdded {
+    bytes uid = 1;
+    bytes project_uid = 2;
+
+    string name = 3;
+
+    JobMetadataDelta meta = 4;
+
+    string project_name = 5;
+
+}
+
+
+message JobRunStarted {
+    bytes job_uid = 1;
+    bytes uid = 2;
+
+    string title = 3;
+
+    repeated JobRunInput inputs = 4;
+    int64 timestamp = 6;
+}
+
+
+
+
+message ServiceCreated {
+    bytes uid = 1;
+    bytes project_uid = 2;
+
+    string name = 3;
+
+    ServiceMetadataDelta meta = 4;
+
+    string project_name = 5;
+}
+
+// DATASET VERSION --------------------------------------------
+
+
 message DatasetCreated{
     bytes project_uid = 1;
     bytes uid = 2;
@@ -31,33 +73,6 @@ message DatasetUpdated {
     DatasetMetadataDelta meta = 3;
 }
 
-
-
-message JobAdded {
-    bytes uid = 1;
-    bytes project_uid = 2;
-
-    string name = 3;
-
-    JobMetadataDelta meta = 4;
-
-    string project_name = 5;
-
-}
-
-
-message ServiceCreated {
-    bytes uid = 1;
-    bytes project_uid = 2;
-
-    string name = 3;
-
-    ServiceMetadataDelta meta = 4;
-
-    string project_name = 5;
-}
-
-
 message DatasetVersionAdded {
     bytes uid = 1;
     bytes project_uid = 2;
@@ -74,6 +89,8 @@ message DatasetVersionAdded {
     repeated DatasetVerInput inputs = 8;
 
     bytes dataset_uid = 9;
+
+    bool commit = 11;
 }
 
 
@@ -90,6 +107,7 @@ message ExpertAdded {
 }
 
 
+// META ---------------------------------------
 
 enum Type {
     None = 0;

@@ -7,7 +7,7 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (s *server) UpdateDataset(ctx context.Context, r *UpdateDatasetRequest) (*ApiResponse, error) {
+func (s *server) UpdateDataset(ctx context.Context, r *UpdateDatasetRequest) (*EmptyResponse, error) {
 	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
 
@@ -26,5 +26,5 @@ func (s *server) UpdateDataset(ctx context.Context, r *UpdateDatasetRequest) (*A
 	})
 
 	tx.MustCommit()
-	return &ApiResponse{}, nil
+	return &EmptyResponse{}, nil
 }

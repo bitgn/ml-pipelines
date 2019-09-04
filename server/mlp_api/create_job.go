@@ -9,11 +9,13 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (s *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobResponse, error) {
 
 
-	genError := func (err *ApiError) (*CreateJobResponse, error){
-		return &CreateJobResponse{
+func (s *server) CreateJob(_ context.Context, r *CreateJobRequest) (*JobInfoResponse, error) {
+
+
+	genError := func (err *ApiError) (*JobInfoResponse, error){
+		return &JobInfoResponse{
 			Error:err,
 		}, nil
 	}
@@ -54,8 +56,11 @@ func (s *server) CreateJob(_ context.Context, r *CreateJobRequest) (*CreateJobRe
 	tx.MustCommit()
 
 
-	return &CreateJobResponse{
+	return &JobInfoResponse{
 		Uid:uid,
+		Name:r.Name,
+		ProjectName:prj.Name,
+		ProjectUid:prj.Uid,
 	}, nil
 
 

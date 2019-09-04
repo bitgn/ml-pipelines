@@ -57,28 +57,40 @@ enum ENTITY {
 
 
 
+enum JOB_STATUS {
+    CREATED = 0;
+    SUCCESS = 1;
+    FAIL = 2;
+    RUNNING = 3;
+}
+
 
 
 
 message JobMetadataDelta {
     string title = 1;
     bool title_set = 2;
+}
 
-    repeated JobInput inputs = 3;
-    bool inputs_set = 4;
-
-    repeated JobOutput outputs = 5;
-    bool outputs_set = 6;
+message JobRunOutput {
+    enum Type {
+        None = 0;
+        DatasetVer = 1;
+    }
+    // dataset
+    bytes uid = 1;
+    Type type = 2;
 }
 
 
-message JobInput {
+
+message JobRunInput {
     enum Type {
         None = 0;
-        Dataset = 1;
+        DatasetVer = 1;
     }
     // dataset
-    bytes source_id = 1;
+    bytes uid = 1;
     Type type = 2;
 }
 
@@ -95,6 +107,16 @@ message JobOutput {
 
 
 message DatasetVerInput {
+    bytes uid = 1;
+    TYPE type = 2;
+
+    enum TYPE {
+        NONE = 0;
+        JOB_RUN = 1;
+    }
+}
+
+message DatasetVerOutput {
     bytes uid = 1;
     TYPE type = 2;
 
@@ -136,6 +158,8 @@ message DatasetItem {
     int64 records = 3;
     bytes uid = 4;
 }
+
+
 
 
 

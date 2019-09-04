@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"mlp/catalog/db"
+	"mlp/catalog/vo"
 	"mlp/catalog/web/shared"
 	"os/exec"
 	"strings"
@@ -67,9 +68,9 @@ def build_lineage(dataset_id, tx):
     return dot
  */
 
-func renderSVG(tx *db.Tx, dataset_id []byte, url shared.UrlResolver) template.HTML{
+func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver) template.HTML{
 
-	this := db.GetDataset(tx, dataset_id)
+	this := db.GetDatasetVersion(tx, uid)
 
 	hx := hex.EncodeToString
 
@@ -82,36 +83,74 @@ func renderSVG(tx *db.Tx, dataset_id []byte, url shared.UrlResolver) template.HT
 	sb.WriteString("edge[color=\"#343a40\" penwidth=\"1.0\"]\n;")
 	sb.WriteString(fmt.Sprintf("this [label=\"%s\" color=\"#28a745\"]; \n", this.Title))
 
+	if this != nil {
 
-	for _, j := range this.UpstreamJobs{
-		job := db.GetJob(tx, j)
+		for _, j := range this.Inputs {
 
-		sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" style=\"rounded\"]; \n",  hx(job.Uid), job.Title))
-		sb.WriteString(fmt.Sprintf("  \"%s\" -> this;\n", hx(job.Uid)))
+			switch j.Type {
+			case vo.DatasetVerInput_JOB_RUN:
 
-		for _, input := range job.Inputs{
-			ds := db.GetDataset(tx, input.SourceId)
-			du := url.ViewDataset(ds.ProjectName, ds.Name)
-			sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", hx(ds.Uid), ds.Title, du))
-			sb.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\" [arrowhead=\"none\"];", hx(ds.Uid), hx(job.Uid)))
+				run := db.GetJobRun(tx, j.Uid)
+
+				sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" style=\"rounded\"]; \n", hx(run.Uid), run.Title))
+				sb.WriteString(fmt.Sprintf("  \"%s\" -> this;\n", hx(run.Uid)))
+
+				for _, input := range run.Inputs {
+
+					switch input.Type {
+
+					case vo.JobRunInput_DatasetVer:
+						ver := db.GetDatasetVersion(tx, input.Uid)
+						ds := db.GetDataset(tx, ver.DatasetUid)
+
+						link := url.ViewDatasetVersion(ds.ProjectName, ds.Name, ver.Uid)
+						sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", hx(ds.Uid), ds.Title, link))
+						sb.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\" [arrowhead=\"none\"];", hx(ds.Uid), hx(run.Uid)))
+
+					default:
+						log.Panicln("Unknown job run input")
+					}
+
+				}
+
+			default:
+				log.Panicln("Unknown dataset version type")
+
+			}
+
 		}
 
-	}
+		for _, j := range this.Outputs {
 
-	for _, j := range this.DownstreamJobs{
-		job := db.GetJob(tx, j)
+			switch j.Type {
+			case vo.DatasetVerOutput_JOB_RUN:
 
-		sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" style=\"rounded\"];\n", hx(job.Uid), job.Title))
-		sb.WriteString(fmt.Sprintf("  this -> \"%s\" [arrowhead=\"none\"];\n", hx(job.Uid)))
+				run := db.GetJobRun(tx, j.Uid)
 
-		for _, output := range job.Outputs{
-			ds := db.GetDataset(tx, output.TargetId)
-			dataset := url.ViewDataset(ds.ProjectName, ds.Name)
-			sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", hx(ds.Uid), ds.Title, dataset))
-			sb.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\" [arrowtail=\"none\"];", hx(job.Uid), hx(ds.Uid)))
+				sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" style=\"rounded\"];\n", hx(run.Uid), run.Title))
+				sb.WriteString(fmt.Sprintf("  this -> \"%s\" [arrowhead=\"none\"];\n", hx(run.Uid)))
+
+				for _, output := range run.Outputs {
+
+					switch output.Type {
+					case vo.JobRunOutput_DatasetVer:
+						ver := db.GetDatasetVersion(tx, output.Uid)
+						ds := db.GetDataset(tx, ver.DatasetUid)
+						link := url.ViewDatasetVersion(ds.ProjectName, ds.Name, ver.Uid)
+						sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", hx(ds.Uid), ds.Title, link))
+						sb.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\" [arrowtail=\"none\"];", hx(run.Uid), hx(ds.Uid)))
+
+					default:
+						log.Panicln("Unknown job run output")
+					}
+
+				}
+
+			default:
+				log.Panicln("Unknown type")
+			}
 
 		}
-
 	}
 
 

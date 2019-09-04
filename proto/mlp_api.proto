@@ -3,20 +3,205 @@ syntax="proto3";
 import "vo.proto";
 
 
+
+
+// PROJECT
 message CreateProjectRequest{
     string name = 1;
     ProjectMetadataDelta meta = 2;
 
 }
-message CreateProjectResponse{
-    ApiError error = 1;
-    bytes uid = 2;
+
+
+message GetProjectRequest{
+    string name = 1;
 }
 
-message CreateDatasetResponse{
-    ApiError error = 1;
-    bytes uid = 2;
+message ProjectInfoResponse {
+    bytes uid = 1;
+    string name = 2;
+
+    ApiError error = 100;
+
 }
+
+
+// JOB -----------------------------------
+message CreateJobRequest{
+    bytes project_uid = 1;
+    string name = 2;
+
+    JobMetadataDelta meta = 3;
+}
+
+
+message GetJobRequest {
+    bytes project_uid = 1;
+    string name = 2;
+}
+
+message JobInfoResponse {
+    string name = 1;
+    bytes uid = 2;
+
+    string project_name = 3;
+    bytes project_uid = 4;
+
+    ApiError error = 100;
+}
+
+
+
+// JOB RUN --------------------------------------------------------------------
+
+
+
+message StartJobRunRequest {
+    bytes project_uid = 1;
+    bytes job_uid = 2;
+
+
+    string title = 3;
+    repeated JobRunInput inputs = 4;
+}
+
+
+message JobRunInfoResponse {
+    bytes uid = 1;
+    bytes project_uid = 2;
+
+    ApiError error = 100;
+}
+
+message LogJobRunRequest {
+    bytes uid = 1;
+    repeated string lines = 2;
+    // optional title for the log
+    string log_title = 3;
+}
+
+
+
+// returns OkResponse
+message FailJobRunRequest {
+    bytes uid = 1;
+    string message = 2;
+    string detail = 3;
+
+}
+
+
+// returns OkResponse
+message CompleteJobRunRequest {
+    bytes uid = 1;
+}
+
+
+// COMMIT ---------------------------------------------------------------------
+
+
+
+
+
+
+// DATASET ------------------------
+
+
+// -> DatasetResponse
+message GetDatasetRequest {
+    bytes project_uid = 1;
+    string name = 2;
+}
+
+message CreateDatasetRequest {
+    bytes project_uid = 1;
+    string name = 2;
+    DatasetMetadataDelta meta = 3;
+}
+
+
+message DatasetInfoResponse {
+    bytes uid = 1;
+    bytes project_uid = 2;
+    string name = 3;
+    string project_name = 4;
+
+    int64 update_timestamp = 9;
+    string data_format = 10;
+    string description = 11;
+
+
+    string location_id = 12;
+
+    string location_uri = 13;
+
+    ApiError error = 100;
+}
+
+
+
+
+
+// DATASET VERSION -----------------
+message GetLastDatasetVersionRequest {
+    bytes project_uid = 1;
+    bytes dataset_uid = 2;
+}
+
+message DatasetVersionResponse {
+    bytes uid = 1;
+
+}
+
+// creates a new version
+message DatasetChangeSet {
+    bytes dataset_uid = 1;
+    bytes parent_version_uid = 2;
+
+    // items are added to the same location
+    repeated DatasetItem items = 3;
+
+
+    bool clean_slate = 4; // wipes the old version
+    repeated string remove = 5; // names to remove
+
+    // inputs to mark
+    repeated DatasetVerInput inputs = 6;
+
+
+    // inputs will be set by
+}
+
+
+message DatasetCommit {
+    string title = 1;
+    repeated DatasetChangeSet datasets = 2;
+}
+
+
+
+// commit multiple changes in one transaction
+message CommitRequest {
+
+    string title = 1;
+    repeated DatasetChangeSet datasets = 7;
+
+}
+
+
+message CommitResponse {
+    repeated bytes dataset_versions = 1;
+
+    ApiError error = 100;
+}
+
+
+
+
+
+// MISC -----------------------------------------------------------------------
+
+
 
 message StatRequest{}
 
@@ -27,86 +212,42 @@ message StatResponse{
 
 
 
-message CreateJobRequest{
-    bytes project_uid = 1;
-    string name = 2;
-
-    JobMetadataDelta meta = 3;
-}
-
-message CreateJobResponse{
-    ApiError error = 1;
-    bytes uid = 2;
-}
 
 
-message LookupProjectRequest{
-    string name = 1;
-}
-
-message LookupProjectResponse{
-    ApiError error = 1;
-    bytes uid = 2;
-}
 
 
-message LookupDatasetRequest{
-    string project_name = 1;
-    string dataset_name = 2;
-}
 
-message LookupDatasetResponse{
-    ApiError error = 1;
-    bytes project_uid = 2;
-    bytes dataset_uid = 3;
-}
-
-
-message AddDatasetVersionRequest {
-
-    // dataset to which this version belongs
-    bytes dataset_uid = 1;
-    // parent version in case we append
-    bytes parent_uid = 2;
-
-
-    string title = 3;
-    int64 timestamp = 4;
-
-    repeated DatasetItem items = 5;
-
-    // valid sources include: job runs
-    repeated bytes inputs = 6;
-}
-
-message AddDatasetVersionResponse {
-    bytes uid = 1;
-    ApiError error = 100;
-}
 
 
 service Catalog {
-    rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
-    rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse){}
-    rpc UpdateDataset(UpdateDatasetRequest) returns (ApiResponse){}
-    rpc CreateJob(CreateJobRequest) returns (CreateJobResponse){}
+    rpc CreateProject(CreateProjectRequest) returns (ProjectInfoResponse){}
+    rpc GetProject(GetProjectRequest) returns (ProjectInfoResponse){}
+
+    rpc CreateJob(CreateJobRequest) returns (JobInfoResponse){}
+    rpc GetJob(GetJobRequest) returns (JobInfoResponse){}
+
+
+    rpc StartJobRun(StartJobRunRequest) returns (JobRunInfoResponse){}
+
+    rpc LogJobRun(LogJobRunRequest) returns (EmptyResponse){}
+    rpc FailJobRun(FailJobRunRequest) returns (EmptyResponse){}
+
+
+    rpc CompleteJobRun(CompleteJobRunRequest) returns (EmptyResponse){}
+
+    rpc CreateDataset(CreateDatasetRequest) returns (DatasetInfoResponse){}
+    rpc GetDataset(GetDatasetRequest) returns(DatasetInfoResponse){}
+    rpc UpdateDataset(UpdateDatasetRequest) returns (EmptyResponse){}
+    rpc GetLastDatasetVersion(GetLastDatasetVersionRequest) returns (DatasetVersionResponse){}
+
+    rpc Commit(CommitRequest) returns (CommitResponse){}
+
+
+
     rpc Stat(StatRequest) returns (StatResponse){}
 
-    rpc LookupProject(LookupProjectRequest) returns (LookupProjectResponse){}
-    rpc LookupDataset(LookupDatasetRequest) returns (LookupDatasetResponse){}
-    rpc AddDatasetVersion(AddDatasetVersionRequest) returns (AddDatasetVersionResponse){}
-
 }
 
-message ApiResponse{
-    ApiError error = 1;
-}
-
-message CreateDatasetRequest {
-    bytes project_uid = 1;
-    string name = 2;
-    DatasetMetadataDelta meta = 3;
-}
 
 
 message UpdateDatasetRequest {
@@ -244,6 +385,11 @@ enum StatusCode {
 
 
 
+
+
+message EmptyResponse {
+    ApiError error = 100;
+}
 
 
 

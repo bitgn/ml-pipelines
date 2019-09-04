@@ -2,6 +2,7 @@ package mlp_api
 
 import (
 	"golang.org/x/net/context"
+	"log"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/events"
@@ -9,11 +10,11 @@ import (
 	"mlp/catalog/vo"
 )
 
-func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*CreateDatasetResponse, error) {
+func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*DatasetInfoResponse, error) {
 
 
-	genError := func (err *ApiError) (*CreateDatasetResponse, error){
-		return &CreateDatasetResponse{
+	genError := func (err *ApiError) (*DatasetInfoResponse, error){
+		return &DatasetInfoResponse{
 			Error:err,
 		}, nil
 	}
@@ -29,9 +30,11 @@ func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
 
+
+
 	prj := db.GetProject(tx,r.ProjectUid)
 	if prj == nil {
-		return genError(notFound(vo.ENTITY_PROJECT, r.ProjectUid))
+		log.Panicln("Project not found")
 	}
 
 
@@ -54,9 +57,11 @@ func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*C
 	s.publish(tx, e)
 	tx.MustCommit()
 
-
-	return &CreateDatasetResponse{
+	return &DatasetInfoResponse{
 		Uid:uid,
+		ProjectUid:r.ProjectUid,
+		ProjectName:prj.Name,
+		Name:r.Name,
 	}, nil
 
 

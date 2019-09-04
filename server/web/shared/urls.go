@@ -1,6 +1,7 @@
 package shared
 
 import (
+	"encoding/hex"
 	"fmt"
 	"log"
 	"path"
@@ -39,6 +40,10 @@ func (b *UrlResolver) ViewDataset(project, dataset string) string{
 
 
 	return fmt.Sprintf("/projects/%s/datasets/%s", project, dataset)
+}
+
+func (b *UrlResolver) ViewDatasetVersion(project, dataset string, uid []byte) string {
+	return fmt.Sprintf("/projects/%s/datasets/%s/ver/%s", project, dataset, hex.EncodeToString(uid))
 }
 
 

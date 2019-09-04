@@ -17,42 +17,72 @@ class CatalogStub(object):
     self.CreateProject = channel.unary_unary(
         '/Catalog/CreateProject',
         request_serializer=mlp__api__pb2.CreateProjectRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.CreateProjectResponse.FromString,
+        response_deserializer=mlp__api__pb2.ProjectInfoResponse.FromString,
         )
-    self.CreateDataset = channel.unary_unary(
-        '/Catalog/CreateDataset',
-        request_serializer=mlp__api__pb2.CreateDatasetRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.CreateDatasetResponse.FromString,
-        )
-    self.UpdateDataset = channel.unary_unary(
-        '/Catalog/UpdateDataset',
-        request_serializer=mlp__api__pb2.UpdateDatasetRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.ApiResponse.FromString,
+    self.GetProject = channel.unary_unary(
+        '/Catalog/GetProject',
+        request_serializer=mlp__api__pb2.GetProjectRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.ProjectInfoResponse.FromString,
         )
     self.CreateJob = channel.unary_unary(
         '/Catalog/CreateJob',
         request_serializer=mlp__api__pb2.CreateJobRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.CreateJobResponse.FromString,
+        response_deserializer=mlp__api__pb2.JobInfoResponse.FromString,
+        )
+    self.GetJob = channel.unary_unary(
+        '/Catalog/GetJob',
+        request_serializer=mlp__api__pb2.GetJobRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.JobInfoResponse.FromString,
+        )
+    self.StartJobRun = channel.unary_unary(
+        '/Catalog/StartJobRun',
+        request_serializer=mlp__api__pb2.StartJobRunRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.JobRunInfoResponse.FromString,
+        )
+    self.LogJobRun = channel.unary_unary(
+        '/Catalog/LogJobRun',
+        request_serializer=mlp__api__pb2.LogJobRunRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.EmptyResponse.FromString,
+        )
+    self.FailJobRun = channel.unary_unary(
+        '/Catalog/FailJobRun',
+        request_serializer=mlp__api__pb2.FailJobRunRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.EmptyResponse.FromString,
+        )
+    self.CompleteJobRun = channel.unary_unary(
+        '/Catalog/CompleteJobRun',
+        request_serializer=mlp__api__pb2.CompleteJobRunRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.EmptyResponse.FromString,
+        )
+    self.CreateDataset = channel.unary_unary(
+        '/Catalog/CreateDataset',
+        request_serializer=mlp__api__pb2.CreateDatasetRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.DatasetInfoResponse.FromString,
+        )
+    self.GetDataset = channel.unary_unary(
+        '/Catalog/GetDataset',
+        request_serializer=mlp__api__pb2.GetDatasetRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.DatasetInfoResponse.FromString,
+        )
+    self.UpdateDataset = channel.unary_unary(
+        '/Catalog/UpdateDataset',
+        request_serializer=mlp__api__pb2.UpdateDatasetRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.EmptyResponse.FromString,
+        )
+    self.GetLastDatasetVersion = channel.unary_unary(
+        '/Catalog/GetLastDatasetVersion',
+        request_serializer=mlp__api__pb2.GetLastDatasetVersionRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.DatasetVersionResponse.FromString,
+        )
+    self.Commit = channel.unary_unary(
+        '/Catalog/Commit',
+        request_serializer=mlp__api__pb2.CommitRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.CommitResponse.FromString,
         )
     self.Stat = channel.unary_unary(
         '/Catalog/Stat',
         request_serializer=mlp__api__pb2.StatRequest.SerializeToString,
         response_deserializer=mlp__api__pb2.StatResponse.FromString,
-        )
-    self.LookupProject = channel.unary_unary(
-        '/Catalog/LookupProject',
-        request_serializer=mlp__api__pb2.LookupProjectRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.LookupProjectResponse.FromString,
-        )
-    self.LookupDataset = channel.unary_unary(
-        '/Catalog/LookupDataset',
-        request_serializer=mlp__api__pb2.LookupDatasetRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.LookupDatasetResponse.FromString,
-        )
-    self.AddDatasetVersion = channel.unary_unary(
-        '/Catalog/AddDatasetVersion',
-        request_serializer=mlp__api__pb2.AddDatasetVersionRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.AddDatasetVersionResponse.FromString,
         )
 
 
@@ -67,14 +97,7 @@ class CatalogServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def CreateDataset(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def UpdateDataset(self, request, context):
+  def GetProject(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -88,28 +111,77 @@ class CatalogServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def GetJob(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def StartJobRun(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def LogJobRun(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def FailJobRun(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def CompleteJobRun(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def CreateDataset(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetDataset(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def UpdateDataset(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetLastDatasetVersion(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def Commit(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def Stat(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def LookupProject(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def LookupDataset(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def AddDatasetVersion(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -122,42 +194,72 @@ def add_CatalogServicer_to_server(servicer, server):
       'CreateProject': grpc.unary_unary_rpc_method_handler(
           servicer.CreateProject,
           request_deserializer=mlp__api__pb2.CreateProjectRequest.FromString,
-          response_serializer=mlp__api__pb2.CreateProjectResponse.SerializeToString,
+          response_serializer=mlp__api__pb2.ProjectInfoResponse.SerializeToString,
       ),
-      'CreateDataset': grpc.unary_unary_rpc_method_handler(
-          servicer.CreateDataset,
-          request_deserializer=mlp__api__pb2.CreateDatasetRequest.FromString,
-          response_serializer=mlp__api__pb2.CreateDatasetResponse.SerializeToString,
-      ),
-      'UpdateDataset': grpc.unary_unary_rpc_method_handler(
-          servicer.UpdateDataset,
-          request_deserializer=mlp__api__pb2.UpdateDatasetRequest.FromString,
-          response_serializer=mlp__api__pb2.ApiResponse.SerializeToString,
+      'GetProject': grpc.unary_unary_rpc_method_handler(
+          servicer.GetProject,
+          request_deserializer=mlp__api__pb2.GetProjectRequest.FromString,
+          response_serializer=mlp__api__pb2.ProjectInfoResponse.SerializeToString,
       ),
       'CreateJob': grpc.unary_unary_rpc_method_handler(
           servicer.CreateJob,
           request_deserializer=mlp__api__pb2.CreateJobRequest.FromString,
-          response_serializer=mlp__api__pb2.CreateJobResponse.SerializeToString,
+          response_serializer=mlp__api__pb2.JobInfoResponse.SerializeToString,
+      ),
+      'GetJob': grpc.unary_unary_rpc_method_handler(
+          servicer.GetJob,
+          request_deserializer=mlp__api__pb2.GetJobRequest.FromString,
+          response_serializer=mlp__api__pb2.JobInfoResponse.SerializeToString,
+      ),
+      'StartJobRun': grpc.unary_unary_rpc_method_handler(
+          servicer.StartJobRun,
+          request_deserializer=mlp__api__pb2.StartJobRunRequest.FromString,
+          response_serializer=mlp__api__pb2.JobRunInfoResponse.SerializeToString,
+      ),
+      'LogJobRun': grpc.unary_unary_rpc_method_handler(
+          servicer.LogJobRun,
+          request_deserializer=mlp__api__pb2.LogJobRunRequest.FromString,
+          response_serializer=mlp__api__pb2.EmptyResponse.SerializeToString,
+      ),
+      'FailJobRun': grpc.unary_unary_rpc_method_handler(
+          servicer.FailJobRun,
+          request_deserializer=mlp__api__pb2.FailJobRunRequest.FromString,
+          response_serializer=mlp__api__pb2.EmptyResponse.SerializeToString,
+      ),
+      'CompleteJobRun': grpc.unary_unary_rpc_method_handler(
+          servicer.CompleteJobRun,
+          request_deserializer=mlp__api__pb2.CompleteJobRunRequest.FromString,
+          response_serializer=mlp__api__pb2.EmptyResponse.SerializeToString,
+      ),
+      'CreateDataset': grpc.unary_unary_rpc_method_handler(
+          servicer.CreateDataset,
+          request_deserializer=mlp__api__pb2.CreateDatasetRequest.FromString,
+          response_serializer=mlp__api__pb2.DatasetInfoResponse.SerializeToString,
+      ),
+      'GetDataset': grpc.unary_unary_rpc_method_handler(
+          servicer.GetDataset,
+          request_deserializer=mlp__api__pb2.GetDatasetRequest.FromString,
+          response_serializer=mlp__api__pb2.DatasetInfoResponse.SerializeToString,
+      ),
+      'UpdateDataset': grpc.unary_unary_rpc_method_handler(
+          servicer.UpdateDataset,
+          request_deserializer=mlp__api__pb2.UpdateDatasetRequest.FromString,
+          response_serializer=mlp__api__pb2.EmptyResponse.SerializeToString,
+      ),
+      'GetLastDatasetVersion': grpc.unary_unary_rpc_method_handler(
+          servicer.GetLastDatasetVersion,
+          request_deserializer=mlp__api__pb2.GetLastDatasetVersionRequest.FromString,
+          response_serializer=mlp__api__pb2.DatasetVersionResponse.SerializeToString,
+      ),
+      'Commit': grpc.unary_unary_rpc_method_handler(
+          servicer.Commit,
+          request_deserializer=mlp__api__pb2.CommitRequest.FromString,
+          response_serializer=mlp__api__pb2.CommitResponse.SerializeToString,
       ),
       'Stat': grpc.unary_unary_rpc_method_handler(
           servicer.Stat,
           request_deserializer=mlp__api__pb2.StatRequest.FromString,
           response_serializer=mlp__api__pb2.StatResponse.SerializeToString,
-      ),
-      'LookupProject': grpc.unary_unary_rpc_method_handler(
-          servicer.LookupProject,
-          request_deserializer=mlp__api__pb2.LookupProjectRequest.FromString,
-          response_serializer=mlp__api__pb2.LookupProjectResponse.SerializeToString,
-      ),
-      'LookupDataset': grpc.unary_unary_rpc_method_handler(
-          servicer.LookupDataset,
-          request_deserializer=mlp__api__pb2.LookupDatasetRequest.FromString,
-          response_serializer=mlp__api__pb2.LookupDatasetResponse.SerializeToString,
-      ),
-      'AddDatasetVersion': grpc.unary_unary_rpc_method_handler(
-          servicer.AddDatasetVersion,
-          request_deserializer=mlp__api__pb2.AddDatasetVersionRequest.FromString,
-          response_serializer=mlp__api__pb2.AddDatasetVersionResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
