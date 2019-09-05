@@ -38,7 +38,7 @@ func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*D
 	}
 
 
-	exists := db.Lookup(tx, prj.Name, r.Name)
+	exists := db.Lookup(tx, r.ProjectUid, r.Name)
 	if exists != nil {
 		return genError(alreadyExists(exists.Kind, prj.Name, r.Name, exists.Uid))
 	}

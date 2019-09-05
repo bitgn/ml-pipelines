@@ -7,7 +7,10 @@ import (
 )
 
 
-
+func (a *ApiError) Method(name string) *ApiError{
+	a.MethodName = name
+	return a
+}
 
 func notFound(kind vo.ENTITY, uid []byte) *ApiError{
 

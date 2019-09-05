@@ -89,8 +89,6 @@ message DatasetVersionAdded {
     repeated DatasetVerInput inputs = 8;
 
     bytes dataset_uid = 9;
-
-    bool commit = 11;
 }
 
 

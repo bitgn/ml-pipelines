@@ -10,7 +10,12 @@ func GetJob(tx *Tx, job_uid []byte) *Job {
 
 func PutJob(tx *Tx, j *Job){
 	tx.PutProto(CreateKey(Range_JOBS, j.Uid), j)
+	
 }
+
+
+
+
 
 
 func PutJobRun(tx *Tx, j *JobRunData){
@@ -26,5 +31,7 @@ func GetJobRun(tx *Tx, uid []byte) *JobRunData {
 	}
 	return nil
 }
+
+
 
 

@@ -18,8 +18,11 @@ class ClientError(Exception):
 
 
     def __init__(self, status_code:api.StatusCode, message:str, subject_uid:bytes=None,
-                 subject_name:str=None, details:List[str]=(), project_name: str=None, project_uid: str=None):
+                 subject_name:str=None, details:List[str]=(), project_name: str=None,
+                 project_uid: str=None,
+                 method_name: str=None):
         super(ClientError, self).__init__(message)
+        self.method_name = method_name
         self.message = message
         self.details = details
         self.status_code = status_code
@@ -30,7 +33,12 @@ class ClientError(Exception):
 
 
     def __str__(self):
-        return f'{self.status_code} {self.message} {self.details}'
+        msg =  f'{self.status_code} {self.message}'
+        if self.details:
+            msg += f" {self.details}"
+        if self.method_name:
+            msg += f" method {self.method_name}"
+        return msg
 
 
 
@@ -57,6 +65,14 @@ MAP= {
 
 def from_error(e: api.ApiError) -> ClientError:
     ctor = MAP.get(e.code, ClientError)
-    return ctor(e.code, e.message, e.subject_uid, e.subject_name, list(e.details), e.project_name, e.project_uid)
+    return ctor(
+        e.code,
+        e.message,
+        e.subject_uid,
+        e.subject_name,
+        list(e.details),
+        e.project_name,
+        e.project_uid,
+        e.method_name)
 
 

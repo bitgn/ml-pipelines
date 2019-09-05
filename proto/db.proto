@@ -14,6 +14,8 @@ enum Range {
     DATASET_VERSIONS = 8;
     DATASET_HEAD_ITEMS = 9;
 
+    DATASET_BINARY_TREE = 22;
+
 
 
     PROJECT_NAMES=10;

@@ -26,7 +26,6 @@ class Client():
     def get_project(self, name) -> Project:
 
         r = api.GetProjectRequest(name=name)
-
         resp = self.context.get_project(r)
         return Project(self.context, resp.uid)
 

@@ -36,10 +36,11 @@ func (s *server) CreateJob(_ context.Context, r *CreateJobRequest) (*JobInfoResp
 	}
 
 
-	exists := db.Lookup(tx, prj.Name, r.Name)
+	exists := db.Lookup(tx, r.ProjectUid, r.Name)
 	if exists != nil {
 		return genError(alreadyExists(exists.Kind, prj.Name, r.Name, exists.Uid))
 	}
+
 
 
 	uid := sim.NewID()
@@ -50,6 +51,10 @@ func (s *server) CreateJob(_ context.Context, r *CreateJobRequest) (*JobInfoResp
 		Uid:        uid,
 		Meta:       r.Meta,
 		ProjectName:r.Name,
+	}
+
+	if e.Meta == nil {
+		e.Meta = &vo.JobMetadataDelta{}
 	}
 
 	s.publish(tx, e)

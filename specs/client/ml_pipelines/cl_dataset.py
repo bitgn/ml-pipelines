@@ -94,9 +94,7 @@ class Dataset:
         self.ctx = ctx
 
     def get_last_version(self) -> DatasetVersion:
-
         try:
-
             req = api.GetLastDatasetVersionRequest(project_uid=self.project_uid, dataset_uid=self.uid)
             resp = self.ctx.get_last_version(req)
 

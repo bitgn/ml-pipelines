@@ -25,6 +25,7 @@ class Env:
 
     def scenario(self, *args):
 
+        title = None
         when = None
         then = []
         for a in args:
@@ -33,7 +34,10 @@ class Env:
             if isinstance(a, Then):
                 then.append(a)
 
-        self.scenarios.append(Scenario(when=when, then=then))
+            if isinstance(a, str):
+                title = a
+
+        self.scenarios.append(Scenario(title=title, when=when, then=then))
 
     def next_uid(self):
         id = self.counter
@@ -67,5 +71,6 @@ class Then:
 
 @dataclass
 class Scenario:
+    title: str
     when: When
     then: List[Then]

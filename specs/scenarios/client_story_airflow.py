@@ -4,17 +4,11 @@ from client import ml_pipelines as client
 def given_empty_system(e: Env):
     """create project if all arguments are valid"""
 
-
     p = preset.project_created(e)
     ds = preset.dataset_created(e, p)
-
     v1 = preset.dataset_version_added(e,ds)
 
-
-
     e.given_events(p, ds, v1)
-
-
 
     def checkpoint_story(c:client.Client):
 
@@ -93,9 +87,11 @@ def given_empty_system(e: Env):
 
     e.scenario(
         when.client(checkpoint_story),
+        then.client_ok()
     )
     e.scenario(
-        when.client(snapshot_story)
+        when.client(snapshot_story),
+        then.client_ok()
     )
 
 

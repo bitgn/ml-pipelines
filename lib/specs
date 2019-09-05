@@ -1,5 +1,9 @@
 #!/bin/bash
 set -euo pipefail
+
+#clear on iTerm2
+printf '\e]50;ClearScrollback\a' || True
+
 echo "Building server"
 make -C server clean build
 specs/venv/bin/python specs/main.py --executable "server/dist/mlp-server" --template-path server

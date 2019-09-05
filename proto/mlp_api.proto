@@ -269,6 +269,7 @@ message ApiError {
 
     string project_name = 7;
     string project_uid = 8;
+    string method_name = 9;
 }
 
 enum StatusCode {

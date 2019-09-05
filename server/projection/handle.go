@@ -66,7 +66,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 
 		db.AddDatasetToProject(tx, e.ProjectUid, e.Uid)
-		db.Name(tx, e.ProjectName, e.Name, vo.ENTITY_DATASET, e.Uid)
+		db.Name(tx, e.ProjectUid, e.Name, vo.ENTITY_DATASET, e.Uid)
 
 		stats := db.GetStats(tx)
 		stats.DatasetCount +=1
@@ -115,6 +115,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 			db.DeleteDatasetHead(tx, e.DatasetUid)
 		}
 
+		// this version becomes the head
 		for _, i := range e.Items{
 			db.PutDatasetHeadItem(tx, e.DatasetUid, &db.DatasetItemData{
 				Name:i.Name,
@@ -171,6 +172,18 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		db.PutDataset(tx, ds)
 
+
+
+		var project_storage int64
+
+		for _, ds := range db.ListDatasetsFromProject(tx, ds.ProjectUid) {
+			project_storage += ds.StorageBytes
+		}
+
+		proj := db.GetProject(tx, ds.ProjectUid)
+		proj.StorageBytes = project_storage
+		db.PutProject(tx, proj)
+
 	case *events.JobRunStarted:
 
 		run := &db.JobRunData{
@@ -225,7 +238,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutJob(tx, &data)
 
 
-		db.Name(tx, e.ProjectName, e.Name, vo.ENTITY_JOB, e.Uid)
+		db.Name(tx, e.ProjectUid, e.Name, vo.ENTITY_JOB, e.Uid)
 
 
 	case *events.ExpertAdded:
@@ -233,6 +246,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 		stats.ExpertCount +=1
 		db.SetStats(tx, stats)
 	}
+
 
 
 }

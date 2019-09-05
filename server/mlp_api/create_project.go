@@ -17,6 +17,7 @@ import (
 func (s *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*ProjectInfoResponse, error) {
 
 	wrap := func (err *ApiError) (*ProjectInfoResponse, error){
+		err.MethodName = "CreateProject"
 		return &ProjectInfoResponse{
 			Error:err,
 		}, nil

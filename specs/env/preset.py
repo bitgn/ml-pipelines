@@ -27,9 +27,9 @@ def project_created(e: env.Env):
     v = random.choice(verbs)
     a = random.choice(adj)
 
-    title = f'{v.title()} {a} {n} prj{id}'
+    title = f'Prj {v.title()} {a} {n} prj{id}'
 
-    name = f'{v}-{a}-{n}-{id}'
+    name = f'prj-{v}-{a}-{n}-{id}'
 
     d = vo.ProjectMetadataDelta(
         title=title,
@@ -37,8 +37,6 @@ def project_created(e: env.Env):
     )
 
     return evt.ProjectCreated(uid=e.next_uid(), name=name, meta=d)
-
-
 
 
 def set_update_timestamp(t: env.Env, dm: vo.DatasetMetadataDelta, days=0, minutes = 0):

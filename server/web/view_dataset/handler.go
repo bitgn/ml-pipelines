@@ -40,9 +40,15 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string, verUid 
 
 	defer tx.MustAbort()
 
+	pid := db.LookupProject(tx, project)
+	if pid == nil {
+		http.Error(w, "project not found", http.StatusNotFound)
+		return
+	}
 
 
-	did := db.Lookup(tx, project, dataset)
+
+	did := db.Lookup(tx, pid, dataset)
 	if did == nil || did.Kind != vo.ENTITY_DATASET {
 		http.Error(w, "dataset not found", http.StatusNotFound)
 		return
