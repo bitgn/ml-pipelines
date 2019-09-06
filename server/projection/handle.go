@@ -169,6 +169,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 		ds.RecordCount = ver.RecordCount
 		ds.StorageBytes = ver.StorageBytes
 		ds.FileCount = ver.ItemCount
+		ds.HeadVersion = ver.Uid
 
 		db.PutDataset(tx, ds)
 

@@ -11,7 +11,7 @@ def extend_last_version(project, dataset: str):
         ver = c.get_project(project).get_dataset(dataset).get_last_version()
         staging = ver.prepare_commit()
         staging.add_file(name='some', records=1, size=2)
-        staging.commit("New dataset")
+        return staging.commit("New dataset")
 
     return _
 

@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"P\n\x0eProjectCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ProjectMetadataDelta\"q\n\x08JobAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1f\n\x04meta\x18\x04 \x01(\x0b\x32\x11.JobMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"m\n\rJobRunStarted\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\r\n\x05title\x18\x03 \x01(\t\x12\x1c\n\x06inputs\x18\x04 \x03(\x0b\x32\x0c.JobRunInput\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\"{\n\x0eServiceCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.ServiceMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"{\n\x0e\x44\x61tasetCreated\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"W\n\x0e\x44\x61tasetUpdated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\xf5\x01\n\x13\x44\x61tasetVersionAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x12\n\nparent_uid\x18\x03 \x01(\x0c\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\x12\x1b\n\x05items\x18\x07 \x03(\x0b\x32\x0c.DatasetItem\x12\x1c\n\x06remove\x18\n \x03(\x0b\x32\x0c.DatasetItem\x12 \n\x06inputs\x18\x08 \x03(\x0b\x32\x10.DatasetVerInput\x12\x13\n\x0b\x64\x61taset_uid\x18\t \x01(\x0c\"L\n\x0b\x45xpertAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\"\n\x04meta\x18\x03 \x01(\x0b\x32\x14.ExpertMetadataDelta\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*\xc2\x01\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x12\x1d\n\x19\x45vent_DatasetVersionAdded\x10\x07\x62\x06proto3')
+  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"P\n\x0eProjectCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ProjectMetadataDelta\"q\n\x08JobAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1f\n\x04meta\x18\x04 \x01(\x0b\x32\x11.JobMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"m\n\rJobRunStarted\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\r\n\x05title\x18\x03 \x01(\t\x12\x1c\n\x06inputs\x18\x04 \x03(\x0b\x32\x0c.JobRunInput\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\"c\n\x0cJobRunLogged\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0f\n\x07\x64\x65tails\x18\x04 \x03(\t\x12\x11\n\tlog_title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"a\n\x0cJobRunFailed\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0f\n\x07\x64\x65tails\x18\x03 \x03(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x11\n\ttimestamp\x18\x05 \x01(\x03\"B\n\x0fJobRunCompleted\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x11\n\ttimestamp\x18\x05 \x01(\x03\"{\n\x0eServiceCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.ServiceMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"{\n\x0e\x44\x61tasetCreated\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"W\n\x0e\x44\x61tasetUpdated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x8a\x02\n\x13\x44\x61tasetVersionAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x12\n\nparent_uid\x18\x03 \x01(\x0c\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\x12\x1b\n\x05items\x18\x07 \x03(\x0b\x32\x0c.DatasetItem\x12\x1c\n\x06remove\x18\n \x03(\x0b\x32\x0c.DatasetItem\x12 \n\x06inputs\x18\x08 \x03(\x0b\x32\x10.DatasetVerInput\x12\x13\n\x0b\x64\x61taset_uid\x18\t \x01(\x0c\x12\x13\n\x0b\x63lean_slate\x18\x0b \x01(\x08\"L\n\x0b\x45xpertAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\"\n\x04meta\x18\x03 \x01(\x0b\x32\x14.ExpertMetadataDelta\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*\xa6\x02\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x12\x1d\n\x19\x45vent_DatasetVersionAdded\x10\x07\x12\x17\n\x13\x45vent_JobRunStarted\x10\x08\x12\x16\n\x12\x45vent_JobRunLogged\x10\t\x12\x19\n\x15\x45vent_JobRunCompleted\x10\n\x12\x16\n\x12\x45vent_JobRunFailed\x10\x0b\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
@@ -64,11 +64,27 @@ _TYPE = _descriptor.EnumDescriptor(
       name='Event_DatasetVersionAdded', index=7, number=7,
       serialized_options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='Event_JobRunStarted', index=8, number=8,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='Event_JobRunLogged', index=9, number=9,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='Event_JobRunCompleted', index=10, number=10,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='Event_JobRunFailed', index=11, number=11,
+      serialized_options=None,
+      type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1044,
-  serialized_end=1238,
+  serialized_start=1333,
+  serialized_end=1627,
 )
 _sym_db.RegisterEnumDescriptor(_TYPE)
 
@@ -81,6 +97,10 @@ Event_ExpertAdded = 4
 Event_JobAdded = 5
 Event_ServiceCreated = 6
 Event_DatasetVersionAdded = 7
+Event_JobRunStarted = 8
+Event_JobRunLogged = 9
+Event_JobRunCompleted = 10
+Event_JobRunFailed = 11
 
 
 
@@ -247,6 +267,169 @@ _JOBRUNSTARTED = _descriptor.Descriptor(
 )
 
 
+_JOBRUNLOGGED = _descriptor.Descriptor(
+  name='JobRunLogged',
+  full_name='JobRunLogged',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='job_uid', full_name='JobRunLogged.job_uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='JobRunLogged.uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='details', full_name='JobRunLogged.details', index=2,
+      number=4, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='log_title', full_name='JobRunLogged.log_title', index=3,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='JobRunLogged.timestamp', index=4,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=334,
+  serialized_end=433,
+)
+
+
+_JOBRUNFAILED = _descriptor.Descriptor(
+  name='JobRunFailed',
+  full_name='JobRunFailed',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='job_uid', full_name='JobRunFailed.job_uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='JobRunFailed.uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='details', full_name='JobRunFailed.details', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='JobRunFailed.message', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='JobRunFailed.timestamp', index=4,
+      number=5, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=435,
+  serialized_end=532,
+)
+
+
+_JOBRUNCOMPLETED = _descriptor.Descriptor(
+  name='JobRunCompleted',
+  full_name='JobRunCompleted',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='job_uid', full_name='JobRunCompleted.job_uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='JobRunCompleted.uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='JobRunCompleted.timestamp', index=2,
+      number=5, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=534,
+  serialized_end=600,
+)
+
+
 _SERVICECREATED = _descriptor.Descriptor(
   name='ServiceCreated',
   full_name='ServiceCreated',
@@ -301,8 +484,8 @@ _SERVICECREATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=334,
-  serialized_end=457,
+  serialized_start=602,
+  serialized_end=725,
 )
 
 
@@ -360,8 +543,8 @@ _DATASETCREATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=459,
-  serialized_end=582,
+  serialized_start=727,
+  serialized_end=850,
 )
 
 
@@ -405,8 +588,8 @@ _DATASETUPDATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=584,
-  serialized_end=671,
+  serialized_start=852,
+  serialized_end=939,
 )
 
 
@@ -487,6 +670,13 @@ _DATASETVERSIONADDED = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='clean_slate', full_name='DatasetVersionAdded.clean_slate', index=10,
+      number=11, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -499,8 +689,8 @@ _DATASETVERSIONADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=674,
-  serialized_end=919,
+  serialized_start=942,
+  serialized_end=1208,
 )
 
 
@@ -544,8 +734,8 @@ _EXPERTADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=921,
-  serialized_end=997,
+  serialized_start=1210,
+  serialized_end=1286,
 )
 
 
@@ -582,8 +772,8 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=999,
-  serialized_end=1041,
+  serialized_start=1288,
+  serialized_end=1330,
 )
 
 _PROJECTCREATED.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
@@ -600,6 +790,9 @@ _EVENT.fields_by_name['Type'].enum_type = _TYPE
 DESCRIPTOR.message_types_by_name['ProjectCreated'] = _PROJECTCREATED
 DESCRIPTOR.message_types_by_name['JobAdded'] = _JOBADDED
 DESCRIPTOR.message_types_by_name['JobRunStarted'] = _JOBRUNSTARTED
+DESCRIPTOR.message_types_by_name['JobRunLogged'] = _JOBRUNLOGGED
+DESCRIPTOR.message_types_by_name['JobRunFailed'] = _JOBRUNFAILED
+DESCRIPTOR.message_types_by_name['JobRunCompleted'] = _JOBRUNCOMPLETED
 DESCRIPTOR.message_types_by_name['ServiceCreated'] = _SERVICECREATED
 DESCRIPTOR.message_types_by_name['DatasetCreated'] = _DATASETCREATED
 DESCRIPTOR.message_types_by_name['DatasetUpdated'] = _DATASETUPDATED
@@ -629,6 +822,27 @@ JobRunStarted = _reflection.GeneratedProtocolMessageType('JobRunStarted', (_mess
   # @@protoc_insertion_point(class_scope:JobRunStarted)
   })
 _sym_db.RegisterMessage(JobRunStarted)
+
+JobRunLogged = _reflection.GeneratedProtocolMessageType('JobRunLogged', (_message.Message,), {
+  'DESCRIPTOR' : _JOBRUNLOGGED,
+  '__module__' : 'events_pb2'
+  # @@protoc_insertion_point(class_scope:JobRunLogged)
+  })
+_sym_db.RegisterMessage(JobRunLogged)
+
+JobRunFailed = _reflection.GeneratedProtocolMessageType('JobRunFailed', (_message.Message,), {
+  'DESCRIPTOR' : _JOBRUNFAILED,
+  '__module__' : 'events_pb2'
+  # @@protoc_insertion_point(class_scope:JobRunFailed)
+  })
+_sym_db.RegisterMessage(JobRunFailed)
+
+JobRunCompleted = _reflection.GeneratedProtocolMessageType('JobRunCompleted', (_message.Message,), {
+  'DESCRIPTOR' : _JOBRUNCOMPLETED,
+  '__module__' : 'events_pb2'
+  # @@protoc_insertion_point(class_scope:JobRunCompleted)
+  })
+_sym_db.RegisterMessage(JobRunCompleted)
 
 ServiceCreated = _reflection.GeneratedProtocolMessageType('ServiceCreated', (_message.Message,), {
   'DESCRIPTOR' : _SERVICECREATED,

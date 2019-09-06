@@ -15,6 +15,10 @@ class Project:
 
 
 
+    def create_job(self, name:str) -> Job:
+        create = api.CreateJobRequest(project_uid=self.uid, name=name)
+        resp = self.ctx.create_job(create)
+        return Job(self.ctx, self.uid, resp.uid, resp.name)
 
     def get_or_create_job(self, name: str) -> Job:
 
@@ -27,10 +31,7 @@ class Project:
         except errors.NotFound:
             pass
 
-        create = api.CreateJobRequest(project_uid=self.uid, name=name)
-        resp = self.ctx.create_job(create)
-        return Job(self.ctx, self.uid, resp.uid, resp.name)
-
+        return self.create_job(name)
 
 
     def get_dataset(self, name) -> Dataset:
@@ -43,7 +44,25 @@ class Project:
         return Dataset(self.ctx, self.uid, resp.uid, resp.name,
                        location_id=resp.location_id)
 
-    def get_or_create_dataset(self, name: str, location_id: str) -> Dataset:
+    def create_dataset(self, name, location_id: Optional[str]=None) -> Dataset:
+        new = api.CreateDatasetRequest(
+            project_uid=self.uid,
+            name=name,
+            meta=vo.DatasetMetadataDelta(
+
+            )
+        )
+
+        resp = self.ctx.create_dataset(new)
+        return Dataset(
+            self.ctx,
+            project_uid=self.uid,
+            uid=resp.uid,
+            name=name,
+            location_id=location_id,
+        )
+
+    def get_or_create_dataset(self, name: str, location_id: Optional[str]=None) -> Dataset:
 
         try:
             return self.get_dataset(name)
@@ -59,11 +78,4 @@ class Project:
             )
         )
 
-        resp = self.ctx.create_dataset(new)
-        return Dataset(
-            self.ctx,
-            project_uid=self.uid,
-            uid=resp.uid,
-            name=name,
-            location_id=location_id
-        )
+        return self.create_dataset(name, location_id=location_id)

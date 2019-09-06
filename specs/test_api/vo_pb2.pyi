@@ -46,6 +46,7 @@ class ENTITY(int):
     MODEL = typing___cast(ENTITY, 4)
     PROJECT = typing___cast(ENTITY, 5)
     DATASET_VERSION = typing___cast(ENTITY, 6)
+    JOB_RUN = typing___cast(ENTITY, 7)
 NONE = typing___cast(ENTITY, 0)
 DATASET = typing___cast(ENTITY, 1)
 JOB = typing___cast(ENTITY, 2)
@@ -53,6 +54,7 @@ SERVICE = typing___cast(ENTITY, 3)
 MODEL = typing___cast(ENTITY, 4)
 PROJECT = typing___cast(ENTITY, 5)
 DATASET_VERSION = typing___cast(ENTITY, 6)
+JOB_RUN = typing___cast(ENTITY, 7)
 
 class JOB_STATUS(int):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...

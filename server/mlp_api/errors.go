@@ -23,6 +23,13 @@ func notFound(kind vo.ENTITY, uid []byte) *ApiError{
 	}
 }
 
+func versionMismatch(expected, actual []byte) *ApiError{
+	return &ApiError{
+		Code: StatusCode_VERSION_MISMATCH,
+		Message: fmt.Sprintf("Expected version %s got version %s", hex.EncodeToString(expected), hex.EncodeToString(actual)),
+	}
+}
+
 func unknownProjectName(name string) *ApiError{
 
 	typ := vo.ENTITY_name[int32(vo.ENTITY_PROJECT)]
@@ -77,6 +84,18 @@ func nameNotFound(entity vo.ENTITY, project_name, name string) *ApiError{
 
 		SubjectName:name,
 		ProjectName:project_name,
+
+	}
+}
+
+
+
+func jobRunState(uid []byte, state vo.JOB_STATUS) *ApiError{
+
+	return &ApiError{
+		Code:StatusCode_FAILED_PRECONDITION,
+		Message:fmt.Sprintf("JobRun %s is %s", hex.EncodeToString(uid), vo.JOB_STATUS_name[int32(state)]),
+
 
 	}
 }

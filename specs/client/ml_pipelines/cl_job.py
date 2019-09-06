@@ -15,11 +15,11 @@ class JobRun(PipelineInput):
         self.project_uid = project_uid
         self.ctx = ctx
 
-    def log(self, lines: str, title: Optional[str] = None):
+    def log(self, details: str, title: Optional[str] = None):
 
         req = api.LogJobRunRequest(
             uid=self.uid,
-            lines=lines,
+            details=lines,
             log_title=title
         )
 
@@ -34,7 +34,7 @@ class JobRun(PipelineInput):
     def fail(self, e: Exception):
         req = api.FailJobRunRequest(
             uid=self.uid,
-            detail=str(e)
+            details=str(e).split('\n')
         )
         self.ctx.fail_job_run(req)
 

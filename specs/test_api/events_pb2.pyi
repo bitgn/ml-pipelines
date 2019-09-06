@@ -7,6 +7,7 @@ from google.protobuf.descriptor import (
 
 from google.protobuf.internal.containers import (
     RepeatedCompositeFieldContainer as google___protobuf___internal___containers___RepeatedCompositeFieldContainer,
+    RepeatedScalarFieldContainer as google___protobuf___internal___containers___RepeatedScalarFieldContainer,
 )
 
 from google.protobuf.message import (
@@ -57,6 +58,10 @@ class Type(int):
     Event_JobAdded = typing___cast(Type, 5)
     Event_ServiceCreated = typing___cast(Type, 6)
     Event_DatasetVersionAdded = typing___cast(Type, 7)
+    Event_JobRunStarted = typing___cast(Type, 8)
+    Event_JobRunLogged = typing___cast(Type, 9)
+    Event_JobRunCompleted = typing___cast(Type, 10)
+    Event_JobRunFailed = typing___cast(Type, 11)
 Event_ProjectCreated = typing___cast(Type, 1)
 Event_DatasetCreated = typing___cast(Type, 2)
 Event_DatasetUpdated = typing___cast(Type, 3)
@@ -64,6 +69,10 @@ Event_ExpertAdded = typing___cast(Type, 4)
 Event_JobAdded = typing___cast(Type, 5)
 Event_ServiceCreated = typing___cast(Type, 6)
 Event_DatasetVersionAdded = typing___cast(Type, 7)
+Event_JobRunStarted = typing___cast(Type, 8)
+Event_JobRunLogged = typing___cast(Type, 9)
+Event_JobRunCompleted = typing___cast(Type, 10)
+Event_JobRunFailed = typing___cast(Type, 11)
 
 class ProjectCreated(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -145,6 +154,77 @@ class JobRunStarted(google___protobuf___message___Message):
         def ClearField(self, field_name: typing_extensions___Literal[u"inputs",u"job_uid",u"timestamp",u"title",u"uid"]) -> None: ...
     else:
         def ClearField(self, field_name: typing_extensions___Literal[u"inputs",b"inputs",u"job_uid",b"job_uid",u"timestamp",b"timestamp",u"title",b"title",u"uid",b"uid"]) -> None: ...
+
+class JobRunLogged(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    job_uid = ... # type: bytes
+    uid = ... # type: bytes
+    details = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+    log_title = ... # type: typing___Text
+    timestamp = ... # type: int
+
+    def __init__(self,
+        *,
+        job_uid : typing___Optional[bytes] = None,
+        uid : typing___Optional[bytes] = None,
+        details : typing___Optional[typing___Iterable[typing___Text]] = None,
+        log_title : typing___Optional[typing___Text] = None,
+        timestamp : typing___Optional[int] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> JobRunLogged: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"details",u"job_uid",u"log_title",u"timestamp",u"uid"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"details",b"details",u"job_uid",b"job_uid",u"log_title",b"log_title",u"timestamp",b"timestamp",u"uid",b"uid"]) -> None: ...
+
+class JobRunFailed(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    job_uid = ... # type: bytes
+    uid = ... # type: bytes
+    details = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+    message = ... # type: typing___Text
+    timestamp = ... # type: int
+
+    def __init__(self,
+        *,
+        job_uid : typing___Optional[bytes] = None,
+        uid : typing___Optional[bytes] = None,
+        details : typing___Optional[typing___Iterable[typing___Text]] = None,
+        message : typing___Optional[typing___Text] = None,
+        timestamp : typing___Optional[int] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> JobRunFailed: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"details",u"job_uid",u"message",u"timestamp",u"uid"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"details",b"details",u"job_uid",b"job_uid",u"message",b"message",u"timestamp",b"timestamp",u"uid",b"uid"]) -> None: ...
+
+class JobRunCompleted(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    job_uid = ... # type: bytes
+    uid = ... # type: bytes
+    timestamp = ... # type: int
+
+    def __init__(self,
+        *,
+        job_uid : typing___Optional[bytes] = None,
+        uid : typing___Optional[bytes] = None,
+        timestamp : typing___Optional[int] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> JobRunCompleted: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"job_uid",u"timestamp",u"uid"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"job_uid",b"job_uid",u"timestamp",b"timestamp",u"uid",b"uid"]) -> None: ...
 
 class ServiceCreated(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -238,6 +318,7 @@ class DatasetVersionAdded(google___protobuf___message___Message):
     title = ... # type: typing___Text
     timestamp = ... # type: int
     dataset_uid = ... # type: bytes
+    clean_slate = ... # type: bool
 
     @property
     def items(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[vo_pb2___DatasetItem]: ...
@@ -260,15 +341,16 @@ class DatasetVersionAdded(google___protobuf___message___Message):
         remove : typing___Optional[typing___Iterable[vo_pb2___DatasetItem]] = None,
         inputs : typing___Optional[typing___Iterable[vo_pb2___DatasetVerInput]] = None,
         dataset_uid : typing___Optional[bytes] = None,
+        clean_slate : typing___Optional[bool] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> DatasetVersionAdded: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_uid",u"inputs",u"items",u"parent_uid",u"project_name",u"project_uid",u"remove",u"timestamp",u"title",u"uid"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"clean_slate",u"dataset_uid",u"inputs",u"items",u"parent_uid",u"project_name",u"project_uid",u"remove",u"timestamp",u"title",u"uid"]) -> None: ...
     else:
-        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_uid",b"dataset_uid",u"inputs",b"inputs",u"items",b"items",u"parent_uid",b"parent_uid",u"project_name",b"project_name",u"project_uid",b"project_uid",u"remove",b"remove",u"timestamp",b"timestamp",u"title",b"title",u"uid",b"uid"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"clean_slate",b"clean_slate",u"dataset_uid",b"dataset_uid",u"inputs",b"inputs",u"items",b"items",u"parent_uid",b"parent_uid",u"project_name",b"project_name",u"project_uid",b"project_uid",u"remove",b"remove",u"timestamp",b"timestamp",u"title",b"title",u"uid",b"uid"]) -> None: ...
 
 class ExpertAdded(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...

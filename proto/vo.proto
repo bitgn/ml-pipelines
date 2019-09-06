@@ -53,6 +53,7 @@ enum ENTITY {
     MODEL = 4;
     PROJECT=5;
     DATASET_VERSION=6;
+    JOB_RUN=7;
 }
 
 

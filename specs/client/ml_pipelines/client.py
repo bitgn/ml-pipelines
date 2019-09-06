@@ -23,11 +23,17 @@ class Client():
 
 
 
+
+
     def get_project(self, name) -> Project:
 
         r = api.GetProjectRequest(name=name)
         resp = self.context.get_project(r)
         return Project(self.context, resp.uid)
+
+
+    def __getitem__(self, key:str):
+        return self.get_project(key)
 
 
     def create_project(self, name: Optional[str], title: Optional[str] = None) -> Project:

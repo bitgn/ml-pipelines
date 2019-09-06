@@ -75,7 +75,7 @@ message JobRunInfoResponse {
 
 message LogJobRunRequest {
     bytes uid = 1;
-    repeated string lines = 2;
+    repeated string details = 2;
     // optional title for the log
     string log_title = 3;
 }
@@ -86,7 +86,7 @@ message LogJobRunRequest {
 message FailJobRunRequest {
     bytes uid = 1;
     string message = 2;
-    string detail = 3;
+    repeated string details = 3;
 
 }
 
@@ -150,6 +150,9 @@ message GetLastDatasetVersionRequest {
 
 message DatasetVersionResponse {
     bytes uid = 1;
+    bool no_version = 2;
+
+    ApiError error = 100;
 
 }
 
@@ -380,6 +383,10 @@ enum StatusCode {
 
 
     NAME_TAKEN=101;
+
+
+    VERSION_MISMATCH=102;
+
 }
 
 
