@@ -6,6 +6,6 @@ venv/bin/python setup_demo.py &
 
 cd ../server
 rm -rf tmp/demo || echo "OK"
-go run main.go --db tmp/demo
+go run main.go --db tmp/demo --dev --debug ${1:-""}
 cd ..
 

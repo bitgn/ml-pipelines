@@ -58,7 +58,7 @@ class Client():
     def stats(self):
 
         request = api.StatRequest()
-        return self.catalog.Stat(request)
+        return self.context.stat(request)
 
 
 

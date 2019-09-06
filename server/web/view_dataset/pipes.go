@@ -1,6 +1,7 @@
 package view_dataset
 
 import (
+	"encoding/base64"
 	"encoding/hex"
 	"fmt"
 	"github.com/pkg/errors"
@@ -72,6 +73,10 @@ func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, titl
 
 	this := db.GetDatasetVersion(tx, uid)
 
+	if this != nil {
+		title = fmt.Sprintf("<%s<BR/><I>version %d</I>>", title, this.VersionNum)
+	}
+
 	hx := hex.EncodeToString
 
 
@@ -81,18 +86,28 @@ func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, titl
 	sb.WriteString("fontname=\"Arial\";\n")
 	sb.WriteString("node[shape=\"rectangle\" color=\"#343a40\" penwidth=\"1.5\" fontname=\"Arial\"];\n")
 	sb.WriteString("edge[color=\"#343a40\" penwidth=\"1.0\"]\n;")
-	sb.WriteString(fmt.Sprintf("this [label=\"%s\" color=\"#28a745\"]; \n", title))
+	sb.WriteString(fmt.Sprintf("this [label=%s color=\"#28a745\"]; \n", title))
+
+
+
+
 
 	if this != nil {
 
-		for _, j := range this.Inputs {
 
-			switch j.Type {
+
+		for _, input := range this.Inputs {
+
+			switch input.Type {
 			case vo.DatasetVerInput_JOB_RUN:
 
-				run := db.GetJobRun(tx, j.Uid)
+				run := db.GetJobRun(tx, input.Uid)
+				job := db.GetJob(tx, run.JobUid)
 
-				sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" style=\"rounded\"]; \n", hx(run.Uid), run.Title))
+
+
+				runTitle := fmt.Sprintf("<%s<BR/><I>%s</I>>", job.Caption(), run.Title)
+				sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s style=\"rounded\"]; \n", hx(run.Uid), runTitle))
 				sb.WriteString(fmt.Sprintf("  \"%s\" -> this;\n", hx(run.Uid)))
 
 				for _, input := range run.Inputs {
@@ -127,7 +142,17 @@ func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, titl
 
 				run := db.GetJobRun(tx, j.Uid)
 
-				sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" style=\"rounded\"];\n", hx(run.Uid), run.Title))
+				job := db.GetJob(tx, run.JobUid)
+
+
+
+				runTitle := fmt.Sprintf("<%s<BR/><I>%s</I>>", job.Caption(), run.Title)
+
+				if run == nil {
+					log.Panicln("Can't find job RUN", hx(j.Uid), base64.StdEncoding.EncodeToString(j.Uid))
+				}
+
+				sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s style=\"rounded\"];\n", hx(run.Uid), runTitle))
 				sb.WriteString(fmt.Sprintf("  this -> \"%s\" [arrowhead=\"none\"];\n", hx(run.Uid)))
 
 				for _, output := range run.Outputs {

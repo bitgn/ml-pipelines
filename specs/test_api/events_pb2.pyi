@@ -7,7 +7,6 @@ from google.protobuf.descriptor import (
 
 from google.protobuf.internal.containers import (
     RepeatedCompositeFieldContainer as google___protobuf___internal___containers___RepeatedCompositeFieldContainer,
-    RepeatedScalarFieldContainer as google___protobuf___internal___containers___RepeatedScalarFieldContainer,
 )
 
 from google.protobuf.message import (
@@ -159,7 +158,7 @@ class JobRunLogged(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     job_uid = ... # type: bytes
     uid = ... # type: bytes
-    details = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+    details = ... # type: typing___Text
     log_title = ... # type: typing___Text
     timestamp = ... # type: int
 
@@ -167,7 +166,7 @@ class JobRunLogged(google___protobuf___message___Message):
         *,
         job_uid : typing___Optional[bytes] = None,
         uid : typing___Optional[bytes] = None,
-        details : typing___Optional[typing___Iterable[typing___Text]] = None,
+        details : typing___Optional[typing___Text] = None,
         log_title : typing___Optional[typing___Text] = None,
         timestamp : typing___Optional[int] = None,
         ) -> None: ...
@@ -184,7 +183,7 @@ class JobRunFailed(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     job_uid = ... # type: bytes
     uid = ... # type: bytes
-    details = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+    details = ... # type: typing___Text
     message = ... # type: typing___Text
     timestamp = ... # type: int
 
@@ -192,7 +191,7 @@ class JobRunFailed(google___protobuf___message___Message):
         *,
         job_uid : typing___Optional[bytes] = None,
         uid : typing___Optional[bytes] = None,
-        details : typing___Optional[typing___Iterable[typing___Text]] = None,
+        details : typing___Optional[typing___Text] = None,
         message : typing___Optional[typing___Text] = None,
         timestamp : typing___Optional[int] = None,
         ) -> None: ...
@@ -319,6 +318,7 @@ class DatasetVersionAdded(google___protobuf___message___Message):
     timestamp = ... # type: int
     dataset_uid = ... # type: bytes
     clean_slate = ... # type: bool
+    version_num = ... # type: int
 
     @property
     def items(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[vo_pb2___DatasetItem]: ...
@@ -342,15 +342,16 @@ class DatasetVersionAdded(google___protobuf___message___Message):
         inputs : typing___Optional[typing___Iterable[vo_pb2___DatasetVerInput]] = None,
         dataset_uid : typing___Optional[bytes] = None,
         clean_slate : typing___Optional[bool] = None,
+        version_num : typing___Optional[int] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> DatasetVersionAdded: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def ClearField(self, field_name: typing_extensions___Literal[u"clean_slate",u"dataset_uid",u"inputs",u"items",u"parent_uid",u"project_name",u"project_uid",u"remove",u"timestamp",u"title",u"uid"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"clean_slate",u"dataset_uid",u"inputs",u"items",u"parent_uid",u"project_name",u"project_uid",u"remove",u"timestamp",u"title",u"uid",u"version_num"]) -> None: ...
     else:
-        def ClearField(self, field_name: typing_extensions___Literal[u"clean_slate",b"clean_slate",u"dataset_uid",b"dataset_uid",u"inputs",b"inputs",u"items",b"items",u"parent_uid",b"parent_uid",u"project_name",b"project_name",u"project_uid",b"project_uid",u"remove",b"remove",u"timestamp",b"timestamp",u"title",b"title",u"uid",b"uid"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"clean_slate",b"clean_slate",u"dataset_uid",b"dataset_uid",u"inputs",b"inputs",u"items",b"items",u"parent_uid",b"parent_uid",u"project_name",b"project_name",u"project_uid",b"project_uid",u"remove",b"remove",u"timestamp",b"timestamp",u"title",b"title",u"uid",b"uid",u"version_num",b"version_num"]) -> None: ...
 
 class ExpertAdded(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...

@@ -7,14 +7,14 @@
   <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
     <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
     <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Project.Name}}" class="project-link">{{ .Project.Name }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ .Dataset.Name }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ .Dataset.Caption }}</li>
   </ol>
 </nav>
 
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2>
-            Dataset: {{ .Dataset.Name }}
+            Dataset: {{ .Dataset.Caption }}
             {{if .IsStale}}<span class="stale-status badge badge-warning">stale</span>{{end}}
         </h2>
     </div>
@@ -33,6 +33,10 @@
                     <code class="location-uri">
                         {{if .Dataset.LocationUri}}{{.Dataset.LocationUri}}{{else}}N/A{{end}}
                     </code><br/>
+
+                    {{if .Dataset.VersionCount}}
+                        <strong>Versions: </strong>{{ .Dataset.VersionCount }}<br/>
+                    {{end}}
 
 
                     <strong>Records: </strong>{{ .Dataset.RecordCount }}<br/>

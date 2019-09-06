@@ -1,9 +1,11 @@
 package view_dataset
 
 import (
+	"encoding/hex"
+	"fmt"
 	"github.com/gomarkdown/markdown"
 	"html/template"
-	"io"
+	"log"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/vo"
@@ -66,14 +68,25 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string, verUid 
 
 
 	var ver *db.DatasetVersionData
-	if verUid == nil {
-		ver = db.GetLastDatasetVersion(tx, did.Uid)
-		if ver != nil {
-			verUid = ver.Uid
+	if verUid != nil {
+		ver = db.GetDatasetVersion(tx, verUid)
+		if ver == nil {
+			http.Error(w, fmt.Sprintf("Unknown version %s", hex.EncodeToString(verUid)), http.StatusBadRequest)
 		}
 	} else {
-		ver = db.GetDatasetVersion(tx, verUid)
+
+		if ds.VersionCount > 0 {
+			ver = db.GetDatasetVersion(tx, ds.HeadVersion)
+			if ver == nil {
+				log.Panicln("Can't load HEAD version that should exist")
+			}
+
+				verUid = ver.Uid
+		}
+
 	}
+
+
 
 
 
@@ -83,7 +96,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string, verUid 
 		Dataset: ds,
 		Project: pr,
 		IsStale: domain.IsStale(ds),
-		Lineage: renderDatasetVersionSVG( tx,verUid, site.Url, ds.Name),
+		Lineage: renderDatasetVersionSVG( tx,verUid, site.Url, ds.Caption()),
 	}
 
 	if len(ds.Description) > 0 {
@@ -94,8 +107,6 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string, verUid 
 		model.Description = template.HTML(md)
 	}
 
-
-	io.Pipe()
 
 	h.layout.Render(w, model)
 }

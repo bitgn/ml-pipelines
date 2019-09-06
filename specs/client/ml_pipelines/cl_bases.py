@@ -5,7 +5,7 @@ from . import mlp_api_pb2 as api
 from . import mlp_api_pb2_grpc as rpc
 import grpc
 from . import errors
-
+import os
 import google.protobuf.message as pb
 
 
@@ -67,10 +67,18 @@ class Context:
         s: api.CommitResponse = self._rpc(lambda: self.catalog.Commit(req))
         return s
 
+    def stat(self, req: api.StatRequest) -> api.StatResponse:
+        s: api.StatResponse = self._rpc(lambda: self.catalog.Stat(req))
+        return s
+
     def _rpc(self, callable: Callable[[], pb.Message]):
         try:
 
             resp = callable()
+
+            if not hasattr(resp,"error"):
+
+                raise ValueError(print(f'{resp.__class__} has no error attribute'))
 
             if resp.error.code != 0:
                 raise errors.from_error(resp.error)

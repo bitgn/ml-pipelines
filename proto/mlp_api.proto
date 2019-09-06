@@ -75,7 +75,7 @@ message JobRunInfoResponse {
 
 message LogJobRunRequest {
     bytes uid = 1;
-    repeated string details = 2;
+    string details = 2;
     // optional title for the log
     string log_title = 3;
 }
@@ -86,7 +86,7 @@ message LogJobRunRequest {
 message FailJobRunRequest {
     bytes uid = 1;
     string message = 2;
-    repeated string details = 3;
+    string details = 3;
 
 }
 
@@ -210,6 +210,9 @@ message StatRequest{}
 
 message StatResponse{
     string version = 1;
+
+
+    ApiError error = 100;
 }
 
 

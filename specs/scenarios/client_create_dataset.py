@@ -6,7 +6,7 @@ from env import *
 def given_empty_system(e: Env):
     """throw an error"""
     e.scenario(
-        when.client(lambda c:c['test'].create_dataset(name="test")),
+        when.client(lambda c: c['test'].create_dataset(name="test")),
         then.not_found(subject_name='non-existent')
     )
 

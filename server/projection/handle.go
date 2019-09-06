@@ -85,9 +85,6 @@ func Handle(tx *db.Tx, msg proto.Message){
 		data := db.GetDataset(tx, e.Uid)
 		mergeDatasetMeta(e.Meta, data)
 
-		if len(data.Title) == 0{
-			data.Title = data.Name
-		}
 		db.PutDataset(tx, data)
 
 		// recompute storage
@@ -108,6 +105,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Uid:e.Uid,
 			Items:e.Items,
 			Inputs:e.Inputs,
+			VersionNum:e.VersionNum,
 		}
 
 
@@ -142,6 +140,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 			storage_bytes += x.StorageBytes
 		}
 
+		// for each input in this dataset
 		for _,input :=range e.Inputs{
 			switch input.Type {
 			case vo.DatasetVerInput_JOB_RUN:
@@ -151,6 +150,8 @@ func Handle(tx *db.Tx, msg proto.Message){
 					Uid:e.Uid,
 				})
 				db.PutJobRun(tx, run)
+			default:
+				log.Panicln("Unhandled input type")
 			}
 		}
 
@@ -164,6 +165,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		ds := db.GetDataset(tx, e.DatasetUid)
 		ds.UpdateTimestamp = e.Timestamp
+		ds.VersionCount +=1
 
 
 		ds.RecordCount = ver.RecordCount
@@ -193,20 +195,25 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Title:e.Title,
 			Timestamp:e.Timestamp,
 			Inputs:e.Inputs,
+			Status:vo.JOB_STATUS_RUNNING,
 		}
+
+
 
 		db.PutJobRun(tx, run)
 
-		// reverse link to the dataset
+		// for each run input
 		for _, input := range run.Inputs{
 			switch input.Type {
 			case vo.JobRunInput_DatasetVer:
 				ds := db.GetDatasetVersion(tx, input.Uid)
 				ds.Outputs = append(ds.Outputs, &vo.DatasetVerOutput{
 					Type:vo.DatasetVerOutput_JOB_RUN,
-					Uid:run.JobUid,
+					Uid:run.Uid,
 				})
 				db.PutDatasetVersion(tx, ds)
+			default:
+				log.Panicln("Unknown job run input")
 			}
 		}
 

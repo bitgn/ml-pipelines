@@ -15,8 +15,15 @@ class Project:
 
 
 
-    def create_job(self, name:str) -> Job:
-        create = api.CreateJobRequest(project_uid=self.uid, name=name)
+    def create_job(self, name:str, title:Optional[str]=None) -> Job:
+        meta = vo.JobMetadataDelta()
+        if title:
+            meta.title = title
+            meta.title_set = True
+
+        create = api.CreateJobRequest(project_uid=self.uid, name=name,meta=meta)
+
+
         resp = self.ctx.create_job(create)
         return Job(self.ctx, self.uid, resp.uid, resp.name)
 
@@ -44,13 +51,31 @@ class Project:
         return Dataset(self.ctx, self.uid, resp.uid, resp.name,
                        location_id=resp.location_id)
 
-    def create_dataset(self, name, location_id: Optional[str]=None) -> Dataset:
+    def create_dataset(self, name, location_id: Optional[str] = None,
+                       title: Optional[str] = None, data_format: Optional[str] = None,
+                       description: Optional[str] = None) -> Dataset:
+        meta = vo.DatasetMetadataDelta(
+
+        )
+        if title:
+            meta.title_set=True
+            meta.title=title
+
+
+        if data_format:
+            meta.data_format=data_format
+            meta.data_format_set=True
+
+        if description:
+            meta.description=description
+            meta.description_set=True
+
+
+
         new = api.CreateDatasetRequest(
             project_uid=self.uid,
             name=name,
-            meta=vo.DatasetMetadataDelta(
-
-            )
+            meta=meta
         )
 
         resp = self.ctx.create_dataset(new)

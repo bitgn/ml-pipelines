@@ -13,6 +13,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"regexp"
 )
 
 
@@ -31,6 +32,7 @@ var (
 	upgrade       = fs.String("upgrade", "auto", "Upgrade projections: auto, force, none")
 	specsMode     = fs.Bool("specs", false, "Enable spec-runner mode")
 	templatePath  = fs.String("template-path", "", "HTML Layout root")
+	debug = fs.String("debug", "", "Debug everything related to this string")
 
 	// build script will replace this one
 	version = "dev"
@@ -102,7 +104,12 @@ func runGrpc(env *db.DB){
 		test_api.RegisterTestServer(grpcServer, testService)
 	}
 
-	catalogService := mlp_api.NewServer(env, version)
+	var r *regexp.Regexp
+	if len(*debug)>0 {
+		 r = regexp.MustCompile(*debug)
+	}
+
+	catalogService := mlp_api.NewServer(env, version, r)
 	mlp_api.RegisterCatalogServer(grpcServer, catalogService)
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

@@ -5,8 +5,10 @@ import grpc
 from . import mlp_api_pb2 as api
 
 def from_exception(e: grpc.RpcError):
-    ctor = MAP.get(e.code(), ClientError)
-    return ctor(e.code(), str(e))
+    code, msg = e.code().value
+
+    ctor = MAP.get(code, ClientError)
+    return ctor(code, str(e))
 
 
 
@@ -53,15 +55,18 @@ class BadName(InvalidArgument):
 class NotFound(InvalidArgument):
     pass
 
-
+class Unavailable(ClientError):
+    pass
 
 MAP= {
     api.StatusCode.INVALID_ARGUMENT: InvalidArgument,
     api.StatusCode.ALREADY_EXISTS:AlreadyExists,
     api.StatusCode.BAD_NAME:BadName,
     api.StatusCode.NOT_FOUND:NotFound,
-
+    api.StatusCode.UNAVAILABLE:Unavailable,
 }
+
+MAP = {int(k): v for k,v in MAP.items()}
 
 def from_error(e: api.ApiError) -> ClientError:
     ctor = MAP.get(e.code, ClientError)

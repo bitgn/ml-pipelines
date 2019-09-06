@@ -89,6 +89,8 @@ message DatasetData {
 
 
     bytes head_version = 20;
+
+    int32 version_count = 22;
 }
 
 
@@ -109,6 +111,8 @@ message DatasetVersionData{
     bytes dataset_uid = 9;
 
     repeated DatasetVerOutput outputs = 10;
+
+    int32 version_num=11;
 }
 
 

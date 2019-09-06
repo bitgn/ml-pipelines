@@ -11,9 +11,12 @@ def wait_for_server_to_start():
         try:
             cl.stats()
             return
-        except:
+        except client.Unavailable:
             time.sleep(0.1)
             continue
+        except:
+            print("breaking!!!!!!!!!!!!!!!!!!!!!!!!!")
+            raise
 
     raise Exception("Failed to connect")
 

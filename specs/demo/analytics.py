@@ -24,7 +24,7 @@ class Node:
     last_update: datetime.datetime
     description: str
     location_id: str
-    uid: bytes
+    ver: client.DatasetVersion
 
 
 @dataclass
@@ -168,9 +168,10 @@ _proc([tsv7], [r7], name="render_revenue_per_age")
 
 
 def setup_analytics_demo(cl: client.Client):
-    resp = cl.create_project("web_01", "Web Analytics")
+    print("Start setting up")
+    proj = cl.create_project("web_01", "Web Analytics")
 
-    pid = resp.uid
+
 
     for n in _nodes:
 
@@ -180,27 +181,36 @@ def setup_analytics_demo(cl: client.Client):
         if n.description:
             n.description = n.description.strip(' \n\r')
 
-        ts = None
-
-        if n.last_update:
-            ts = int(n.last_update.timestamp())
-
-        resp = cl.create_dataset(
-            project_uid=pid,
+        ds = proj.create_dataset(
             name=n.name,
             title=n.title,
             data_format=n.format,
-            file_count=n.file_count,
-            storage_bytes=n.file_size,
-            record_count=n.record_count,
             description=n.description,
             location_id=n.location_id,
-            update_timestamp=ts,
         )
-        n.uid = resp.uid
+
+        ver = ds.get_last_version()
+        stage = ver.prepare_commit()
+
+        for i in range(n.file_count):
+            count = n.file_size / n.file_count
+            stage.add_file(name=f'file_{i}', records=int(n.record_count/n.file_count), size=int(count))
+
+        inputs = []
+
+
+
+        n.ver = stage.commit("initial commit")
+
 
     for p in _pipelines:
-        inputs = [x.uid for x in p.sources]
-        outputs = [x.uid for x in p.outputs]
+        inputs = [x.ver for x in p.sources]
+        outputs = [x.ver for x in p.outputs]
 
-        cl.create_job(project_uid=pid, name=p.name,title=p.title, inputs = inputs, outputs=outputs)
+        job = proj.create_job(name=p.name,title=p.title)
+
+        run = job.start_run("Input run", inputs=inputs)
+        run.log("Some work being done")
+        run.complete()
+
+    print("done")

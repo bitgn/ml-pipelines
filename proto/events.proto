@@ -41,7 +41,7 @@ message JobRunStarted {
 message JobRunLogged {
     bytes job_uid = 1;
     bytes uid = 2;
-    repeated string details = 4;
+    string details = 4;
     string log_title = 5;
     int64 timestamp = 3;
 
@@ -51,7 +51,7 @@ message JobRunFailed {
     bytes job_uid = 1;
     bytes uid = 2;
 
-    repeated string details = 3;
+    string details = 3;
     string message = 4;
     int64 timestamp = 5;
 
@@ -116,6 +116,8 @@ message DatasetVersionAdded {
 
     bytes dataset_uid = 9;
     bool clean_slate =11;
+
+    int32 version_num = 12;
 }
 
 
