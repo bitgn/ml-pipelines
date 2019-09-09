@@ -42,21 +42,21 @@ class ENTITY(int):
     NONE = typing___cast(ENTITY, 0)
     DATASET = typing___cast(ENTITY, 1)
     JOB = typing___cast(ENTITY, 2)
-    SERVICE = typing___cast(ENTITY, 3)
+    SYSTEM = typing___cast(ENTITY, 3)
     MODEL = typing___cast(ENTITY, 4)
     PROJECT = typing___cast(ENTITY, 5)
     DATASET_VERSION = typing___cast(ENTITY, 6)
     JOB_RUN = typing___cast(ENTITY, 7)
-    SERVICE_VERSION = typing___cast(ENTITY, 9)
+    SYSTEM_VERSION = typing___cast(ENTITY, 9)
 NONE = typing___cast(ENTITY, 0)
 DATASET = typing___cast(ENTITY, 1)
 JOB = typing___cast(ENTITY, 2)
-SERVICE = typing___cast(ENTITY, 3)
+SYSTEM = typing___cast(ENTITY, 3)
 MODEL = typing___cast(ENTITY, 4)
 PROJECT = typing___cast(ENTITY, 5)
 DATASET_VERSION = typing___cast(ENTITY, 6)
 JOB_RUN = typing___cast(ENTITY, 7)
-SERVICE_VERSION = typing___cast(ENTITY, 9)
+SYSTEM_VERSION = typing___cast(ENTITY, 9)
 
 class JOB_STATUS(int):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
@@ -102,7 +102,7 @@ class ProjectMetadataDelta(google___protobuf___message___Message):
     else:
         def ClearField(self, field_name: typing_extensions___Literal[u"description",b"description",u"description_set",b"description_set",u"title",b"title",u"title_set",b"title_set"]) -> None: ...
 
-class ServiceMetadataDelta(google___protobuf___message___Message):
+class SystemMetadataDelta(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     title = ... # type: typing___Text
     title_set = ... # type: bool
@@ -129,7 +129,7 @@ class ServiceMetadataDelta(google___protobuf___message___Message):
         experts_set : typing___Optional[bool] = None,
         ) -> None: ...
     @classmethod
-    def FromString(cls, s: bytes) -> ServiceMetadataDelta: ...
+    def FromString(cls, s: bytes) -> SystemMetadataDelta: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
@@ -198,35 +198,35 @@ class JobMetadataDelta(google___protobuf___message___Message):
     else:
         def ClearField(self, field_name: typing_extensions___Literal[u"title",b"title",u"title_set",b"title_set"]) -> None: ...
 
-class ServiceVersionInput(google___protobuf___message___Message):
+class SystemVersionInput(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     class Type(int):
         DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
         @classmethod
         def Name(cls, number: int) -> str: ...
         @classmethod
-        def Value(cls, name: str) -> ServiceVersionInput.Type: ...
+        def Value(cls, name: str) -> SystemVersionInput.Type: ...
         @classmethod
         def keys(cls) -> typing___List[str]: ...
         @classmethod
-        def values(cls) -> typing___List[ServiceVersionInput.Type]: ...
+        def values(cls) -> typing___List[SystemVersionInput.Type]: ...
         @classmethod
-        def items(cls) -> typing___List[typing___Tuple[str, ServiceVersionInput.Type]]: ...
-        Service = typing___cast(ServiceVersionInput.Type, 1)
-        JobRun = typing___cast(ServiceVersionInput.Type, 2)
-    Service = typing___cast(ServiceVersionInput.Type, 1)
-    JobRun = typing___cast(ServiceVersionInput.Type, 2)
+        def items(cls) -> typing___List[typing___Tuple[str, SystemVersionInput.Type]]: ...
+        System = typing___cast(SystemVersionInput.Type, 1)
+        JobRun = typing___cast(SystemVersionInput.Type, 2)
+    System = typing___cast(SystemVersionInput.Type, 1)
+    JobRun = typing___cast(SystemVersionInput.Type, 2)
 
     uid = ... # type: bytes
-    type = ... # type: ServiceVersionInput.Type
+    type = ... # type: SystemVersionInput.Type
 
     def __init__(self,
         *,
         uid : typing___Optional[bytes] = None,
-        type : typing___Optional[ServiceVersionInput.Type] = None,
+        type : typing___Optional[SystemVersionInput.Type] = None,
         ) -> None: ...
     @classmethod
-    def FromString(cls, s: bytes) -> ServiceVersionInput: ...
+    def FromString(cls, s: bytes) -> SystemVersionInput: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
@@ -234,33 +234,33 @@ class ServiceVersionInput(google___protobuf___message___Message):
     else:
         def ClearField(self, field_name: typing_extensions___Literal[u"type",b"type",u"uid",b"uid"]) -> None: ...
 
-class ServiceVersionOutput(google___protobuf___message___Message):
+class SystemVersionOutput(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     class Type(int):
         DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
         @classmethod
         def Name(cls, number: int) -> str: ...
         @classmethod
-        def Value(cls, name: str) -> ServiceVersionOutput.Type: ...
+        def Value(cls, name: str) -> SystemVersionOutput.Type: ...
         @classmethod
         def keys(cls) -> typing___List[str]: ...
         @classmethod
-        def values(cls) -> typing___List[ServiceVersionOutput.Type]: ...
+        def values(cls) -> typing___List[SystemVersionOutput.Type]: ...
         @classmethod
-        def items(cls) -> typing___List[typing___Tuple[str, ServiceVersionOutput.Type]]: ...
-        Service = typing___cast(ServiceVersionOutput.Type, 1)
-    Service = typing___cast(ServiceVersionOutput.Type, 1)
+        def items(cls) -> typing___List[typing___Tuple[str, SystemVersionOutput.Type]]: ...
+        System = typing___cast(SystemVersionOutput.Type, 1)
+    System = typing___cast(SystemVersionOutput.Type, 1)
 
     uid = ... # type: bytes
-    type = ... # type: ServiceVersionOutput.Type
+    type = ... # type: SystemVersionOutput.Type
 
     def __init__(self,
         *,
         uid : typing___Optional[bytes] = None,
-        type : typing___Optional[ServiceVersionOutput.Type] = None,
+        type : typing___Optional[SystemVersionOutput.Type] = None,
         ) -> None: ...
     @classmethod
-    def FromString(cls, s: bytes) -> ServiceVersionOutput: ...
+    def FromString(cls, s: bytes) -> SystemVersionOutput: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
@@ -283,9 +283,9 @@ class JobRunInput(google___protobuf___message___Message):
         @classmethod
         def items(cls) -> typing___List[typing___Tuple[str, JobRunInput.Type]]: ...
         DatasetVer = typing___cast(JobRunInput.Type, 1)
-        Service = typing___cast(JobRunInput.Type, 2)
+        System = typing___cast(JobRunInput.Type, 2)
     DatasetVer = typing___cast(JobRunInput.Type, 1)
-    Service = typing___cast(JobRunInput.Type, 2)
+    System = typing___cast(JobRunInput.Type, 2)
 
     uid = ... # type: bytes
     type = ... # type: JobRunInput.Type

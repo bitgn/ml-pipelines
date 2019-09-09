@@ -48,7 +48,7 @@ class Job:
         self.project_uid = project_uid
         self.ctx = ctx
 
-    def start_run(self, inputs:List[Union[DatasetVersionId, ServiceId]],title: Optional[str]=None) -> JobRun:
+    def start_run(self, inputs:List[Union[DatasetVersionId, SystemId]], title: Optional[str]=None) -> JobRun:
 
         req = api.StartJobRunRequest(
             project_uid=self.project_uid,
@@ -61,8 +61,8 @@ class Job:
             if isinstance(i, DatasetVersionId):
                 req.inputs.append(vo.JobRunInput(uid=i.uid, type=vo.JobRunInput.Type.DatasetVer))
                 continue
-            if isinstance(i, ServiceId):
-                req.inputs.append(vo.JobRunInput(uid=i.uid, type=vo.JobRunInput.Type.Service))
+            if isinstance(i, SystemId):
+                req.inputs.append(vo.JobRunInput(uid=i.uid, type=vo.JobRunInput.Type.System))
                 continue
             raise ValueError(f"Unexpected job run input {i.__class__}")
         resp = self.ctx.start_job_run(req)

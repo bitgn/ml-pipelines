@@ -13,10 +13,10 @@ enum Range {
     EXPERTS=7;
     DATASET_VERSIONS = 8;
     DATASET_HEAD_ITEMS = 9;
-    SERVICES = 13;
-    SERVICE_VERSIONS=14;
+    SYSTEMS = 13;
+    SYSTEM_VERSIONS=14;
 
-    SERVICE_LINKS = 30;
+    SYSTEM_LINKS = 30;
 
     DATASET_BINARY_TREE = 22;
 
@@ -32,9 +32,9 @@ enum Range {
     IDX_DATASET_VERSIONS = 21;
 
     // service UID/int32
-    IDX_SERVICE_VERSIONS = 23;
+    IDX_SYSTEM_VERSIONS = 23;
 
-    IDX_PROJECT_SERVICES = 24;
+    IDX_PROJECT_SYSTEMS = 24;
     IDX_PROJECT_JOBS = 25;
 
 
@@ -45,15 +45,15 @@ enum Range {
 
 
 // serviceID | Entity Container  | Exact Reference
-message ServiceLink {
+message SystemLink {
     bytes instance_uid = 1;
     bytes container_uid = 2;
     Type type = 3;
     enum Type {
         None = 0;
-        Input_ServiceVer = 1; // Container is Service
+        Input_SystemVer = 1; // Container is System
         Input_JobRun = 2; // container is Job
-        Output_ServiceVer = 3;
+        Output_SystemVer = 3;
         Output_JobRun = 4;
     }
 
@@ -74,7 +74,7 @@ message ProjectData {
     int64 storage_bytes = 5;
     int32 job_count = 6;
     string description = 7;
-    int32 service_count = 8;
+    int32 system_count = 8;
 }
 
 message Expert {
@@ -145,7 +145,7 @@ message DatasetVersionData{
 
 
 
-message ServiceData{
+message SystemData{
     bytes uid = 1;
 
     string name = 2;
@@ -163,18 +163,18 @@ message ServiceData{
 
 }
 
-message ServiceVersionData{
+message SystemVersionData{
     bytes uid = 1;
     string title = 2;
 
 
     int32 version_num = 3;
-    bytes service_uid = 4;
+    bytes system_uid = 4;
     int64 timestamp = 5;
 
 
-    repeated ServiceVersionInput inputs = 10;
-    repeated ServiceVersionOutput outputs = 11;
+    repeated SystemVersionInput inputs = 10;
+    repeated SystemVersionOutput outputs = 11;
 }
 
 message DatasetItemData {
@@ -234,7 +234,7 @@ message JobRunOutput {
     enum Type {
         None = 0;
         DatasetVer = 1;
-        ServiceVer = 2;
+        SystemVer = 2;
     }
     // dataset
     bytes uid = 1;
@@ -251,7 +251,7 @@ message TenantStats{
     int32 report_count = 4;
     int32 expert_count = 5;
     int32 model_count = 6;
-    int32 service_count = 7;
+    int32 system_count = 7;
 }
 
 

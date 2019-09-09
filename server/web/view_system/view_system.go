@@ -1,4 +1,4 @@
-package view_service
+package view_system
 
 import (
 	"fmt"
@@ -12,20 +12,20 @@ import (
 	"strings"
 )
 
-type ViewServiceModel struct {
+type ViewSystemModel struct {
 	*shared.Site
-	Service     *db.ServiceData
+	System     *db.SystemData
 	Project     *db.ProjectData
 	Lineage     template.HTML
 	Description template.HTML
 
 
-	UsedBy []*ServiceLink
+	UsedBy []*SystemLink
 
 }
 
 
-type ServiceLink struct {
+type SystemLink struct {
 	Href string
 	Title string
 	Entity string
@@ -40,7 +40,7 @@ type Handler struct {
 func NewHandler(env *db.DB, tl *shared.TemplateLoader) *Handler{
 	return &Handler{
 		env:env,
-		layout:tl.DefineTemplate("web/layout.html","web/view_service/content.html"),
+		layout:tl.DefineTemplate("web/layout.html","web/view_system/content.html"),
 	}
 }
 
@@ -60,7 +60,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 
 
 	ref := db.Lookup(tx, pid, service)
-	if ref == nil || ref.Kind != vo.ENTITY_SERVICE {
+	if ref == nil || ref.Kind != vo.ENTITY_SYSTEM {
 		http.Error(w, fmt.Sprintf("service %s not found", service), http.StatusNotFound)
 		return
 	}
@@ -68,7 +68,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 
 
 
-	svc := db.GetService(tx, ref.Uid)
+	svc := db.GetSystem(tx, ref.Uid)
 	pr := db.GetProject(tx, svc.ProjectUid)
 
 
@@ -76,38 +76,38 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 	site.ActiveMenu="services"
 
 
-	model := &ViewServiceModel{
+	model := &ViewSystemModel{
 		Site:    site,
-		Service: svc,
+		System: svc,
 		Project: pr,
 	}
 
 
 	// lookup users
 
-	links:= db.ListServiceLinks(tx, svc.Uid)
+	links:= db.ListSystemLinks(tx, svc.Uid)
 
 	for _, link := range links{
 		switch link.Type {
-		case db.ServiceLink_Output_ServiceVer, db.ServiceLink_Input_ServiceVer:
+		case db.SystemLink_Output_SystemVer, db.SystemLink_Input_SystemVer:
 
-			// SVC THIS -->> Service deployment
+			// SVC THIS -->> System deployment
 			// service reads from this
 
-			user := db.GetService(tx, link.ContainerUid)
-			ver := db.GetServiceVersion(tx, link.InstanceUid)
-			model.UsedBy = append(model.UsedBy, &ServiceLink{
-				Href:site.Url.ViewServiceVer(user.ProjectName, user.Name, ver.VersionNum),
+			user := db.GetSystem(tx, link.ContainerUid)
+			ver := db.GetSystemVersion(tx, link.InstanceUid)
+			model.UsedBy = append(model.UsedBy, &SystemLink{
+				Href:site.Url.ViewSystemVer(user.ProjectName, user.Name, ver.VersionNum),
 				Title:user.Caption(),
 				Entity:"service",
 				Timestamp:ver.Timestamp,
 			})
 
-		case db.ServiceLink_Input_JobRun, db.ServiceLink_Output_JobRun:
+		case db.SystemLink_Input_JobRun, db.SystemLink_Output_JobRun:
 			// SVC THIS ->> JOB run
 			user := db.GetJob(tx, link.ContainerUid)
 			run := db.GetJobRun(tx, link.InstanceUid)
-			model.UsedBy = append(model.UsedBy, &ServiceLink{
+			model.UsedBy = append(model.UsedBy, &SystemLink{
 				Href:site.Url.ViewJobRun(user.ProjectName, user.Name, run.RunNum),
 				Title:user.Caption(),
 				Entity:"job",
@@ -124,10 +124,10 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 	}
 
 	if version > 0 {
-		uid := db.LookupServiceVersion(tx, ref.Uid, version)
-		model.Lineage = graph.RenderServiceVersionGraph(tx, site, uid)
+		uid := db.LookupSystemVersion(tx, ref.Uid, version)
+		model.Lineage = graph.RenderSystemVersionGraph(tx, site, uid)
 	} else {
-		model.Lineage= graph.RenderServiceGraph(tx, site, svc.Uid)
+		model.Lineage= graph.RenderSystemGraph(tx, site, svc.Uid)
 	}
 
 

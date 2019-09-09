@@ -10,7 +10,7 @@ import (
 	"mlp/catalog/web/shared"
 	"mlp/catalog/web/view_dataset"
 	"mlp/catalog/web/view_project"
-	"mlp/catalog/web/view_service"
+	"mlp/catalog/web/view_system"
 	"net/http"
 	"runtime/debug"
 	"strconv"
@@ -68,21 +68,23 @@ func NewServer(env *db.DB, templatePath string, devMode bool, specsMode bool, ve
 	})
 
 
-	viewServiceHandler := view_service.NewHandler(env, tl)
-	mx.HandleFunc("/projects/{project}/services/{service}/ver/{version}", func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
+	{
+		handler := view_system.NewHandler(env, tl)
+		mx.HandleFunc("/projects/{project}/systems/{system}/ver/{version}", func(w http.ResponseWriter, r *http.Request) {
+			vars := mux.Vars(r)
 
-		ver, err := strconv.Atoi(vars["version"])
-		if err != nil {
-			http.Error(w, "Version is in invalid format", http.StatusBadRequest)
-			return
-		}
-		viewServiceHandler.Handle(w, vars["project"], vars["service"], int32(ver))
-	})
-	mx.HandleFunc("/projects/{project}/services/{service}", func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
-		viewServiceHandler.Handle(w, vars["project"], vars["service"], 0)
-	})
+			ver, err := strconv.Atoi(vars["version"])
+			if err != nil {
+				http.Error(w, "Version is in invalid format", http.StatusBadRequest)
+				return
+			}
+			handler.Handle(w, vars["project"], vars["system"], int32(ver))
+		})
+		mx.HandleFunc("/projects/{project}/systems/{system}", func(w http.ResponseWriter, r *http.Request) {
+			vars := mux.Vars(r)
+			handler.Handle(w, vars["project"], vars["system"], 0)
+		})
+	}
 
 
 

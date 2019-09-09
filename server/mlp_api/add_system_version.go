@@ -8,12 +8,12 @@ import (
 	"mlp/catalog/sim"
 )
 
-func (s *server) AddServiceVersion(c context.Context, r *AddServiceVersionRequest) (*AddServiceVersionResponse, error) {
+func (s *server) AddSystemVersion(c context.Context, r *AddSystemVersionRequest) (*AddSystemVersionResponse, error) {
 
 	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
 
-	svc := db.GetService(tx, r.ServiceUid)
+	svc := db.GetSystem(tx, r.SystemUid)
 	if svc == nil {
 		log.Panicln("Project not found")
 	}
@@ -24,10 +24,10 @@ func (s *server) AddServiceVersion(c context.Context, r *AddServiceVersionReques
 
 	uid := sim.NewID()
 
-	e := &events.ServiceVersionAdded{
+	e := &events.SystemVersionAdded{
 		ProjectUid: svc.ProjectUid,
 		Uid:        uid,
-		ServiceUid: svc.Uid,
+		SystemUid: svc.Uid,
 		Num:        svc.VersionNum + 1,
 		Title:      r.Title,
 		Outputs:    r.Outputs,
@@ -38,7 +38,7 @@ func (s *server) AddServiceVersion(c context.Context, r *AddServiceVersionReques
 	s.publish(tx, e)
 	tx.MustCommit()
 
-	return &AddServiceVersionResponse{
+	return &AddSystemVersionResponse{
 		Uid: uid,
 	}, nil
 }

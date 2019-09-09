@@ -86,21 +86,21 @@
 {{end}}
 
 
-{{if .Services}}
-        <h3>Services</h3>
+{{if .Systems}}
+        <h3>Systems</h3>
         <table class="table table-sm table-striped table-bordered">
             <thead>
             <tr>
-                <th>Service</th>
+                <th>System</th>
                 <th>Updated</th>
             </tr>
             </thead>
             <tbody>
 
-            {{range .Services}}
+            {{range .Systems}}
                 <tr class="service-info" id="svc-{{ $.Site.Fmt.Uid .Uid }}">
                     <td>
-                        <a href="{{$.Site.Url.ViewService .ProjectName .Name}}" class="service-link">{{.Caption}}</a>
+                        <a href="{{$.Site.Url.ViewSystem .ProjectName .Name}}" class="system-link">{{.Caption}}</a>
                     </td>
                     <td class="update-timestamp">{{$.Site.Fmt.Timestamp .VersionTimestamp}}</td>
 

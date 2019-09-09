@@ -21,7 +21,7 @@ class JobRunId (EntityId):
 class DatasetVersionId(EntityId):
     pass
 
-class ServiceId(EntityId):
+class SystemId(EntityId):
     pass
 
 
@@ -83,15 +83,15 @@ class Context:
         s: api.StatResponse = self._rpc(lambda: self.catalog.Stat(req))
         return s
 
-    def create_service(self, req: api.CreateServiceRequest) -> api.ServiceInfoResponse:
-        s: api.ServiceInfoResponse = self._rpc(lambda : self.catalog.CreateService(req))
+    def add_system(self, req: api.AddSystemRequest) -> api.SystemInfoResponse:
+        s: api.SystemInfoResponse = self._rpc(lambda : self.catalog.AddSystem(req))
         return s
 
-    def add_service_version(self, r: api.AddServiceVersionRequest) -> api.AddServiceVersionResponse:
-        s: api.AddServiceVersionResponse = self._rpc(lambda : self.catalog.AddServiceVersion(r))
+    def add_system_version(self, r: api.AddSystemVersionRequest) -> api.AddSystemVersionResponse:
+        s: api.AddSystemVersionResponse = self._rpc(lambda : self.catalog.AddSystemVersion(r))
         return s
-    def get_service(self, r: api.GetServiceRequest)-> api.ServiceInfoResponse:
-        s: api.ServiceInfoResponse = self._rpc(lambda : self.catalog.GetService(r))
+    def get_system(self, r: api.GetSystemRequest)-> api.SystemInfoResponse:
+        s: api.SystemInfoResponse = self._rpc(lambda : self.catalog.GetSystem(r))
         return s
 
     def _rpc(self, callable: Callable[[], pb.Message]):

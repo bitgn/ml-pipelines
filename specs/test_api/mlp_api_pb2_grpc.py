@@ -24,20 +24,20 @@ class CatalogStub(object):
         request_serializer=mlp__api__pb2.GetProjectRequest.SerializeToString,
         response_deserializer=mlp__api__pb2.ProjectInfoResponse.FromString,
         )
-    self.CreateService = channel.unary_unary(
-        '/Catalog/CreateService',
-        request_serializer=mlp__api__pb2.CreateServiceRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.ServiceInfoResponse.FromString,
+    self.AddSystem = channel.unary_unary(
+        '/Catalog/AddSystem',
+        request_serializer=mlp__api__pb2.AddSystemRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.SystemInfoResponse.FromString,
         )
-    self.GetService = channel.unary_unary(
-        '/Catalog/GetService',
-        request_serializer=mlp__api__pb2.GetServiceRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.ServiceInfoResponse.FromString,
+    self.GetSystem = channel.unary_unary(
+        '/Catalog/GetSystem',
+        request_serializer=mlp__api__pb2.GetSystemRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.SystemInfoResponse.FromString,
         )
-    self.AddServiceVersion = channel.unary_unary(
-        '/Catalog/AddServiceVersion',
-        request_serializer=mlp__api__pb2.AddServiceVersionRequest.SerializeToString,
-        response_deserializer=mlp__api__pb2.AddServiceVersionResponse.FromString,
+    self.AddSystemVersion = channel.unary_unary(
+        '/Catalog/AddSystemVersion',
+        request_serializer=mlp__api__pb2.AddSystemVersionRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.AddSystemVersionResponse.FromString,
         )
     self.CreateJob = channel.unary_unary(
         '/Catalog/CreateJob',
@@ -119,22 +119,22 @@ class CatalogServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def CreateService(self, request, context):
-    """SERVICES ------------
+  def AddSystem(self, request, context):
+    """SYSTEMS ------------
 
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def GetService(self, request, context):
+  def GetSystem(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def AddServiceVersion(self, request, context):
+  def AddSystemVersion(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -238,20 +238,20 @@ def add_CatalogServicer_to_server(servicer, server):
           request_deserializer=mlp__api__pb2.GetProjectRequest.FromString,
           response_serializer=mlp__api__pb2.ProjectInfoResponse.SerializeToString,
       ),
-      'CreateService': grpc.unary_unary_rpc_method_handler(
-          servicer.CreateService,
-          request_deserializer=mlp__api__pb2.CreateServiceRequest.FromString,
-          response_serializer=mlp__api__pb2.ServiceInfoResponse.SerializeToString,
+      'AddSystem': grpc.unary_unary_rpc_method_handler(
+          servicer.AddSystem,
+          request_deserializer=mlp__api__pb2.AddSystemRequest.FromString,
+          response_serializer=mlp__api__pb2.SystemInfoResponse.SerializeToString,
       ),
-      'GetService': grpc.unary_unary_rpc_method_handler(
-          servicer.GetService,
-          request_deserializer=mlp__api__pb2.GetServiceRequest.FromString,
-          response_serializer=mlp__api__pb2.ServiceInfoResponse.SerializeToString,
+      'GetSystem': grpc.unary_unary_rpc_method_handler(
+          servicer.GetSystem,
+          request_deserializer=mlp__api__pb2.GetSystemRequest.FromString,
+          response_serializer=mlp__api__pb2.SystemInfoResponse.SerializeToString,
       ),
-      'AddServiceVersion': grpc.unary_unary_rpc_method_handler(
-          servicer.AddServiceVersion,
-          request_deserializer=mlp__api__pb2.AddServiceVersionRequest.FromString,
-          response_serializer=mlp__api__pb2.AddServiceVersionResponse.SerializeToString,
+      'AddSystemVersion': grpc.unary_unary_rpc_method_handler(
+          servicer.AddSystemVersion,
+          request_deserializer=mlp__api__pb2.AddSystemVersionRequest.FromString,
+          response_serializer=mlp__api__pb2.AddSystemVersionResponse.SerializeToString,
       ),
       'CreateJob': grpc.unary_unary_rpc_method_handler(
           servicer.CreateJob,

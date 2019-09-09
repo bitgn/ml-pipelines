@@ -28,7 +28,7 @@ type Model struct {
 	*shared.Site
 	Project *db.ProjectData
 	Datasets []*Dataset
-	Services []*db.ServiceData
+	Systems []*db.SystemData
 	Jobs []*JobItem
 }
 
@@ -102,8 +102,8 @@ func (h *Handler) Handle(w http.ResponseWriter, name string){
 
 		model.Jobs = append(model.Jobs, &item)
 	}
-	for _, uid := range db.ListProjectServices(tx, pid){
-		model.Services = append(model.Services, db.GetService(tx, uid))
+	for _, uid := range db.ListProjectSystems(tx, pid){
+		model.Systems = append(model.Systems, db.GetSystem(tx, uid))
 	}
 
 

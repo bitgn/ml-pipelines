@@ -26,7 +26,7 @@ def import_into_fast_storage(prj: client.Project, i):
 
     job = prj.get_job('ingest-fast')
 
-    input = prj.get_service('event-store')
+    input = prj.get_system('event-store')
 
     output = prj.get_dataset('fast-store')
 
@@ -119,7 +119,7 @@ def render_reports(prj: client.Project, i):
 
 
     for title, name in rendered_reports:
-        report = prj.get_or_create_service(name)
+        report = prj.get_or_add_system(name)
         report.add_version(f'v{i}', inputs=[run])
 
 
@@ -132,11 +132,11 @@ def setup_analytics_demo(cl: client.Client):
 
 
 
-    slow = prj.create_service('event-store', title="Event Store")
-    # service versions can have inputs and outputs
+    slow = prj.add_system('event-store', title="Event Store")
+    # system versions can have inputs and outputs
     slow.add_version('v1')
 
-    api = prj.create_service('api', title="Analytics API")
+    api = prj.add_system('api', title="Analytics API")
     api.add_version('v1', outputs=[slow])
 
 
@@ -145,27 +145,27 @@ def setup_analytics_demo(cl: client.Client):
 
 
 
-    # session management service - near realtime
-    sessions = prj.create_service('sessions.lmdb')  # unmanaged dataset?
-    influx_user_sessions = prj.create_service('influx-user-sessions') # unmanaged dataset?
+    # session management system - near realtime
+    sessions = prj.add_system('sessions.lmdb')  # unmanaged dataset?
+    influx_user_sessions = prj.add_system('influx-user-sessions') # unmanaged dataset?
 
-    svc = prj.create_service('session-tracking')
+    svc = prj.add_system('session-tracking')
     svc.add_version('v1', inputs=[api], outputs=[sessions, influx_user_sessions])
 
     # rendered reports
 
     for title, name in rendered_reports:
-        prj.create_service(name, title=title)
+        prj.add_system(name, title=title)
 
 
     # realtime
 
     rpts = []
     for title, name in realtime_reports:
-        svc = prj.create_service(name, title=title)
+        svc = prj.add_system(name, title=title)
         rpts.append(svc)
 
-    rtp = prj.create_service("realtime-processing", title="Realtime processing")
+    rtp = prj.add_system("realtime-processing", title="Realtime processing")
     rtp.add_version('v1', inputs=[api], outputs=rpts)
 
 

@@ -100,19 +100,19 @@ message CompleteJobRunRequest {
 // SERVICE ---------------------------------------------------------------------
 
 
-message CreateServiceRequest {
+message AddSystemRequest {
     bytes project_uid = 1;
     string name = 2;
-    ServiceMetadataDelta meta = 3;
+    SystemMetadataDelta meta = 3;
 }
 
-message GetServiceRequest {
+message GetSystemRequest {
     bytes project_uid = 1;
     string name = 2;
 
 }
 
-message ServiceInfoResponse {
+message SystemInfoResponse {
     bytes uid = 1;
     bytes project_uid = 2;
     string name = 3;
@@ -121,17 +121,17 @@ message ServiceInfoResponse {
     ApiError error = 100;
 }
 
-message AddServiceVersionRequest {
-    bytes service_uid = 1;
+message AddSystemVersionRequest {
+    bytes system_uid = 1;
 
     string title = 2;
 
 
-    repeated ServiceVersionInput inputs = 3;
-    repeated ServiceVersionOutput outputs = 4;
+    repeated SystemVersionInput inputs = 3;
+    repeated SystemVersionOutput outputs = 4;
 }
 
-message AddServiceVersionResponse {
+message AddSystemVersionResponse {
     bytes uid = 1;
 
     ApiError error = 100;
@@ -265,12 +265,12 @@ service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (ProjectInfoResponse){}
     rpc GetProject(GetProjectRequest) returns (ProjectInfoResponse){}
 
-    // SERVICES ------------
+    // SYSTEMS ------------
 
-    rpc CreateService(CreateServiceRequest) returns (ServiceInfoResponse){}
-    rpc GetService(GetServiceRequest) returns (ServiceInfoResponse){}
+    rpc AddSystem(AddSystemRequest) returns (SystemInfoResponse){}
+    rpc GetSystem(GetSystemRequest) returns (SystemInfoResponse){}
 
-    rpc AddServiceVersion(AddServiceVersionRequest) returns(AddServiceVersionResponse){}
+    rpc AddSystemVersion(AddSystemVersionRequest) returns(AddSystemVersionResponse){}
 
     // JOBS -----------------
     rpc CreateJob(CreateJobRequest) returns (JobInfoResponse){}
@@ -383,7 +383,7 @@ enum StatusCode {
     // to be deleted is non-empty, an rmdir operation is applied to
     // a non-directory, etc.
     //
-    // Service implementors can use the following guidelines to decide
+    // System implementors can use the following guidelines to decide
     // between `FAILED_PRECONDITION`, `ABORTED`, and `UNAVAILABLE`:
     //  (a) Use `UNAVAILABLE` if the client can retry just the failing call.
     //  (b) Use `ABORTED` if the client should retry at a higher level

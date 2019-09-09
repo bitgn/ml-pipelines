@@ -83,14 +83,14 @@ func(s *SvgRender) DatasetVer(uid []byte){
 }
 
 
-func (s *SvgRender) ServiceVer(uid []byte){
-	ver := db.GetServiceVersion(s.tx, uid)
-	svc := db.GetService(s.tx, ver.ServiceUid)
+func (s *SvgRender) SystemVer(uid []byte){
+	ver := db.GetSystemVersion(s.tx, uid)
+	svc := db.GetSystem(s.tx, ver.SystemUid)
 
-	link := s.url.ViewServiceVer(svc.ProjectName, svc.Name, ver.VersionNum)
+	link := s.url.ViewSystemVer(svc.ProjectName, svc.Name, ver.VersionNum)
 
 	title := fmt.Sprintf("<%s<BR/><I>%s</I>>", svc.Caption(), s.fmt.Timestamp(ver.Timestamp))
-	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s href=\"%s\"]; // ServiceVer\n", hx(ver.Uid), title, link))
+	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s href=\"%s\"]; // SystemVer\n", hx(ver.Uid), title, link))
 }
 
 
@@ -99,10 +99,10 @@ func (s *SvgRender) ColorGreen(uid []byte){
 }
 
 
-func (s *SvgRender) Service(uid []byte){
-	svc := db.GetService(s.tx, uid)
+func (s *SvgRender) System(uid []byte){
+	svc := db.GetSystem(s.tx, uid)
 
-	link := s.url.ViewService(svc.ProjectName, svc.Name)
+	link := s.url.ViewSystem(svc.ProjectName, svc.Name)
 	this := hx(svc.Uid)
 	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", this, svc.Caption(), link))
 }

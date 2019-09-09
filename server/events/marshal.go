@@ -32,10 +32,10 @@ func getInstance(id Type) proto.Message{
 		return &JobRunCompleted{}
 	case Type_Event_JobRunFailed:
 		return &JobRunFailed{}
-	case Type_Event_ServiceVersionAdded:
-		return &ServiceVersionAdded{}
-	case Type_Event_ServiceCreated:
-		return &ServiceCreated{}
+	case Type_Event_SystemVersionAdded:
+		return &SystemVersionAdded{}
+	case Type_Event_SystemCreated:
+		return &SystemCreated{}
 	default:
 		log.Panicf("Unknown event type %s", id)
 		return nil
@@ -65,10 +65,10 @@ func GetContract(msg proto.Message) Type {
 		return Type_Event_JobRunFailed
 	case *JobRunCompleted:
 		return Type_Event_JobRunCompleted
-	case *ServiceCreated:
-		return Type_Event_ServiceCreated
-	case *ServiceVersionAdded:
-		return Type_Event_ServiceVersionAdded
+	case *SystemCreated:
+		return Type_Event_SystemCreated
+	case *SystemVersionAdded:
+		return Type_Event_SystemVersionAdded
 	default:
 		log.Panicf("Uknown event %T", e)
 		return Type_None

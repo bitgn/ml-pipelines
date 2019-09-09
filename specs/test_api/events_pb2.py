@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"P\n\x0eProjectCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ProjectMetadataDelta\"q\n\x08JobAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1f\n\x04meta\x18\x04 \x01(\x0b\x32\x11.JobMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"~\n\rJobRunStarted\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\r\n\x05title\x18\x03 \x01(\t\x12\x1c\n\x06inputs\x18\x04 \x03(\x0b\x32\x0c.JobRunInput\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\x12\x0f\n\x07run_num\x18\x07 \x01(\x05\"c\n\x0cJobRunLogged\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0f\n\x07\x64\x65tails\x18\x04 \x01(\t\x12\x11\n\tlog_title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"a\n\x0cJobRunFailed\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0f\n\x07\x64\x65tails\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x11\n\ttimestamp\x18\x05 \x01(\x03\"B\n\x0fJobRunCompleted\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x11\n\ttimestamp\x18\x05 \x01(\x03\"{\n\x0e\x44\x61tasetCreated\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"W\n\x0e\x44\x61tasetUpdated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x9f\x02\n\x13\x44\x61tasetVersionAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x12\n\nparent_uid\x18\x03 \x01(\x0c\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\x12\x1b\n\x05items\x18\x07 \x03(\x0b\x32\x0c.DatasetItem\x12\x1c\n\x06remove\x18\n \x03(\x0b\x32\x0c.DatasetItem\x12 \n\x06inputs\x18\x08 \x03(\x0b\x32\x10.DatasetVerInput\x12\x13\n\x0b\x64\x61taset_uid\x18\t \x01(\x0c\x12\x13\n\x0b\x63lean_slate\x18\x0b \x01(\x08\x12\x13\n\x0bversion_num\x18\x0c \x01(\x05\"{\n\x0eServiceCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.ServiceMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"\xc9\x01\n\x13ServiceVersionAdded\x12\x13\n\x0bservice_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x03 \x01(\x0c\x12\r\n\x05title\x18\x04 \x01(\t\x12$\n\x06inputs\x18\x05 \x03(\x0b\x32\x14.ServiceVersionInput\x12&\n\x07outputs\x18\x06 \x03(\x0b\x32\x15.ServiceVersionOutput\x12\x0b\n\x03num\x18\x07 \x01(\x05\x12\x11\n\ttimestamp\x18\x08 \x01(\x03\"L\n\x0b\x45xpertAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\"\n\x04meta\x18\x03 \x01(\x0b\x32\x14.ExpertMetadataDelta\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*\xc5\x02\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x18\n\x14\x45vent_ServiceCreated\x10\x06\x12\x1d\n\x19\x45vent_DatasetVersionAdded\x10\x07\x12\x17\n\x13\x45vent_JobRunStarted\x10\x08\x12\x16\n\x12\x45vent_JobRunLogged\x10\t\x12\x19\n\x15\x45vent_JobRunCompleted\x10\n\x12\x16\n\x12\x45vent_JobRunFailed\x10\x0b\x12\x1d\n\x19\x45vent_ServiceVersionAdded\x10\x0c\x62\x06proto3')
+  serialized_pb=_b('\n\x0c\x65vents.proto\x1a\x08vo.proto\"P\n\x0eProjectCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ProjectMetadataDelta\"q\n\x08JobAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1f\n\x04meta\x18\x04 \x01(\x0b\x32\x11.JobMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"~\n\rJobRunStarted\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\r\n\x05title\x18\x03 \x01(\t\x12\x1c\n\x06inputs\x18\x04 \x03(\x0b\x32\x0c.JobRunInput\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\x12\x0f\n\x07run_num\x18\x07 \x01(\x05\"c\n\x0cJobRunLogged\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0f\n\x07\x64\x65tails\x18\x04 \x01(\t\x12\x11\n\tlog_title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"a\n\x0cJobRunFailed\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0f\n\x07\x64\x65tails\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x11\n\ttimestamp\x18\x05 \x01(\x03\"B\n\x0fJobRunCompleted\x12\x0f\n\x07job_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x11\n\ttimestamp\x18\x05 \x01(\x03\"{\n\x0e\x44\x61tasetCreated\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12#\n\x04meta\x18\x04 \x01(\x0b\x32\x15.DatasetMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"W\n\x0e\x44\x61tasetUpdated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x9f\x02\n\x13\x44\x61tasetVersionAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x12\n\nparent_uid\x18\x03 \x01(\x0c\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\x11\n\ttimestamp\x18\x06 \x01(\x03\x12\x1b\n\x05items\x18\x07 \x03(\x0b\x32\x0c.DatasetItem\x12\x1c\n\x06remove\x18\n \x03(\x0b\x32\x0c.DatasetItem\x12 \n\x06inputs\x18\x08 \x03(\x0b\x32\x10.DatasetVerInput\x12\x13\n\x0b\x64\x61taset_uid\x18\t \x01(\x0c\x12\x13\n\x0b\x63lean_slate\x18\x0b \x01(\x08\x12\x13\n\x0bversion_num\x18\x0c \x01(\x05\"y\n\rSystemCreated\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\"\n\x04meta\x18\x04 \x01(\x0b\x32\x14.SystemMetadataDelta\x12\x14\n\x0cproject_name\x18\x05 \x01(\t\"\xc5\x01\n\x12SystemVersionAdded\x12\x12\n\nsystem_uid\x18\x01 \x01(\x0c\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x03 \x01(\x0c\x12\r\n\x05title\x18\x04 \x01(\t\x12#\n\x06inputs\x18\x05 \x03(\x0b\x32\x13.SystemVersionInput\x12%\n\x07outputs\x18\x06 \x03(\x0b\x32\x14.SystemVersionOutput\x12\x0b\n\x03num\x18\x07 \x01(\x05\x12\x11\n\ttimestamp\x18\x08 \x01(\x03\"L\n\x0b\x45xpertAdded\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\"\n\x04meta\x18\x03 \x01(\x0b\x32\x14.ExpertMetadataDelta\"*\n\x05\x45vent\x12\x0c\n\x04\x42ody\x18\x01 \x01(\x0c\x12\x13\n\x04Type\x18\x02 \x01(\x0e\x32\x05.Type*\xc3\x02\n\x04Type\x12\x08\n\x04None\x10\x00\x12\x18\n\x14\x45vent_ProjectCreated\x10\x01\x12\x18\n\x14\x45vent_DatasetCreated\x10\x02\x12\x18\n\x14\x45vent_DatasetUpdated\x10\x03\x12\x15\n\x11\x45vent_ExpertAdded\x10\x04\x12\x12\n\x0e\x45vent_JobAdded\x10\x05\x12\x17\n\x13\x45vent_SystemCreated\x10\x06\x12\x1d\n\x19\x45vent_DatasetVersionAdded\x10\x07\x12\x17\n\x13\x45vent_JobRunStarted\x10\x08\x12\x16\n\x12\x45vent_JobRunLogged\x10\t\x12\x19\n\x15\x45vent_JobRunCompleted\x10\n\x12\x16\n\x12\x45vent_JobRunFailed\x10\x0b\x12\x1c\n\x18\x45vent_SystemVersionAdded\x10\x0c\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
@@ -57,7 +57,7 @@ _TYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='Event_ServiceCreated', index=6, number=6,
+      name='Event_SystemCreated', index=6, number=6,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -81,14 +81,14 @@ _TYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='Event_ServiceVersionAdded', index=12, number=12,
+      name='Event_SystemVersionAdded', index=12, number=12,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1575,
-  serialized_end=1900,
+  serialized_start=1569,
+  serialized_end=1892,
 )
 _sym_db.RegisterEnumDescriptor(_TYPE)
 
@@ -99,13 +99,13 @@ Event_DatasetCreated = 2
 Event_DatasetUpdated = 3
 Event_ExpertAdded = 4
 Event_JobAdded = 5
-Event_ServiceCreated = 6
+Event_SystemCreated = 6
 Event_DatasetVersionAdded = 7
 Event_JobRunStarted = 8
 Event_JobRunLogged = 9
 Event_JobRunCompleted = 10
 Event_JobRunFailed = 11
-Event_ServiceVersionAdded = 12
+Event_SystemVersionAdded = 12
 
 
 
@@ -654,43 +654,43 @@ _DATASETVERSIONADDED = _descriptor.Descriptor(
 )
 
 
-_SERVICECREATED = _descriptor.Descriptor(
-  name='ServiceCreated',
-  full_name='ServiceCreated',
+_SYSTEMCREATED = _descriptor.Descriptor(
+  name='SystemCreated',
+  full_name='SystemCreated',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='uid', full_name='ServiceCreated.uid', index=0,
+      name='uid', full_name='SystemCreated.uid', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='project_uid', full_name='ServiceCreated.project_uid', index=1,
+      name='project_uid', full_name='SystemCreated.project_uid', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='ServiceCreated.name', index=2,
+      name='name', full_name='SystemCreated.name', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='meta', full_name='ServiceCreated.meta', index=3,
+      name='meta', full_name='SystemCreated.meta', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='project_name', full_name='ServiceCreated.project_name', index=4,
+      name='project_name', full_name='SystemCreated.project_name', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -709,68 +709,68 @@ _SERVICECREATED = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1123,
-  serialized_end=1246,
+  serialized_end=1244,
 )
 
 
-_SERVICEVERSIONADDED = _descriptor.Descriptor(
-  name='ServiceVersionAdded',
-  full_name='ServiceVersionAdded',
+_SYSTEMVERSIONADDED = _descriptor.Descriptor(
+  name='SystemVersionAdded',
+  full_name='SystemVersionAdded',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='service_uid', full_name='ServiceVersionAdded.service_uid', index=0,
+      name='system_uid', full_name='SystemVersionAdded.system_uid', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='uid', full_name='ServiceVersionAdded.uid', index=1,
+      name='uid', full_name='SystemVersionAdded.uid', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='project_uid', full_name='ServiceVersionAdded.project_uid', index=2,
+      name='project_uid', full_name='SystemVersionAdded.project_uid', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='title', full_name='ServiceVersionAdded.title', index=3,
+      name='title', full_name='SystemVersionAdded.title', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='inputs', full_name='ServiceVersionAdded.inputs', index=4,
+      name='inputs', full_name='SystemVersionAdded.inputs', index=4,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='outputs', full_name='ServiceVersionAdded.outputs', index=5,
+      name='outputs', full_name='SystemVersionAdded.outputs', index=5,
       number=6, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='num', full_name='ServiceVersionAdded.num', index=6,
+      name='num', full_name='SystemVersionAdded.num', index=6,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timestamp', full_name='ServiceVersionAdded.timestamp', index=7,
+      name='timestamp', full_name='SystemVersionAdded.timestamp', index=7,
       number=8, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -788,8 +788,8 @@ _SERVICEVERSIONADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1249,
-  serialized_end=1450,
+  serialized_start=1247,
+  serialized_end=1444,
 )
 
 
@@ -833,8 +833,8 @@ _EXPERTADDED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1452,
-  serialized_end=1528,
+  serialized_start=1446,
+  serialized_end=1522,
 )
 
 
@@ -871,8 +871,8 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1530,
-  serialized_end=1572,
+  serialized_start=1524,
+  serialized_end=1566,
 )
 
 _PROJECTCREATED.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
@@ -883,9 +883,9 @@ _DATASETUPDATED.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADE
 _DATASETVERSIONADDED.fields_by_name['items'].message_type = vo__pb2._DATASETITEM
 _DATASETVERSIONADDED.fields_by_name['remove'].message_type = vo__pb2._DATASETITEM
 _DATASETVERSIONADDED.fields_by_name['inputs'].message_type = vo__pb2._DATASETVERINPUT
-_SERVICECREATED.fields_by_name['meta'].message_type = vo__pb2._SERVICEMETADATADELTA
-_SERVICEVERSIONADDED.fields_by_name['inputs'].message_type = vo__pb2._SERVICEVERSIONINPUT
-_SERVICEVERSIONADDED.fields_by_name['outputs'].message_type = vo__pb2._SERVICEVERSIONOUTPUT
+_SYSTEMCREATED.fields_by_name['meta'].message_type = vo__pb2._SYSTEMMETADATADELTA
+_SYSTEMVERSIONADDED.fields_by_name['inputs'].message_type = vo__pb2._SYSTEMVERSIONINPUT
+_SYSTEMVERSIONADDED.fields_by_name['outputs'].message_type = vo__pb2._SYSTEMVERSIONOUTPUT
 _EXPERTADDED.fields_by_name['meta'].message_type = vo__pb2._EXPERTMETADATADELTA
 _EVENT.fields_by_name['Type'].enum_type = _TYPE
 DESCRIPTOR.message_types_by_name['ProjectCreated'] = _PROJECTCREATED
@@ -897,8 +897,8 @@ DESCRIPTOR.message_types_by_name['JobRunCompleted'] = _JOBRUNCOMPLETED
 DESCRIPTOR.message_types_by_name['DatasetCreated'] = _DATASETCREATED
 DESCRIPTOR.message_types_by_name['DatasetUpdated'] = _DATASETUPDATED
 DESCRIPTOR.message_types_by_name['DatasetVersionAdded'] = _DATASETVERSIONADDED
-DESCRIPTOR.message_types_by_name['ServiceCreated'] = _SERVICECREATED
-DESCRIPTOR.message_types_by_name['ServiceVersionAdded'] = _SERVICEVERSIONADDED
+DESCRIPTOR.message_types_by_name['SystemCreated'] = _SYSTEMCREATED
+DESCRIPTOR.message_types_by_name['SystemVersionAdded'] = _SYSTEMVERSIONADDED
 DESCRIPTOR.message_types_by_name['ExpertAdded'] = _EXPERTADDED
 DESCRIPTOR.message_types_by_name['Event'] = _EVENT
 DESCRIPTOR.enum_types_by_name['Type'] = _TYPE
@@ -967,19 +967,19 @@ DatasetVersionAdded = _reflection.GeneratedProtocolMessageType('DatasetVersionAd
   })
 _sym_db.RegisterMessage(DatasetVersionAdded)
 
-ServiceCreated = _reflection.GeneratedProtocolMessageType('ServiceCreated', (_message.Message,), {
-  'DESCRIPTOR' : _SERVICECREATED,
+SystemCreated = _reflection.GeneratedProtocolMessageType('SystemCreated', (_message.Message,), {
+  'DESCRIPTOR' : _SYSTEMCREATED,
   '__module__' : 'events_pb2'
-  # @@protoc_insertion_point(class_scope:ServiceCreated)
+  # @@protoc_insertion_point(class_scope:SystemCreated)
   })
-_sym_db.RegisterMessage(ServiceCreated)
+_sym_db.RegisterMessage(SystemCreated)
 
-ServiceVersionAdded = _reflection.GeneratedProtocolMessageType('ServiceVersionAdded', (_message.Message,), {
-  'DESCRIPTOR' : _SERVICEVERSIONADDED,
+SystemVersionAdded = _reflection.GeneratedProtocolMessageType('SystemVersionAdded', (_message.Message,), {
+  'DESCRIPTOR' : _SYSTEMVERSIONADDED,
   '__module__' : 'events_pb2'
-  # @@protoc_insertion_point(class_scope:ServiceVersionAdded)
+  # @@protoc_insertion_point(class_scope:SystemVersionAdded)
   })
-_sym_db.RegisterMessage(ServiceVersionAdded)
+_sym_db.RegisterMessage(SystemVersionAdded)
 
 ExpertAdded = _reflection.GeneratedProtocolMessageType('ExpertAdded', (_message.Message,), {
   'DESCRIPTOR' : _EXPERTADDED,

@@ -117,25 +117,25 @@ message DatasetVersionAdded {
 // SERVICE --------------------------------------------------------------------
 
 
-message ServiceCreated {
+message SystemCreated {
     bytes uid = 1;
     bytes project_uid = 2;
 
     string name = 3;
 
-    ServiceMetadataDelta meta = 4;
+    SystemMetadataDelta meta = 4;
 
     string project_name = 5;
 }
 
-message ServiceVersionAdded {
-    bytes service_uid = 1;
+message SystemVersionAdded {
+    bytes system_uid = 1;
     bytes uid = 2;
     bytes project_uid = 3;
     string title = 4;
 
-    repeated ServiceVersionInput inputs = 5;
-    repeated ServiceVersionOutput outputs = 6;
+    repeated SystemVersionInput inputs = 5;
+    repeated SystemVersionOutput outputs = 6;
     int32 num = 7;
     int64 timestamp = 8;
 }
@@ -161,13 +161,13 @@ enum Type {
     Event_DatasetUpdated = 3;
     Event_ExpertAdded = 4;
     Event_JobAdded = 5;
-    Event_ServiceCreated = 6;
+    Event_SystemCreated = 6;
     Event_DatasetVersionAdded = 7;
     Event_JobRunStarted = 8;
     Event_JobRunLogged = 9;
     Event_JobRunCompleted = 10;
     Event_JobRunFailed = 11;
-    Event_ServiceVersionAdded = 12;
+    Event_SystemVersionAdded = 12;
 
 }
 

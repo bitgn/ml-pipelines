@@ -5,7 +5,7 @@ from . import vo_pb2 as vo
 
 from .cl_job import Job
 from .cl_dataset import Dataset
-from .cl_service import Service
+from .cl_system import System
 
 class MultiCommit:
     def __init__(self, ctx, project_uid, clean_slate):
@@ -112,39 +112,39 @@ class Project:
 
         return self.create_dataset(name, location_id=location_id)
 
-    def create_service(self, name: str, title: Optional[str] = None) -> Service:
-        meta = vo.ServiceMetadataDelta()
+    def add_system(self, name: str, title: Optional[str] = None) -> System:
+        meta = vo.SystemMetadataDelta()
 
         if title:
             meta.title = title
             meta.title_set = True
 
-        new = api.CreateServiceRequest(
+        new = api.AddSystemRequest(
             project_uid=self.uid,
             name=name,
             meta=meta,
         )
-        resp = self.ctx.create_service(new)
-        return Service(
+        resp = self.ctx.add_system(new)
+        return System(
             self.ctx,
             project_uid=self.uid,
             uid=resp.uid,
             name=name,
         )
-    def get_service(self, name:str) -> Service:
+    def get_system(self, name:str) -> System:
 
-        req = api.GetServiceRequest(
+        req = api.GetSystemRequest(
             project_uid=self.uid,
             name=name
         )
-        resp = self.ctx.get_service(req)
+        resp = self.ctx.get_system(req)
 
-        return Service(self.ctx,project_uid=self.uid, uid=resp.uid, name=name)
+        return System(self.ctx, project_uid=self.uid, uid=resp.uid, name=name)
 
-    def get_or_create_service(self, name: str) -> Service:
+    def get_or_add_system(self, name: str) -> System:
         try:
-            return self.get_service(name)
+            return self.get_system(name)
         except errors.NotFound:
             pass
 
-        return self.create_service(name)
+        return self.add_system(name)

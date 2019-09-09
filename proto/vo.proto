@@ -13,7 +13,7 @@ message ProjectMetadataDelta {
 
 
 
-message ServiceMetadataDelta {
+message SystemMetadataDelta {
     string title = 1;
     bool title_set = 2;
 
@@ -50,12 +50,12 @@ enum ENTITY {
     NONE = 0;
     DATASET = 1;
     JOB = 2;
-    SERVICE = 3;
+    SYSTEM = 3;
     MODEL = 4;
     PROJECT=5;
     DATASET_VERSION=6;
     JOB_RUN=7;
-    SERVICE_VERSION = 9;
+    SYSTEM_VERSION = 9;
 
 }
 
@@ -77,20 +77,20 @@ message JobMetadataDelta {
 }
 
 
-message ServiceVersionInput {
+message SystemVersionInput {
     enum Type {
         None = 0;
-        Service = 1;
+        System = 1;
         JobRun = 2;
     }
     bytes uid = 1;
     Type type = 2;
 }
 
-message ServiceVersionOutput{
+message SystemVersionOutput{
     enum Type {
         None = 0;
-        Service = 1;
+        System = 1;
     }
     bytes uid = 1;
     Type type = 2;
@@ -105,7 +105,7 @@ message JobRunInput {
     enum Type {
         None = 0;
         DatasetVer = 1;
-        Service = 2;
+        System = 2;
     }
     // dataset
     bytes uid = 1;

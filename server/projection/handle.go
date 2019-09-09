@@ -229,13 +229,13 @@ func Handle(tx *db.Tx, msg proto.Message){
 					Uid:run.Uid,
 				})
 				db.PutDatasetVersion(tx, ds)
-			case vo.JobRunInput_Service:
+			case vo.JobRunInput_System:
 
-				// Service -> THIS
-				db.PutServiceLink(tx, input.Uid, &db.ServiceLink{
+				// System -> THIS
+				db.PutSystemLink(tx, input.Uid, &db.SystemLink{
 					ContainerUid:e.JobUid,
 					// for the link, this is output
-					Type:db.ServiceLink_Output_JobRun,
+					Type:db.SystemLink_Output_JobRun,
 					InstanceUid:e.Uid,
 				})
 
@@ -254,11 +254,11 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutJob(tx, job)
 
 
-	case *events.ServiceCreated:
+	case *events.SystemCreated:
 		mustName(e.Name)
 		mustName(e.ProjectName)
 
-		data := &db.ServiceData{
+		data := &db.SystemData{
 			Name:e.Name,
 			Uid:e.Uid,
 			Title:e.Meta.Title,
@@ -270,60 +270,60 @@ func Handle(tx *db.Tx, msg proto.Message){
 			ProjectName:e.ProjectName,
 		}
 
-		db.PutService(tx, data)
-		db.Name(tx, e.ProjectUid, e.Name, vo.ENTITY_SERVICE, e.Uid)
+		db.PutSystem(tx, data)
+		db.Name(tx, e.ProjectUid, e.Name, vo.ENTITY_SYSTEM, e.Uid)
 
-		db.AddServiceToProject(tx, e.ProjectUid, e.Uid)
+		db.AddSystemToProject(tx, e.ProjectUid, e.Uid)
 
 
 		proj := db.GetProject(tx, e.ProjectUid)
-		proj.ServiceCount +=1
+		proj.SystemCount +=1
 		db.PutProject(tx, proj)
 
 
 		stats := db.GetStats(tx)
-		stats.ServiceCount +=1
+		stats.SystemCount +=1
 		db.PutStats(tx, stats)
 
-	case *events.ServiceVersionAdded:
-		svc := db.GetService(tx, e.ServiceUid)
+	case *events.SystemVersionAdded:
+		svc := db.GetSystem(tx, e.SystemUid)
 		svc.VersionNum = e.Num;
 		svc.VersionUid =e.Uid;
 		svc.VersionTimestamp = e.Timestamp
-		db.PutService(tx, svc)
+		db.PutSystem(tx, svc)
 
-		ver := &db.ServiceVersionData{
+		ver := &db.SystemVersionData{
 			Uid:e.Uid,
 			VersionNum:e.Num,
 			Inputs:e.Inputs,
 			Outputs:e.Outputs,
 			Title:e.Title,
 			Timestamp:e.Timestamp,
-			ServiceUid:e.ServiceUid,
+			SystemUid:e.SystemUid,
 		}
 
-		db.PutServiceVersion(tx, ver)
-		db.IndexServiceVersion(tx,ver.ServiceUid, ver.Uid, ver.VersionNum)
+		db.PutSystemVersion(tx, ver)
+		db.IndexSystemVersion(tx,ver.SystemUid, ver.Uid, ver.VersionNum)
 
 
 		for _, input := range e.Inputs{
 			switch input.Type {
-			case vo.ServiceVersionInput_Service:
-				// Service XXXX -> THIS
-				db.PutServiceLink(tx, input.Uid, &db.ServiceLink{
-					ContainerUid:e.ServiceUid,
+			case vo.SystemVersionInput_System:
+				// System XXXX -> THIS
+				db.PutSystemLink(tx, input.Uid, &db.SystemLink{
+					ContainerUid:e.SystemUid,
 					// for the link, this is output
-					Type:db.ServiceLink_Output_ServiceVer,
+					Type:db.SystemLink_Output_SystemVer,
 					InstanceUid:e.Uid,
 				})
-			case vo.ServiceVersionInput_JobRun:
+			case vo.SystemVersionInput_JobRun:
 
 
 				// JobRUN XXXX -> THIS
 
 				run := db.GetJobRun(tx, input.Uid)
 				run.Outputs = append(run.Outputs, &db.JobRunOutput{
-					Type: db.JobRunOutput_ServiceVer,
+					Type: db.JobRunOutput_SystemVer,
 					Uid:e.Uid,
 				})
 				db.PutJobRun(tx, run)
@@ -335,12 +335,12 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		for _, output := range e.Outputs{
 			switch output.Type {
-			case vo.ServiceVersionOutput_Service:
-				// Service THIS -> Service XXXX
-				db.PutServiceLink(tx, output.Uid, &db.ServiceLink{
-					ContainerUid:e.ServiceUid,
+			case vo.SystemVersionOutput_System:
+				// System THIS -> System XXXX
+				db.PutSystemLink(tx, output.Uid, &db.SystemLink{
+					ContainerUid:e.SystemUid,
 					// for the link, this is output
-					Type:db.ServiceLink_Input_ServiceVer,
+					Type:db.SystemLink_Input_SystemVer,
 					InstanceUid:e.Uid,
 				})
 			default:

@@ -8,7 +8,7 @@ func (r *DatasetInfoResponse) err(e *ApiError) (*DatasetInfoResponse, error){
 	return r, nil
 
 }
-func (r *ServiceInfoResponse) err(e *ApiError) (*ServiceInfoResponse, error){
+func (r *SystemInfoResponse) err(e *ApiError) (*SystemInfoResponse, error){
 
 	r.Error = e
 	return r, nil
