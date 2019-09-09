@@ -77,7 +77,19 @@ func(s *SvgRender) DatasetVer(uid []byte){
 	ver := db.GetDatasetVersion(s.tx,uid)
 	ds := db.GetDataset(s.tx, ver.DatasetUid)
 	link := s.url.ViewDatasetVersion(ds.ProjectName, ds.Name, ver.Uid)
-	s.Line("  \"%s\" [label=\"%s\" href=\"%s\"];// DatasetVer\n", hx(uid), ds.Title, link)
+
+	title := fmt.Sprintf("<%s<BR/><I>%s</I>>", ds.Title, s.fmt.Timestamp(ver.Timestamp))
+	s.Line("  \"%s\" [label=%s href=\"%s\"];// DatasetVer\n", hx(uid), title, link)
+}
+
+
+func (s *SvgRender) ServiceVer(uid []byte){
+	ver := db.GetServiceVersion(s.tx, uid)
+	svc := db.GetService(s.tx, ver.ServiceUid)
+
+	link := s.url.ViewServiceVer(svc.ProjectName, svc.Name, ver.VersionNum)
+	title := fmt.Sprintf("<%s<BR/><I>%s</I>>", svc.Caption(), s.fmt.Timestamp(ver.Timestamp))
+	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", hx(ver.Uid), title, link))
 }
 
 
@@ -120,7 +132,7 @@ func renderDot(line string) ([]byte, error){
 }
 
 
-func (s *SvgRender) Render() template.HTML {
+func (s *SvgRender) ToHtml() template.HTML {
 
 	s.Line("}")
 

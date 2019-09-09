@@ -14,6 +14,7 @@ enum Range {
     DATASET_VERSIONS = 8;
     DATASET_HEAD_ITEMS = 9;
     SERVICES = 13;
+    SERVICE_VERSIONS=14;
 
     DATASET_BINARY_TREE = 22;
 
@@ -27,6 +28,9 @@ enum Range {
 
     IDX_PROJECT_DATASETS =20;
     IDX_DATASET_VERSIONS = 21;
+
+    // service UID/int32
+    IDX_SERVICE_VERSIONS = 23;
 
 
     VERSION=255;
@@ -115,6 +119,8 @@ message DatasetVersionData{
     repeated DatasetVerOutput outputs = 10;
 
     int32 version_num=11;
+
+    int64 timestamp = 12;
 }
 
 
@@ -128,9 +134,12 @@ message ServiceData{
     bytes project_uid = 4;
     string description = 5;
     string location_id = 6;
-    string location_uid = 7;
+    string location_uri = 7;
     repeated bytes experts = 14;
     string project_name = 8;
+
+    int32 version_num = 9;
+    bytes version_uid = 10;
 
 }
 
@@ -140,6 +149,8 @@ message ServiceVersionData{
 
 
     int32 version_num = 3;
+    bytes service_uid = 4;
+    int64 timestamp = 5;
 
 
     repeated ServiceVersionInput inputs = 10;

@@ -109,7 +109,41 @@ func (s *server) GetService(c context.Context, req *GetServiceRequest) (*Service
 }
 
 func (s *server) AddServiceVersion(c context.Context, r *AddServiceVersionRequest) (*AddServiceVersionResponse, error) {
-	panic("implement me")
+
+
+	tx := s.db.MustWrite()
+	defer tx.MustCleanup()
+
+	svc := db.GetService(tx, r.ServiceUid)
+	if svc == nil {
+		log.Panicln("Project not found")
+	}
+	prj := db.GetProject(tx,svc.ProjectUid)
+	if prj == nil {
+		log.Panicln("Project not found")
+	}
+
+
+	uid := sim.NewID()
+
+	e := &events.ServiceVersionAdded{
+		ProjectUid: svc.ProjectUid,
+		Uid:        uid,
+		ServiceUid:svc.Uid,
+		Num:svc.VersionNum+1,
+		Title:r.Title,
+		Outputs:r.Outputs,
+		Inputs:r.Inputs,
+
+
+	}
+
+	s.publish(tx, e)
+	tx.MustCommit()
+
+	return &AddServiceVersionResponse{
+		Uid:uid,
+	}, nil
 }
 
 func (s *server) GetLastDatasetVersion(c context.Context, req *GetLastDatasetVersionRequest) (*DatasetVersionResponse, error) {

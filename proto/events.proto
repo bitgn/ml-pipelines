@@ -136,6 +136,8 @@ message ServiceVersionAdded {
 
     repeated ServiceVersionInput inputs = 5;
     repeated ServiceVersionOutput outputs = 6;
+    int32 num = 7;
+    int64 timestamp = 8;
 }
 
 

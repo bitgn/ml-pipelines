@@ -1,0 +1,84 @@
+{{- /*gotype: mlp/catalog/web/view_service.ViewServiceModel*/ -}}
+{{define "content"}}
+
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Project.Name}}" class="project-link">{{ .Project.Caption }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ .Service.Caption }}</li>
+  </ol>
+</nav>
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2>
+            Service: {{ .Service.Caption }}
+        </h2>
+    </div>
+
+    <div class="container" id="ds-{{.Site.Fmt.Uid .Service.Uid}}">
+        <div class="row rounded border px-4 py-3" >
+            <div class="col">
+
+                <div>
+                    {{if .Service.LocationId }}
+                        <strong>Location: </strong><span class="location-id">{{ .Service.LocationId }}</span><br/>
+                    {{end}}
+
+
+                    <strong>URI: </strong>
+                    <code class="location-uri">
+                        {{if .Service.LocationUri}}{{.Service.LocationUri}}{{else}}N/A{{end}}
+                    </code><br/>
+
+                    {{if .Service.VersionNum}}
+                        <strong>Versions: </strong>{{ .Service.VersionNum }}<br/>
+                    {{end}}
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <div class="row pt-5">
+            <div class="col">
+                <h3>Relations</h3>
+                {{  .Lineage }}
+            </div>
+        </div>
+
+        {{ if .Description}}
+
+        <div class="row pt-5">
+        <div class="col">
+            <h3>Description</h3>
+
+            <article class="pt-2 description">
+                {{ .Description }}
+            </article>
+
+        </div>
+        </div>
+
+
+    {{end}}
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+{{end}}
+
+

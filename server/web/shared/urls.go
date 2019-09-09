@@ -43,10 +43,14 @@ func (b *UrlResolver) ViewDataset(project, dataset string) string{
 }
 
 func (b *UrlResolver) ViewDatasetVersion(project, dataset string, uid []byte) string {
-	return fmt.Sprintf("/projects/%s/datasets/%s/ver/%s", project, dataset, hex.EncodeToString(uid))
+	return fmt.Sprintf("/projects/%s/datasets/%s/%s", project, dataset, hex.EncodeToString(uid))
 }
 func (b *UrlResolver) ViewService(project, service string) string {
 	return fmt.Sprintf("/projects/%s/services/%s", project, service)
+}
+
+func (b *UrlResolver) ViewServiceVer(project, service string, version int32) string {
+	return fmt.Sprintf("/projects/%s/services/%s/%d", project, service, version)
 }
 
 

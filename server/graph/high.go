@@ -10,6 +10,50 @@ import (
 	"mlp/catalog/web/shared"
 )
 
+func RenderServiceGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML{
+	render := NewRender(tx, s.Url, s.Fmt)
+
+	render.Service(uid)
+	render.ColorGreen(uid)
+
+	return render.ToHtml()
+}
+
+
+func RenderServiceVersionGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML{
+	render := NewRender(tx, s.Url, s.Fmt)
+
+	render.ServiceVer(uid)
+	render.ColorGreen(uid)
+
+
+	this := db.GetServiceVersion(tx, uid)
+
+	for _, input := range this.Inputs{
+		switch input.Type {
+		case vo.ServiceVersionInput_Service:
+			render.Service(input.Uid)
+			render.Dash(input.Uid, uid)
+		default:
+			log.Panicf("Unknown service input %s", input.Type)
+
+		}
+	}
+
+	for _, output := range this.Outputs{
+		switch output.Type {
+		case vo.ServiceVersionOutput_Service:
+			render.Service(output.Uid)
+			render.Dash(output.Uid, uid)
+
+		}
+	}
+
+
+	return render.ToHtml()
+}
+
+
 func  RenderDatasetVerGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML{
 
 	render := NewRender(tx, s.Url, s.Fmt)
@@ -88,7 +132,7 @@ func  RenderDatasetVerGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML
 
 		}
 	}
-	return render.Render()
+	return render.ToHtml()
 
 
 }

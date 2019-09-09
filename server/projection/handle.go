@@ -106,6 +106,8 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Items:e.Items,
 			Inputs:e.Inputs,
 			VersionNum:e.VersionNum,
+			Timestamp:e.Timestamp,
+
 		}
 
 
@@ -237,7 +239,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Description:e.Meta.Description,
 			ProjectUid:e.ProjectUid,
 			Experts:e.Meta.Experts,
-			LocationUid:e.Meta.LocationId,
+			LocationUri:e.Meta.LocationUri,
 			ProjectName:e.ProjectName,
 		}
 
@@ -253,6 +255,25 @@ func Handle(tx *db.Tx, msg proto.Message){
 		stats := db.GetStats(tx)
 		stats.ServiceCount +=1
 		db.PutStats(tx, stats)
+
+	case *events.ServiceVersionAdded:
+		svc := db.GetService(tx, e.ServiceUid)
+		svc.VersionNum = e.Num;
+		svc.VersionUid =e.Uid;
+		db.PutService(tx, svc)
+
+		ver := &db.ServiceVersionData{
+			Uid:e.Uid,
+			VersionNum:e.Num,
+			Inputs:e.Inputs,
+			Outputs:e.Outputs,
+			Title:e.Title,
+			Timestamp:e.Timestamp,
+			ServiceUid:e.ServiceUid,
+		}
+
+		db.PutServiceVersion(tx, ver)
+		db.IndexServiceVersion(tx,ver.ServiceUid, ver.Uid, ver.VersionNum)
 
 	case *events.JobAdded:
 
