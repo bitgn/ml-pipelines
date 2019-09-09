@@ -8,6 +8,7 @@ import (
 	"log"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
+	"mlp/catalog/graph"
 	"mlp/catalog/vo"
 	"mlp/catalog/web/shared"
 	"net/http"
@@ -87,8 +88,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string, verUid 
 	}
 
 
-
-
+	render := graph.RenderDatasetVerGraph(tx, site, verUid)
 
 
 	model := &ViewDatsetModel{
@@ -96,7 +96,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string, verUid 
 		Dataset: ds,
 		Project: pr,
 		IsStale: domain.IsStale(ds),
-		Lineage: renderDatasetVersionSVG( tx,verUid, site.Url, site.Fmt, ds.Caption()),
+		Lineage: render,
 	}
 
 	if len(ds.Description) > 0 {
