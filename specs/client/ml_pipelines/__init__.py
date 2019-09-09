@@ -7,3 +7,4 @@ from .errors import *
 
 
 from .cl_dataset import DatasetVersion
+from .cl_project import Project

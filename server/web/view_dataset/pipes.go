@@ -9,6 +9,7 @@ import (
 	"io"
 	"log"
 	"mlp/catalog/db"
+	"mlp/catalog/graph"
 	"mlp/catalog/vo"
 	"mlp/catalog/web/shared"
 	"os/exec"
@@ -69,7 +70,13 @@ def build_lineage(dataset_id, tx):
     return dot
  */
 
-func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, title string) template.HTML{
+
+
+func hx(b []byte) string{
+	return hex.EncodeToString(b)
+}
+
+func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, f shared.Format, title string) template.HTML{
 
 	this := db.GetDatasetVersion(tx, uid)
 
@@ -77,16 +84,17 @@ func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, titl
 		title = fmt.Sprintf("<%s<BR/><I>version %d</I>>", title, this.VersionNum)
 	}
 
-	hx := hex.EncodeToString
 
 
-	var sb strings.Builder
-	sb.WriteString("digraph{\n")
-	sb.WriteString("rankdir=LR;\n")
-	sb.WriteString("fontname=\"Arial\";\n")
-	sb.WriteString("node[shape=\"rectangle\" color=\"#343a40\" penwidth=\"1.5\" fontname=\"Arial\"];\n")
-	sb.WriteString("edge[color=\"#343a40\" penwidth=\"1.0\"]\n;")
-	sb.WriteString(fmt.Sprintf("this [label=%s color=\"#28a745\"]; \n", title))
+
+	render := graph.NewRender(tx, url, f)
+
+	render.Line("digraph{")
+	render.Line("rankdir=LR;")
+	render.Line("fontname=\"Arial\";")
+	render.Line("node[shape=\"rectangle\" color=\"#343a40\" penwidth=\"1.5\" fontname=\"Arial\"];")
+	render.Line("edge[color=\"#343a40\" penwidth=\"1.0\"];")
+	render.Line("\"%s\" [label=%s color=\"#28a745\"];", hx(uid), title)
 
 
 
@@ -102,28 +110,22 @@ func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, titl
 			case vo.DatasetVerInput_JOB_RUN:
 
 				run := db.GetJobRun(tx, input.Uid)
-				job := db.GetJob(tx, run.JobUid)
 
-
-
-				runTitle := fmt.Sprintf("<%s<BR/><I>%s</I>>", job.Caption(), run.Title)
-				sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s style=\"rounded\"]; \n", hx(run.Uid), runTitle))
-				sb.WriteString(fmt.Sprintf("  \"%s\" -> this;\n", hx(run.Uid)))
+				render.JobRun(input.Uid)
+				render.Arrow(input.Uid, uid)
 
 				for _, input := range run.Inputs {
 
 					switch input.Type {
 
 					case vo.JobRunInput_DatasetVer:
-						ver := db.GetDatasetVersion(tx, input.Uid)
-						ds := db.GetDataset(tx, ver.DatasetUid)
-
-						link := url.ViewDatasetVersion(ds.ProjectName, ds.Name, ver.Uid)
-						sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", hx(ds.Uid), ds.Title, link))
-						sb.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\" [arrowhead=\"none\"];", hx(ds.Uid), hx(run.Uid)))
-
+						render.DatasetVer(input.Uid)
+						render.Dash(input.Uid, run.Uid)
+					case vo.JobRunInput_Service:
+						render.Service(input.Uid)
+						render.Dash(input.Uid, run.Uid)
 					default:
-						log.Panicln("Unknown job run input")
+						log.Panicf("Unknown job run input %s\n", input.Type)
 					}
 
 				}
@@ -135,36 +137,26 @@ func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, titl
 
 		}
 
-		for _, j := range this.Outputs {
+		for _, out := range this.Outputs {
 
-			switch j.Type {
+			switch out.Type {
 			case vo.DatasetVerOutput_JOB_RUN:
 
-				run := db.GetJobRun(tx, j.Uid)
-
-				job := db.GetJob(tx, run.JobUid)
-
-
-
-				runTitle := fmt.Sprintf("<%s<BR/><I>%s</I>>", job.Caption(), run.Title)
+				run := db.GetJobRun(tx, out.Uid)
 
 				if run == nil {
-					log.Panicln("Can't find job RUN", hx(j.Uid), base64.StdEncoding.EncodeToString(j.Uid))
+					log.Panicln("Can't find job RUN", hx(out.Uid), base64.StdEncoding.EncodeToString(out.Uid))
 				}
 
-				sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s style=\"rounded\"];\n", hx(run.Uid), runTitle))
-				sb.WriteString(fmt.Sprintf("  this -> \"%s\" [arrowhead=\"none\"];\n", hx(run.Uid)))
+				render.JobRun(out.Uid)
+				render.Dash(uid, out.Uid)
 
 				for _, output := range run.Outputs {
 
 					switch output.Type {
 					case vo.JobRunOutput_DatasetVer:
-						ver := db.GetDatasetVersion(tx, output.Uid)
-						ds := db.GetDataset(tx, ver.DatasetUid)
-						link := url.ViewDatasetVersion(ds.ProjectName, ds.Name, ver.Uid)
-						sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", hx(ds.Uid), ds.Title, link))
-						sb.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\" [arrowtail=\"none\"];", hx(run.Uid), hx(ds.Uid)))
-
+						render.DatasetVer(output.Uid)
+						render.Arrow(run.Uid, output.Uid)
 					default:
 						log.Panicln("Unknown job run output")
 					}
@@ -178,29 +170,26 @@ func renderDatasetVersionSVG(tx *db.Tx, uid []byte, url shared.UrlResolver, titl
 		}
 	}
 
-
-	sb.WriteString("}")
+	render.Line("}")
 
 	//println(sb.String())
 
-
-	result, err := renderDot(sb.String())
-
-
+	result, err := renderDot(render.String())
 
 	//println(string(result))
 
 	if err != nil {
 		log.Println("Problem with SVG:", string(result))
 		log.Println("Original input:")
-		log.Println(sb.String())
+		log.Println(render.String())
 		return template.HTML(err.Error())
 	}
 
 	str := string(result)
 
-	str = strings.Replace(str, "<svg ", `<svg class="img-fluid" `,1)
+	str = strings.Replace(str, "<svg ", `<svg class="img-fluid" `, 1)
 	return template.HTML(str)
 
-
 }
+
+

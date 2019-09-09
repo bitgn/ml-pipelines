@@ -10,9 +10,21 @@ import google.protobuf.message as pb
 
 
 
-class PipelineInput:
+class EntityId:
     def __init__(self, uid: bytes):
         self.uid= uid
+
+class JobRunId (EntityId):
+    pass
+
+
+class DatasetVersionId(EntityId):
+    pass
+
+class ServiceId(EntityId):
+    pass
+
+
 
 class Context:
 
@@ -69,6 +81,17 @@ class Context:
 
     def stat(self, req: api.StatRequest) -> api.StatResponse:
         s: api.StatResponse = self._rpc(lambda: self.catalog.Stat(req))
+        return s
+
+    def create_service(self, req: api.CreateServiceRequest) -> api.ServiceInfoResponse:
+        s: api.ServiceInfoResponse = self._rpc(lambda : self.catalog.CreateService(req))
+        return s
+
+    def add_service_version(self, r: api.AddServiceVersionRequest) -> api.AddServiceVersionResponse:
+        s: api.AddServiceVersionResponse = self._rpc(lambda : self.catalog.AddServiceVersion(r))
+        return s
+    def get_service(self, r: api.GetServiceRequest)-> api.ServiceInfoResponse:
+        s: api.ServiceInfoResponse = self._rpc(lambda : self.catalog.GetService(r))
         return s
 
     def _rpc(self, callable: Callable[[], pb.Message]):

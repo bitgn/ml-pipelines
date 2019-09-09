@@ -7,7 +7,7 @@ from . import vo_pb2 as vo
 from .cl_dataset import *
 
 
-class JobRun(PipelineInput):
+class JobRun(JobRunId):
     def __init__(self, ctx: Context, project_uid, job_uid, uid):
         super().__init__(uid)
         self.uid = uid
@@ -48,7 +48,7 @@ class Job:
         self.project_uid = project_uid
         self.ctx = ctx
 
-    def start_run(self, title: str, inputs:List[DatasetVersion]) -> JobRun:
+    def start_run(self, inputs:List[Union[DatasetVersionId, ServiceId]],title: Optional[str]=None) -> JobRun:
 
         req = api.StartJobRunRequest(
             project_uid=self.project_uid,
@@ -58,9 +58,15 @@ class Job:
         )
 
         for i in inputs:
-            input = vo.JobRunInput(uid=i.uid, type=vo.JobRunInput.Type.DatasetVer)
-            req.inputs.append(input)
+            if isinstance(i, DatasetVersionId):
+                req.inputs.append(vo.JobRunInput(uid=i.uid, type=vo.JobRunInput.Type.DatasetVer))
+                continue
+            if isinstance(i, ServiceId):
+                req.inputs.append(vo.JobRunInput(uid=i.uid, type=vo.JobRunInput.Type.Service))
+                continue
+            raise ValueError(f"Unexpected job run input {i.__class__}")
         resp = self.ctx.start_job_run(req)
+
 
         return JobRun(self.ctx, self.project_uid, self.uid, resp.uid)
 

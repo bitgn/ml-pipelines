@@ -47,6 +47,7 @@ class ENTITY(int):
     PROJECT = typing___cast(ENTITY, 5)
     DATASET_VERSION = typing___cast(ENTITY, 6)
     JOB_RUN = typing___cast(ENTITY, 7)
+    SERVICE_VERSION = typing___cast(ENTITY, 9)
 NONE = typing___cast(ENTITY, 0)
 DATASET = typing___cast(ENTITY, 1)
 JOB = typing___cast(ENTITY, 2)
@@ -55,6 +56,7 @@ MODEL = typing___cast(ENTITY, 4)
 PROJECT = typing___cast(ENTITY, 5)
 DATASET_VERSION = typing___cast(ENTITY, 6)
 JOB_RUN = typing___cast(ENTITY, 7)
+SERVICE_VERSION = typing___cast(ENTITY, 9)
 
 class JOB_STATUS(int):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
@@ -110,7 +112,7 @@ class ServiceMetadataDelta(google___protobuf___message___Message):
     location_uri_set = ... # type: bool
     description = ... # type: typing___Text
     description_set = ... # type: bool
-    experts = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+    experts = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[bytes]
     experts_set = ... # type: bool
 
     def __init__(self,
@@ -123,7 +125,7 @@ class ServiceMetadataDelta(google___protobuf___message___Message):
         location_uri_set : typing___Optional[bool] = None,
         description : typing___Optional[typing___Text] = None,
         description_set : typing___Optional[bool] = None,
-        experts : typing___Optional[typing___Iterable[typing___Text]] = None,
+        experts : typing___Optional[typing___Iterable[bytes]] = None,
         experts_set : typing___Optional[bool] = None,
         ) -> None: ...
     @classmethod
@@ -196,6 +198,74 @@ class JobMetadataDelta(google___protobuf___message___Message):
     else:
         def ClearField(self, field_name: typing_extensions___Literal[u"title",b"title",u"title_set",b"title_set"]) -> None: ...
 
+class ServiceVersionInput(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    class Type(int):
+        DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
+        @classmethod
+        def Name(cls, number: int) -> str: ...
+        @classmethod
+        def Value(cls, name: str) -> ServiceVersionInput.Type: ...
+        @classmethod
+        def keys(cls) -> typing___List[str]: ...
+        @classmethod
+        def values(cls) -> typing___List[ServiceVersionInput.Type]: ...
+        @classmethod
+        def items(cls) -> typing___List[typing___Tuple[str, ServiceVersionInput.Type]]: ...
+        Service = typing___cast(ServiceVersionInput.Type, 1)
+    Service = typing___cast(ServiceVersionInput.Type, 1)
+
+    uid = ... # type: bytes
+    type = ... # type: ServiceVersionInput.Type
+
+    def __init__(self,
+        *,
+        uid : typing___Optional[bytes] = None,
+        type : typing___Optional[ServiceVersionInput.Type] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> ServiceVersionInput: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"type",u"uid"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"type",b"type",u"uid",b"uid"]) -> None: ...
+
+class ServiceVersionOutput(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    class Type(int):
+        DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
+        @classmethod
+        def Name(cls, number: int) -> str: ...
+        @classmethod
+        def Value(cls, name: str) -> ServiceVersionOutput.Type: ...
+        @classmethod
+        def keys(cls) -> typing___List[str]: ...
+        @classmethod
+        def values(cls) -> typing___List[ServiceVersionOutput.Type]: ...
+        @classmethod
+        def items(cls) -> typing___List[typing___Tuple[str, ServiceVersionOutput.Type]]: ...
+        Service = typing___cast(ServiceVersionOutput.Type, 1)
+    Service = typing___cast(ServiceVersionOutput.Type, 1)
+
+    uid = ... # type: bytes
+    type = ... # type: ServiceVersionOutput.Type
+
+    def __init__(self,
+        *,
+        uid : typing___Optional[bytes] = None,
+        type : typing___Optional[ServiceVersionOutput.Type] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> ServiceVersionOutput: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"type",u"uid"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"type",b"type",u"uid",b"uid"]) -> None: ...
+
 class JobRunOutput(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     class Type(int):
@@ -245,7 +315,9 @@ class JobRunInput(google___protobuf___message___Message):
         @classmethod
         def items(cls) -> typing___List[typing___Tuple[str, JobRunInput.Type]]: ...
         DatasetVer = typing___cast(JobRunInput.Type, 1)
+        Service = typing___cast(JobRunInput.Type, 2)
     DatasetVer = typing___cast(JobRunInput.Type, 1)
+    Service = typing___cast(JobRunInput.Type, 2)
 
     uid = ... # type: bytes
     type = ... # type: JobRunInput.Type

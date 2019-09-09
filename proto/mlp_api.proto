@@ -97,9 +97,45 @@ message CompleteJobRunRequest {
 }
 
 
-// COMMIT ---------------------------------------------------------------------
+// SERVICE ---------------------------------------------------------------------
 
 
+message CreateServiceRequest {
+    bytes project_uid = 1;
+    string name = 2;
+    ServiceMetadataDelta meta = 3;
+}
+
+message GetServiceRequest {
+    bytes project_uid = 1;
+    string name = 2;
+
+}
+
+message ServiceInfoResponse {
+    bytes uid = 1;
+    bytes project_uid = 2;
+    string name = 3;
+    string project_name = 4;
+
+    ApiError error = 100;
+}
+
+message AddServiceVersionRequest {
+    bytes service_uid = 1;
+
+    string title = 2;
+
+
+    repeated ServiceVersionInput inputs = 3;
+    repeated ServiceVersionOutput outputs = 4;
+}
+
+message AddServiceVersionResponse {
+    bytes uid = 1;
+
+    ApiError error = 100;
+}
 
 
 
@@ -229,6 +265,14 @@ service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (ProjectInfoResponse){}
     rpc GetProject(GetProjectRequest) returns (ProjectInfoResponse){}
 
+    // SERVICES ------------
+
+    rpc CreateService(CreateServiceRequest) returns (ServiceInfoResponse){}
+    rpc GetService(GetServiceRequest) returns (ServiceInfoResponse){}
+
+    rpc AddServiceVersion(AddServiceVersionRequest) returns(AddServiceVersionResponse){}
+
+    // JOBS -----------------
     rpc CreateJob(CreateJobRequest) returns (JobInfoResponse){}
     rpc GetJob(GetJobRequest) returns (JobInfoResponse){}
 
@@ -245,6 +289,7 @@ service Catalog {
     rpc GetDataset(GetDatasetRequest) returns(DatasetInfoResponse){}
     rpc UpdateDataset(UpdateDatasetRequest) returns (EmptyResponse){}
     rpc GetLastDatasetVersion(GetLastDatasetVersionRequest) returns (DatasetVersionResponse){}
+
 
     rpc Commit(CommitRequest) returns (CommitResponse){}
 

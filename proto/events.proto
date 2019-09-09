@@ -35,6 +35,8 @@ message JobRunStarted {
 
     repeated JobRunInput inputs = 4;
     int64 timestamp = 6;
+
+    int32 run_num = 7;
 }
 
 
@@ -66,16 +68,7 @@ message JobRunCompleted {
 
 
 
-message ServiceCreated {
-    bytes uid = 1;
-    bytes project_uid = 2;
 
-    string name = 3;
-
-    ServiceMetadataDelta meta = 4;
-
-    string project_name = 5;
-}
 
 // DATASET VERSION --------------------------------------------
 
@@ -121,6 +114,29 @@ message DatasetVersionAdded {
 }
 
 
+// SERVICE --------------------------------------------------------------------
+
+
+message ServiceCreated {
+    bytes uid = 1;
+    bytes project_uid = 2;
+
+    string name = 3;
+
+    ServiceMetadataDelta meta = 4;
+
+    string project_name = 5;
+}
+
+message ServiceVersionAdded {
+    bytes service_uid = 1;
+    bytes uid = 2;
+    bytes project_uid = 3;
+    string title = 4;
+
+    repeated ServiceVersionInput inputs = 5;
+    repeated ServiceVersionOutput outputs = 6;
+}
 
 
 
@@ -149,6 +165,8 @@ enum Type {
     Event_JobRunLogged = 9;
     Event_JobRunCompleted = 10;
     Event_JobRunFailed = 11;
+    Event_ServiceVersionAdded = 12;
+
 }
 
 

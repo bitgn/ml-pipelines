@@ -7,7 +7,7 @@ func GetStats(tx *Tx) *TenantStats{
 	return d
 }
 
-func SetStats(tx *Tx, d *TenantStats){
+func PutStats(tx *Tx, d *TenantStats){
 	tx.PutProto(CreateKey(Range_STATS), d)
 }
 

@@ -19,20 +19,18 @@ class DatasetStaging:
         self.files = []
         self.inputs = []
 
-    def add_file(self, name: str, records: int, size: int):
+    def add_file(self, name: str, size: int, records: int=0):
         self.files.append(vo.DatasetItem(name=name, storage_bytes=size, records=records))
 
-    def add_input(self, run: PipelineInput):
+    def add_input(self, run: JobRunId):
 
-        kind = run.__class__.__name__
-
-        if kind == 'JobRun':
+        if isinstance(run, JobRunId):
             i = vo.DatasetVerInput(uid=run.uid, type=vo.DatasetVerInput.TYPE.JOB_RUN)
             self.inputs.append(i)
             return
-        raise ValueError(f'Unexpected dependency: {kind}')
+        raise ValueError(f'Unexpected dependency: {run.__class__}')
 
-    def commit(self, title: str) -> 'DatasetVersion':
+    def commit(self, title: Optional[str]=None) -> 'DatasetVersion':
 
         change_set = api.DatasetChangeSet(
             dataset_uid=self.dataset_uid,
@@ -62,9 +60,9 @@ class DatasetStaging:
         )
 
 
-class DatasetVersion:
+class DatasetVersion(DatasetVersionId):
     def __init__(self, ctx: Context, project_uid, dataset_uid, dataset_name, uid):
-        self.uid = uid
+        super().__init__(uid)
         self.dataset_name = dataset_name
         self.dataset_uid = dataset_uid
         self.project_uid = project_uid

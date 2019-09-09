@@ -54,7 +54,7 @@ func bytesDecimal(b int64) string {
 	return fmt.Sprintf("%.1f %cB", float64(b)/float64(div), "kMGTPE"[exp])
 }
 
-func (f *Format) Timestamp(t int64) string{
+func Timestamp(t int64) string{
 	if t == 0{
 		return ""
 	}
@@ -73,6 +73,10 @@ func (f *Format) Timestamp(t int64) string{
 		return avoidWrapping(durationAbs(delta) + " ago")
 	}
 	return avoidWrapping(durationAbs(stamp.Sub(now)))
+}
+
+func (f *Format) Timestamp(t int64) string{
+	return Timestamp(t)
 }
 
 

@@ -42,7 +42,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		stats := db.GetStats(tx)
 		stats.ProjectCount +=1
-		db.SetStats(tx, stats)
+		db.PutStats(tx, stats)
 
 	case *events.DatasetCreated:
 
@@ -70,7 +70,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		stats := db.GetStats(tx)
 		stats.DatasetCount +=1
-		db.SetStats(tx, stats)
+		db.PutStats(tx, stats)
 
 		prj := db.GetProject(tx, e.ProjectUid)
 		prj.StorageBytes += data.StorageBytes
@@ -212,10 +212,47 @@ func Handle(tx *db.Tx, msg proto.Message){
 					Uid:run.Uid,
 				})
 				db.PutDatasetVersion(tx, ds)
+			case vo.JobRunInput_Service:
+				// nothing so far
+				//
 			default:
-				log.Panicln("Unknown job run input")
+				log.Panicf("Unknown job run input %s\n",input.Type)
 			}
 		}
+
+		job := db.GetJob(tx, run.JobUid)
+		job.RunCount +=1
+		db.PutJob(tx, job)
+
+
+	case *events.ServiceCreated:
+		mustName(e.Name)
+		mustName(e.ProjectName)
+
+		data := &db.ServiceData{
+			Name:e.Name,
+			Uid:e.Uid,
+			Title:e.Meta.Title,
+			LocationId:e.Meta.LocationId,
+			Description:e.Meta.Description,
+			ProjectUid:e.ProjectUid,
+			Experts:e.Meta.Experts,
+			LocationUid:e.Meta.LocationId,
+			ProjectName:e.ProjectName,
+		}
+
+		db.PutService(tx, data)
+		db.Name(tx, e.ProjectUid, e.Name, vo.ENTITY_SERVICE, e.Uid)
+
+
+		proj := db.GetProject(tx, e.ProjectUid)
+		proj.ServiceCount +=1
+		db.PutProject(tx, proj)
+
+
+		stats := db.GetStats(tx)
+		stats.ServiceCount +=1
+		db.PutStats(tx, stats)
 
 	case *events.JobAdded:
 
@@ -224,7 +261,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		stats := db.GetStats(tx)
 		stats.JobCount +=1
-		db.SetStats(tx, stats)
+		db.PutStats(tx, stats)
 
 		prj := db.GetProject(tx, e.ProjectUid)
 		prj.JobCount +=1
@@ -252,8 +289,14 @@ func Handle(tx *db.Tx, msg proto.Message){
 	case *events.ExpertAdded:
 		stats := db.GetStats(tx)
 		stats.ExpertCount +=1
-		db.SetStats(tx, stats)
+		db.PutStats(tx, stats)
+
+
+
 	}
+
+
+
 
 
 

@@ -5,6 +5,19 @@ from . import vo_pb2 as vo
 
 from .cl_job import Job
 from .cl_dataset import Dataset
+from .cl_service import Service
+
+class MultiCommit:
+    def __init__(self, ctx, project_uid, clean_slate):
+        """
+
+        :type clean_slate: bool
+        :type project_uid: bytes
+        :type ctx: Context
+        """
+        self.clean_slate = clean_slate
+        self.project_uid = project_uid
+        self.ctx = ctx
 
 class Project:
 
@@ -13,6 +26,9 @@ class Project:
         self.uid = uid
         self.ctx = ctx
 
+
+    def prepare_commit(self, clean_slate:bool = False):
+        return MultiCommit(self.ctx, self.uid, clean_slate)
 
 
     def create_job(self, name:str, title:Optional[str]=None) -> Job:
@@ -27,14 +43,15 @@ class Project:
         resp = self.ctx.create_job(create)
         return Job(self.ctx, self.uid, resp.uid, resp.name)
 
+    def get_job(self, name:str) -> Job:
+        get = api.GetJobRequest(project_uid=self.uid, name=name)
+        resp = self.ctx.get_job(get)
+
+        return Job(self.ctx, self.uid, resp.uid, resp.name)
+
     def get_or_create_job(self, name: str) -> Job:
-
         try:
-
-            get = api.GetJobRequest(project_uid=self.uid, name=name)
-            resp = self.ctx.get_job(get)
-
-            return Job(self.ctx, self.uid, resp.uid, resp.name)
+            return self.get_job(name)
         except errors.NotFound:
             pass
 
@@ -88,19 +105,46 @@ class Project:
         )
 
     def get_or_create_dataset(self, name: str, location_id: Optional[str]=None) -> Dataset:
-
         try:
             return self.get_dataset(name)
-
         except errors.NotFound:
             pass
 
-        new = api.CreateDatasetRequest(
+        return self.create_dataset(name, location_id=location_id)
+
+    def create_service(self, name: str, title: Optional[str] = None) -> Service:
+        meta = vo.ServiceMetadataDelta()
+
+        if title:
+            meta.title = title
+            meta.title_set = True
+
+        new = api.CreateServiceRequest(
             project_uid=self.uid,
             name=name,
-            meta=vo.DatasetMetadataDelta(
-                location_id=location_id
-            )
+            meta=meta,
         )
+        resp = self.ctx.create_service(new)
+        return Service(
+            self.ctx,
+            project_uid=self.uid,
+            uid=resp.uid,
+            name=name,
+        )
+    def get_service(self, name:str) -> Service:
 
-        return self.create_dataset(name, location_id=location_id)
+        req = api.GetServiceRequest(
+            project_uid=self.uid,
+            name=name
+        )
+        resp = self.ctx.get_service(req)
+
+        return Service(self.ctx,project_uid=self.uid, uid=resp.uid, name=name)
+
+    def get_or_create_service(self, name: str) -> Service:
+        try:
+            return self.get_service(name)
+        except errors.NotFound:
+            pass
+
+        return self.create_service(name)

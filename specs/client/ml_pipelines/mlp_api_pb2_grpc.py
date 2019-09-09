@@ -24,6 +24,21 @@ class CatalogStub(object):
         request_serializer=mlp__api__pb2.GetProjectRequest.SerializeToString,
         response_deserializer=mlp__api__pb2.ProjectInfoResponse.FromString,
         )
+    self.CreateService = channel.unary_unary(
+        '/Catalog/CreateService',
+        request_serializer=mlp__api__pb2.CreateServiceRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.ServiceInfoResponse.FromString,
+        )
+    self.GetService = channel.unary_unary(
+        '/Catalog/GetService',
+        request_serializer=mlp__api__pb2.GetServiceRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.ServiceInfoResponse.FromString,
+        )
+    self.AddServiceVersion = channel.unary_unary(
+        '/Catalog/AddServiceVersion',
+        request_serializer=mlp__api__pb2.AddServiceVersionRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.AddServiceVersionResponse.FromString,
+        )
     self.CreateJob = channel.unary_unary(
         '/Catalog/CreateJob',
         request_serializer=mlp__api__pb2.CreateJobRequest.SerializeToString,
@@ -104,9 +119,31 @@ class CatalogServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def CreateJob(self, request, context):
+  def CreateService(self, request, context):
+    """SERVICES ------------
+
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetService(self, request, context):
     # missing associated documentation comment in .proto file
     pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def AddServiceVersion(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def CreateJob(self, request, context):
+    """JOBS -----------------
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -200,6 +237,21 @@ def add_CatalogServicer_to_server(servicer, server):
           servicer.GetProject,
           request_deserializer=mlp__api__pb2.GetProjectRequest.FromString,
           response_serializer=mlp__api__pb2.ProjectInfoResponse.SerializeToString,
+      ),
+      'CreateService': grpc.unary_unary_rpc_method_handler(
+          servicer.CreateService,
+          request_deserializer=mlp__api__pb2.CreateServiceRequest.FromString,
+          response_serializer=mlp__api__pb2.ServiceInfoResponse.SerializeToString,
+      ),
+      'GetService': grpc.unary_unary_rpc_method_handler(
+          servicer.GetService,
+          request_deserializer=mlp__api__pb2.GetServiceRequest.FromString,
+          response_serializer=mlp__api__pb2.ServiceInfoResponse.SerializeToString,
+      ),
+      'AddServiceVersion': grpc.unary_unary_rpc_method_handler(
+          servicer.AddServiceVersion,
+          request_deserializer=mlp__api__pb2.AddServiceVersionRequest.FromString,
+          response_serializer=mlp__api__pb2.AddServiceVersionResponse.SerializeToString,
       ),
       'CreateJob': grpc.unary_unary_rpc_method_handler(
           servicer.CreateJob,

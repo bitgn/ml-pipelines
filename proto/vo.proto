@@ -16,6 +16,7 @@ message ProjectMetadataDelta {
 message ServiceMetadataDelta {
     string title = 1;
     bool title_set = 2;
+
     string location_id = 3;
     bool location_id_set = 4;
 
@@ -25,7 +26,7 @@ message ServiceMetadataDelta {
     string description = 7;
     bool description_set = 8;
 
-    repeated string experts = 9;
+    repeated bytes experts = 9;
     bool experts_set = 10;
 }
 
@@ -54,6 +55,8 @@ enum ENTITY {
     PROJECT=5;
     DATASET_VERSION=6;
     JOB_RUN=7;
+    SERVICE_VERSION = 9;
+
 }
 
 
@@ -73,6 +76,27 @@ message JobMetadataDelta {
     bool title_set = 2;
 }
 
+
+message ServiceVersionInput {
+    enum Type {
+        None = 0;
+        Service = 1;
+    }
+    bytes uid = 1;
+    Type type = 2;
+}
+
+message ServiceVersionOutput{
+    enum Type {
+        None = 0;
+        Service = 1;
+    }
+    bytes uid = 1;
+    Type type = 2;
+}
+
+
+
 message JobRunOutput {
     enum Type {
         None = 0;
@@ -89,6 +113,7 @@ message JobRunInput {
     enum Type {
         None = 0;
         DatasetVer = 1;
+        Service = 2;
     }
     // dataset
     bytes uid = 1;

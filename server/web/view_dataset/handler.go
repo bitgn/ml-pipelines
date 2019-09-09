@@ -96,7 +96,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string, verUid 
 		Dataset: ds,
 		Project: pr,
 		IsStale: domain.IsStale(ds),
-		Lineage: renderDatasetVersionSVG( tx,verUid, site.Url, ds.Caption()),
+		Lineage: renderDatasetVersionSVG( tx,verUid, site.Url, site.Fmt, ds.Caption()),
 	}
 
 	if len(ds.Description) > 0 {

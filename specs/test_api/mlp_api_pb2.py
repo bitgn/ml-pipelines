@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"I\n\x14\x43reateProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\"!\n\x11GetProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"J\n\x13ProjectInfoResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"V\n\x10\x43reateJobRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x1f\n\x04meta\x18\x03 \x01(\x0b\x32\x11.JobMetadataDelta\"2\n\rGetJobRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\"q\n\x0fJobInfoResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x14\n\x0cproject_name\x18\x03 \x01(\t\x12\x13\n\x0bproject_uid\x18\x04 \x01(\x0c\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"g\n\x12StartJobRunRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0f\n\x07job_uid\x18\x02 \x01(\x0c\x12\r\n\x05title\x18\x03 \x01(\t\x12\x1c\n\x06inputs\x18\x04 \x03(\x0b\x32\x0c.JobRunInput\"P\n\x12JobRunInfoResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"C\n\x10LogJobRunRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0f\n\x07\x64\x65tails\x18\x02 \x01(\t\x12\x11\n\tlog_title\x18\x03 \x01(\t\"B\n\x11\x46\x61ilJobRunRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x03 \x01(\t\"$\n\x15\x43ompleteJobRunRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\"6\n\x11GetDatasetRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\"^\n\x14\x43reateDatasetRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\xe4\x01\n\x13\x44\x61tasetInfoResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\x18\n\x10update_timestamp\x18\t \x01(\x03\x12\x13\n\x0b\x64\x61ta_format\x18\n \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x0b \x01(\t\x12\x13\n\x0blocation_id\x18\x0c \x01(\t\x12\x14\n\x0clocation_uri\x18\r \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"H\n\x1cGetLastDatasetVersionRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x13\n\x0b\x64\x61taset_uid\x18\x02 \x01(\x0c\"S\n\x16\x44\x61tasetVersionResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x12\n\nno_version\x18\x02 \x01(\x08\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\xa7\x01\n\x10\x44\x61tasetChangeSet\x12\x13\n\x0b\x64\x61taset_uid\x18\x01 \x01(\x0c\x12\x1a\n\x12parent_version_uid\x18\x02 \x01(\x0c\x12\x1b\n\x05items\x18\x03 \x03(\x0b\x32\x0c.DatasetItem\x12\x13\n\x0b\x63lean_slate\x18\x04 \x01(\x08\x12\x0e\n\x06remove\x18\x05 \x03(\t\x12 \n\x06inputs\x18\x06 \x03(\x0b\x32\x10.DatasetVerInput\"C\n\rDatasetCommit\x12\r\n\x05title\x18\x01 \x01(\t\x12#\n\x08\x64\x61tasets\x18\x02 \x03(\x0b\x32\x11.DatasetChangeSet\"C\n\rCommitRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12#\n\x08\x64\x61tasets\x18\x07 \x03(\x0b\x32\x11.DatasetChangeSet\"D\n\x0e\x43ommitResponse\x12\x18\n\x10\x64\x61taset_versions\x18\x01 \x03(\x0c\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\r\n\x0bStatRequest\"9\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"H\n\x14UpdateDatasetRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\xc6\x01\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0bsubject_uid\x18\x03 \x01(\x0c\x12\x14\n\x0csubject_name\x18\x04 \x01(\t\x12\x12\n\nfield_name\x18\x05 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x03(\t\x12\x14\n\x0cproject_name\x18\x07 \x01(\t\x12\x13\n\x0bproject_uid\x18\x08 \x01(\t\x12\x13\n\x0bmethod_name\x18\t \x01(\t\")\n\rEmptyResponse\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError*\xf1\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x12\x14\n\x10VERSION_MISMATCH\x10\x66\x32\x9d\x06\n\x07\x43\x61talog\x12>\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12\x38\n\nGetProject\x12\x12.GetProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12\x32\n\tCreateJob\x12\x11.CreateJobRequest\x1a\x10.JobInfoResponse\"\x00\x12,\n\x06GetJob\x12\x0e.GetJobRequest\x1a\x10.JobInfoResponse\"\x00\x12\x39\n\x0bStartJobRun\x12\x13.StartJobRunRequest\x1a\x13.JobRunInfoResponse\"\x00\x12\x30\n\tLogJobRun\x12\x11.LogJobRunRequest\x1a\x0e.EmptyResponse\"\x00\x12\x32\n\nFailJobRun\x12\x12.FailJobRunRequest\x1a\x0e.EmptyResponse\"\x00\x12:\n\x0e\x43ompleteJobRun\x12\x16.CompleteJobRunRequest\x1a\x0e.EmptyResponse\"\x00\x12>\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12\x38\n\nGetDataset\x12\x12.GetDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12\x38\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0e.EmptyResponse\"\x00\x12Q\n\x15GetLastDatasetVersion\x12\x1d.GetLastDatasetVersionRequest\x1a\x17.DatasetVersionResponse\"\x00\x12+\n\x06\x43ommit\x12\x0e.CommitRequest\x1a\x0f.CommitResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"I\n\x14\x43reateProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.ProjectMetadataDelta\"!\n\x11GetProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"J\n\x13ProjectInfoResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"V\n\x10\x43reateJobRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x1f\n\x04meta\x18\x03 \x01(\x0b\x32\x11.JobMetadataDelta\"2\n\rGetJobRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\"q\n\x0fJobInfoResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03uid\x18\x02 \x01(\x0c\x12\x14\n\x0cproject_name\x18\x03 \x01(\t\x12\x13\n\x0bproject_uid\x18\x04 \x01(\x0c\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"g\n\x12StartJobRunRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0f\n\x07job_uid\x18\x02 \x01(\x0c\x12\r\n\x05title\x18\x03 \x01(\t\x12\x1c\n\x06inputs\x18\x04 \x03(\x0b\x32\x0c.JobRunInput\"P\n\x12JobRunInfoResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"C\n\x10LogJobRunRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0f\n\x07\x64\x65tails\x18\x02 \x01(\t\x12\x11\n\tlog_title\x18\x03 \x01(\t\"B\n\x11\x46\x61ilJobRunRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x03 \x01(\t\"$\n\x15\x43ompleteJobRunRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\"^\n\x14\x43reateServiceRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.ServiceMetadataDelta\"6\n\x11GetServiceRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\"u\n\x13ServiceInfoResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x8c\x01\n\x18\x41\x64\x64ServiceVersionRequest\x12\x13\n\x0bservice_uid\x18\x01 \x01(\x0c\x12\r\n\x05title\x18\x02 \x01(\t\x12$\n\x06inputs\x18\x03 \x03(\x0b\x32\x14.ServiceVersionInput\x12&\n\x07outputs\x18\x04 \x03(\x0b\x32\x15.ServiceVersionOutput\"B\n\x19\x41\x64\x64ServiceVersionResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"6\n\x11GetDatasetRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\"^\n\x14\x43reateDatasetRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\xe4\x01\n\x13\x44\x61tasetInfoResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x13\n\x0bproject_uid\x18\x02 \x01(\x0c\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x14\n\x0cproject_name\x18\x04 \x01(\t\x12\x18\n\x10update_timestamp\x18\t \x01(\x03\x12\x13\n\x0b\x64\x61ta_format\x18\n \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x0b \x01(\t\x12\x13\n\x0blocation_id\x18\x0c \x01(\t\x12\x14\n\x0clocation_uri\x18\r \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"H\n\x1cGetLastDatasetVersionRequest\x12\x13\n\x0bproject_uid\x18\x01 \x01(\x0c\x12\x13\n\x0b\x64\x61taset_uid\x18\x02 \x01(\x0c\"S\n\x16\x44\x61tasetVersionResponse\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12\x12\n\nno_version\x18\x02 \x01(\x08\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\xa7\x01\n\x10\x44\x61tasetChangeSet\x12\x13\n\x0b\x64\x61taset_uid\x18\x01 \x01(\x0c\x12\x1a\n\x12parent_version_uid\x18\x02 \x01(\x0c\x12\x1b\n\x05items\x18\x03 \x03(\x0b\x32\x0c.DatasetItem\x12\x13\n\x0b\x63lean_slate\x18\x04 \x01(\x08\x12\x0e\n\x06remove\x18\x05 \x03(\t\x12 \n\x06inputs\x18\x06 \x03(\x0b\x32\x10.DatasetVerInput\"C\n\rDatasetCommit\x12\r\n\x05title\x18\x01 \x01(\t\x12#\n\x08\x64\x61tasets\x18\x02 \x03(\x0b\x32\x11.DatasetChangeSet\"C\n\rCommitRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12#\n\x08\x64\x61tasets\x18\x07 \x03(\x0b\x32\x11.DatasetChangeSet\"D\n\x0e\x43ommitResponse\x12\x18\n\x10\x64\x61taset_versions\x18\x01 \x03(\x0c\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\r\n\x0bStatRequest\"9\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"H\n\x14UpdateDatasetRequest\x12\x0b\n\x03uid\x18\x01 \x01(\x0c\x12#\n\x04meta\x18\x02 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\xc6\x01\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0bsubject_uid\x18\x03 \x01(\x0c\x12\x14\n\x0csubject_name\x18\x04 \x01(\t\x12\x12\n\nfield_name\x18\x05 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x03(\t\x12\x14\n\x0cproject_name\x18\x07 \x01(\t\x12\x13\n\x0bproject_uid\x18\x08 \x01(\t\x12\x13\n\x0bmethod_name\x18\t \x01(\t\")\n\rEmptyResponse\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError*\xf1\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x12\x14\n\x10VERSION_MISMATCH\x10\x66\x32\xe5\x07\n\x07\x43\x61talog\x12>\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12\x38\n\nGetProject\x12\x12.GetProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12>\n\rCreateService\x12\x15.CreateServiceRequest\x1a\x14.ServiceInfoResponse\"\x00\x12\x38\n\nGetService\x12\x12.GetServiceRequest\x1a\x14.ServiceInfoResponse\"\x00\x12L\n\x11\x41\x64\x64ServiceVersion\x12\x19.AddServiceVersionRequest\x1a\x1a.AddServiceVersionResponse\"\x00\x12\x32\n\tCreateJob\x12\x11.CreateJobRequest\x1a\x10.JobInfoResponse\"\x00\x12,\n\x06GetJob\x12\x0e.GetJobRequest\x1a\x10.JobInfoResponse\"\x00\x12\x39\n\x0bStartJobRun\x12\x13.StartJobRunRequest\x1a\x13.JobRunInfoResponse\"\x00\x12\x30\n\tLogJobRun\x12\x11.LogJobRunRequest\x1a\x0e.EmptyResponse\"\x00\x12\x32\n\nFailJobRun\x12\x12.FailJobRunRequest\x1a\x0e.EmptyResponse\"\x00\x12:\n\x0e\x43ompleteJobRun\x12\x16.CompleteJobRunRequest\x1a\x0e.EmptyResponse\"\x00\x12>\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12\x38\n\nGetDataset\x12\x12.GetDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12\x38\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0e.EmptyResponse\"\x00\x12Q\n\x15GetLastDatasetVersion\x12\x1d.GetLastDatasetVersionRequest\x1a\x17.DatasetVersionResponse\"\x00\x12+\n\x06\x43ommit\x12\x0e.CommitRequest\x1a\x0f.CommitResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
@@ -115,8 +115,8 @@ _STATUSCODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2143,
-  serialized_end=2512,
+  serialized_start=2625,
+  serialized_end=2994,
 )
 _sym_db.RegisterEnumDescriptor(_STATUSCODE)
 
@@ -618,6 +618,238 @@ _COMPLETEJOBRUNREQUEST = _descriptor.Descriptor(
 )
 
 
+_CREATESERVICEREQUEST = _descriptor.Descriptor(
+  name='CreateServiceRequest',
+  full_name='CreateServiceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='project_uid', full_name='CreateServiceRequest.project_uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='CreateServiceRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='meta', full_name='CreateServiceRequest.meta', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=830,
+  serialized_end=924,
+)
+
+
+_GETSERVICEREQUEST = _descriptor.Descriptor(
+  name='GetServiceRequest',
+  full_name='GetServiceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='project_uid', full_name='GetServiceRequest.project_uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='GetServiceRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=926,
+  serialized_end=980,
+)
+
+
+_SERVICEINFORESPONSE = _descriptor.Descriptor(
+  name='ServiceInfoResponse',
+  full_name='ServiceInfoResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='ServiceInfoResponse.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='project_uid', full_name='ServiceInfoResponse.project_uid', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='ServiceInfoResponse.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='project_name', full_name='ServiceInfoResponse.project_name', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='error', full_name='ServiceInfoResponse.error', index=4,
+      number=100, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=982,
+  serialized_end=1099,
+)
+
+
+_ADDSERVICEVERSIONREQUEST = _descriptor.Descriptor(
+  name='AddServiceVersionRequest',
+  full_name='AddServiceVersionRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='service_uid', full_name='AddServiceVersionRequest.service_uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='title', full_name='AddServiceVersionRequest.title', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='inputs', full_name='AddServiceVersionRequest.inputs', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='outputs', full_name='AddServiceVersionRequest.outputs', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1102,
+  serialized_end=1242,
+)
+
+
+_ADDSERVICEVERSIONRESPONSE = _descriptor.Descriptor(
+  name='AddServiceVersionResponse',
+  full_name='AddServiceVersionResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='AddServiceVersionResponse.uid', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='error', full_name='AddServiceVersionResponse.error', index=1,
+      number=100, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1244,
+  serialized_end=1310,
+)
+
+
 _GETDATASETREQUEST = _descriptor.Descriptor(
   name='GetDatasetRequest',
   full_name='GetDatasetRequest',
@@ -651,8 +883,8 @@ _GETDATASETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=830,
-  serialized_end=884,
+  serialized_start=1312,
+  serialized_end=1366,
 )
 
 
@@ -696,8 +928,8 @@ _CREATEDATASETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=886,
-  serialized_end=980,
+  serialized_start=1368,
+  serialized_end=1462,
 )
 
 
@@ -790,8 +1022,8 @@ _DATASETINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=983,
-  serialized_end=1211,
+  serialized_start=1465,
+  serialized_end=1693,
 )
 
 
@@ -828,8 +1060,8 @@ _GETLASTDATASETVERSIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1213,
-  serialized_end=1285,
+  serialized_start=1695,
+  serialized_end=1767,
 )
 
 
@@ -873,8 +1105,8 @@ _DATASETVERSIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1287,
-  serialized_end=1370,
+  serialized_start=1769,
+  serialized_end=1852,
 )
 
 
@@ -939,8 +1171,8 @@ _DATASETCHANGESET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1373,
-  serialized_end=1540,
+  serialized_start=1855,
+  serialized_end=2022,
 )
 
 
@@ -977,8 +1209,8 @@ _DATASETCOMMIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1542,
-  serialized_end=1609,
+  serialized_start=2024,
+  serialized_end=2091,
 )
 
 
@@ -1015,8 +1247,8 @@ _COMMITREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1611,
-  serialized_end=1678,
+  serialized_start=2093,
+  serialized_end=2160,
 )
 
 
@@ -1053,8 +1285,8 @@ _COMMITRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1680,
-  serialized_end=1748,
+  serialized_start=2162,
+  serialized_end=2230,
 )
 
 
@@ -1077,8 +1309,8 @@ _STATREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1750,
-  serialized_end=1763,
+  serialized_start=2232,
+  serialized_end=2245,
 )
 
 
@@ -1115,8 +1347,8 @@ _STATRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1765,
-  serialized_end=1822,
+  serialized_start=2247,
+  serialized_end=2304,
 )
 
 
@@ -1153,8 +1385,8 @@ _UPDATEDATASETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1824,
-  serialized_end=1896,
+  serialized_start=2306,
+  serialized_end=2378,
 )
 
 
@@ -1240,8 +1472,8 @@ _APIERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1899,
-  serialized_end=2097,
+  serialized_start=2381,
+  serialized_end=2579,
 )
 
 
@@ -1271,8 +1503,8 @@ _EMPTYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2099,
-  serialized_end=2140,
+  serialized_start=2581,
+  serialized_end=2622,
 )
 
 _CREATEPROJECTREQUEST.fields_by_name['meta'].message_type = vo__pb2._PROJECTMETADATADELTA
@@ -1281,6 +1513,11 @@ _CREATEJOBREQUEST.fields_by_name['meta'].message_type = vo__pb2._JOBMETADATADELT
 _JOBINFORESPONSE.fields_by_name['error'].message_type = _APIERROR
 _STARTJOBRUNREQUEST.fields_by_name['inputs'].message_type = vo__pb2._JOBRUNINPUT
 _JOBRUNINFORESPONSE.fields_by_name['error'].message_type = _APIERROR
+_CREATESERVICEREQUEST.fields_by_name['meta'].message_type = vo__pb2._SERVICEMETADATADELTA
+_SERVICEINFORESPONSE.fields_by_name['error'].message_type = _APIERROR
+_ADDSERVICEVERSIONREQUEST.fields_by_name['inputs'].message_type = vo__pb2._SERVICEVERSIONINPUT
+_ADDSERVICEVERSIONREQUEST.fields_by_name['outputs'].message_type = vo__pb2._SERVICEVERSIONOUTPUT
+_ADDSERVICEVERSIONRESPONSE.fields_by_name['error'].message_type = _APIERROR
 _CREATEDATASETREQUEST.fields_by_name['meta'].message_type = vo__pb2._DATASETMETADATADELTA
 _DATASETINFORESPONSE.fields_by_name['error'].message_type = _APIERROR
 _DATASETVERSIONRESPONSE.fields_by_name['error'].message_type = _APIERROR
@@ -1304,6 +1541,11 @@ DESCRIPTOR.message_types_by_name['JobRunInfoResponse'] = _JOBRUNINFORESPONSE
 DESCRIPTOR.message_types_by_name['LogJobRunRequest'] = _LOGJOBRUNREQUEST
 DESCRIPTOR.message_types_by_name['FailJobRunRequest'] = _FAILJOBRUNREQUEST
 DESCRIPTOR.message_types_by_name['CompleteJobRunRequest'] = _COMPLETEJOBRUNREQUEST
+DESCRIPTOR.message_types_by_name['CreateServiceRequest'] = _CREATESERVICEREQUEST
+DESCRIPTOR.message_types_by_name['GetServiceRequest'] = _GETSERVICEREQUEST
+DESCRIPTOR.message_types_by_name['ServiceInfoResponse'] = _SERVICEINFORESPONSE
+DESCRIPTOR.message_types_by_name['AddServiceVersionRequest'] = _ADDSERVICEVERSIONREQUEST
+DESCRIPTOR.message_types_by_name['AddServiceVersionResponse'] = _ADDSERVICEVERSIONRESPONSE
 DESCRIPTOR.message_types_by_name['GetDatasetRequest'] = _GETDATASETREQUEST
 DESCRIPTOR.message_types_by_name['CreateDatasetRequest'] = _CREATEDATASETREQUEST
 DESCRIPTOR.message_types_by_name['DatasetInfoResponse'] = _DATASETINFORESPONSE
@@ -1397,6 +1639,41 @@ CompleteJobRunRequest = _reflection.GeneratedProtocolMessageType('CompleteJobRun
   # @@protoc_insertion_point(class_scope:CompleteJobRunRequest)
   })
 _sym_db.RegisterMessage(CompleteJobRunRequest)
+
+CreateServiceRequest = _reflection.GeneratedProtocolMessageType('CreateServiceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATESERVICEREQUEST,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:CreateServiceRequest)
+  })
+_sym_db.RegisterMessage(CreateServiceRequest)
+
+GetServiceRequest = _reflection.GeneratedProtocolMessageType('GetServiceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETSERVICEREQUEST,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:GetServiceRequest)
+  })
+_sym_db.RegisterMessage(GetServiceRequest)
+
+ServiceInfoResponse = _reflection.GeneratedProtocolMessageType('ServiceInfoResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SERVICEINFORESPONSE,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:ServiceInfoResponse)
+  })
+_sym_db.RegisterMessage(ServiceInfoResponse)
+
+AddServiceVersionRequest = _reflection.GeneratedProtocolMessageType('AddServiceVersionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ADDSERVICEVERSIONREQUEST,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:AddServiceVersionRequest)
+  })
+_sym_db.RegisterMessage(AddServiceVersionRequest)
+
+AddServiceVersionResponse = _reflection.GeneratedProtocolMessageType('AddServiceVersionResponse', (_message.Message,), {
+  'DESCRIPTOR' : _ADDSERVICEVERSIONRESPONSE,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:AddServiceVersionResponse)
+  })
+_sym_db.RegisterMessage(AddServiceVersionResponse)
 
 GetDatasetRequest = _reflection.GeneratedProtocolMessageType('GetDatasetRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETDATASETREQUEST,
@@ -1504,8 +1781,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2515,
-  serialized_end=3312,
+  serialized_start=2997,
+  serialized_end=3994,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',
@@ -1526,9 +1803,36 @@ _CATALOG = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
+    name='CreateService',
+    full_name='Catalog.CreateService',
+    index=2,
+    containing_service=None,
+    input_type=_CREATESERVICEREQUEST,
+    output_type=_SERVICEINFORESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetService',
+    full_name='Catalog.GetService',
+    index=3,
+    containing_service=None,
+    input_type=_GETSERVICEREQUEST,
+    output_type=_SERVICEINFORESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='AddServiceVersion',
+    full_name='Catalog.AddServiceVersion',
+    index=4,
+    containing_service=None,
+    input_type=_ADDSERVICEVERSIONREQUEST,
+    output_type=_ADDSERVICEVERSIONRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
     name='CreateJob',
     full_name='Catalog.CreateJob',
-    index=2,
+    index=5,
     containing_service=None,
     input_type=_CREATEJOBREQUEST,
     output_type=_JOBINFORESPONSE,
@@ -1537,7 +1841,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetJob',
     full_name='Catalog.GetJob',
-    index=3,
+    index=6,
     containing_service=None,
     input_type=_GETJOBREQUEST,
     output_type=_JOBINFORESPONSE,
@@ -1546,7 +1850,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StartJobRun',
     full_name='Catalog.StartJobRun',
-    index=4,
+    index=7,
     containing_service=None,
     input_type=_STARTJOBRUNREQUEST,
     output_type=_JOBRUNINFORESPONSE,
@@ -1555,7 +1859,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='LogJobRun',
     full_name='Catalog.LogJobRun',
-    index=5,
+    index=8,
     containing_service=None,
     input_type=_LOGJOBRUNREQUEST,
     output_type=_EMPTYRESPONSE,
@@ -1564,7 +1868,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='FailJobRun',
     full_name='Catalog.FailJobRun',
-    index=6,
+    index=9,
     containing_service=None,
     input_type=_FAILJOBRUNREQUEST,
     output_type=_EMPTYRESPONSE,
@@ -1573,7 +1877,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='CompleteJobRun',
     full_name='Catalog.CompleteJobRun',
-    index=7,
+    index=10,
     containing_service=None,
     input_type=_COMPLETEJOBRUNREQUEST,
     output_type=_EMPTYRESPONSE,
@@ -1582,7 +1886,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='CreateDataset',
     full_name='Catalog.CreateDataset',
-    index=8,
+    index=11,
     containing_service=None,
     input_type=_CREATEDATASETREQUEST,
     output_type=_DATASETINFORESPONSE,
@@ -1591,7 +1895,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetDataset',
     full_name='Catalog.GetDataset',
-    index=9,
+    index=12,
     containing_service=None,
     input_type=_GETDATASETREQUEST,
     output_type=_DATASETINFORESPONSE,
@@ -1600,7 +1904,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='UpdateDataset',
     full_name='Catalog.UpdateDataset',
-    index=10,
+    index=13,
     containing_service=None,
     input_type=_UPDATEDATASETREQUEST,
     output_type=_EMPTYRESPONSE,
@@ -1609,7 +1913,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetLastDatasetVersion',
     full_name='Catalog.GetLastDatasetVersion',
-    index=11,
+    index=14,
     containing_service=None,
     input_type=_GETLASTDATASETVERSIONREQUEST,
     output_type=_DATASETVERSIONRESPONSE,
@@ -1618,7 +1922,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Commit',
     full_name='Catalog.Commit',
-    index=12,
+    index=15,
     containing_service=None,
     input_type=_COMMITREQUEST,
     output_type=_COMMITRESPONSE,
@@ -1627,7 +1931,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Stat',
     full_name='Catalog.Stat',
-    index=13,
+    index=16,
     containing_service=None,
     input_type=_STATREQUEST,
     output_type=_STATRESPONSE,

@@ -12,6 +12,7 @@
             <th>Name</th>
             <th>Datasets</th>
             <th>Jobs</th>
+            <th>Services</th>
             <th>Storage</th>
         </tr>
         </thead>
@@ -26,6 +27,7 @@
             </td>
             <td class="dataset-count">{{ .DatasetCount }}</td>
             <td class="job-count">{{ .JobCount }}</td>
+            <td class="job-count">{{ .ServiceCount }}</td>
 
             <td><span class="storage-size" title="{{.StorageBytes}}">{{ $.Site.Fmt.BytesDecimal .StorageBytes }}</span></td>
         </tr>

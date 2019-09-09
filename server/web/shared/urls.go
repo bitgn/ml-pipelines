@@ -45,5 +45,8 @@ func (b *UrlResolver) ViewDataset(project, dataset string) string{
 func (b *UrlResolver) ViewDatasetVersion(project, dataset string, uid []byte) string {
 	return fmt.Sprintf("/projects/%s/datasets/%s/ver/%s", project, dataset, hex.EncodeToString(uid))
 }
+func (b *UrlResolver) ViewService(project, service string) string {
+	return fmt.Sprintf("/projects/%s/services/%s", project, service)
+}
 
 

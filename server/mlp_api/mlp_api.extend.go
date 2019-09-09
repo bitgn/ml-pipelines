@@ -8,8 +8,12 @@ func (r *DatasetInfoResponse) err(e *ApiError) (*DatasetInfoResponse, error){
 	return r, nil
 
 }
+func (r *ServiceInfoResponse) err(e *ApiError) (*ServiceInfoResponse, error){
 
+	r.Error = e
+	return r, nil
 
+}
 func (r *DatasetVersionResponse) err(e *ApiError) (*DatasetVersionResponse, error){
 
 	r.Error = e
