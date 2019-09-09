@@ -4,52 +4,118 @@
 <nav aria-label="breadcrumb" xmlns:explore="http://www.w3.org/1999/xhtml" xmlns:explore="http://www.w3.org/1999/xhtml">
   <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
     <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ .Project.Name }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ .Project.Caption }}</li>
   </ol>
 </nav>
 
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h1 class="h2">Project: {{ .Project.Name }}</h1>
+    <h1 class="h2">Project: {{ .Project.Caption }}</h1>
 
 </div>
 
 
+    {{if .Datasets}}
+        <h3>Datasets</h3>
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Dataset</th>
+                <th>Format</th>
+                <th>Storage</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {{range .Datasets}}
+                <tr class="dataset-info" id="ds-{{ $.Site.Fmt.Uid .Item.Uid }}">
+                    <td>
+                        <a href="{{$.Site.Url.ViewDataset .Item.ProjectName .Item.Name}}" class="dataset-link">{{.Item.Caption}}</a>
+                        {{if .IsStale}} <span class="stale-status badge badge-warning">stale</span>{{end}}
+
+                    </td>
+                    <td class="data-format text-lowercase">{{.Item.DataFormat}}</td>
+                    <td>
+                        <span class="zip-size" title="{{.Item.StorageBytes}}">{{ $.Site.Fmt.BytesDecimal .Item.StorageBytes}}</span>
+                        {{if .Item.LocationId}}<span class="text-muted">at <span class="location-id">{{.Item.LocationId}}</span></span>{{end}}
+                    </td>
+                    <td class="update-timestamp">{{if .Item.UpdateTimestamp}}{{$.Site.Fmt.Timestamp .Item.UpdateTimestamp}}{{end}}</td>
+
+
+                </tr>
+
+            {{end}}
+
+            </tbody>
+        </table>
+
+    {{end}}
+
+
+{{if .Jobs}}
+    <h3>Jobs</h3>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Job</th>
+            <th>Status</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {{range .Jobs}}
+            <tr class="service-info" id="svc-{{ $.Site.Fmt.Uid .Item.Uid }}">
+                <td>
+                    <a href="{{$.Site.Url.ViewJob .Item.ProjectName .Item.Name}}" class="job-link">{{.Item.Caption}}</a>
+                </td>
+                <td>{{$.Site.Fmt.JobStatus .CurrentStatus}}</td>
 
 
 
-<table class="table table-sm table-striped table-bordered">
-<thead>
-    <tr>
-        <th>Dataset</th>
-        <th>Format</th>
-        <th>Storage</th>
-        <th>Updated</th>
-    </tr>
-</thead>
-<tbody>
 
-{{range .Datasets}}
-    <tr class="dataset-info" id="ds-{{ $.Site.Fmt.Uid .Item.Uid }}">
-    <td>
-        <a href="{{$.Site.Url.ViewDataset .Item.ProjectName .Item.Name}}" class="dataset-link">{{.Item.Caption}}</a>
-        {{if .IsStale}} <span class="stale-status badge badge-warning">stale</span>{{end}}
+            </tr>
 
-    </td>
-    <td class="data-format text-lowercase">{{.Item.DataFormat}}</td>
-    <td>
-    <span class="zip-size" title="{{.Item.StorageBytes}}">{{ $.Site.Fmt.BytesDecimal .Item.StorageBytes}}</span>
-    {{if .Item.LocationId}}<span class="text-muted">at <span class="location-id">{{.Item.LocationId}}</span></span>{{end}}
-    </td>
-        <td class="update-timestamp">{{if .Item.UpdateTimestamp}}<code>v{{.Item.VersionCount}}</code> {{$.Site.Fmt.Timestamp .Item.UpdateTimestamp}}{{end}}</td>
+        {{end}}
 
-
-    </tr>
+        </tbody>
+    </table>
 
 {{end}}
 
-</tbody>
-</table>
+
+{{if .Services}}
+        <h3>Services</h3>
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Service</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {{range .Services}}
+                <tr class="service-info" id="svc-{{ $.Site.Fmt.Uid .Uid }}">
+                    <td>
+                        <a href="{{$.Site.Url.ViewService .ProjectName .Name}}" class="service-link">{{.Caption}}</a>
+                    </td>
+                    <td class="update-timestamp">{{$.Site.Fmt.Timestamp .VersionTimestamp}}</td>
+
+
+                </tr>
+
+            {{end}}
+
+            </tbody>
+        </table>
+
+    {{end}}
+
+
+
 
 
 {{end}}

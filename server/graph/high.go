@@ -16,7 +16,41 @@ func RenderServiceGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML{
 	render.Service(uid)
 	render.ColorGreen(uid)
 
+	renderServiceLinks(render, uid)
+
 	return render.ToHtml()
+}
+
+func renderServiceLinks(render *SvgRender, uid []byte) {
+	refs := db.ListServiceLinks(render.tx, uid)
+	for _, ref := range refs {
+		switch ref.Type {
+		case db.ServiceLink_Input_ServiceVer:
+			render.ServiceVer(ref.InstanceUid)
+			render.Arrow(ref.InstanceUid, uid)
+		case db.ServiceLink_Input_JobRun:
+
+			// service -- job.run -- Outputs
+			render.JobRun(ref.InstanceUid)
+			render.Dash(ref.InstanceUid, uid)
+
+			renderJobRunInputs(render, ref.InstanceUid)
+		case db.ServiceLink_Output_ServiceVer:
+			// Service THIS -> Service XXX
+			render.ServiceVer(ref.InstanceUid)
+			render.Arrow(uid, ref.InstanceUid)
+
+		case db.ServiceLink_Output_JobRun:
+			// THIS -> job run
+			render.JobRun(ref.InstanceUid)
+			render.Arrow(uid, ref.InstanceUid)
+
+			renderJobRunOutputs(render, ref.InstanceUid)
+		default:
+			log.Panicf("Unexpected type %s", ref.Type)
+
+		}
+	}
 }
 
 
@@ -27,13 +61,23 @@ func RenderServiceVersionGraph(tx *db.Tx, s *shared.Site, uid []byte) template.H
 	render.ColorGreen(uid)
 
 
+
+
 	this := db.GetServiceVersion(tx, uid)
+
+	//renderServiceLinks(render, this.ServiceUid)
 
 	for _, input := range this.Inputs{
 		switch input.Type {
 		case vo.ServiceVersionInput_Service:
 			render.Service(input.Uid)
-			render.Dash(input.Uid, uid)
+			render.Arrow(input.Uid, uid)
+		case vo.ServiceVersionInput_JobRun:
+			// e.g. report is deployed from a job
+			render.JobRun(input.Uid)
+			render.Arrow(input.Uid, uid)
+
+			renderJobRunInputs(render, input.Uid)
 		default:
 			log.Panicf("Unknown service input %s", input.Type)
 
@@ -44,7 +88,7 @@ func RenderServiceVersionGraph(tx *db.Tx, s *shared.Site, uid []byte) template.H
 		switch output.Type {
 		case vo.ServiceVersionOutput_Service:
 			render.Service(output.Uid)
-			render.Dash(output.Uid, uid)
+			render.Arrow(uid, output.Uid)
 
 		}
 	}
@@ -71,27 +115,10 @@ func  RenderDatasetVerGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML
 
 			switch input.Type {
 			case vo.DatasetVerInput_JOB_RUN:
-
-				run := db.GetJobRun(render.tx, input.Uid)
-
 				render.JobRun(input.Uid)
 				render.Arrow(input.Uid, uid)
 
-				for _, input := range run.Inputs {
-
-					switch input.Type {
-
-					case vo.JobRunInput_DatasetVer:
-						render.DatasetVer(input.Uid)
-						render.Dash(input.Uid, run.Uid)
-					case vo.JobRunInput_Service:
-						render.Service(input.Uid)
-						render.Dash(input.Uid, run.Uid)
-					default:
-						log.Panicf("Unknown job run input %s\n", input.Type)
-					}
-
-				}
+				renderJobRunInputs(render, input.Uid)
 
 			default:
 				log.Panicln("Unknown dataset version type")
@@ -105,27 +132,11 @@ func  RenderDatasetVerGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML
 			switch out.Type {
 			case vo.DatasetVerOutput_JOB_RUN:
 
-				run := db.GetJobRun(render.tx, out.Uid)
-
-				if run == nil {
-					log.Panicln("Can't find job RUN", hex.EncodeToString(out.Uid), base64.StdEncoding.EncodeToString(out.Uid))
-				}
 
 				render.JobRun(out.Uid)
 				render.Dash(uid, out.Uid)
 
-				for _, output := range run.Outputs {
-
-					switch output.Type {
-					case vo.JobRunOutput_DatasetVer:
-						render.DatasetVer(output.Uid)
-						render.Arrow(run.Uid, output.Uid)
-					default:
-						log.Panicln("Unknown job run output")
-					}
-
-				}
-
+				renderJobRunOutputs(render, out.Uid)
 			default:
 				log.Panicln("Unknown type")
 			}
@@ -134,5 +145,49 @@ func  RenderDatasetVerGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML
 	}
 	return render.ToHtml()
 
+}
 
+
+
+func renderJobRunOutputs(render *SvgRender, uid []byte){
+	run := db.GetJobRun(render.tx, uid)
+
+	if run == nil {
+		log.Panicln("Can't find job RUN", hex.EncodeToString(uid), base64.StdEncoding.EncodeToString(uid))
+	}
+
+	for _, output := range run.Outputs {
+
+		switch output.Type {
+		case db.JobRunOutput_DatasetVer:
+			render.DatasetVer(output.Uid)
+			render.Arrow(run.Uid, output.Uid)
+		case db.JobRunOutput_ServiceVer:
+			render.ServiceVer(output.Uid)
+			render.Arrow(run.Uid, output.Uid)
+		default:
+			log.Panicln("Unknown job run output")
+		}
+
+	}
+
+}
+
+func renderJobRunInputs(render *SvgRender, run_uid []byte) {
+	run := db.GetJobRun(render.tx, run_uid)
+	for _, input := range run.Inputs {
+
+		switch input.Type {
+
+		case vo.JobRunInput_DatasetVer:
+			render.DatasetVer(input.Uid)
+			render.Dash(input.Uid, run.Uid)
+		case vo.JobRunInput_Service:
+			render.Service(input.Uid)
+			render.Dash(input.Uid, run.Uid)
+		default:
+			log.Panicf("Unknown job run input %s\n", input.Type)
+		}
+
+	}
 }

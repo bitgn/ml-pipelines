@@ -62,7 +62,7 @@ enum ENTITY {
 
 
 enum JOB_STATUS {
-    CREATED = 0;
+    NEVER = 0;
     SUCCESS = 1;
     FAIL = 2;
     RUNNING = 3;
@@ -81,6 +81,7 @@ message ServiceVersionInput {
     enum Type {
         None = 0;
         Service = 1;
+        JobRun = 2;
     }
     bytes uid = 1;
     Type type = 2;
@@ -97,15 +98,6 @@ message ServiceVersionOutput{
 
 
 
-message JobRunOutput {
-    enum Type {
-        None = 0;
-        DatasetVer = 1;
-    }
-    // dataset
-    bytes uid = 1;
-    Type type = 2;
-}
 
 
 

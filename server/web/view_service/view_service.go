@@ -1,6 +1,7 @@
 package view_service
 
 import (
+	"fmt"
 	"github.com/gomarkdown/markdown"
 	"html/template"
 	"mlp/catalog/db"
@@ -17,6 +18,18 @@ type ViewServiceModel struct {
 	Project     *db.ProjectData
 	Lineage     template.HTML
 	Description template.HTML
+
+
+	UsedBy []*ServiceLink
+
+}
+
+
+type ServiceLink struct {
+	Href string
+	Title string
+	Entity string
+	Timestamp int64
 }
 
 type Handler struct {
@@ -48,7 +61,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 
 	ref := db.Lookup(tx, pid, service)
 	if ref == nil || ref.Kind != vo.ENTITY_SERVICE {
-		http.Error(w, "service not found", http.StatusNotFound)
+		http.Error(w, fmt.Sprintf("service %s not found", service), http.StatusNotFound)
 		return
 	}
 
@@ -67,6 +80,41 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 		Site:    site,
 		Service: svc,
 		Project: pr,
+	}
+
+
+	// lookup users
+
+	links:= db.ListServiceLinks(tx, svc.Uid)
+
+	for _, link := range links{
+		switch link.Type {
+		case db.ServiceLink_Output_ServiceVer, db.ServiceLink_Input_ServiceVer:
+
+			// SVC THIS -->> Service deployment
+			// service reads from this
+
+			user := db.GetService(tx, link.ContainerUid)
+			ver := db.GetServiceVersion(tx, link.InstanceUid)
+			model.UsedBy = append(model.UsedBy, &ServiceLink{
+				Href:site.Url.ViewServiceVer(user.ProjectName, user.Name, ver.VersionNum),
+				Title:user.Caption(),
+				Entity:"service",
+				Timestamp:ver.Timestamp,
+			})
+
+		case db.ServiceLink_Input_JobRun, db.ServiceLink_Output_JobRun:
+			// SVC THIS ->> JOB run
+			user := db.GetJob(tx, link.ContainerUid)
+			run := db.GetJobRun(tx, link.InstanceUid)
+			model.UsedBy = append(model.UsedBy, &ServiceLink{
+				Href:site.Url.ViewJobRun(user.ProjectName, user.Name, run.RunNum),
+				Title:user.Caption(),
+				Entity:"job",
+				Timestamp:run.Timestamp,
+			})
+		}
+
 	}
 
 

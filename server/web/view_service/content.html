@@ -39,18 +39,43 @@
 
 
                 </div>
-
-
-
             </div>
-
         </div>
+
+
+
+
         <div class="row pt-5">
             <div class="col">
                 <h3>Relations</h3>
                 {{  .Lineage }}
             </div>
         </div>
+
+        {{ if .UsedBy}}
+            <div class="row pt-5">
+                <div class="col">
+                    <h3>Used By</h3>
+
+
+                    <table>
+                        <thead></thead>
+
+                        <tbody>
+
+                        {{range .UsedBy}}
+                            <tr>
+                                <td><code>{{.Entity}}</code>  <a href="{{.Href}}">{{.Title}}</a></td>
+                                <td>{{$.Site.Fmt.Timestamp .Timestamp}}</td>
+                            </tr>
+                        {{end}}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {{end }}
 
         {{ if .Description}}
 

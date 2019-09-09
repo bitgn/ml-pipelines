@@ -147,8 +147,8 @@ func Handle(tx *db.Tx, msg proto.Message){
 			switch input.Type {
 			case vo.DatasetVerInput_JOB_RUN:
 				run := db.GetJobRun(tx, input.Uid)
-				run.Outputs = append(run.Outputs, &vo.JobRunOutput{
-					Type:vo.JobRunOutput_DatasetVer,
+				run.Outputs = append(run.Outputs, &db.JobRunOutput{
+					Type:db.JobRunOutput_DatasetVer,
 					Uid:e.Uid,
 				})
 				db.PutJobRun(tx, run)
@@ -189,6 +189,20 @@ func Handle(tx *db.Tx, msg proto.Message){
 		proj.StorageBytes = project_storage
 		db.PutProject(tx, proj)
 
+
+	case *events.JobRunFailed:
+		run := db.GetJobRun(tx,e.Uid)
+		run.Status = vo.JOB_STATUS_FAIL
+		db.PutJobRun(tx, run)
+	case *events.JobRunCompleted:
+		run := db.GetJobRun(tx,e.Uid)
+		run.Status = vo.JOB_STATUS_SUCCESS
+		db.PutJobRun(tx, run)
+
+		job := db.GetJob(tx, e.JobUid)
+		job.LastSuccessUid = e.Uid
+		db.PutJob(tx, job)
+
 	case *events.JobRunStarted:
 
 		run := &db.JobRunData{
@@ -205,6 +219,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutJobRun(tx, run)
 
 		// for each run input
+		// XXXX (output) --> (input) This JOB.RUN
 		for _, input := range run.Inputs{
 			switch input.Type {
 			case vo.JobRunInput_DatasetVer:
@@ -215,6 +230,15 @@ func Handle(tx *db.Tx, msg proto.Message){
 				})
 				db.PutDatasetVersion(tx, ds)
 			case vo.JobRunInput_Service:
+
+				// Service -> THIS
+				db.PutServiceLink(tx, input.Uid, &db.ServiceLink{
+					ContainerUid:e.JobUid,
+					// for the link, this is output
+					Type:db.ServiceLink_Output_JobRun,
+					InstanceUid:e.Uid,
+				})
+
 				// nothing so far
 				//
 			default:
@@ -223,7 +247,10 @@ func Handle(tx *db.Tx, msg proto.Message){
 		}
 
 		job := db.GetJob(tx, run.JobUid)
-		job.RunCount +=1
+		job.RunNum =e.RunNum
+		job.RunUid =e.Uid
+
+
 		db.PutJob(tx, job)
 
 
@@ -246,6 +273,8 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutService(tx, data)
 		db.Name(tx, e.ProjectUid, e.Name, vo.ENTITY_SERVICE, e.Uid)
 
+		db.AddServiceToProject(tx, e.ProjectUid, e.Uid)
+
 
 		proj := db.GetProject(tx, e.ProjectUid)
 		proj.ServiceCount +=1
@@ -260,6 +289,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 		svc := db.GetService(tx, e.ServiceUid)
 		svc.VersionNum = e.Num;
 		svc.VersionUid =e.Uid;
+		svc.VersionTimestamp = e.Timestamp
 		db.PutService(tx, svc)
 
 		ver := &db.ServiceVersionData{
@@ -274,6 +304,52 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		db.PutServiceVersion(tx, ver)
 		db.IndexServiceVersion(tx,ver.ServiceUid, ver.Uid, ver.VersionNum)
+
+
+		for _, input := range e.Inputs{
+			switch input.Type {
+			case vo.ServiceVersionInput_Service:
+				// Service XXXX -> THIS
+				db.PutServiceLink(tx, input.Uid, &db.ServiceLink{
+					ContainerUid:e.ServiceUid,
+					// for the link, this is output
+					Type:db.ServiceLink_Output_ServiceVer,
+					InstanceUid:e.Uid,
+				})
+			case vo.ServiceVersionInput_JobRun:
+
+
+				// JobRUN XXXX -> THIS
+
+				run := db.GetJobRun(tx, input.Uid)
+				run.Outputs = append(run.Outputs, &db.JobRunOutput{
+					Type: db.JobRunOutput_ServiceVer,
+					Uid:e.Uid,
+				})
+				db.PutJobRun(tx, run)
+
+			default:
+				panic(input.Type)
+			}
+		}
+
+		for _, output := range e.Outputs{
+			switch output.Type {
+			case vo.ServiceVersionOutput_Service:
+				// Service THIS -> Service XXXX
+				db.PutServiceLink(tx, output.Uid, &db.ServiceLink{
+					ContainerUid:e.ServiceUid,
+					// for the link, this is output
+					Type:db.ServiceLink_Input_ServiceVer,
+					InstanceUid:e.Uid,
+				})
+			default:
+				panic(output.Type)
+			}
+		}
+
+
+
 
 	case *events.JobAdded:
 
@@ -297,11 +373,14 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Title:      e.Meta.Title,
 			Name:       e.Name,
 			ProjectUid: e.ProjectUid,
+			ProjectName:e.ProjectName,
 		}
 		if len(data.Title) == 0{
 			data.Title = data.Name
 		}
 		db.PutJob(tx, &data)
+
+		db.AddJobToProject(tx, e.ProjectUid, e.Uid)
 
 
 		db.Name(tx, e.ProjectUid, e.Name, vo.ENTITY_JOB, e.Uid)

@@ -16,6 +16,8 @@ enum Range {
     SERVICES = 13;
     SERVICE_VERSIONS=14;
 
+    SERVICE_LINKS = 30;
+
     DATASET_BINARY_TREE = 22;
 
 
@@ -32,6 +34,9 @@ enum Range {
     // service UID/int32
     IDX_SERVICE_VERSIONS = 23;
 
+    IDX_PROJECT_SERVICES = 24;
+    IDX_PROJECT_JOBS = 25;
+
 
     VERSION=255;
 
@@ -39,6 +44,20 @@ enum Range {
 
 
 
+// serviceID | Entity Container  | Exact Reference
+message ServiceLink {
+    bytes instance_uid = 1;
+    bytes container_uid = 2;
+    Type type = 3;
+    enum Type {
+        None = 0;
+        Input_ServiceVer = 1; // Container is Service
+        Input_JobRun = 2; // container is Job
+        Output_ServiceVer = 3;
+        Output_JobRun = 4;
+    }
+
+}
 
 message EntityRef {
     ENTITY kind = 1;
@@ -140,6 +159,7 @@ message ServiceData{
 
     int32 version_num = 9;
     bytes version_uid = 10;
+    int64 version_timestamp = 11;
 
 }
 
@@ -175,7 +195,16 @@ message Job{
     string title = 4;
 
     repeated bytes experts = 7;
-    int32 run_count = 8;
+    int32 run_num = 8;
+
+    bytes run_uid = 10;
+
+    string project_name = 9;
+
+
+    bytes last_success_uid = 11;
+
+
 }
 
 
@@ -199,6 +228,18 @@ message JobRunData {
 }
 
 
+
+
+message JobRunOutput {
+    enum Type {
+        None = 0;
+        DatasetVer = 1;
+        ServiceVer = 2;
+    }
+    // dataset
+    bytes uid = 1;
+    Type type = 2;
+}
 
 
 

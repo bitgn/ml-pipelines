@@ -88,8 +88,9 @@ func (s *SvgRender) ServiceVer(uid []byte){
 	svc := db.GetService(s.tx, ver.ServiceUid)
 
 	link := s.url.ViewServiceVer(svc.ProjectName, svc.Name, ver.VersionNum)
+
 	title := fmt.Sprintf("<%s<BR/><I>%s</I>>", svc.Caption(), s.fmt.Timestamp(ver.Timestamp))
-	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", hx(ver.Uid), title, link))
+	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s href=\"%s\"]; // ServiceVer\n", hx(ver.Uid), title, link))
 }
 
 

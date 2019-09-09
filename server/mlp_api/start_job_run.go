@@ -26,7 +26,7 @@ func (s *server) StartJobRun(c context.Context, r *StartJobRunRequest) (*JobRunI
 		JobUid:r.JobUid,
 		Timestamp:sim.Unix(),
 		Inputs:r.Inputs,
-		RunNum:job.RunCount+1,
+		RunNum:job.RunNum+1,
 	}
 	s.publish(tx, e)
 

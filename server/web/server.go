@@ -77,7 +77,7 @@ func NewServer(env *db.DB, templatePath string, devMode bool, specsMode bool, ve
 			http.Error(w, "Version is in invalid format", http.StatusBadRequest)
 			return
 		}
-		viewServiceHandler.Handle(w, vars["project"], vars["dataset"], int32(ver))
+		viewServiceHandler.Handle(w, vars["project"], vars["service"], int32(ver))
 	})
 	mx.HandleFunc("/projects/{project}/services/{service}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)

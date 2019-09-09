@@ -25,18 +25,25 @@ rint = randint
 def import_into_fast_storage(prj: client.Project, i):
 
     job = prj.get_job('ingest-fast')
+
     input = prj.get_service('event-store')
+
     output = prj.get_dataset('fast-store')
 
 
     # import into the fast storage
     run = job.start_run(inputs=[input])
 
+
+    #
+
     staging = output.get_last_version().prepare_commit()
     staging.add_input(run)
     staging.add_file(f'file_{i}', records=rint(10000, 20000), size=rint(10000000, 80000000))
     staging.commit()
     run.complete()
+
+
 
 
 
@@ -61,7 +68,10 @@ def scan_fast_store(prj: client.Project, i):
     source = prj.get_dataset('fast-store').get_last_version()
     job = prj.get_or_create_job("scan_event_store")
 
-    run = job.start_run(inputs=[source], title=f'run {i}')
+
+    dag_id = "something"
+    run = job.start_run(inputs=[source], title=dag_id)
+
 
     stage = prj.get_or_create_dataset("aggregated-data").get_last_version().prepare_commit(clean_slate=True)
     stage.add_input(run)
@@ -113,18 +123,21 @@ def render_reports(prj: client.Project, i):
         report.add_version(f'v{i}', inputs=[run])
 
 
+
+
 def setup_analytics_demo(cl: client.Client):
     print("Start setting up")
     prj = cl.create_project("web_01", "Web Analytics")
 
 
 
-    api = prj.create_service('api', title="Analytics API")
-    api.add_version('v1')
 
     slow = prj.create_service('event-store', title="Event Store")
     # service versions can have inputs and outputs
-    slow.add_version('v1', inputs=[api])
+    slow.add_version('v1')
+
+    api = prj.create_service('api', title="Analytics API")
+    api.add_version('v1', outputs=[slow])
 
 
     prj.create_job("ingest-fast", title="update reporting store")
@@ -160,6 +173,7 @@ def setup_analytics_demo(cl: client.Client):
     for i in range(100):
         import_into_fast_storage(prj, i)
         scan_fast_store(prj, i) # saves into datasets
+        render_reports(prj, i)
 
 
 

@@ -3,6 +3,7 @@ package view_project
 import (
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
+	"mlp/catalog/vo"
 	"mlp/catalog/web/shared"
 	"net/http"
 )
@@ -14,10 +15,21 @@ type Dataset struct {
 }
 
 
+
+type JobItem struct {
+	Item *db.Job
+
+	CurrentStatus vo.JOB_STATUS
+
+
+}
+
 type Model struct {
 	*shared.Site
 	Project *db.ProjectData
 	Datasets []*Dataset
+	Services []*db.ServiceData
+	Jobs []*JobItem
 }
 
 
@@ -61,15 +73,41 @@ func (h *Handler) Handle(w http.ResponseWriter, name string){
 			Item:ds,
 		})
 	}
-
-	mod := shared.LoadSite(tx)
-	mod.ActiveMenu="projects"
-
+	site := shared.LoadSite(tx)
+	site.ActiveMenu="projects"
 	model := &Model{
-		Site: mod,
-		Project: project,
-		Datasets:items,
+		Site:     site,
+		Project:  project,
+		Datasets: items,
 	}
+
+	for _, job := range db.ListProjectJobs(tx, pid){
+		job := db.GetJob(tx, job)
+
+
+
+		item := JobItem{
+			Item: job,
+
+		}
+
+
+		if job.RunUid != nil {
+			run := db.GetJobRun(tx, job.RunUid)
+			item.CurrentStatus = run.Status
+
+
+
+		}
+
+		model.Jobs = append(model.Jobs, &item)
+	}
+	for _, uid := range db.ListProjectServices(tx, pid){
+		model.Services = append(model.Services, db.GetService(tx, uid))
+	}
+
+
+
 
 	h.Layout.Render(w, model)
 }

@@ -3,8 +3,10 @@ package shared
 import (
 	"encoding/hex"
 	"fmt"
+	"html/template"
 	"math"
 	"mlp/catalog/sim"
+	"mlp/catalog/vo"
 	"strings"
 	"time"
 )
@@ -22,6 +24,26 @@ func (f *Format) BytesDecimal(b int64) string{
 
 func (f *Format) Uid(uid []byte) string{
 	return hex.EncodeToString(uid)
+}
+
+
+
+func (f *Format) JobStatus(status vo.JOB_STATUS) template.HTML{
+	switch status {
+	case vo.JOB_STATUS_NEVER:
+		return `<span class="badge badge-secondary">Never</span>`
+	case vo.JOB_STATUS_FAIL:
+		return `<span class="badge badge-danger">Failed</span>`
+	case vo.JOB_STATUS_SUCCESS:
+		return `<span class="badge badge-success">Success</span>`
+
+	case vo.JOB_STATUS_RUNNING:
+		return `<span class="badge badge-info">Running</span>`
+
+	default:
+		panic(status)
+
+	}
 }
 
 
