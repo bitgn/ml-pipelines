@@ -21,6 +21,19 @@ func RenderSystemGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML{
 	return render.ToHtml()
 }
 
+func RenderJobRunGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML{
+	render := NewRender(tx, s.Url, s.Fmt)
+
+	render.JobRun(uid)
+	render.Highlight(uid)
+
+	renderJobRunInputs(render,uid)
+	renderJobRunOutputs(render, uid)
+
+	return render.ToHtml()
+}
+
+
 func renderSystemLinks(render *SvgRender, uid []byte) {
 	refs := db.ListSystemLinks(render.tx, uid)
 	for _, ref := range refs {

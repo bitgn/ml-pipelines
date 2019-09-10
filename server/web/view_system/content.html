@@ -42,16 +42,6 @@
             </div>
         </div>
 
-
-
-
-        <div class="row pt-5">
-            <div class="col">
-                <h3>Relations</h3>
-                {{  .Lineage }}
-            </div>
-        </div>
-
         {{ if .UsedBy}}
             <div class="row pt-5">
                 <div class="col">
@@ -88,19 +78,30 @@
 
         {{ if .Description}}
 
+            <div class="row pt-5">
+                <div class="col">
+                    <h3>Description</h3>
+
+                    <article class="pt-2 description">
+                        {{ .Description }}
+                    </article>
+
+                </div>
+            </div>
+
+
+        {{end}}
+
         <div class="row pt-5">
-        <div class="col">
-            <h3>Description</h3>
-
-            <article class="pt-2 description">
-                {{ .Description }}
-            </article>
-
-        </div>
+            <div class="col">
+                <h3>Relations</h3>
+                {{  .Lineage }}
+            </div>
         </div>
 
 
-    {{end}}
+
+
 
 
 

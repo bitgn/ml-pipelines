@@ -10,6 +10,7 @@ import (
 	"mlp/catalog/web/shared"
 	"mlp/catalog/web/view_dataset"
 	"mlp/catalog/web/view_job"
+	"mlp/catalog/web/view_job_run"
 	"mlp/catalog/web/view_project"
 	"mlp/catalog/web/view_system"
 	"net/http"
@@ -94,7 +95,18 @@ func NewServer(env *db.DB, templatePath string, devMode bool, specsMode bool, ve
 			handler.Handle(w, vars["project"], vars["name"])
 		})
 	}
-
+	{
+		handler := view_job_run.NewHandler(env, tl)
+		mx.HandleFunc("/projects/{project}/jobs/{name}/runs/{run}", func(w http.ResponseWriter, r *http.Request) {
+			vars := mux.Vars(r)
+			run, err := strconv.Atoi(vars["run"])
+			if err != nil {
+				http.Error(w, "Run is in invalid format", http.StatusBadRequest)
+				return
+			}
+			handler.Handle(w, vars["project"], vars["name"], int32(run))
+		})
+	}
 
 
 	listProjectsHandler := list_projects.NewHandler(env, tl)

@@ -56,7 +56,7 @@ func (b *UrlResolver) ViewJob(project, name string) string {
 	return fmt.Sprintf("/projects/%s/jobs/%s", project, name)
 }
 func (b*UrlResolver) ViewJobRun(project, job string, num int32) string{
-	return fmt.Sprintf("/projects/%s/jobs/%s/run/%d", project, job, num)
+	return fmt.Sprintf("/projects/%s/jobs/%s/runs/%d", project, job, num)
 }
 
 

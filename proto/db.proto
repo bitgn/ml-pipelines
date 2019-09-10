@@ -24,6 +24,7 @@ enum Range {
 
     PROJECT_NAMES=10;
     JOB_RUNS = 12;
+    JOB_RUN_HISTORY = 47;
 
     // scoped to project
     NAMES_SCOPED=11;
@@ -41,6 +42,22 @@ enum Range {
 
     VERSION=255;
 
+}
+
+
+message JobRunEvent {
+    enum Type {
+        None = 0;
+        Started = 1;
+        Failed = 2;
+        Completed = 3;
+        Logged = 4;
+
+    }
+    Type type = 1;
+    string log = 2;
+    string title = 3;
+    int64 timestamp = 4;
 }
 
 
@@ -231,6 +248,7 @@ message JobRunData {
 
 
     int32 run_num = 8;
+    int32 event_count = 10;
 
 }
 

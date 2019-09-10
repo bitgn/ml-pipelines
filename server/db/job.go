@@ -43,6 +43,21 @@ func GetJobRun(tx *Tx, uid []byte) *JobRunData {
 }
 
 
+func AddJobRunEvent(tx *Tx, run []byte, num int32,  e *JobRunEvent){
+	tx.PutProto(CreateKey(Range_JOB_RUN_HISTORY, run, int(num)), e)
+}
+
+func ListJobRunHistory(tx *Tx, run []byte) []*JobRunEvent{
+	var vals []*JobRunEvent
+	tx.MustScanRange(CreateKey(Range_JOB_RUN_HISTORY, run), func(k,v[]byte){
+		val := &JobRunEvent{}
+		mustUnmarshal(v, val)
+		vals = append(vals, val)
+	})
+	return vals
+}
+
+
 
 
 

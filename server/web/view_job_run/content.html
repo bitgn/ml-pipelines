@@ -1,0 +1,92 @@
+{{- /*gotype: mlp/catalog/web/view_job_run.Model*/ -}}
+{{define "content"}}
+
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Project.Name}}" class="project-link">{{ .Project.Caption }}</a></li>
+      <li class="breadcrumb-item"><a href="{{.Site.Url.ViewJob .Project.Name .Job.Name}}" class="project-link">{{ .Job.Caption }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ .Run.Caption }}</li>
+  </ol>
+</nav>
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2>
+            Job Run: {{ .Job.Caption }} &mdash; {{.Run.Caption}}
+        </h2>
+    </div>
+
+    <div class="container" id="run-{{.Site.Fmt.Uid .Run.Uid}}">
+        <div class="row rounded border px-4 py-3" >
+            <div class="col">
+
+                <div>
+                    <strong>Status:</strong> {{.Site.Fmt.JobStatus .Run.Status}}<br/>
+                    <strong>Last Update: </strong> {{.Site.Fmt.Timestamp .Run.UpdateTimestamp}}<br/>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-5">
+            <div class="col">
+                <h3>Events</h3>
+                <div style="padding: 2px; ">
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                        {{range .History}}
+
+
+                        <tr class="table-{{.Class}}">
+                            <td >
+                                {{$.Site.Fmt.Timestamp .Timestamp}}
+                            </td>
+                            <td>
+                                <pre style="margin-bottom: 0;">{{.Text}}</pre>
+                            </td>
+
+
+                        </tr>
+                        {{end}}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-5">
+            <div class="col">
+                <h3>Relations</h3>
+                <div style="padding: 2px; ">
+                    {{  .Lineage }}
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+{{end}}
+
+

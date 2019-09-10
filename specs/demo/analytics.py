@@ -3,7 +3,7 @@ Generate demo data from the web analytics domain
 """
 
 import datetime
-from dataclasses import dataclass
+
 from random import randint
 from typing import List
 from test_api import events_pb2 as evt
@@ -34,21 +34,28 @@ def import_into_fast_storage(prj: client.Project, i):
     # import into the fast storage
     run = job.start_run(inputs=[input])
 
+    try:
+        run.log(f"Starting run {i}")
+        run.log_version_info()
 
-    #
 
-    staging = output.get_last_version().prepare_commit()
-    staging.add_input(run)
-    staging.add_file(f'file_{i}', records=rint(10000, 20000), size=rint(10000000, 80000000))
-    staging.commit()
+        staging = output.get_last_version().prepare_commit()
+        staging.add_input(run)
 
-    if (i % 17 == 0) or (i % 23) == 0:
-        run.fail(ValueError("Something went wrong"))
-    else:
+
+        staging.add_file(f'file_{i}', records=rint(10000, 20000), size=rint(10000000, 80000000))
+        ver = staging.commit()
+
+        if (i % 17 == 0) or (i % 23) == 0:
+            raise ValueError("Commit problem")
+
+        run.log(f'Commit {ver.uid.hex()}')
+
+
+
         run.complete()
-
-
-
+    except:
+        run.fail("Something went wrong")
 
 
 

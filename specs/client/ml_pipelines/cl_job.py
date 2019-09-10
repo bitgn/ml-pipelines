@@ -1,5 +1,10 @@
+import sys
+import platform
+import traceback
+import locale
+import struct
 from typing import Optional, Union, List
-
+from .deps import get_package_info
 from .cl_bases import Context
 from . import vo_pb2 as vo
 
@@ -14,6 +19,26 @@ class JobRun(JobRunId):
         self.job_uid = job_uid
         self.project_uid = project_uid
         self.ctx = ctx
+
+    # TODO: cache this thing per run
+    def log_version_info(self):
+        (sysname, nodename, release, version, machine, processor) = platform.uname()
+
+        bits = struct.calcsize("P") * 8
+        host = [
+            ("python", "%d.%d.%d.%s.%s" % sys.version_info[:] + " {0} bit".format(bits)),
+            ("OS", "{0} {1}".format(sysname, release)),
+            ("machine", machine),
+            ("node", platform.node()),
+            ("processor", processor),
+            ("byteorder", sys.byteorder)
+        ]
+
+        host.extend(get_package_info(['pandas', 'numpy', 'bokeh', 'lz4','grpc','google.protobuf']))
+
+        log = "\n".join([k + ": " + str(v) for k,v in host])
+        self.log(log)
+
 
     def log(self, details: str, title: Optional[str] = None):
 
@@ -31,10 +56,12 @@ class JobRun(JobRunId):
         )
         self.ctx.complete_job_run(req)
 
-    def fail(self, e: Exception):
+    def fail(self, message:Optional[str]=None):
+
         req = api.FailJobRunRequest(
             uid=self.uid,
-            details=str(e)
+            message=message,
+            details=traceback.format_exc()
         )
         self.ctx.fail_job_run(req)
 

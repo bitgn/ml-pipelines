@@ -57,8 +57,9 @@ func (s *SvgRender) JobRun(uid []byte) {
 	run := db.GetJobRun(s.tx, uid)
 	job := db.GetJob(s.tx, run.JobUid)
 	title := s.fmt.Timestamp(run.UpdateTimestamp)
-	runTitle := fmt.Sprintf("<%s<BR/><I>%s</I>>", job.Caption(), title)
-	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s ]; // JobRun \n", hx(run.Uid), runTitle))
+	runTitle := fmt.Sprintf("<Job: %s<BR/><I>%s</I>>", job.Caption(), title)
+	link := s.url.ViewJobRun(job.ProjectName, job.Name, run.RunNum)
+	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s href=\"%s\"]; // JobRun \n", hx(run.Uid), runTitle, link))
 }
 
 

@@ -190,18 +190,48 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.PutProject(tx, proj)
 
 
+	case *events.JobRunLogged:
+		run := db.GetJobRun(tx,e.Uid)
+		run.UpdateTimestamp = e.Timestamp
+		run.EventCount +=1
+		db.PutJobRun(tx, run)
+
+
+		db.AddJobRunEvent(tx, run.Uid, run.EventCount, &db.JobRunEvent{
+			Type:db.JobRunEvent_Logged,
+			Timestamp:e.Timestamp,
+			Log:e.Details,
+			Title:e.LogTitle,
+		})
+
 	case *events.JobRunFailed:
 		run := db.GetJobRun(tx,e.Uid)
 		run.Status = vo.JOB_STATUS_FAIL
 		run.UpdateTimestamp = e.Timestamp
+		run.EventCount +=1
 		db.PutJobRun(tx, run)
+
+
+		db.AddJobRunEvent(tx, run.Uid, run.EventCount, &db.JobRunEvent{
+			Type:db.JobRunEvent_Failed,
+
+			Timestamp:e.Timestamp,
+			Log:e.Details,
+			Title:e.Message,
+		})
 
 
 	case *events.JobRunCompleted:
 		run := db.GetJobRun(tx,e.Uid)
 		run.Status = vo.JOB_STATUS_SUCCESS
 		run.UpdateTimestamp = e.Timestamp
+		run.EventCount +=1
 		db.PutJobRun(tx, run)
+
+		db.AddJobRunEvent(tx, run.Uid, run.EventCount, &db.JobRunEvent{
+			Type:db.JobRunEvent_Completed,
+			Timestamp:e.Timestamp,
+		})
 
 		job := db.GetJob(tx, e.JobUid)
 		job.LastSuccessUid = e.Uid
@@ -218,11 +248,19 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Inputs:e.Inputs,
 			Status:vo.JOB_STATUS_RUNNING,
 			RunNum:e.RunNum,
+			EventCount:1,
 		}
 
 
 
 		db.PutJobRun(tx, run)
+
+		event := &db.JobRunEvent{
+			Timestamp:e.Timestamp,
+			Type:db.JobRunEvent_Started,
+			Title:"Started",
+		}
+		db.AddJobRunEvent(tx, run.Uid, run.EventCount, event)
 
 		// for each run input
 		// XXXX (output) --> (input) This JOB.RUN
