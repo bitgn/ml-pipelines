@@ -1,0 +1,79 @@
+{{- /*gotype: mlp/catalog/web/view_job.ViewJobModel*/ -}}
+{{define "content"}}
+
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Project.Name}}" class="project-link">{{ .Project.Caption }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ .Item.Caption }}</li>
+  </ol>
+</nav>
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2>
+            Job: {{ .Item.Caption }}
+        </h2>
+    </div>
+
+    <div class="container" id="job-{{.Site.Fmt.Uid .Item.Uid}}">
+        <div class="row rounded border px-4 py-3" >
+            <div class="col">
+
+                <div>
+                    <strong>Status:</strong> {{.Site.Fmt.JobStatus .CurrentStatus}}<br/>
+                    <strong>Last Update: </strong> {{.Site.Fmt.Timestamp .LastUpdated}}<br/>
+                    <strong>Last Success:</strong> {{.LastSuccessTimestamp}}
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row pt-5">
+            <div class="col">
+                <h3>Last Job Runs</h3>
+
+                <table class="table table-sm table-striped table-bordered">
+                    <thead>
+                    <tr><th>Run</th><th>Last Update</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                    {{range.Runs}}
+                        <tr>
+                            <td><a href="{{$.Site.Url.ViewJobRun $.Project.Name $.Item.Name .RunNum}}">{{.Caption}}</a></td>
+                            <td>{{$.Site.Fmt.Timestamp .UpdateTimestamp}}</td>
+                            <td>{{$.Site.Fmt.JobStatus .Status}}</td>
+                        </tr>
+
+                    {{else}}
+                    {{end}}
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+{{end}}
+
+

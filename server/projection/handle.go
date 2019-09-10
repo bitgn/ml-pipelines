@@ -217,6 +217,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 			UpdateTimestamp:e.Timestamp,
 			Inputs:e.Inputs,
 			Status:vo.JOB_STATUS_RUNNING,
+			RunNum:e.RunNum,
 		}
 
 

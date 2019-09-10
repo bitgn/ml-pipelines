@@ -41,7 +41,11 @@ def import_into_fast_storage(prj: client.Project, i):
     staging.add_input(run)
     staging.add_file(f'file_{i}', records=rint(10000, 20000), size=rint(10000000, 80000000))
     staging.commit()
-    run.complete()
+
+    if (i % 17 == 0) or (i % 23) == 0:
+        run.fail(ValueError("Something went wrong"))
+    else:
+        run.complete()
 
 
 

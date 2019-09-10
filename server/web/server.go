@@ -9,6 +9,7 @@ import (
 	"mlp/catalog/web/list_projects"
 	"mlp/catalog/web/shared"
 	"mlp/catalog/web/view_dataset"
+	"mlp/catalog/web/view_job"
 	"mlp/catalog/web/view_project"
 	"mlp/catalog/web/view_system"
 	"net/http"
@@ -83,6 +84,14 @@ func NewServer(env *db.DB, templatePath string, devMode bool, specsMode bool, ve
 		mx.HandleFunc("/projects/{project}/systems/{system}", func(w http.ResponseWriter, r *http.Request) {
 			vars := mux.Vars(r)
 			handler.Handle(w, vars["project"], vars["system"], 0)
+		})
+	}
+
+	{
+		handler := view_job.NewHandler(env, tl)
+		mx.HandleFunc("/projects/{project}/jobs/{name}", func(w http.ResponseWriter, r *http.Request) {
+			vars := mux.Vars(r)
+			handler.Handle(w, vars["project"], vars["name"])
 		})
 	}
 

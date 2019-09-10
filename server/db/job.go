@@ -19,9 +19,19 @@ func PutJob(tx *Tx, j *Job){
 
 
 func PutJobRun(tx *Tx, j *JobRunData){
+	if j.RunNum == 0 {
+		panic("RunNUM must be positive")
+	}
+
 	tx.PutProto(CreateKey(Range_JOB_RUNS, j.Uid), j)
+	tx.Put(CreateKey(Range_IDX_JOB_RUNS, j.JobUid, int(j.RunNum)), j.Uid)
 }
 
+
+func LookupJobRun(tx *Tx, uid []byte, num int32) *JobRunData{
+	runUid := tx.Get(CreateKey(Range_IDX_JOB_RUNS, uid, int(num)))
+	return GetJobRun(tx, runUid)
+}
 
 func GetJobRun(tx *Tx, uid []byte) *JobRunData {
 	j := &JobRunData{}
@@ -31,6 +41,8 @@ func GetJobRun(tx *Tx, uid []byte) *JobRunData {
 	}
 	return nil
 }
+
+
 
 
 

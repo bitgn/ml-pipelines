@@ -50,7 +50,7 @@ func (s *server) CreateJob(_ context.Context, r *CreateJobRequest) (*JobInfoResp
 		ProjectUid: r.ProjectUid,
 		Uid:        uid,
 		Meta:       r.Meta,
-		ProjectName:r.Name,
+		ProjectName:prj.Name,
 	}
 
 	if e.Meta == nil {
