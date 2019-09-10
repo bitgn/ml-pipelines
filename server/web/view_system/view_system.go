@@ -18,6 +18,7 @@ type ViewSystemModel struct {
 	Project     *db.ProjectData
 	Lineage     template.HTML
 	Description template.HTML
+	Kind string
 
 
 	UsedBy []*SystemLink
@@ -28,7 +29,7 @@ type ViewSystemModel struct {
 type SystemLink struct {
 	Href string
 	Title string
-	Entity string
+	Entity template.HTML
 	Timestamp int64
 }
 
@@ -68,8 +69,10 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 
 
 
-	svc := db.GetSystem(tx, ref.Uid)
-	pr := db.GetProject(tx, svc.ProjectUid)
+	sys := db.GetSystem(tx, ref.Uid)
+
+
+	prj := db.GetProject(tx, sys.ProjectUid)
 
 
 	site := shared.LoadSite(tx)
@@ -78,14 +81,15 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 
 	model := &ViewSystemModel{
 		Site:    site,
-		System: svc,
-		Project: pr,
+		System:  sys,
+		Project: prj,
+		Kind:vo.SystemKind_name[int32(sys.Kind)],
 	}
 
 
 	// lookup users
 
-	links:= db.ListSystemLinks(tx, svc.Uid)
+	links:= db.ListSystemLinks(tx, sys.Uid)
 
 	for _, link := range links{
 		switch link.Type {
@@ -94,13 +98,13 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 			// SVC THIS -->> System deployment
 			// service reads from this
 
-			user := db.GetSystem(tx, link.ContainerUid)
+			sys := db.GetSystem(tx, link.ContainerUid)
 			ver := db.GetSystemVersion(tx, link.InstanceUid)
 			model.UsedBy = append(model.UsedBy, &SystemLink{
-				Href:site.Url.ViewSystemVer(user.ProjectName, user.Name, ver.VersionNum),
-				Title:user.Caption(),
-				Entity:"system",
-				Timestamp:ver.Timestamp,
+				Href:      site.Url.ViewSystemVer(sys.ProjectName, sys.Name, ver.VersionNum),
+				Title:     sys.Caption(),
+				Entity:    site.Fmt.SystemKind(sys.Kind),
+				Timestamp: ver.Timestamp,
 			})
 
 		case db.SystemLink_Input_JobRun, db.SystemLink_Output_JobRun:
@@ -120,19 +124,19 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 
 	// if version is not provided, we show latest
 	if version == 0{
-		version = svc.VersionNum
+		version = sys.VersionNum
 	}
 
 	if version > 0 {
 		uid := db.LookupSystemVersion(tx, ref.Uid, version)
 		model.Lineage = graph.RenderSystemVersionGraph(tx, site, uid)
 	} else {
-		model.Lineage= graph.RenderSystemGraph(tx, site, svc.Uid)
+		model.Lineage= graph.RenderSystemGraph(tx, site, sys.Uid)
 	}
 
 
-	if len(svc.Description) > 0 {
-		md := string(markdown.ToHTML([]byte(svc.Description), nil,nil))
+	if len(sys.Description) > 0 {
+		md := string(markdown.ToHTML([]byte(sys.Description), nil,nil))
 		md = strings.Replace(md, "h1", "h4", -1)
 		md = strings.Replace(md, "h2", "h5", -1)
 		md = strings.Replace(md, "h3", "h6", -1)

@@ -1,4 +1,4 @@
-{{- /*gotype: mlp/catalog/web/view_service.ViewServiceModel*/ -}}
+{{- /*gotype: mlp/catalog/web/view_system.ViewSystemModel*/ -}}
 {{define "content"}}
 
 
@@ -7,34 +7,34 @@
   <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
     <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
     <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Project.Name}}" class="project-link">{{ .Project.Caption }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ .Service.Caption }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ .System.Caption }}</li>
   </ol>
 </nav>
 
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2>
-            Service: {{ .Service.Caption }}
+            {{.System.Kind}}: {{ .System.Caption }}
         </h2>
     </div>
 
-    <div class="container" id="ds-{{.Site.Fmt.Uid .Service.Uid}}">
+    <div class="container" id="ds-{{.Site.Fmt.Uid .System.Uid}}">
         <div class="row rounded border px-4 py-3" >
             <div class="col">
 
                 <div>
-                    {{if .Service.LocationId }}
-                        <strong>Location: </strong><span class="location-id">{{ .Service.LocationId }}</span><br/>
+                    {{if .System.LocationId }}
+                        <strong>Location: </strong><span class="location-id">{{ .System.LocationId }}</span><br/>
                     {{end}}
 
 
                     <strong>URI: </strong>
                     <code class="location-uri">
-                        {{if .Service.LocationUri}}{{.Service.LocationUri}}{{else}}N/A{{end}}
+                        {{if .System.LocationUri}}{{.System.LocationUri}}{{else}}N/A{{end}}
                     </code><br/>
 
-                    {{if .Service.VersionNum}}
-                        <strong>Versions: </strong>{{ .Service.VersionNum }}<br/>
+                    {{if .System.VersionNum}}
+                        <strong>Versions: </strong>{{ .System.VersionNum }}<br/>
                     {{end}}
 
 
@@ -58,14 +58,23 @@
                     <h3>Used By</h3>
 
 
-                    <table>
-                        <thead></thead>
+                    <table class="table table-sm table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Kind</th>
+
+                            <th>Last Updated</th>
+                        </tr>
+                        </thead>
 
                         <tbody>
 
                         {{range .UsedBy}}
                             <tr>
-                                <td><code>{{.Entity}}</code>  <a href="{{.Href}}">{{.Title}}</a></td>
+                                <td><a href="{{.Href}}">{{.Title}}</a></td>
+                                <td>{{.Entity}}</td>
+
                                 <td>{{$.Site.Fmt.Timestamp .Timestamp}}</td>
                             </tr>
                         {{end}}
