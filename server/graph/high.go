@@ -14,7 +14,7 @@ func RenderSystemGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML{
 	render := NewRender(tx, s.Url, s.Fmt)
 
 	render.System(uid)
-	render.ColorGreen(uid)
+	render.Highlight(uid)
 
 	renderSystemLinks(render, uid)
 
@@ -58,7 +58,7 @@ func RenderSystemVersionGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HT
 	render := NewRender(tx, s.Url, s.Fmt)
 
 	render.SystemVer(uid)
-	render.ColorGreen(uid)
+	render.Highlight(uid)
 
 
 
@@ -105,7 +105,7 @@ func  RenderDatasetVerGraph(tx *db.Tx, s *shared.Site, uid []byte) template.HTML
 
 
 	render.DatasetVer(uid)
-	render.ColorGreen(uid)
+	render.Highlight(uid)
 
 	if this != nil {
 

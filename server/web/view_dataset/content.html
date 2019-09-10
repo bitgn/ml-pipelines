@@ -6,7 +6,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
     <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
-    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Project.Name}}" class="project-link">{{ .Project.Name }}</a></li>
+    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Project.Name}}" class="project-link">{{ .Project.Caption }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{ .Dataset.Caption }}</li>
   </ol>
 </nav>
@@ -68,7 +68,9 @@
         <div class="row pt-5">
             <div class="col">
                 <h3>Relations</h3>
+                <div style="padding: 2px; ">
                 {{  .Lineage }}
+                </div>
             </div>
         </div>
 

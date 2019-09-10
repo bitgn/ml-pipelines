@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"mlp/catalog/db"
+	"mlp/catalog/vo"
 	"mlp/catalog/web/shared"
 	"os/exec"
 	"strings"
@@ -22,7 +23,7 @@ func NewRender(tx *db.Tx, url shared.UrlResolver, fmt shared.Format) *SvgRender{
 	}
 
 	render.Line("digraph{")
-	render.Line("rankdir=LR;")
+	render.Line("rankdir=LR;margin=\"1\";")
 	render.Line("fontname=\"Arial\";")
 	render.Line("node[shape=\"rectangle\" color=\"#343a40\" penwidth=\"1.5\" fontname=\"Arial\"];")
 	render.Line("edge[color=\"#343a40\" penwidth=\"1.0\"];")
@@ -57,7 +58,7 @@ func (s *SvgRender) JobRun(uid []byte) {
 	job := db.GetJob(s.tx, run.JobUid)
 	title := s.fmt.Timestamp(run.UpdateTimestamp)
 	runTitle := fmt.Sprintf("<%s<BR/><I>%s</I>>", job.Caption(), title)
-	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s style=\"rounded\"]; // JobRun \n", hx(run.Uid), runTitle))
+	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s ]; // JobRun \n", hx(run.Uid), runTitle))
 }
 
 
@@ -79,9 +80,42 @@ func(s *SvgRender) DatasetVer(uid []byte){
 	link := s.url.ViewDatasetVersion(ds.ProjectName, ds.Name, ver.Uid)
 
 	title := fmt.Sprintf("<%s<BR/><I>%s</I>>", ds.Title, s.fmt.Timestamp(ver.Timestamp))
-	s.Line("  \"%s\" [label=%s href=\"%s\"];// DatasetVer\n", hx(uid), title, link)
+	s.Line("  \"%s\" [label=%s href=\"%s\" style=\"rounded\"];// DatasetVer\n", hx(uid), title, link)
 }
 
+
+
+
+
+/*
+.system-db {color: #b58900;}
+.system-table{color: #2aa198;}
+.system-report{color:#859900;}
+.system-service{color:#cb4b16;}
+ */
+
+
+func systemShape(kind vo.SystemKind) string {
+	var shape string
+	switch (kind) {
+	case vo.SystemKind_Database:
+		shape = "cylinder"
+	case vo.SystemKind_Service:
+		shape = "component"
+	case vo.SystemKind_Table:
+		shape = "tab"
+	case vo.SystemKind_Report:
+		shape = "folder"
+	default:
+		shape = "box"
+	}
+	return shape
+}
+
+
+func (s *SvgRender) Highlight(uid []byte){
+	s.Line("\"%s\"[color=\"#007bff\"]", hx(uid))
+}
 
 func (s *SvgRender) SystemVer(uid []byte){
 	ver := db.GetSystemVersion(s.tx, uid)
@@ -89,22 +123,19 @@ func (s *SvgRender) SystemVer(uid []byte){
 
 	link := s.url.ViewSystemVer(svc.ProjectName, svc.Name, ver.VersionNum)
 
+	shape := systemShape(svc.Kind)
+
 	title := fmt.Sprintf("<%s<BR/><I>%s</I>>", svc.Caption(), s.fmt.Timestamp(ver.Timestamp))
-	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s href=\"%s\"]; // SystemVer\n", hx(ver.Uid), title, link))
+	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s href=\"%s\" shape=\"%s\"]; // SystemVer\n", hx(ver.Uid), title, link, shape))
 }
-
-
-func (s *SvgRender) ColorGreen(uid []byte){
-	s.Line("\"%s\"[color=\"#28a745\"]", hx(uid))
-}
-
 
 func (s *SvgRender) System(uid []byte){
 	svc := db.GetSystem(s.tx, uid)
 
 	link := s.url.ViewSystem(svc.ProjectName, svc.Name)
 	this := hx(svc.Uid)
-	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\"];\n", this, svc.Caption(), link))
+	shape:= systemShape(svc.Kind)
+	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\" shape=\"%s\"];\n", this, svc.Caption(), link, shape))
 }
 
 

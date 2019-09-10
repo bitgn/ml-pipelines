@@ -91,8 +91,8 @@
         <table class="table table-sm table-striped table-bordered">
             <thead>
             <tr>
+                <th>Name</th>
                 <th>Kind</th>
-                <th>System</th>
                 <th>Updated</th>
             </tr>
             </thead>
@@ -100,10 +100,11 @@
 
             {{range .Systems}}
                 <tr class="service-info" id="svc-{{ $.Site.Fmt.Uid .Uid }}">
-                    <td>{{$.Site.Fmt.SystemKind .Kind}}</td>
                     <td>
                         <a href="{{$.Site.Url.ViewSystem .ProjectName .Name}}" class="system-link">{{.Caption}}</a>
                     </td>
+                    <td>{{$.Site.Fmt.SystemKind .Kind}}</td>
+
                     <td class="update-timestamp">{{$.Site.Fmt.Timestamp .VersionTimestamp}}</td>
 
 
