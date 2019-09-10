@@ -193,10 +193,14 @@ func Handle(tx *db.Tx, msg proto.Message){
 	case *events.JobRunFailed:
 		run := db.GetJobRun(tx,e.Uid)
 		run.Status = vo.JOB_STATUS_FAIL
+		run.UpdateTimestamp = e.Timestamp
 		db.PutJobRun(tx, run)
+
+
 	case *events.JobRunCompleted:
 		run := db.GetJobRun(tx,e.Uid)
 		run.Status = vo.JOB_STATUS_SUCCESS
+		run.UpdateTimestamp = e.Timestamp
 		db.PutJobRun(tx, run)
 
 		job := db.GetJob(tx, e.JobUid)
@@ -209,7 +213,8 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Uid:e.Uid,
 			JobUid:e.JobUid,
 			Title:e.Title,
-			Timestamp:e.Timestamp,
+			StartTimestamp:e.Timestamp,
+			UpdateTimestamp:e.Timestamp,
 			Inputs:e.Inputs,
 			Status:vo.JOB_STATUS_RUNNING,
 		}
@@ -268,6 +273,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 			Experts:e.Meta.Experts,
 			LocationUri:e.Meta.LocationUri,
 			ProjectName:e.ProjectName,
+			Kind:e.Meta.Kind,
 		}
 
 		db.PutSystem(tx, data)

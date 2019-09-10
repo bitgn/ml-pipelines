@@ -46,6 +46,28 @@ func (f *Format) JobStatus(status vo.JOB_STATUS) template.HTML{
 	}
 }
 
+func (f *Format) SystemKind(kind vo.SystemKind) template.HTML{
+	switch kind {
+	case vo.SystemKind_Database:
+		return `<span class="system-db">DB</span>`
+	case vo.SystemKind_Report:
+		return `<span class="system-report">Report</span>`
+	case vo.SystemKind_Service:
+		return `<span class="system-service">Service</span>`
+	case vo.SystemKind_Table:
+		return `<span class="system-table">Table</span>`
+	case vo.SystemKind_UndefinedSystem:
+		return ``
+	case vo.SystemKind_Topic:
+		return `<span class="system-topic">Topic</span>`
+	default:
+		panic(kind)
+
+
+
+	}
+}
+
 
 
 

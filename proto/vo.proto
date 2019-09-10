@@ -10,7 +10,20 @@ message ProjectMetadataDelta {
     bool description_set = 4;
 }
 
+enum SystemKind{
+    UndefinedSystem = 0;
+    // e.g. CustomersTable. A relational collection of facts
+    Table = 1;
+    // Kafka topic, aggregate stream, message channel
+    Topic = 2;
+    // E.g. API, Jupyter, Dask, Airflow, ML API it might or might not have a UI
+    Service = 3;
+    // e.g. a specific dashboard, HTML report
+    Report = 4;
+    // e.g. event store, InfluxDB, LMDB dump
+    Database = 5;
 
+}
 
 
 message SystemMetadataDelta {
@@ -28,6 +41,9 @@ message SystemMetadataDelta {
 
     repeated bytes experts = 9;
     bool experts_set = 10;
+
+    SystemKind kind = 11;
+    bool kind_set = 12;
 }
 
 
@@ -58,6 +74,8 @@ enum ENTITY {
     SYSTEM_VERSION = 9;
 
 }
+
+
 
 
 

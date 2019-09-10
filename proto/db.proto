@@ -161,6 +161,9 @@ message SystemData{
     bytes version_uid = 10;
     int64 version_timestamp = 11;
 
+
+    SystemKind kind = 12;
+
 }
 
 message SystemVersionData{
@@ -175,6 +178,8 @@ message SystemVersionData{
 
     repeated SystemVersionInput inputs = 10;
     repeated SystemVersionOutput outputs = 11;
+
+
 }
 
 message DatasetItemData {
@@ -218,7 +223,8 @@ message JobRunData {
 
     repeated JobRunInput inputs = 4;
     repeated JobRunOutput outputs = 5;
-    int64 timestamp = 6;
+    int64 start_timestamp = 6;
+    int64 update_timestamp = 9;
 
     JOB_STATUS status = 7;
 

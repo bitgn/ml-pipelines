@@ -19,12 +19,82 @@ class MultiCommit:
         self.project_uid = project_uid
         self.ctx = ctx
 
+
+class Systems:
+    def __init__(self, ctx: Context, uid: bytes):
+        self.uid = uid
+        self.ctx = ctx
+
+
+    def get_or_add_report(self, name: str) -> System:
+        return self._get_or_add(name, kind=vo.SystemKind.Report)
+
+
+    def add_report(self, name:str, title: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Report, title)
+
+
+    def add_db(self, name:str, title: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Database, title)
+
+    def add_table(self, name:str, title: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Table, title)
+
+
+
+    def add_service(self, name:str, title: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Service, title)
+
+
+
+    def _add(self, name: str, kind: vo.SystemKind, title: Optional[str] = None) -> System:
+        meta = vo.SystemMetadataDelta()
+
+        meta.kind = kind
+        meta.kind_set = True
+
+        if title:
+            meta.title = title
+            meta.title_set = True
+
+        new = api.AddSystemRequest(
+            project_uid=self.uid,
+            name=name,
+            meta=meta,
+        )
+        resp = self.ctx.add_system(new)
+        return System(
+            self.ctx,
+            project_uid=self.uid,
+            uid=resp.uid,
+            name=name,
+        )
+    def get(self, name:str) -> System:
+
+        req = api.GetSystemRequest(
+            project_uid=self.uid,
+            name=name
+        )
+        resp = self.ctx.get_system(req)
+
+        return System(self.ctx, project_uid=self.uid, uid=resp.uid, name=name)
+
+    def _get_or_add(self, name: str, kind: vo.SystemKind) -> System:
+        try:
+            return self.get(name)
+        except errors.NotFound:
+            pass
+
+        return self._add(name, kind)
+
+
 class Project:
 
 
     def __init__(self, ctx: Context, uid: bytes):
         self.uid = uid
         self.ctx = ctx
+        self.systems = Systems(ctx, uid)
 
 
     def prepare_commit(self, clean_slate:bool = False):
@@ -112,39 +182,4 @@ class Project:
 
         return self.create_dataset(name, location_id=location_id)
 
-    def add_system(self, name: str, title: Optional[str] = None) -> System:
-        meta = vo.SystemMetadataDelta()
 
-        if title:
-            meta.title = title
-            meta.title_set = True
-
-        new = api.AddSystemRequest(
-            project_uid=self.uid,
-            name=name,
-            meta=meta,
-        )
-        resp = self.ctx.add_system(new)
-        return System(
-            self.ctx,
-            project_uid=self.uid,
-            uid=resp.uid,
-            name=name,
-        )
-    def get_system(self, name:str) -> System:
-
-        req = api.GetSystemRequest(
-            project_uid=self.uid,
-            name=name
-        )
-        resp = self.ctx.get_system(req)
-
-        return System(self.ctx, project_uid=self.uid, uid=resp.uid, name=name)
-
-    def get_or_add_system(self, name: str) -> System:
-        try:
-            return self.get_system(name)
-        except errors.NotFound:
-            pass
-
-        return self.add_system(name)

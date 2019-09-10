@@ -20,6 +20,7 @@ type JobItem struct {
 	Item *db.Job
 
 	CurrentStatus vo.JOB_STATUS
+	LastUpdated int64
 
 
 }
@@ -95,9 +96,7 @@ func (h *Handler) Handle(w http.ResponseWriter, name string){
 		if job.RunUid != nil {
 			run := db.GetJobRun(tx, job.RunUid)
 			item.CurrentStatus = run.Status
-
-
-
+			item.LastUpdated = run.UpdateTimestamp
 		}
 
 		model.Jobs = append(model.Jobs, &item)

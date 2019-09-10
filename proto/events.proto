@@ -141,8 +141,6 @@ message SystemVersionAdded {
 }
 
 
-
-
 message ExpertAdded {
     bytes uid = 1;
     string name = 2;

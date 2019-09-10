@@ -99,7 +99,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 			model.UsedBy = append(model.UsedBy, &SystemLink{
 				Href:site.Url.ViewSystemVer(user.ProjectName, user.Name, ver.VersionNum),
 				Title:user.Caption(),
-				Entity:"service",
+				Entity:"system",
 				Timestamp:ver.Timestamp,
 			})
 
@@ -111,7 +111,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, service string, version
 				Href:site.Url.ViewJobRun(user.ProjectName, user.Name, run.RunNum),
 				Title:user.Caption(),
 				Entity:"job",
-				Timestamp:run.Timestamp,
+				Timestamp:run.UpdateTimestamp,
 			})
 		}
 

@@ -71,7 +71,7 @@
                 <td>
                     <a href="{{$.Site.Url.ViewJob .Item.ProjectName .Item.Name}}" class="job-link">{{.Item.Caption}}</a>
                 </td>
-                <td>{{$.Site.Fmt.JobStatus .CurrentStatus}}</td>
+                <td>{{$.Site.Fmt.JobStatus .CurrentStatus}} {{$.Site.Fmt.Timestamp .LastUpdated}}</td>
 
 
 
@@ -91,6 +91,7 @@
         <table class="table table-sm table-striped table-bordered">
             <thead>
             <tr>
+                <th>Kind</th>
                 <th>System</th>
                 <th>Updated</th>
             </tr>
@@ -99,6 +100,7 @@
 
             {{range .Systems}}
                 <tr class="service-info" id="svc-{{ $.Site.Fmt.Uid .Uid }}">
+                    <td>{{$.Site.Fmt.SystemKind .Kind}}</td>
                     <td>
                         <a href="{{$.Site.Url.ViewSystem .ProjectName .Name}}" class="system-link">{{.Caption}}</a>
                     </td>

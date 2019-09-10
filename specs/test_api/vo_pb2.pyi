@@ -27,6 +27,31 @@ from typing_extensions import (
 )
 
 
+class SystemKind(int):
+    DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
+    @classmethod
+    def Name(cls, number: int) -> str: ...
+    @classmethod
+    def Value(cls, name: str) -> SystemKind: ...
+    @classmethod
+    def keys(cls) -> typing___List[str]: ...
+    @classmethod
+    def values(cls) -> typing___List[SystemKind]: ...
+    @classmethod
+    def items(cls) -> typing___List[typing___Tuple[str, SystemKind]]: ...
+    UndefinedSystem = typing___cast(SystemKind, 0)
+    Table = typing___cast(SystemKind, 1)
+    Topic = typing___cast(SystemKind, 2)
+    Service = typing___cast(SystemKind, 3)
+    Report = typing___cast(SystemKind, 4)
+    Database = typing___cast(SystemKind, 5)
+UndefinedSystem = typing___cast(SystemKind, 0)
+Table = typing___cast(SystemKind, 1)
+Topic = typing___cast(SystemKind, 2)
+Service = typing___cast(SystemKind, 3)
+Report = typing___cast(SystemKind, 4)
+Database = typing___cast(SystemKind, 5)
+
 class ENTITY(int):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
     @classmethod
@@ -114,6 +139,8 @@ class SystemMetadataDelta(google___protobuf___message___Message):
     description_set = ... # type: bool
     experts = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[bytes]
     experts_set = ... # type: bool
+    kind = ... # type: SystemKind
+    kind_set = ... # type: bool
 
     def __init__(self,
         *,
@@ -127,15 +154,17 @@ class SystemMetadataDelta(google___protobuf___message___Message):
         description_set : typing___Optional[bool] = None,
         experts : typing___Optional[typing___Iterable[bytes]] = None,
         experts_set : typing___Optional[bool] = None,
+        kind : typing___Optional[SystemKind] = None,
+        kind_set : typing___Optional[bool] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> SystemMetadataDelta: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     if sys.version_info >= (3,):
-        def ClearField(self, field_name: typing_extensions___Literal[u"description",u"description_set",u"experts",u"experts_set",u"location_id",u"location_id_set",u"location_uri",u"location_uri_set",u"title",u"title_set"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"description",u"description_set",u"experts",u"experts_set",u"kind",u"kind_set",u"location_id",u"location_id_set",u"location_uri",u"location_uri_set",u"title",u"title_set"]) -> None: ...
     else:
-        def ClearField(self, field_name: typing_extensions___Literal[u"description",b"description",u"description_set",b"description_set",u"experts",b"experts",u"experts_set",b"experts_set",u"location_id",b"location_id",u"location_id_set",b"location_id_set",u"location_uri",b"location_uri",u"location_uri_set",b"location_uri_set",u"title",b"title",u"title_set",b"title_set"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions___Literal[u"description",b"description",u"description_set",b"description_set",u"experts",b"experts",u"experts_set",b"experts_set",u"kind",b"kind",u"kind_set",b"kind_set",u"location_id",b"location_id",u"location_id_set",b"location_id_set",u"location_uri",b"location_uri",u"location_uri_set",b"location_uri_set",u"title",b"title",u"title_set",b"title_set"]) -> None: ...
 
 class ExpertMetadataDelta(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...

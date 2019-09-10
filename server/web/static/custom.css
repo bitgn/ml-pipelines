@@ -107,8 +107,10 @@ body {
 
 
 
-
-
+.system-db {color: #b58900;}
+.system-table{color: #2aa198;}
+.system-report{color:#859900;} /* green */
+.system-service{color:#cb4b16;}
 
 
 
