@@ -21,6 +21,8 @@ type JobItem struct {
 
 	CurrentStatus vo.JOB_STATUS
 	LastUpdated int64
+	IsStale bool
+	LastSuccess int64
 
 
 }
@@ -97,6 +99,13 @@ func (h *Handler) Handle(w http.ResponseWriter, name string){
 			run := db.GetJobRun(tx, job.RunUid)
 			item.CurrentStatus = run.Status
 			item.LastUpdated = run.UpdateTimestamp
+		}
+
+		if job.LastSuccessUid != nil {
+			last := db.GetJobRun(tx, job.LastSuccessUid)
+			item.LastSuccess = last.UpdateTimestamp
+			item.IsStale = domain.IsJobStale(last)
+
 		}
 
 		model.Jobs = append(model.Jobs, &item)

@@ -60,6 +60,7 @@
         <tr>
             <th>Job</th>
             <th>Status</th>
+            <th>Last Success</th>
 
 
         </tr>
@@ -72,6 +73,8 @@
                     <a href="{{$.Site.Url.ViewJob .Item.ProjectName .Item.Name}}" class="job-link">{{.Item.Caption}}</a>
                 </td>
                 <td>{{$.Site.Fmt.JobStatus .CurrentStatus}} {{$.Site.Fmt.Timestamp .LastUpdated}}</td>
+
+                <td>{{$.Site.Fmt.Timestamp .LastSuccess}} {{if .IsStale}} <span class="stale-status badge badge-warning">stale</span>{{end}}</td>
 
 
 
