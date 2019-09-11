@@ -138,9 +138,11 @@ class Project:
         return Dataset(self.ctx, self.uid, resp.uid, resp.name,
                        location_id=resp.location_id)
 
-    def create_dataset(self, name, location_id: Optional[str] = None,
+    def create_dataset(self, name,
+                       location_id: Optional[str] = None,
                        title: Optional[str] = None, data_format: Optional[str] = None,
-                       description: Optional[str] = None) -> Dataset:
+                       description: Optional[str] = None,
+                       location_uri: Optional[str] = None) -> Dataset:
         meta = vo.DatasetMetadataDelta(
 
         )
@@ -156,6 +158,12 @@ class Project:
         if description:
             meta.description=description
             meta.description_set=True
+
+        if location_uri:
+            meta.location_uri = location_uri
+            meta.location_uri_set = True
+
+
 
 
 

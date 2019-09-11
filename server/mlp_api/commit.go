@@ -25,13 +25,17 @@ func (s *server) Commit(c context.Context, r *CommitRequest) (*CommitResponse, e
 			return resp.err(versionMismatch(changeSet.ParentVersionUid, ds.HeadVersion))
 		}
 
+		if changeSet.Timestamp == 0{
+			changeSet.Timestamp = sim.Unix()
+		}
+
 
 		e := &events.DatasetVersionAdded{
 			DatasetUid:ds.Uid,
 			ProjectUid:ds.ProjectUid,
 			Title:r.Title,
 			Uid:sim.NewID(),
-			Timestamp:sim.Unix(),
+			Timestamp:changeSet.Timestamp,
 			ProjectName:ds.ProjectName,
 			ParentUid:ds.HeadVersion,
 			Inputs:changeSet.Inputs,

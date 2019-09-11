@@ -207,6 +207,8 @@ message DatasetChangeSet {
     // inputs to mark
     repeated DatasetVerInput inputs = 6;
 
+    int64 timestamp = 7;
+
 
     // inputs will be set by
 }

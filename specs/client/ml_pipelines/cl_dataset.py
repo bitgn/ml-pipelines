@@ -30,12 +30,13 @@ class DatasetStaging:
             return
         raise ValueError(f'Unexpected dependency: {run.__class__}')
 
-    def commit(self, title: Optional[str]=None) -> 'DatasetVersion':
+    def commit(self, title: Optional[str]=None, timestamp: int = 0) -> 'DatasetVersion':
 
         change_set = api.DatasetChangeSet(
             dataset_uid=self.dataset_uid,
             parent_version_uid=self.version_uid,
             clean_slate=self.clean_slate,
+            timestamp=timestamp,
         )
 
         change_set.inputs.extend(self.inputs)
