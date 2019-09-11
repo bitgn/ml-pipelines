@@ -126,7 +126,7 @@ func (s *SvgRender) SystemVer(uid []byte){
 
 	shape := systemShape(svc.Kind)
 
-	title := fmt.Sprintf("<%s<BR/><I>%s</I>>", svc.Caption(), s.fmt.Timestamp(ver.Timestamp))
+	title := fmt.Sprintf("<%s: %s<BR/><I>%s</I>>", svc.Kind, svc.Caption(), s.fmt.Timestamp(ver.Timestamp))
 	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=%s href=\"%s\" shape=\"%s\"]; // SystemVer\n", hx(ver.Uid), title, link, shape))
 }
 
@@ -136,7 +136,7 @@ func (s *SvgRender) System(uid []byte){
 	link := s.url.ViewSystem(svc.ProjectName, svc.Name)
 	this := hx(svc.Uid)
 	shape:= systemShape(svc.Kind)
-	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s\" href=\"%s\" shape=\"%s\"];\n", this, svc.Caption(), link, shape))
+	s.sb.WriteString(fmt.Sprintf("  \"%s\" [label=\"%s: %s\" href=\"%s\" shape=\"%s\"];\n", this, svc.Kind, svc.Caption(), link, shape))
 }
 
 
