@@ -152,7 +152,7 @@ def setup_analytics_demo(cl: client.Client):
 
 
     prj.create_job("ingest-fast", title="update reporting store")
-    prj.create_dataset("fast-store", title="Reporting store")
+    prj.add_dataset("fast-store", title="Reporting store")
 
 
 

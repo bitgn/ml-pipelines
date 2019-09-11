@@ -24,9 +24,14 @@ func (s *server) CompleteJobRun(c context.Context, r *CompleteJobRunRequest) (*E
 		return resp.err(jobRunState(r.Uid, run.Status))
 	}
 
+
+	if r.Timestamp == 0{
+		r.Timestamp = sim.Unix()
+	}
+
 	e := &events.JobRunCompleted{
 		Uid:       run.Uid,
-		Timestamp: sim.Unix(),
+		Timestamp: r.Timestamp,
 		JobUid:    run.JobUid,
 	}
 	s.publish(tx, e)

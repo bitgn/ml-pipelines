@@ -1,17 +1,113 @@
 import argparse
-import json
+
 import os
 
 import grpc
-
+import json
 from test_api import events_pb2 as evt
 
 
 from client import ml_pipelines as client
 
+uri = "d8alake.lkw-walter.com:443"
+
+cl = client.connect(uri)
+
+
+channel = grpc.insecure_channel(uri)
+print("Connecting")
+
+from test_api import test_api_pb2_grpc as test_rpc
+from test_api import marshal
+from test_api import test_api_pb2 as test_api
+
+stub = test_rpc.TestStub(channel)
+stub.Ping(test_api.PingRequest())
+stub.Wipe(test_api.WipeDatabase())
+
+print("Wiped")
+
+
+dl = cl.create_project('data-lake-lkww', 'Data Lake at LKWW')
+gc = cl.create_project('data-lake-gcs', 'Data Lake at Google')
+
+kafka_proj = cl.create_project('kafka-lkww', 'Kafka')
+
+eta_ml = cl.create_project('eta-ml', 'ETA ML')
+pricing_ml = cl.create_project('pricing-ml', "Pricing ML")
+
+
+folder = "/Users/rinat/proj/lkw/"
+kafka = "/Users/rinat/proj/lkw/kafka-meta.json"
+db2 = "/Users/rinat/proj/lkw/db2-meta.json"
+
+with open(kafka, 'r') as f:
+    kafka = json.load(f)
+
+with open(db2, 'r') as f:
+    db2 = json.load(f)
+
+
+for i in kafka:
+    type = i['type']
+
+    if type != 'dataset':
+        print(f'Skipping {type}')
+        continue
 
 
 
+    project = i['project_id']
+    title = i['dataset_name']
+    name = i['dataset_id']
+
+    print(f'Adding dataset {name}')
+
+
+    # create sources
+
+    source = kafka_proj.systems.add_topic(name, title)
+
+
+    location_uri = None
+    location_id = None
+    description = None
+
+    if 'location_id' in i:
+        location_id = i['location_id']
+
+    if 'location_uri' in i:
+        location_uri = i['location_uri']
+
+    description_path = os.path.join(folder, name + ".md")
+    if os.path.exists(description_path):
+        print(f"Import {description_path}")
+        with open(description_path, 'r') as f:
+            description = "\n".join(f.readlines())
+
+    prj = cl.get_project(project)
+
+    ds = prj.add_dataset(
+        name,
+        title=title,
+        data_format=i['data_format'],
+        location_uri=location_uri,
+        location_id=location_id,
+        description=description,
+
+    )
+
+    job = prj.create_job(f'import-{name}', title=f'Import {name}')
+    
+
+    stage = ds.get_last_version().prepare_commit(clean_slate=True)
+    #stage.add_input()
+
+    stage.commit(timestamp=i['update_timestamp'])
+
+print("Done")
+
+"""
 
 def gen_import_events(file_name, cl:client.Client):
 
@@ -62,7 +158,7 @@ def gen_import_events(file_name, cl:client.Client):
                     with open(description_path, 'r') as f:
                         description = "\n".join(f.readlines())
 
-                ds = prj.create_dataset(
+                ds = prj.add_dataset(
                     name,
                     title=title,
                     data_format=i['data_format'],
@@ -122,9 +218,7 @@ def gen_import_events(file_name, cl:client.Client):
                     inputs=i['inputs'],
                     outputs=i['outputs']
                 )
-from test_api import api_pb2_grpc as rpc
-from test_api import marshal
-from test_api import api_pb2 as api
+
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 
@@ -134,11 +228,6 @@ parser.add_argument("--grpc", action="store", dest="grpc", default="localhost:91
 args = parser.parse_args()
 
 
-channel = grpc.insecure_channel(args.grpc)
-print("Connecting")
-
-stub = rpc.TestStub(channel)
-stub.Ping(api.PingRequest())
 
 catalog = rpc.CatalogStub(channel)
 print("Reset")
@@ -150,4 +239,6 @@ if args.json:
         events = list(gen_import_events(f))
         catalog.Apply(api.ApplyRequest(Events=marshal.serialize(list(events))))
         print(f"{f}: {len(events)}")
-print("Done")
+
+
+"""

@@ -19,9 +19,13 @@ func (s *server) LogJobRun(c context.Context, r *LogJobRunRequest) (*EmptyRespon
 		return resp.err(notFound(vo.ENTITY_JOB_RUN, r.Uid))
 	}
 
+	if r.Timestamp == 0{
+		r.Timestamp = sim.Unix()
+	}
+
 	e := &events.JobRunLogged{
 		Uid:       run.Uid,
-		Timestamp: sim.Unix(),
+		Timestamp: r.Timestamp,
 		JobUid:    run.JobUid,
 		Details:   r.Details,
 		LogTitle:  r.LogTitle,

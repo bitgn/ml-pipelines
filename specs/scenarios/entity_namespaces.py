@@ -9,7 +9,7 @@ def given_an_existing_job(e: Env):
     e.given_events(prj, job)
 
     e.scenario(
-        when.client(lambda c: c[prj.name].create_dataset(job.name)),
+        when.client(lambda c: c[prj.name].add_dataset(job.name)),
         then.already_exists(subject_uid=job.uid, subject_name=job.name)
     )
 

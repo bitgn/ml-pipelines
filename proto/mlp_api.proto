@@ -63,6 +63,8 @@ message StartJobRunRequest {
 
     string title = 3;
     repeated JobRunInput inputs = 4;
+
+    int64 timestamp = 5;
 }
 
 
@@ -78,6 +80,8 @@ message LogJobRunRequest {
     string details = 2;
     // optional title for the log
     string log_title = 3;
+
+    int64 timestamp = 5;
 }
 
 
@@ -88,12 +92,16 @@ message FailJobRunRequest {
     string message = 2;
     string details = 3;
 
+    int64 timestamp = 5;
+
 }
 
 
 // returns OkResponse
 message CompleteJobRunRequest {
     bytes uid = 1;
+
+    int64 timestamp = 5;
 }
 
 

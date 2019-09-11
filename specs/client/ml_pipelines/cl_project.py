@@ -40,6 +40,8 @@ class Systems:
     def add_table(self, name:str, title: Optional[str] = None) -> System:
         return self._add(name, vo.SystemKind.Table, title)
 
+    def add_topic(self, name:str, title: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Topic, title)
 
 
     def add_service(self, name:str, title: Optional[str] = None) -> System:
@@ -138,11 +140,11 @@ class Project:
         return Dataset(self.ctx, self.uid, resp.uid, resp.name,
                        location_id=resp.location_id)
 
-    def create_dataset(self, name,
-                       location_id: Optional[str] = None,
-                       title: Optional[str] = None, data_format: Optional[str] = None,
-                       description: Optional[str] = None,
-                       location_uri: Optional[str] = None) -> Dataset:
+    def add_dataset(self, name,
+                    location_id: Optional[str] = None,
+                    title: Optional[str] = None, data_format: Optional[str] = None,
+                    description: Optional[str] = None,
+                    location_uri: Optional[str] = None) -> Dataset:
         meta = vo.DatasetMetadataDelta(
 
         )
@@ -188,6 +190,6 @@ class Project:
         except errors.NotFound:
             pass
 
-        return self.create_dataset(name, location_id=location_id)
+        return self.add_dataset(name, location_id=location_id)
 
 

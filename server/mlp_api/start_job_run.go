@@ -20,11 +20,15 @@ func (s *server) StartJobRun(c context.Context, r *StartJobRunRequest) (*JobRunI
 		return resp.err(notFound(vo.ENTITY_JOB, r.JobUid))
 	}
 
+	if r.Timestamp == 0{
+		r.Timestamp =sim.Unix()
+	}
+
 	e := &events.JobRunStarted{
 		Uid:sim.NewID(),
 		Title:r.Title,
 		JobUid:r.JobUid,
-		Timestamp:sim.Unix(),
+		Timestamp:r.Timestamp,
 		Inputs:r.Inputs,
 		RunNum:job.RunNum+1,
 	}

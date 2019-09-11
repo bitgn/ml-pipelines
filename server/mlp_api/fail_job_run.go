@@ -24,9 +24,13 @@ func (s *server) FailJobRun(c context.Context, r *FailJobRunRequest) (*EmptyResp
 		return resp.err(jobRunState(r.Uid, run.Status))
 	}
 
+	if r.Timestamp == 0{
+		r.Timestamp = sim.Unix()
+	}
+
 	e := &events.JobRunFailed{
 		Uid:       run.Uid,
-		Timestamp: sim.Unix(),
+		Timestamp: r.Timestamp,
 		JobUid:    run.JobUid,
 		Details:   r.Details,
 		Message:   r.Message,
