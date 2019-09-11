@@ -30,26 +30,26 @@ class Systems:
         return self._get_or_add(name, kind=vo.SystemKind.Report)
 
 
-    def add_report(self, name:str, title: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Report, title)
+    def add_report(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Report, title, location_uri=location_uri)
 
 
-    def add_db(self, name:str, title: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Database, title)
+    def add_db(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Database, title, location_uri=location_uri)
 
-    def add_table(self, name:str, title: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Table, title)
+    def add_table(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Table, title, location_uri=location_uri)
 
-    def add_topic(self, name:str, title: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Topic, title)
-
-
-    def add_service(self, name:str, title: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Service, title)
+    def add_topic(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Topic, title, location_uri=location_uri)
 
 
+    def add_service(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
+        return self._add(name, vo.SystemKind.Service, title, location_uri=location_uri)
 
-    def _add(self, name: str, kind: vo.SystemKind, title: Optional[str] = None) -> System:
+
+
+    def _add(self, name: str, kind: vo.SystemKind, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
         meta = vo.SystemMetadataDelta()
 
         meta.kind = kind
@@ -58,6 +58,12 @@ class Systems:
         if title:
             meta.title = title
             meta.title_set = True
+
+        if location_uri:
+            meta.location_uri = location_uri
+            meta.location_uri_set = True
+
+
 
         new = api.AddSystemRequest(
             project_uid=self.uid,

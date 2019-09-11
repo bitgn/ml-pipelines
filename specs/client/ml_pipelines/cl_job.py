@@ -40,28 +40,31 @@ class JobRun(JobRunId):
         self.log(log)
 
 
-    def log(self, details: str, title: Optional[str] = None):
+    def log(self, details: str, title: Optional[str] = None, timestamp: int = 0):
 
         req = api.LogJobRunRequest(
             uid=self.uid,
             details=details,
-            log_title=title
+            log_title=title,
+            timestamp=timestamp,
         )
 
         self.ctx.log_job_run(req)
 
-    def complete(self):
+    def complete(self, timestamp: int = 0):
         req = api.CompleteJobRunRequest(
-            uid=self.uid
+            uid=self.uid,
+            timestamp=timestamp
         )
         self.ctx.complete_job_run(req)
 
-    def fail(self, message:Optional[str]=None):
+    def fail(self, message:Optional[str]=None, timestamp: int = 0):
 
         req = api.FailJobRunRequest(
             uid=self.uid,
             message=message,
-            details=traceback.format_exc()
+            details=traceback.format_exc(),
+            timestamp=timestamp
         )
         self.ctx.fail_job_run(req)
 
@@ -75,13 +78,18 @@ class Job:
         self.project_uid = project_uid
         self.ctx = ctx
 
-    def start_run(self, inputs:List[Union[DatasetVersionId, SystemId]], title: Optional[str]=None) -> JobRun:
+    def start_run(
+            self,
+            inputs:List[Union[DatasetVersionId, SystemId]],
+            title: Optional[str]=None,
+            timestamp: int = 0
+    ) -> JobRun:
 
         req = api.StartJobRunRequest(
             project_uid=self.project_uid,
             job_uid=self.uid,
             title=title,
-
+            timestamp=timestamp,
         )
 
         for i in inputs:
