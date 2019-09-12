@@ -9,7 +9,7 @@ def wait_for_server_to_start():
 
     for i in range(100):
         try:
-            cl.stats()
+            cl.server.stats()
             return
         except client.Unavailable:
             time.sleep(0.1)
