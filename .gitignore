@@ -100,4 +100,7 @@ venv.bak/
 .mypy_cache/
 .DS_Store
 tmp
-db
+
+# MDB
+*.mdb
+
