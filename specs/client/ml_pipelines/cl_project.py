@@ -29,6 +29,16 @@ class Systems:
     def get_or_add_report(self, name: str) -> System:
         return self._get_or_add(name, kind=vo.SystemKind.Report)
 
+    def get_or_add_topic(self, name: str) -> System:
+        return self._get_or_add(name, kind=vo.SystemKind.Topic)
+
+
+    def get_or_add_table(self, name: str) -> System:
+        return self._get_or_add(name, kind=vo.SystemKind.Table)
+
+    def get_or_add_service(self, name: str) -> System:
+        return self._get_or_add(name, kind=vo.SystemKind.Service)
+
 
     def add_report(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
         return self._add(name, vo.SystemKind.Report, title, location_uri=location_uri)

@@ -94,6 +94,9 @@ class Context:
         s: api.SystemInfoResponse = self._rpc(lambda : self.catalog.GetSystem(r))
         return s
 
+    def reset(self):
+        self._rpc(lambda : self.catalog.Reset(api.ResetRequest()))
+
     def _rpc(self, callable: Callable[[], pb.Message]):
         try:
 

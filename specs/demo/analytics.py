@@ -2,7 +2,7 @@
 Generate demo data from the web analytics domain
 """
 
-import datetime
+import datetime as dt
 
 from random import randint
 from typing import List
@@ -31,11 +31,14 @@ def import_into_fast_storage(prj: client.Project, i):
     output = prj.get_dataset('fast-store')
 
 
+    t=int((dt.datetime.utcnow() - dt.timedelta(days=105-i)).timestamp())
+
+
     # import into the fast storage
-    run = job.start_run(inputs=[input])
+    run = job.start_run(inputs=[input], timestamp=t)
 
     try:
-        run.log(f"Starting run {i}")
+        run.log(f"Starting run {i}", timestamp=t)
         run.log_version_info()
 
 
@@ -44,18 +47,17 @@ def import_into_fast_storage(prj: client.Project, i):
 
 
         staging.add_file(f'file_{i}', records=rint(10000, 20000), size=rint(10000000, 80000000))
-        ver = staging.commit()
+        ver = staging.commit(timestamp=t)
 
         if (i % 17 == 0) or (i % 23) == 0:
             raise ValueError("Commit problem")
 
-        run.log(f'Commit {ver.uid.hex()}')
+        run.log(f'Commit {ver.uid.hex()}', timestamp=t)
 
 
-
-        run.complete()
+        run.complete(timestamp=t)
     except:
-        run.fail("Something went wrong")
+        run.fail("Something went wrong", timestamp=t)
 
 
 
@@ -133,12 +135,14 @@ def render_reports(prj: client.Project, i):
         report = prj.systems.get_or_add_report(name)
         report.add_version(f'v{i}', inputs=[run])
 
+    run.fail("Something went wrong")
+
 
 
 
 def setup_analytics_demo(cl: client.Client):
     print("Start setting up")
-    prj = cl.create_project("web_01", "Web Analytics")
+    prj = cl.add_project("web_01", "Web Analytics")
 
 
 
@@ -152,7 +156,12 @@ def setup_analytics_demo(cl: client.Client):
 
 
     prj.create_job("ingest-fast", title="update reporting store")
-    prj.add_dataset("fast-store", title="Reporting store")
+    prj.add_dataset("fast-store", title="Reporting store", data_format="FB+GZ")
+    prj.add_dataset('aggregated-data', title="Aggregated Data", data_format="TSV+GZ")
+
+
+    prj.create_job("scan_event_store", "Run report aggregation")
+    prj.create_job("render-reports", "Render reports")
 
 
 

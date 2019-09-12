@@ -99,6 +99,11 @@ class CatalogStub(object):
         request_serializer=mlp__api__pb2.StatRequest.SerializeToString,
         response_deserializer=mlp__api__pb2.StatResponse.FromString,
         )
+    self.Reset = channel.unary_unary(
+        '/Catalog/Reset',
+        request_serializer=mlp__api__pb2.ResetRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.EmptyResponse.FromString,
+        )
 
 
 class CatalogServicer(object):
@@ -225,6 +230,13 @@ class CatalogServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Reset(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_CatalogServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -312,6 +324,11 @@ def add_CatalogServicer_to_server(servicer, server):
           servicer.Stat,
           request_deserializer=mlp__api__pb2.StatRequest.FromString,
           response_serializer=mlp__api__pb2.StatResponse.SerializeToString,
+      ),
+      'Reset': grpc.unary_unary_rpc_method_handler(
+          servicer.Reset,
+          request_deserializer=mlp__api__pb2.ResetRequest.FromString,
+          response_serializer=mlp__api__pb2.EmptyResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

@@ -16,10 +16,23 @@ import grpc
 import google.protobuf.message as pb
 
 
+class Server():
+    def __init__(self, context: Context):
+        self.context = context
+
+    def stats(self):
+
+        request = api.StatRequest()
+        return self.context.stat(request)
+
+    def reset_db(self):
+        self.context.reset()
+
 class Client():
 
     def __init__(self, context: Context):
         self.context = context
+        self.server = Server(context)
 
 
 
@@ -36,7 +49,7 @@ class Client():
         return self.get_project(key)
 
 
-    def create_project(self, name: Optional[str], title: Optional[str] = None) -> Project:
+    def add_project(self, name: Optional[str], title: Optional[str] = None) -> Project:
 
         delta = vo.ProjectMetadataDelta()
 
@@ -52,13 +65,6 @@ class Client():
         return Project(self.context, resp.uid)
 
 
-
-
-
-    def stats(self):
-
-        request = api.StatRequest()
-        return self.context.stat(request)
 
 
 

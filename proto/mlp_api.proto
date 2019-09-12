@@ -306,10 +306,15 @@ service Catalog {
 
 
     rpc Stat(StatRequest) returns (StatResponse){}
+    rpc Reset(ResetRequest) returns (EmptyResponse){}
 
 }
 
 
+
+message ResetRequest {
+
+}
 
 message UpdateDatasetRequest {
     // option 1
