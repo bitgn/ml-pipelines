@@ -39,9 +39,7 @@ enum Range {
     IDX_PROJECT_JOBS = 25;
     IDX_JOB_RUNS = 26;
 
-
     VERSION=255;
-
 }
 
 

@@ -14,11 +14,6 @@ func mustName(val string){
 		log.Panicf("Name can't be nil")
 	}
 }
-func must(i interface{}){
-	if i == nil {
-		log.Panicln("Value can't be null")
-	}
-}
 
 
 

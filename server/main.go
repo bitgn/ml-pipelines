@@ -6,7 +6,6 @@ import (
 	"log"
 	"mlp/catalog/db"
 	"mlp/catalog/mlp_api"
-	"mlp/catalog/projection"
 	"mlp/catalog/sim"
 	"mlp/catalog/test_api"
 	"mlp/catalog/web"
@@ -69,9 +68,9 @@ func main() {
 
 	switch *upgrade {
 	case "auto":
-		projection.UpgradeDB(env, version, projection.UpgradePolicy_Auto)
+		db.UpgradeDB(env, version, db.UpgradePolicy_Auto)
 	case "force":
-		projection.UpgradeDB(env, version, projection.UpgradePolicy_Force)
+		db.UpgradeDB(env, version, db.UpgradePolicy_Force)
 	}
 
 
