@@ -1,8 +1,8 @@
-package db
+package projection
 
 import (
 	"log"
-	"mlp/catalog/projection"
+	"mlp/catalog/db"
 	"strings"
 )
 
@@ -14,21 +14,21 @@ const (
 	UpgradePolicy_Force;
 )
 
-func UpgradeDB(env *DB, version string, mode UpgradePolicy) {
+func UpgradeDB(env *db.DB, version string, mode UpgradePolicy) {
 	tx := env.MustWrite()
 	defer tx.MustCleanup()
 
-	ver := GetVersion(tx)
+	ver := db.GetVersion(tx)
 	if !upgradeNeeded(version, ver, mode){
 		return
 	}
 
 	log.Printf("Upgrade is needed from '%s' to '%s' under policy %v\n", version, ver.ProjectionVersion, string(mode))
-	deleted := WipeViewTables(tx)
-	replayed := ReplayEvents(tx, projection.Handle)
+	deleted := db.WipeViewTables(tx)
+	replayed := db.ReplayEvents(tx, Handle)
 
 	ver.ProjectionVersion = version
-	PutVersion(tx, ver)
+	db.PutVersion(tx, ver)
 
 	log.Printf("Purged %d values and replayed %d events", deleted, replayed)
 
@@ -36,7 +36,7 @@ func UpgradeDB(env *DB, version string, mode UpgradePolicy) {
 }
 
 
-func upgradeNeeded(version string, data *AppVersionData, mode UpgradePolicy) bool {
+func upgradeNeeded(version string, data *db.AppVersionData, mode UpgradePolicy) bool {
 	switch mode {
 	case UpgradePolicy_None:
 		return false
