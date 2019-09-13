@@ -1,0 +1,7 @@
+grpcio-tools
+Faker
+protoc-gen-mypy
+mypy-protobuf
+beautifulsoup4
+requests
+lxml
