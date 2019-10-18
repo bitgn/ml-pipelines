@@ -7,242 +7,101 @@ import "vo.proto";
 
 // PROJECT
 message CreateProjectRequest{
-    string name = 1;
-    ProjectMetadataDelta meta = 2;
-
+    string project_id = 1;
 }
 
 
 message GetProjectRequest{
-    string name = 1;
+    string project_id = 1;
 }
 
+
+message ProjectInfo {
+    string project_id = 1;
+}
 message ProjectInfoResponse {
-    bytes uid = 1;
-    string name = 2;
-
+    string project_id = 1;
     ApiError error = 100;
 
 }
-
-
-// JOB -----------------------------------
-message CreateJobRequest{
-    bytes project_uid = 1;
-    string name = 2;
-
-    JobMetadataDelta meta = 3;
-}
-
-
-message GetJobRequest {
-    bytes project_uid = 1;
-    string name = 2;
-}
-
-message JobInfoResponse {
-    string name = 1;
-    bytes uid = 2;
-
-    string project_name = 3;
-    bytes project_uid = 4;
-
-    ApiError error = 100;
-}
-
-
-
-// JOB RUN --------------------------------------------------------------------
-
-
-
-message StartJobRunRequest {
-    bytes project_uid = 1;
-    bytes job_uid = 2;
-
-
-    string title = 3;
-    repeated JobRunInput inputs = 4;
-
-    int64 timestamp = 5;
-}
-
-
-message JobRunInfoResponse {
-    bytes uid = 1;
-    bytes project_uid = 2;
-
-    ApiError error = 100;
-}
-
-message LogJobRunRequest {
-    bytes uid = 1;
-    string details = 2;
-    // optional title for the log
-    string log_title = 3;
-
-    int64 timestamp = 5;
-}
-
-
-
-// returns OkResponse
-message FailJobRunRequest {
-    bytes uid = 1;
-    string message = 2;
-    string details = 3;
-
-    int64 timestamp = 5;
-
-}
-
-
-// returns OkResponse
-message CompleteJobRunRequest {
-    bytes uid = 1;
-
-    int64 timestamp = 5;
-}
-
-
-// SERVICE ---------------------------------------------------------------------
-
-
-message AddSystemRequest {
-    bytes project_uid = 1;
-    string name = 2;
-    SystemMetadataDelta meta = 3;
-}
-
-message GetSystemRequest {
-    bytes project_uid = 1;
-    string name = 2;
-
-}
-
-message SystemInfoResponse {
-    bytes uid = 1;
-    bytes project_uid = 2;
-    string name = 3;
-    string project_name = 4;
-
-    ApiError error = 100;
-}
-
-message AddSystemVersionRequest {
-    bytes system_uid = 1;
-
-    string title = 2;
-
-
-    repeated SystemVersionInput inputs = 3;
-    repeated SystemVersionOutput outputs = 4;
-}
-
-message AddSystemVersionResponse {
-    bytes uid = 1;
-
-    ApiError error = 100;
-}
-
-
-
-
-// DATASET ------------------------
-
 
 // -> DatasetResponse
 message GetDatasetRequest {
-    bytes project_uid = 1;
-    string name = 2;
+    string project_id = 1;
+    string dataset_id = 2;
 }
 
 message CreateDatasetRequest {
-    bytes project_uid = 1;
-    string name = 2;
+    string project_id = 1;
+    string dataset_id = 2;
+    DatasetMetadataDelta meta = 3;
+}
+
+message UpdateDatasetRequest {
+    string project_id = 1;
+    string dataset_id = 2;
     DatasetMetadataDelta meta = 3;
 }
 
 
+message ListProjectsRequest {
+
+}
+
+
+
+message ListProjectsResponse {
+    repeated ProjectInfo projects = 1;
+
+    ApiError error = 100;
+}
+
+message ListDatasetsRequest {
+    string project_id = 1;
+
+
+}
+
+message ListDatasetsResponse {
+    repeated DatasetInfo datasets = 1;
+    ApiError error = 100;
+}
+
+
+
+message DatasetInfo {
+    string project_id = 1;
+    string dataset_id = 2;
+
+
+    int64 update_timestamp = 3;
+
+    Sample sample = 4;
+
+    string description = 6;
+    string summary = 7;
+
+}
+
+
 message DatasetInfoResponse {
-    bytes uid = 1;
-    bytes project_uid = 2;
-    string name = 3;
-    string project_name = 4;
-
-    int64 update_timestamp = 9;
-    string data_format = 10;
-    string description = 11;
+    string project_id = 1;
+    string dataset_id = 2;
 
 
-    string location_id = 12;
+    int64 update_timestamp = 3;
 
-    string location_uri = 13;
+    Sample sample = 4;
+
+    string description = 6;
+    string summary = 7;
+
+
 
     ApiError error = 100;
 }
 
 
-
-
-
-// DATASET VERSION -----------------
-message GetLastDatasetVersionRequest {
-    bytes project_uid = 1;
-    bytes dataset_uid = 2;
-}
-
-message DatasetVersionResponse {
-    bytes uid = 1;
-    bool no_version = 2;
-
-    ApiError error = 100;
-
-}
-
-// creates a new version
-message DatasetChangeSet {
-    bytes dataset_uid = 1;
-    bytes parent_version_uid = 2;
-
-    // items are added to the same location
-    repeated DatasetItem items = 3;
-
-
-    bool clean_slate = 4; // wipes the old version
-    repeated string remove = 5; // names to remove
-
-    // inputs to mark
-    repeated DatasetVerInput inputs = 6;
-
-    int64 timestamp = 7;
-
-
-    // inputs will be set by
-}
-
-
-message DatasetCommit {
-    string title = 1;
-    repeated DatasetChangeSet datasets = 2;
-}
-
-
-
-// commit multiple changes in one transaction
-message CommitRequest {
-
-    string title = 1;
-    repeated DatasetChangeSet datasets = 7;
-
-}
-
-
-message CommitResponse {
-    repeated bytes dataset_versions = 1;
-
-    ApiError error = 100;
-}
 
 
 
@@ -274,34 +133,16 @@ message StatResponse{
 service Catalog {
     rpc CreateProject(CreateProjectRequest) returns (ProjectInfoResponse){}
     rpc GetProject(GetProjectRequest) returns (ProjectInfoResponse){}
+    rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse){}
 
-    // SYSTEMS ------------
-
-    rpc AddSystem(AddSystemRequest) returns (SystemInfoResponse){}
-    rpc GetSystem(GetSystemRequest) returns (SystemInfoResponse){}
-
-    rpc AddSystemVersion(AddSystemVersionRequest) returns(AddSystemVersionResponse){}
-
-    // JOBS -----------------
-    rpc CreateJob(CreateJobRequest) returns (JobInfoResponse){}
-    rpc GetJob(GetJobRequest) returns (JobInfoResponse){}
-
-
-    rpc StartJobRun(StartJobRunRequest) returns (JobRunInfoResponse){}
-
-    rpc LogJobRun(LogJobRunRequest) returns (EmptyResponse){}
-    rpc FailJobRun(FailJobRunRequest) returns (EmptyResponse){}
-
-
-    rpc CompleteJobRun(CompleteJobRunRequest) returns (EmptyResponse){}
 
     rpc CreateDataset(CreateDatasetRequest) returns (DatasetInfoResponse){}
     rpc GetDataset(GetDatasetRequest) returns(DatasetInfoResponse){}
+    rpc ListDatasets(ListDatasetsRequest) returns (ListDatasetsResponse){}
+
+
     rpc UpdateDataset(UpdateDatasetRequest) returns (EmptyResponse){}
-    rpc GetLastDatasetVersion(GetLastDatasetVersionRequest) returns (DatasetVersionResponse){}
 
-
-    rpc Commit(CommitRequest) returns (CommitResponse){}
 
 
 
@@ -316,27 +157,21 @@ message ResetRequest {
 
 }
 
-message UpdateDatasetRequest {
-    // option 1
-    bytes uid = 1;
-    DatasetMetadataDelta meta = 2;
-}
 
 
 message ApiError {
     StatusCode code = 1;
     string message = 2;
-    // For API matching and tests
-    bytes subject_uid = 3;
-    string subject_name = 4;
-    string field_name = 5;
+    // e.g. duplicate_dataset
+    string detail_code = 3;
+    // e.g. (project,dataset)
+    repeated string detail_args = 4;
 
-    repeated string details = 6;
-
-    string project_name = 7;
-    string project_uid = 8;
-    string method_name = 9;
+    string details =6;
 }
+
+
+
 
 enum StatusCode {
 

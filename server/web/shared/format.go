@@ -3,83 +3,32 @@ package shared
 import (
 	"encoding/hex"
 	"fmt"
-	"html/template"
 	"math"
 	"mlp/catalog/sim"
-	"mlp/catalog/vo"
 	"strings"
 	"time"
 )
 
 type Format struct {
-
 }
 
-
-
-
-func (f *Format) BytesDecimal(b int64) string{
+func (f *Format) BytesDecimal(b int64) string {
 	return avoidWrapping(bytesDecimal(b))
 }
 
-func (f *Format) Uid(uid []byte) string{
+func (f *Format) Uid(uid []byte) string {
 	return hex.EncodeToString(uid)
 }
 
-
-
-func (f *Format) JobStatus(status vo.JOB_STATUS) template.HTML{
-	switch status {
-	case vo.JOB_STATUS_NEVER:
-		return `<span class="badge badge-secondary">Never</span>`
-	case vo.JOB_STATUS_FAIL:
-		return `<span class="badge badge-danger">Failed</span>`
-	case vo.JOB_STATUS_SUCCESS:
-		return `<span class="badge badge-success">Success</span>`
-
-	case vo.JOB_STATUS_RUNNING:
-		return `<span class="badge badge-info">Running</span>`
-
-	default:
-		panic(status)
-
-	}
-}
-
-func (f *Format) SystemKind(kind vo.SystemKind) template.HTML{
-	switch kind {
-	case vo.SystemKind_Database:
-		return `<span class="system-db">DB</span>`
-	case vo.SystemKind_Report:
-		return `<span class="system-report">Report</span>`
-	case vo.SystemKind_Service:
-		return `<span class="system-service">Service</span>`
-	case vo.SystemKind_Table:
-		return `<span class="system-table">Table</span>`
-	case vo.SystemKind_UndefinedSystem:
-		return ``
-	case vo.SystemKind_Topic:
-		return `<span class="system-topic">Topic</span>`
-	default:
-		panic(kind)
-
-
-
-	}
-}
-
-
-
-
 // avoidWrapping adds non-breaking spaces where there previously were normal spaces.
-func avoidWrapping(s string) string{
+func avoidWrapping(s string) string {
 	const nbsp = "\u00A0"
 	return strings.Replace(s, " ", nbsp, -1)
 }
 
 func bytesDecimal(b int64) string {
 
-	if b == 0{
+	if b == 0 {
 		return "0 bytes"
 	}
 	if b == 1 {
@@ -98,8 +47,8 @@ func bytesDecimal(b int64) string {
 	return fmt.Sprintf("%.1f %cB", float64(b)/float64(div), "kMGTPE"[exp])
 }
 
-func Timestamp(t int64) string{
-	if t == 0{
+func Timestamp(t int64) string {
+	if t == 0 {
 		return ""
 	}
 
@@ -119,18 +68,16 @@ func Timestamp(t int64) string{
 	return avoidWrapping(durationAbs(stamp.Sub(now)))
 }
 
-func (f *Format) Timestamp(t int64) string{
+func (f *Format) Timestamp(t int64) string {
 	return Timestamp(t)
 }
 
-
 func durationAbs(d time.Duration) string {
 
-	days := int(math.Floor( d.Hours() / 24))
-
+	days := int(math.Floor(d.Hours() / 24))
 
 	switch {
-	case days > 365 * 2:
+	case days > 365*2:
 		return fmt.Sprintf("%d years", days/365)
 	case days >= 365:
 		return "a year"
@@ -150,14 +97,13 @@ func durationAbs(d time.Duration) string {
 
 	}
 
-
 	hours := int(math.Floor(d.Hours()))
 	sec := int(d.Seconds())
 
 	switch {
 	case hours > 1:
 		return fmt.Sprintf("%d hours", hours)
-	case hours ==1:
+	case hours == 1:
 		return "an hour"
 	case sec >= 120:
 		return fmt.Sprintf("%d minutes", sec/60)

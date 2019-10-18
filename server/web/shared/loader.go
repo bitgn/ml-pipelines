@@ -50,6 +50,7 @@ func (tl *TemplateLoader) DefineTemplate(files ...string) *LoadedTemplate{
 
 	resolved := resolveTemplates(tl.templatePath, files)
 
+
 	t, err := t.ParseFiles(resolved...)
 
 	if err != nil {

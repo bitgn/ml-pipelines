@@ -6,8 +6,6 @@ import (
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/events"
-	"mlp/catalog/sim"
-	"mlp/catalog/vo"
 )
 
 func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*DatasetInfoResponse, error) {
@@ -20,9 +18,9 @@ func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*D
 	}
 
 
-	err := domain.GetProblemsWithName(r.Name)
+	err := domain.GetProblemsWithName(r.DatasetId)
 	if err != nil {
-		return genError(badName(vo.ENTITY_DATASET, r.Name, err))
+		return genError(badName(r.DatasetId, err))
 	}
 
 
@@ -32,36 +30,44 @@ func (s *server) CreateDataset(ctx context.Context, r *CreateDatasetRequest) (*D
 
 
 
-	prj := db.GetProject(tx,r.ProjectUid)
+	prj := db.GetProject(tx,r.ProjectId)
 	if prj == nil {
 		log.Panicln("Project not found")
 	}
 
 
-	exists := db.Lookup(tx, r.ProjectUid, r.Name)
+	exists := db.GetDataset(tx, r.ProjectId, r.DatasetId)
 	if exists != nil {
-		return genError(alreadyExists(exists.Kind, prj.Name, r.Name, exists.Uid))
+		return genError(datasetAlreadyExists(r.ProjectId, r.DatasetId))
 	}
 
 
-	uid := sim.NewID()
+
 
 	e := &events.DatasetCreated{
-		Name:       r.Name,
-		ProjectUid: r.ProjectUid,
-		Uid:        uid,
+		DatasetId:r.DatasetId,
+		ProjectId:r.ProjectId,
 		Meta:       r.Meta,
-		ProjectName: prj.Name,
 	}
 
 	s.publish(tx, e)
+
+
+
+	res := db.GetDataset(tx, r.ProjectId, r.DatasetId)
+
 	tx.MustCommit()
 
 	return &DatasetInfoResponse{
-		Uid:uid,
-		ProjectUid:r.ProjectUid,
-		ProjectName:prj.Name,
-		Name:r.Name,
+		DatasetId:       r.DatasetId,
+		ProjectId:       r.ProjectId,
+		UpdateTimestamp: res.UpdateTimestamp,
+		Summary:         res.Summary,
+		Sample:res.Sample,
+		Description:res.Description,
+
+
+
 	}, nil
 
 

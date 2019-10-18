@@ -1,37 +1,31 @@
 package db
 
-import "log"
-
-func mustUid(uid []byte){
-	if len(uid)==0{
-		log.Panicln("UID can't be nil")
-	}
-}
-
-func mustName(name string){
-	if len(name)==0{
-		log.Panicln("Name can't be nil")
-	}
-}
 
 
 func PutDataset(tx *Tx, val *DatasetData){
-	tx.PutProto(CreateKey(Range_DATASETS, val.Uid), val)
+	tx.PutProto(CreateKey(Range_DATASETS, val.ProjectId, val.DatasetId), val)
 }
 
-func GetDataset(tx *Tx, uid []byte) *DatasetData{
-	mustUid(uid)
-
-
+func GetDataset(tx *Tx, projectId, datasetId string) *DatasetData{
 	val := &DatasetData{}
-	if tx.GetProto(CreateKey(Range_DATASETS, uid), val){
+	if tx.GetProto(CreateKey(Range_DATASETS, projectId, datasetId), val){
 		return val
 	}
 	return nil
 }
 
 
-func ListDatasets(tx *Tx) []*DatasetData{
+func ListDatasets(tx *Tx, projectId string) []*DatasetData{
+	var vals []*DatasetData
+	tx.MustScanRange(CreateKey(Range_DATASETS, projectId), func(k,v []byte){
+		val := &DatasetData{}
+		mustUnmarshal(v, val)
+		vals = append(vals, val)
+	})
+	return vals
+}
+
+func ListAllDatasets(tx *Tx) []*DatasetData{
 	var vals []*DatasetData
 	tx.MustScanRange(CreateKey(Range_DATASETS), func(k,v []byte){
 		val := &DatasetData{}

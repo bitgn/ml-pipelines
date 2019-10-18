@@ -9,20 +9,8 @@ It is generated from these files:
 	vo.proto
 
 It has these top-level messages:
-	ProjectMetadataDelta
-	SystemMetadataDelta
-	ExpertMetadataDelta
-	Relation
-	JobMetadataDelta
-	SystemVersionInput
-	SystemVersionOutput
-	JobRunInput
-	JobOutput
-	DatasetVerInput
-	DatasetVerOutput
 	DatasetMetadataDelta
-	DatasetItem
-	DatasetSample
+	Sample
 */
 package vo
 
@@ -41,543 +29,93 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type SystemKind int32
-
-const (
-	SystemKind_UndefinedSystem SystemKind = 0
-	// e.g. CustomersTable. A relational collection of facts
-	SystemKind_Table SystemKind = 1
-	// Kafka topic, aggregate stream, message channel
-	SystemKind_Topic SystemKind = 2
-	// E.g. API, Jupyter, Dask, Airflow, ML API it might or might not have a UI
-	SystemKind_Service SystemKind = 3
-	// e.g. a specific dashboard, HTML report
-	SystemKind_Report SystemKind = 4
-	// e.g. event store, InfluxDB, LMDB dump
-	SystemKind_Database SystemKind = 5
-)
-
-var SystemKind_name = map[int32]string{
-	0: "UndefinedSystem",
-	1: "Table",
-	2: "Topic",
-	3: "Service",
-	4: "Report",
-	5: "Database",
-}
-var SystemKind_value = map[string]int32{
-	"UndefinedSystem": 0,
-	"Table":           1,
-	"Topic":           2,
-	"Service":         3,
-	"Report":          4,
-	"Database":        5,
-}
-
-func (x SystemKind) String() string {
-	return proto.EnumName(SystemKind_name, int32(x))
-}
-func (SystemKind) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
-
-type ENTITY int32
-
-const (
-	ENTITY_NONE            ENTITY = 0
-	ENTITY_DATASET         ENTITY = 1
-	ENTITY_JOB             ENTITY = 2
-	ENTITY_SYSTEM          ENTITY = 3
-	ENTITY_MODEL           ENTITY = 4
-	ENTITY_PROJECT         ENTITY = 5
-	ENTITY_DATASET_VERSION ENTITY = 6
-	ENTITY_JOB_RUN         ENTITY = 7
-	ENTITY_SYSTEM_VERSION  ENTITY = 9
-)
-
-var ENTITY_name = map[int32]string{
-	0: "NONE",
-	1: "DATASET",
-	2: "JOB",
-	3: "SYSTEM",
-	4: "MODEL",
-	5: "PROJECT",
-	6: "DATASET_VERSION",
-	7: "JOB_RUN",
-	9: "SYSTEM_VERSION",
-}
-var ENTITY_value = map[string]int32{
-	"NONE":            0,
-	"DATASET":         1,
-	"JOB":             2,
-	"SYSTEM":          3,
-	"MODEL":           4,
-	"PROJECT":         5,
-	"DATASET_VERSION": 6,
-	"JOB_RUN":         7,
-	"SYSTEM_VERSION":  9,
-}
-
-func (x ENTITY) String() string {
-	return proto.EnumName(ENTITY_name, int32(x))
-}
-func (ENTITY) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
-
-type JOB_STATUS int32
-
-const (
-	JOB_STATUS_NEVER   JOB_STATUS = 0
-	JOB_STATUS_SUCCESS JOB_STATUS = 1
-	JOB_STATUS_FAIL    JOB_STATUS = 2
-	JOB_STATUS_RUNNING JOB_STATUS = 3
-)
-
-var JOB_STATUS_name = map[int32]string{
-	0: "NEVER",
-	1: "SUCCESS",
-	2: "FAIL",
-	3: "RUNNING",
-}
-var JOB_STATUS_value = map[string]int32{
-	"NEVER":   0,
-	"SUCCESS": 1,
-	"FAIL":    2,
-	"RUNNING": 3,
-}
-
-func (x JOB_STATUS) String() string {
-	return proto.EnumName(JOB_STATUS_name, int32(x))
-}
-func (JOB_STATUS) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
-
-type SystemVersionInput_Type int32
-
-const (
-	SystemVersionInput_None   SystemVersionInput_Type = 0
-	SystemVersionInput_System SystemVersionInput_Type = 1
-	SystemVersionInput_JobRun SystemVersionInput_Type = 2
-)
-
-var SystemVersionInput_Type_name = map[int32]string{
-	0: "None",
-	1: "System",
-	2: "JobRun",
-}
-var SystemVersionInput_Type_value = map[string]int32{
-	"None":   0,
-	"System": 1,
-	"JobRun": 2,
-}
-
-func (x SystemVersionInput_Type) String() string {
-	return proto.EnumName(SystemVersionInput_Type_name, int32(x))
-}
-func (SystemVersionInput_Type) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{5, 0} }
-
-type SystemVersionOutput_Type int32
-
-const (
-	SystemVersionOutput_None   SystemVersionOutput_Type = 0
-	SystemVersionOutput_System SystemVersionOutput_Type = 1
-)
-
-var SystemVersionOutput_Type_name = map[int32]string{
-	0: "None",
-	1: "System",
-}
-var SystemVersionOutput_Type_value = map[string]int32{
-	"None":   0,
-	"System": 1,
-}
-
-func (x SystemVersionOutput_Type) String() string {
-	return proto.EnumName(SystemVersionOutput_Type_name, int32(x))
-}
-func (SystemVersionOutput_Type) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{6, 0} }
-
-type JobRunInput_Type int32
-
-const (
-	JobRunInput_None       JobRunInput_Type = 0
-	JobRunInput_DatasetVer JobRunInput_Type = 1
-	JobRunInput_System     JobRunInput_Type = 2
-)
-
-var JobRunInput_Type_name = map[int32]string{
-	0: "None",
-	1: "DatasetVer",
-	2: "System",
-}
-var JobRunInput_Type_value = map[string]int32{
-	"None":       0,
-	"DatasetVer": 1,
-	"System":     2,
-}
-
-func (x JobRunInput_Type) String() string {
-	return proto.EnumName(JobRunInput_Type_name, int32(x))
-}
-func (JobRunInput_Type) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{7, 0} }
-
-type JobOutput_Type int32
-
-const (
-	JobOutput_None    JobOutput_Type = 0
-	JobOutput_Dataset JobOutput_Type = 1
-)
-
-var JobOutput_Type_name = map[int32]string{
-	0: "None",
-	1: "Dataset",
-}
-var JobOutput_Type_value = map[string]int32{
-	"None":    0,
-	"Dataset": 1,
-}
-
-func (x JobOutput_Type) String() string {
-	return proto.EnumName(JobOutput_Type_name, int32(x))
-}
-func (JobOutput_Type) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{8, 0} }
-
-type DatasetVerInput_TYPE int32
-
-const (
-	DatasetVerInput_NONE    DatasetVerInput_TYPE = 0
-	DatasetVerInput_JOB_RUN DatasetVerInput_TYPE = 1
-)
-
-var DatasetVerInput_TYPE_name = map[int32]string{
-	0: "NONE",
-	1: "JOB_RUN",
-}
-var DatasetVerInput_TYPE_value = map[string]int32{
-	"NONE":    0,
-	"JOB_RUN": 1,
-}
-
-func (x DatasetVerInput_TYPE) String() string {
-	return proto.EnumName(DatasetVerInput_TYPE_name, int32(x))
-}
-func (DatasetVerInput_TYPE) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{9, 0} }
-
-type DatasetVerOutput_TYPE int32
-
-const (
-	DatasetVerOutput_NONE    DatasetVerOutput_TYPE = 0
-	DatasetVerOutput_JOB_RUN DatasetVerOutput_TYPE = 1
-)
-
-var DatasetVerOutput_TYPE_name = map[int32]string{
-	0: "NONE",
-	1: "JOB_RUN",
-}
-var DatasetVerOutput_TYPE_value = map[string]int32{
-	"NONE":    0,
-	"JOB_RUN": 1,
-}
-
-func (x DatasetVerOutput_TYPE) String() string {
-	return proto.EnumName(DatasetVerOutput_TYPE_name, int32(x))
-}
-func (DatasetVerOutput_TYPE) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{10, 0} }
-
 // Sample storage format. Doesn't necessarily match
 // actual data format which could be very cryptic
-type DatasetSample_FORMAT int32
+type Sample_FORMAT int32
 
 const (
-	DatasetSample_TEXT DatasetSample_FORMAT = 0
-	DatasetSample_TSV  DatasetSample_FORMAT = 1
-	DatasetSample_JSON DatasetSample_FORMAT = 2
+	Sample_NONE Sample_FORMAT = 0
+	Sample_TEXT Sample_FORMAT = 1
+	Sample_TSV  Sample_FORMAT = 2
+	Sample_JSON Sample_FORMAT = 3
 )
 
-var DatasetSample_FORMAT_name = map[int32]string{
-	0: "TEXT",
-	1: "TSV",
-	2: "JSON",
+var Sample_FORMAT_name = map[int32]string{
+	0: "NONE",
+	1: "TEXT",
+	2: "TSV",
+	3: "JSON",
 }
-var DatasetSample_FORMAT_value = map[string]int32{
-	"TEXT": 0,
-	"TSV":  1,
-	"JSON": 2,
-}
-
-func (x DatasetSample_FORMAT) String() string {
-	return proto.EnumName(DatasetSample_FORMAT_name, int32(x))
-}
-func (DatasetSample_FORMAT) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{13, 0} }
-
-type ProjectMetadataDelta struct {
-	Title          string `protobuf:"bytes,1,opt,name=title" json:"title,omitempty"`
-	TitleSet       bool   `protobuf:"varint,2,opt,name=title_set,json=titleSet" json:"title_set,omitempty"`
-	Description    string `protobuf:"bytes,3,opt,name=description" json:"description,omitempty"`
-	DescriptionSet bool   `protobuf:"varint,4,opt,name=description_set,json=descriptionSet" json:"description_set,omitempty"`
+var Sample_FORMAT_value = map[string]int32{
+	"NONE": 0,
+	"TEXT": 1,
+	"TSV":  2,
+	"JSON": 3,
 }
 
-func (m *ProjectMetadataDelta) Reset()                    { *m = ProjectMetadataDelta{} }
-func (m *ProjectMetadataDelta) String() string            { return proto.CompactTextString(m) }
-func (*ProjectMetadataDelta) ProtoMessage()               {}
-func (*ProjectMetadataDelta) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
-
-type SystemMetadataDelta struct {
-	Title          string     `protobuf:"bytes,1,opt,name=title" json:"title,omitempty"`
-	TitleSet       bool       `protobuf:"varint,2,opt,name=title_set,json=titleSet" json:"title_set,omitempty"`
-	LocationId     string     `protobuf:"bytes,3,opt,name=location_id,json=locationId" json:"location_id,omitempty"`
-	LocationIdSet  bool       `protobuf:"varint,4,opt,name=location_id_set,json=locationIdSet" json:"location_id_set,omitempty"`
-	LocationUri    string     `protobuf:"bytes,5,opt,name=location_uri,json=locationUri" json:"location_uri,omitempty"`
-	LocationUriSet bool       `protobuf:"varint,6,opt,name=location_uri_set,json=locationUriSet" json:"location_uri_set,omitempty"`
-	Description    string     `protobuf:"bytes,7,opt,name=description" json:"description,omitempty"`
-	DescriptionSet bool       `protobuf:"varint,8,opt,name=description_set,json=descriptionSet" json:"description_set,omitempty"`
-	Experts        [][]byte   `protobuf:"bytes,9,rep,name=experts,proto3" json:"experts,omitempty"`
-	ExpertsSet     bool       `protobuf:"varint,10,opt,name=experts_set,json=expertsSet" json:"experts_set,omitempty"`
-	Kind           SystemKind `protobuf:"varint,11,opt,name=kind,enum=SystemKind" json:"kind,omitempty"`
-	KindSet        bool       `protobuf:"varint,12,opt,name=kind_set,json=kindSet" json:"kind_set,omitempty"`
+func (x Sample_FORMAT) String() string {
+	return proto.EnumName(Sample_FORMAT_name, int32(x))
 }
-
-func (m *SystemMetadataDelta) Reset()                    { *m = SystemMetadataDelta{} }
-func (m *SystemMetadataDelta) String() string            { return proto.CompactTextString(m) }
-func (*SystemMetadataDelta) ProtoMessage()               {}
-func (*SystemMetadataDelta) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
-
-type ExpertMetadataDelta struct {
-	FullName    string `protobuf:"bytes,1,opt,name=full_name,json=fullName" json:"full_name,omitempty"`
-	FullNameSet bool   `protobuf:"varint,2,opt,name=full_name_set,json=fullNameSet" json:"full_name_set,omitempty"`
-	Email       string `protobuf:"bytes,3,opt,name=email" json:"email,omitempty"`
-	EmailSet    bool   `protobuf:"varint,4,opt,name=email_set,json=emailSet" json:"email_set,omitempty"`
-}
-
-func (m *ExpertMetadataDelta) Reset()                    { *m = ExpertMetadataDelta{} }
-func (m *ExpertMetadataDelta) String() string            { return proto.CompactTextString(m) }
-func (*ExpertMetadataDelta) ProtoMessage()               {}
-func (*ExpertMetadataDelta) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
-
-type Relation struct {
-	TargetId   []byte `protobuf:"bytes,1,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
-	TargetType ENTITY `protobuf:"varint,2,opt,name=target_type,json=targetType,enum=ENTITY" json:"target_type,omitempty"`
-}
-
-func (m *Relation) Reset()                    { *m = Relation{} }
-func (m *Relation) String() string            { return proto.CompactTextString(m) }
-func (*Relation) ProtoMessage()               {}
-func (*Relation) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
-
-type JobMetadataDelta struct {
-	Title    string `protobuf:"bytes,1,opt,name=title" json:"title,omitempty"`
-	TitleSet bool   `protobuf:"varint,2,opt,name=title_set,json=titleSet" json:"title_set,omitempty"`
-}
-
-func (m *JobMetadataDelta) Reset()                    { *m = JobMetadataDelta{} }
-func (m *JobMetadataDelta) String() string            { return proto.CompactTextString(m) }
-func (*JobMetadataDelta) ProtoMessage()               {}
-func (*JobMetadataDelta) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
-
-type SystemVersionInput struct {
-	Uid  []byte                  `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	Type SystemVersionInput_Type `protobuf:"varint,2,opt,name=type,enum=SystemVersionInput_Type" json:"type,omitempty"`
-}
-
-func (m *SystemVersionInput) Reset()                    { *m = SystemVersionInput{} }
-func (m *SystemVersionInput) String() string            { return proto.CompactTextString(m) }
-func (*SystemVersionInput) ProtoMessage()               {}
-func (*SystemVersionInput) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
-
-type SystemVersionOutput struct {
-	Uid  []byte                   `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	Type SystemVersionOutput_Type `protobuf:"varint,2,opt,name=type,enum=SystemVersionOutput_Type" json:"type,omitempty"`
-}
-
-func (m *SystemVersionOutput) Reset()                    { *m = SystemVersionOutput{} }
-func (m *SystemVersionOutput) String() string            { return proto.CompactTextString(m) }
-func (*SystemVersionOutput) ProtoMessage()               {}
-func (*SystemVersionOutput) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
-
-type JobRunInput struct {
-	// dataset
-	Uid  []byte           `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	Type JobRunInput_Type `protobuf:"varint,2,opt,name=type,enum=JobRunInput_Type" json:"type,omitempty"`
-}
-
-func (m *JobRunInput) Reset()                    { *m = JobRunInput{} }
-func (m *JobRunInput) String() string            { return proto.CompactTextString(m) }
-func (*JobRunInput) ProtoMessage()               {}
-func (*JobRunInput) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
-
-type JobOutput struct {
-	// dataset
-	TargetId []byte         `protobuf:"bytes,1,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
-	Type     JobOutput_Type `protobuf:"varint,2,opt,name=type,enum=JobOutput_Type" json:"type,omitempty"`
-}
-
-func (m *JobOutput) Reset()                    { *m = JobOutput{} }
-func (m *JobOutput) String() string            { return proto.CompactTextString(m) }
-func (*JobOutput) ProtoMessage()               {}
-func (*JobOutput) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
-
-type DatasetVerInput struct {
-	Uid  []byte               `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	Type DatasetVerInput_TYPE `protobuf:"varint,2,opt,name=type,enum=DatasetVerInput_TYPE" json:"type,omitempty"`
-}
-
-func (m *DatasetVerInput) Reset()                    { *m = DatasetVerInput{} }
-func (m *DatasetVerInput) String() string            { return proto.CompactTextString(m) }
-func (*DatasetVerInput) ProtoMessage()               {}
-func (*DatasetVerInput) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
-
-type DatasetVerOutput struct {
-	Uid  []byte                `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	Type DatasetVerOutput_TYPE `protobuf:"varint,2,opt,name=type,enum=DatasetVerOutput_TYPE" json:"type,omitempty"`
-}
-
-func (m *DatasetVerOutput) Reset()                    { *m = DatasetVerOutput{} }
-func (m *DatasetVerOutput) String() string            { return proto.CompactTextString(m) }
-func (*DatasetVerOutput) ProtoMessage()               {}
-func (*DatasetVerOutput) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
+func (Sample_FORMAT) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{1, 0} }
 
 // if a field kind is set, then the corresponding property carries
 // a new value (which could be null)
 type DatasetMetadataDelta struct {
-	Sample         *DatasetSample `protobuf:"bytes,7,opt,name=sample" json:"sample,omitempty"`
-	SampleSet      bool           `protobuf:"varint,8,opt,name=sample_set,json=sampleSet" json:"sample_set,omitempty"`
-	DataFormat     string         `protobuf:"bytes,11,opt,name=data_format,json=dataFormat" json:"data_format,omitempty"`
-	DataFormatSet  bool           `protobuf:"varint,12,opt,name=data_format_set,json=dataFormatSet" json:"data_format_set,omitempty"`
-	Description    string         `protobuf:"bytes,13,opt,name=description" json:"description,omitempty"`
-	DescriptionSet bool           `protobuf:"varint,14,opt,name=description_set,json=descriptionSet" json:"description_set,omitempty"`
-	LocationId     string         `protobuf:"bytes,15,opt,name=location_id,json=locationId" json:"location_id,omitempty"`
-	LocationIdSet  bool           `protobuf:"varint,16,opt,name=location_id_set,json=locationIdSet" json:"location_id_set,omitempty"`
-	LocationUri    string         `protobuf:"bytes,17,opt,name=location_uri,json=locationUri" json:"location_uri,omitempty"`
-	LocationUriSet bool           `protobuf:"varint,18,opt,name=location_uri_set,json=locationUriSet" json:"location_uri_set,omitempty"`
-	Experts        [][]byte       `protobuf:"bytes,19,rep,name=experts,proto3" json:"experts,omitempty"`
-	ExpertsSet     bool           `protobuf:"varint,20,opt,name=experts_set,json=expertsSet" json:"experts_set,omitempty"`
-	Title          string         `protobuf:"bytes,21,opt,name=title" json:"title,omitempty"`
-	TitleSet       bool           `protobuf:"varint,22,opt,name=title_set,json=titleSet" json:"title_set,omitempty"`
+	Sample         *Sample `protobuf:"bytes,1,opt,name=sample" json:"sample,omitempty"`
+	SampleSet      bool    `protobuf:"varint,2,opt,name=sample_set,json=sampleSet" json:"sample_set,omitempty"`
+	Description    string  `protobuf:"bytes,5,opt,name=description" json:"description,omitempty"`
+	DescriptionSet bool    `protobuf:"varint,6,opt,name=description_set,json=descriptionSet" json:"description_set,omitempty"`
+	Summary        string  `protobuf:"bytes,7,opt,name=summary" json:"summary,omitempty"`
+	SummarySet     bool    `protobuf:"varint,8,opt,name=summary_set,json=summarySet" json:"summary_set,omitempty"`
 }
 
 func (m *DatasetMetadataDelta) Reset()                    { *m = DatasetMetadataDelta{} }
 func (m *DatasetMetadataDelta) String() string            { return proto.CompactTextString(m) }
 func (*DatasetMetadataDelta) ProtoMessage()               {}
-func (*DatasetMetadataDelta) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11} }
+func (*DatasetMetadataDelta) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-func (m *DatasetMetadataDelta) GetSample() *DatasetSample {
+func (m *DatasetMetadataDelta) GetSample() *Sample {
 	if m != nil {
 		return m.Sample
 	}
 	return nil
 }
 
-type DatasetItem struct {
-	Name         string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	StorageBytes int64  `protobuf:"varint,2,opt,name=storage_bytes,json=storageBytes" json:"storage_bytes,omitempty"`
-	Records      int64  `protobuf:"varint,3,opt,name=records" json:"records,omitempty"`
-	Uid          []byte `protobuf:"bytes,4,opt,name=uid,proto3" json:"uid,omitempty"`
+type Sample struct {
+	Format Sample_FORMAT `protobuf:"varint,1,opt,name=format,enum=Sample_FORMAT" json:"format,omitempty"`
+	Body   string        `protobuf:"bytes,2,opt,name=body" json:"body,omitempty"`
 }
 
-func (m *DatasetItem) Reset()                    { *m = DatasetItem{} }
-func (m *DatasetItem) String() string            { return proto.CompactTextString(m) }
-func (*DatasetItem) ProtoMessage()               {}
-func (*DatasetItem) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{12} }
-
-type DatasetSample struct {
-	Format DatasetSample_FORMAT `protobuf:"varint,1,opt,name=format,enum=DatasetSample_FORMAT" json:"format,omitempty"`
-	Body   string               `protobuf:"bytes,2,opt,name=body" json:"body,omitempty"`
-}
-
-func (m *DatasetSample) Reset()                    { *m = DatasetSample{} }
-func (m *DatasetSample) String() string            { return proto.CompactTextString(m) }
-func (*DatasetSample) ProtoMessage()               {}
-func (*DatasetSample) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{13} }
+func (m *Sample) Reset()                    { *m = Sample{} }
+func (m *Sample) String() string            { return proto.CompactTextString(m) }
+func (*Sample) ProtoMessage()               {}
+func (*Sample) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
 func init() {
-	proto.RegisterType((*ProjectMetadataDelta)(nil), "ProjectMetadataDelta")
-	proto.RegisterType((*SystemMetadataDelta)(nil), "SystemMetadataDelta")
-	proto.RegisterType((*ExpertMetadataDelta)(nil), "ExpertMetadataDelta")
-	proto.RegisterType((*Relation)(nil), "Relation")
-	proto.RegisterType((*JobMetadataDelta)(nil), "JobMetadataDelta")
-	proto.RegisterType((*SystemVersionInput)(nil), "SystemVersionInput")
-	proto.RegisterType((*SystemVersionOutput)(nil), "SystemVersionOutput")
-	proto.RegisterType((*JobRunInput)(nil), "JobRunInput")
-	proto.RegisterType((*JobOutput)(nil), "JobOutput")
-	proto.RegisterType((*DatasetVerInput)(nil), "DatasetVerInput")
-	proto.RegisterType((*DatasetVerOutput)(nil), "DatasetVerOutput")
 	proto.RegisterType((*DatasetMetadataDelta)(nil), "DatasetMetadataDelta")
-	proto.RegisterType((*DatasetItem)(nil), "DatasetItem")
-	proto.RegisterType((*DatasetSample)(nil), "DatasetSample")
-	proto.RegisterEnum("SystemKind", SystemKind_name, SystemKind_value)
-	proto.RegisterEnum("ENTITY", ENTITY_name, ENTITY_value)
-	proto.RegisterEnum("JOB_STATUS", JOB_STATUS_name, JOB_STATUS_value)
-	proto.RegisterEnum("SystemVersionInput_Type", SystemVersionInput_Type_name, SystemVersionInput_Type_value)
-	proto.RegisterEnum("SystemVersionOutput_Type", SystemVersionOutput_Type_name, SystemVersionOutput_Type_value)
-	proto.RegisterEnum("JobRunInput_Type", JobRunInput_Type_name, JobRunInput_Type_value)
-	proto.RegisterEnum("JobOutput_Type", JobOutput_Type_name, JobOutput_Type_value)
-	proto.RegisterEnum("DatasetVerInput_TYPE", DatasetVerInput_TYPE_name, DatasetVerInput_TYPE_value)
-	proto.RegisterEnum("DatasetVerOutput_TYPE", DatasetVerOutput_TYPE_name, DatasetVerOutput_TYPE_value)
-	proto.RegisterEnum("DatasetSample_FORMAT", DatasetSample_FORMAT_name, DatasetSample_FORMAT_value)
+	proto.RegisterType((*Sample)(nil), "Sample")
+	proto.RegisterEnum("Sample_FORMAT", Sample_FORMAT_name, Sample_FORMAT_value)
 }
 
 func init() { proto.RegisterFile("vo.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 1021 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xa4, 0x56, 0x4d, 0x73, 0xdb, 0x36,
-	0x13, 0x36, 0x45, 0x7d, 0x90, 0x4b, 0x7d, 0x20, 0xb0, 0x93, 0x51, 0x26, 0x6f, 0xe6, 0x75, 0x99,
-	0x49, 0xaa, 0x7a, 0x12, 0x1e, 0xdc, 0x63, 0x4f, 0xfe, 0xa0, 0x3b, 0x52, 0x63, 0xca, 0x05, 0x29,
-	0x4f, 0x7d, 0xa9, 0x86, 0x12, 0xe1, 0x0c, 0x5b, 0x4a, 0xd4, 0x90, 0x50, 0xa6, 0xba, 0xf4, 0xd0,
-	0x5b, 0xef, 0xfd, 0x01, 0xfd, 0x93, 0xbd, 0x77, 0x00, 0x50, 0x32, 0x68, 0xcb, 0x1e, 0x75, 0x72,
-	0xd2, 0x62, 0xb9, 0xbb, 0xcf, 0x03, 0xec, 0xe2, 0x81, 0xc0, 0xf8, 0x9c, 0x3a, 0x8b, 0x2c, 0x65,
-	0xa9, 0xfd, 0x97, 0x06, 0x07, 0x57, 0x59, 0xfa, 0x0b, 0x9d, 0xb2, 0x4b, 0xca, 0xc2, 0x28, 0x64,
-	0xe1, 0x39, 0x4d, 0x58, 0x88, 0x0f, 0xa0, 0xc6, 0x62, 0x96, 0xd0, 0xae, 0x76, 0xa8, 0xf5, 0x4c,
-	0x22, 0x17, 0xf8, 0x15, 0x98, 0xc2, 0x18, 0xe7, 0x94, 0x75, 0x2b, 0x87, 0x5a, 0xcf, 0x20, 0x86,
-	0x70, 0xf8, 0x94, 0xe1, 0x43, 0xb0, 0x22, 0x9a, 0x4f, 0xb3, 0x78, 0xc1, 0xe2, 0x74, 0xde, 0xd5,
-	0x45, 0xa2, 0xea, 0xc2, 0x5f, 0x43, 0x47, 0x59, 0x8a, 0x22, 0x55, 0x51, 0xa4, 0xad, 0xb8, 0x7d,
-	0xca, 0xec, 0xbf, 0x75, 0xd8, 0xf7, 0x57, 0x39, 0xa3, 0xb3, 0x2f, 0x66, 0xf5, 0x7f, 0xb0, 0x92,
-	0x74, 0x1a, 0x0a, 0xc0, 0x38, 0x2a, 0x58, 0xc1, 0xda, 0xd5, 0x8f, 0xf0, 0x3b, 0xe8, 0x28, 0x01,
-	0x0a, 0xa9, 0xd6, 0x5d, 0x10, 0x2f, 0xf4, 0x15, 0x34, 0x37, 0x71, 0xcb, 0x2c, 0xee, 0xd6, 0xe4,
-	0xfe, 0xd6, 0xbe, 0x51, 0x16, 0xe3, 0x1e, 0x20, 0x35, 0x44, 0xd4, 0xaa, 0xcb, 0x0d, 0x2a, 0x61,
-	0x5b, 0xce, 0xaa, 0xb1, 0xd3, 0x59, 0x19, 0xdb, 0xce, 0x0a, 0x77, 0xa1, 0x41, 0x7f, 0x5b, 0xd0,
-	0x8c, 0xe5, 0x5d, 0xf3, 0x50, 0xef, 0x35, 0xc9, 0x7a, 0xc9, 0xb7, 0x5e, 0x98, 0x22, 0x1d, 0x44,
-	0x3a, 0x14, 0x2e, 0x79, 0x36, 0xd5, 0x5f, 0xe3, 0x79, 0xd4, 0xb5, 0x0e, 0xb5, 0x5e, 0xfb, 0xd8,
-	0x72, 0xe4, 0x91, 0xff, 0x10, 0xcf, 0x23, 0x22, 0x3e, 0xe0, 0x97, 0x60, 0xf0, 0x5f, 0x91, 0xde,
-	0x14, 0xe9, 0x0d, 0xbe, 0xe6, 0x2d, 0xfa, 0x53, 0x83, 0x7d, 0x57, 0x94, 0x2a, 0xb7, 0xe8, 0x15,
-	0x98, 0xb7, 0xcb, 0x24, 0x19, 0xcf, 0xc3, 0xd9, 0xba, 0x4d, 0x06, 0x77, 0x78, 0xe1, 0x8c, 0x62,
-	0x1b, 0x5a, 0x9b, 0x8f, 0x4a, 0xb7, 0xac, 0x75, 0x00, 0x27, 0x75, 0x00, 0x35, 0x3a, 0x0b, 0xe3,
-	0xa4, 0x68, 0x95, 0x5c, 0xf0, 0xb2, 0xc2, 0x50, 0xfa, 0x63, 0x08, 0x07, 0xe7, 0xf2, 0x23, 0x18,
-	0x84, 0x26, 0xe2, 0x7c, 0xc5, 0x30, 0x84, 0xd9, 0x27, 0xca, 0x78, 0xb7, 0x39, 0x7e, 0x93, 0x18,
-	0xd2, 0xd1, 0x8f, 0x70, 0x0f, 0xac, 0xe2, 0x23, 0x5b, 0x2d, 0xa8, 0x40, 0x6f, 0x1f, 0x37, 0x1c,
-	0xd7, 0x0b, 0xfa, 0xc1, 0x0d, 0x01, 0xf9, 0x2d, 0x58, 0x2d, 0xa8, 0xed, 0x02, 0x1a, 0xa4, 0x93,
-	0x2f, 0x9d, 0x3e, 0xfb, 0x77, 0xc0, 0xf2, 0x50, 0xaf, 0x69, 0x96, 0xf3, 0x51, 0x9a, 0x2f, 0x96,
-	0x0c, 0x23, 0xd0, 0x97, 0x1b, 0x76, 0xdc, 0xc4, 0xef, 0xa1, 0xaa, 0x30, 0xea, 0x3a, 0x0f, 0x93,
-	0x1c, 0x4e, 0x8b, 0x88, 0x28, 0xbb, 0x07, 0x55, 0xbe, 0xc2, 0x06, 0x54, 0xbd, 0x74, 0x4e, 0xd1,
-	0x1e, 0x06, 0xa8, 0xcb, 0x14, 0xa4, 0x71, 0x7b, 0x90, 0x4e, 0xc8, 0x72, 0x8e, 0x2a, 0x36, 0x5b,
-	0xdf, 0xa3, 0xa2, 0xd4, 0x70, 0xc9, 0xb6, 0x13, 0xf8, 0x50, 0x22, 0xf0, 0xd2, 0xd9, 0x92, 0xa5,
-	0x32, 0xf8, 0xdf, 0x53, 0x0c, 0x6c, 0x06, 0x96, 0x64, 0xf0, 0xd8, 0x76, 0xdf, 0x96, 0xd0, 0x9e,
-	0x39, 0x4a, 0xb4, 0x8a, 0xf2, 0xfe, 0x01, 0x4a, 0x1b, 0xe0, 0x3c, 0x64, 0x61, 0x4e, 0xd9, 0x35,
-	0xcd, 0xe4, 0x5e, 0x0b, 0xd4, 0x8a, 0x9d, 0x80, 0x39, 0x48, 0x27, 0xc5, 0x0e, 0x9f, 0x1c, 0x83,
-	0x37, 0x25, 0xf8, 0x8e, 0xb3, 0x49, 0x53, 0xc1, 0x5f, 0x3f, 0x00, 0xb7, 0xa0, 0x51, 0x80, 0x23,
-	0xcd, 0x9e, 0x41, 0xe7, 0x8e, 0xc9, 0x63, 0xfb, 0xfc, 0xa6, 0x04, 0xf4, 0xdc, 0xb9, 0x97, 0xe1,
-	0x04, 0x37, 0x57, 0xae, 0x02, 0x77, 0x73, 0xe5, 0x0a, 0xb8, 0xa1, 0xe7, 0x4a, 0xb8, 0xc1, 0xf0,
-	0x74, 0x4c, 0x46, 0x1e, 0xd2, 0xec, 0x14, 0xd0, 0x5d, 0xf2, 0xa3, 0x5d, 0x3c, 0x2a, 0xe1, 0xbd,
-	0x70, 0xee, 0xa7, 0xfc, 0x07, 0xc0, 0x7f, 0x74, 0x38, 0x28, 0xd2, 0xcb, 0xb7, 0xe0, 0x1d, 0xd4,
-	0xf3, 0x70, 0xb6, 0x48, 0xa8, 0x50, 0x2d, 0xeb, 0xb8, 0xbd, 0x46, 0xf1, 0x85, 0x97, 0x14, 0x5f,
-	0xf1, 0x6b, 0x00, 0x69, 0x29, 0xda, 0x65, 0x4a, 0x4f, 0xa1, 0xcb, 0xbc, 0xe6, 0xf8, 0x36, 0xcd,
-	0x66, 0x21, 0x13, 0x12, 0x64, 0x12, 0xe0, 0xae, 0x0b, 0xe1, 0xe1, 0xba, 0xac, 0x04, 0x28, 0x12,
-	0xd4, 0xba, 0x0b, 0xda, 0x22, 0xa5, 0xad, 0x9d, 0xa4, 0xb4, 0xbd, 0x55, 0x4a, 0xef, 0xbd, 0x15,
-	0x9d, 0x5d, 0xde, 0x0a, 0xb4, 0xcb, 0x5b, 0xf1, 0x6c, 0xb7, 0xb7, 0x02, 0x6f, 0x7d, 0x2b, 0x14,
-	0x81, 0xdf, 0x7f, 0x52, 0xe0, 0x0f, 0x1e, 0x08, 0xfc, 0x46, 0xb1, 0x9e, 0x3f, 0xaa, 0x58, 0x2f,
-	0xee, 0x29, 0x56, 0x06, 0x56, 0xd1, 0xcf, 0x3e, 0xa3, 0x33, 0x8c, 0xa1, 0xaa, 0x28, 0xb9, 0xb0,
-	0xf1, 0x1b, 0x68, 0xe5, 0x2c, 0xcd, 0xc2, 0x4f, 0x74, 0x3c, 0x59, 0x31, 0x9a, 0x8b, 0x71, 0xd3,
-	0x49, 0xb3, 0x70, 0x9e, 0x72, 0x1f, 0x67, 0x9d, 0xd1, 0x69, 0x9a, 0x45, 0xb9, 0x10, 0x72, 0x9d,
-	0xac, 0x97, 0xeb, 0xb1, 0xad, 0x6e, 0xc6, 0xd6, 0x5e, 0x41, 0xab, 0x34, 0x43, 0xf8, 0x03, 0xd4,
-	0x8b, 0xb9, 0xd0, 0xca, 0x37, 0x47, 0x7e, 0x77, 0x2e, 0x86, 0xe4, 0xf2, 0x24, 0x20, 0x45, 0x10,
-	0x27, 0x39, 0x49, 0xa3, 0x95, 0xe0, 0x61, 0x12, 0x61, 0xdb, 0x6f, 0xa1, 0x2e, 0xa3, 0xf8, 0x80,
-	0x07, 0xee, 0x4f, 0x01, 0xda, 0xc3, 0x0d, 0xd0, 0x03, 0xff, 0x1a, 0x69, 0xdc, 0x35, 0xf0, 0x87,
-	0x1e, 0xaa, 0x1c, 0xfd, 0x0c, 0x70, 0xf7, 0xea, 0xe1, 0x7d, 0xe8, 0x8c, 0xe6, 0x11, 0xbd, 0x8d,
-	0xe7, 0x34, 0x2a, 0x74, 0x65, 0x0f, 0x9b, 0x50, 0x0b, 0xc2, 0x49, 0x42, 0x91, 0x26, 0xcc, 0x74,
-	0x11, 0x4f, 0x51, 0x85, 0x5f, 0x16, 0x9f, 0x66, 0x9f, 0xe3, 0x29, 0x45, 0x3a, 0x97, 0x21, 0x42,
-	0x17, 0x69, 0xc6, 0x50, 0x15, 0x37, 0xc1, 0xe0, 0x64, 0x27, 0x61, 0x4e, 0x51, 0xed, 0xe8, 0x0f,
-	0x0d, 0xea, 0xf2, 0x79, 0x29, 0x5f, 0xb4, 0xf3, 0x93, 0xe0, 0xc4, 0x77, 0x03, 0xa4, 0x71, 0x52,
-	0x83, 0xe1, 0x29, 0xaa, 0x08, 0x2d, 0xbb, 0xf1, 0x03, 0xf7, 0x12, 0xe9, 0x1c, 0xe8, 0x72, 0x78,
-	0xee, 0x7e, 0x44, 0x55, 0x1e, 0x7c, 0x45, 0x86, 0x03, 0xf7, 0x2c, 0x40, 0x35, 0x4e, 0xb0, 0xc8,
-	0x1c, 0x5f, 0xbb, 0xc4, 0xef, 0x0f, 0x3d, 0x54, 0x57, 0xef, 0x6d, 0x03, 0x63, 0x68, 0xcb, 0x2a,
-	0x9b, 0x00, 0xf3, 0xe8, 0x3b, 0x00, 0x1e, 0xe0, 0x07, 0x27, 0xc1, 0xc8, 0xe7, 0xb5, 0x3d, 0xf7,
-	0xda, 0x25, 0x92, 0x88, 0x3f, 0x3a, 0x3b, 0x73, 0x7d, 0x5f, 0x1e, 0xca, 0xc5, 0x49, 0xff, 0xa3,
-	0xdc, 0x1b, 0x19, 0x79, 0x5e, 0xdf, 0xfb, 0x1e, 0xe9, 0x93, 0xba, 0xf8, 0xa7, 0xf8, 0xed, 0xbf,
-	0x01, 0x00, 0x00, 0xff, 0xff, 0x96, 0x77, 0x6e, 0xfe, 0x35, 0x0a, 0x00, 0x00,
+	// 261 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x4c, 0x90, 0x41, 0x6b, 0x83, 0x40,
+	0x14, 0x84, 0xbb, 0x49, 0xba, 0xea, 0x13, 0xac, 0x3c, 0x7a, 0xf0, 0x52, 0x22, 0x1e, 0x5a, 0x4f,
+	0x16, 0xd2, 0x5f, 0x50, 0x48, 0x7a, 0x28, 0x44, 0x61, 0x95, 0xd2, 0x5b, 0xd9, 0xd4, 0x2d, 0x04,
+	0x62, 0x57, 0xf4, 0xa5, 0x90, 0xff, 0xda, 0x1f, 0x53, 0x7c, 0x5a, 0xf0, 0x36, 0xf3, 0xed, 0xce,
+	0xb0, 0xb3, 0xe0, 0xfe, 0xd8, 0xac, 0xed, 0x2c, 0xd9, 0xe4, 0x57, 0xc0, 0xed, 0x56, 0x93, 0xee,
+	0x0d, 0xed, 0x0d, 0xe9, 0x5a, 0x93, 0xde, 0x9a, 0x13, 0x69, 0x5c, 0x83, 0xec, 0x75, 0xd3, 0x9e,
+	0x4c, 0x24, 0x62, 0x91, 0xfa, 0x1b, 0x27, 0x2b, 0xd9, 0xaa, 0x09, 0xe3, 0x1d, 0xc0, 0xa8, 0x3e,
+	0x7a, 0x43, 0xd1, 0x22, 0x16, 0xa9, 0xab, 0xbc, 0x91, 0x94, 0x86, 0x30, 0x06, 0xbf, 0x36, 0xfd,
+	0x67, 0x77, 0x6c, 0xe9, 0x68, 0xbf, 0xa3, 0xeb, 0x58, 0xa4, 0x9e, 0x9a, 0x23, 0x7c, 0x80, 0x9b,
+	0x99, 0xe5, 0x16, 0xc9, 0x2d, 0xc1, 0x0c, 0x0f, 0x55, 0x11, 0x38, 0xfd, 0xb9, 0x69, 0x74, 0x77,
+	0x89, 0x1c, 0xae, 0xf9, 0xb7, 0xb8, 0x06, 0x7f, 0x92, 0x1c, 0x77, 0x39, 0x0e, 0x13, 0x2a, 0x0d,
+	0x25, 0x67, 0x90, 0xe3, 0xb3, 0xf1, 0x1e, 0xe4, 0x97, 0xed, 0x1a, 0x4d, 0xbc, 0x27, 0xd8, 0x04,
+	0xd3, 0x9e, 0xec, 0xa5, 0x50, 0xfb, 0xe7, 0x4a, 0x4d, 0xa7, 0x88, 0xb0, 0x3a, 0xd8, 0xfa, 0xc2,
+	0x83, 0x3c, 0xc5, 0x3a, 0x79, 0x04, 0x39, 0xde, 0x42, 0x17, 0x56, 0x79, 0x91, 0xef, 0xc2, 0xab,
+	0x41, 0x55, 0xbb, 0xf7, 0x2a, 0x14, 0xe8, 0xc0, 0xb2, 0x2a, 0xdf, 0xc2, 0xc5, 0x80, 0x5e, 0xcb,
+	0x22, 0x0f, 0x97, 0x07, 0xc9, 0x9f, 0xfb, 0xf4, 0x17, 0x00, 0x00, 0xff, 0xff, 0x7b, 0x28, 0xdb,
+	0x54, 0x68, 0x01, 0x00, 0x00,
 }

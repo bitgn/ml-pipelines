@@ -19,27 +19,22 @@ class ClientError(Exception):
     status_code = None
 
 
-    def __init__(self, status_code:api.StatusCode, message:str, subject_uid:bytes=None,
-                 subject_name:str=None, details:List[str]=(), project_name: str=None,
-                 project_uid: str=None,
-                 method_name: str=None):
+    def __init__(self, status_code:api.StatusCode, message:str, detail_code:str=None,
+                 detail_args:List[str]=(), details:List[str]=()):
         super(ClientError, self).__init__(message)
-        self.method_name = method_name
         self.message = message
         self.details = details
         self.status_code = status_code
-        self.subject_uid=subject_uid
-        self.subject_name=subject_name
-        self.project_name = project_name
-        self.project_uid = project_uid
+        self.detail_code=detail_code
+        self.detail_args=detail_args
 
 
     def __str__(self):
         msg =  f'{self.status_code} {self.message}'
         if self.details:
             msg += f" {self.details}"
-        if self.method_name:
-            msg += f" method {self.method_name}"
+        if self.detail_code:
+            msg += f"{self.detail_code}({self.detail_args})"
         return msg
 
 
@@ -73,11 +68,9 @@ def from_error(e: api.ApiError) -> ClientError:
     return ctor(
         e.code,
         e.message,
-        e.subject_uid,
-        e.subject_name,
-        list(e.details),
-        e.project_name,
-        e.project_uid,
-        e.method_name)
+        e.detail_code,
+        e.detail_args,
+        e.details
+        )
 
 

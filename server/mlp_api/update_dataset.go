@@ -4,24 +4,23 @@ import (
 	"golang.org/x/net/context"
 	"mlp/catalog/db"
 	"mlp/catalog/events"
-	"mlp/catalog/vo"
 )
 
 func (s *server) UpdateDataset(ctx context.Context, r *UpdateDatasetRequest) (*EmptyResponse, error) {
 	tx := s.db.MustWrite()
 	defer tx.MustCleanup()
 
-	ds := db.GetDataset(tx,r.Uid)
+	ds := db.GetDataset(tx,r.ProjectId, r.DatasetId)
 
 	if ds == nil {
-		return genError(notFound(vo.ENTITY_DATASET, r.Uid))
+		return genError(datasetNotFound(r.ProjectId, r.DatasetId))
 	}
 
 	// TODO publish only deltas
 
 	s.publish(tx, &events.DatasetUpdated{
-		Uid:        r.Uid,
-		ProjectUid: ds.ProjectUid,
+		ProjectId:r.ProjectId,
+		DatasetId:r.DatasetId,
 		Meta:       r.Meta,
 	})
 

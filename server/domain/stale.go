@@ -33,16 +33,4 @@ func IsStale(ds *db.DatasetData) bool {
 
 
 
-func IsJobStale(run *db.JobRunData) bool {
-	if run == nil {
-		return false
-	}
-
-	delta := sim.UTC().Sub(time.Unix(run.UpdateTimestamp,0))
-
-	days := delta.Hours() / 24
-
-	return days >= 3
-
-}
 

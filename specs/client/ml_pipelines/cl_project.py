@@ -1,211 +1,76 @@
-from typing import Optional
+from typing import Optional, List
 
 from .cl_bases import *
 from . import vo_pb2 as vo
 
-from .cl_job import Job
 from .cl_dataset import Dataset
-from .cl_system import System
-
-class MultiCommit:
-    def __init__(self, ctx, project_uid, clean_slate):
-        """
-
-        :type clean_slate: bool
-        :type project_uid: bytes
-        :type ctx: Context
-        """
-        self.clean_slate = clean_slate
-        self.project_uid = project_uid
-        self.ctx = ctx
-
-
-class Systems:
-    def __init__(self, ctx: Context, uid: bytes):
-        self.uid = uid
-        self.ctx = ctx
-
-
-    def get_or_add_report(self, name: str) -> System:
-        return self._get_or_add(name, kind=vo.SystemKind.Report)
-
-    def get_or_add_topic(self, name: str) -> System:
-        return self._get_or_add(name, kind=vo.SystemKind.Topic)
-
-
-    def get_or_add_table(self, name: str) -> System:
-        return self._get_or_add(name, kind=vo.SystemKind.Table)
-
-    def get_or_add_service(self, name: str) -> System:
-        return self._get_or_add(name, kind=vo.SystemKind.Service)
-
-
-    def add_report(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Report, title, location_uri=location_uri)
-
-
-    def add_db(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Database, title, location_uri=location_uri)
-
-    def add_table(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Table, title, location_uri=location_uri)
-
-    def add_topic(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Topic, title, location_uri=location_uri)
-
-
-    def add_service(self, name:str, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
-        return self._add(name, vo.SystemKind.Service, title, location_uri=location_uri)
-
-
-
-    def _add(self, name: str, kind: vo.SystemKind, title: Optional[str] = None, location_uri: Optional[str] = None) -> System:
-        meta = vo.SystemMetadataDelta()
-
-        meta.kind = kind
-        meta.kind_set = True
-
-        if title:
-            meta.title = title
-            meta.title_set = True
-
-        if location_uri:
-            meta.location_uri = location_uri
-            meta.location_uri_set = True
-
-
-
-        new = api.AddSystemRequest(
-            project_uid=self.uid,
-            name=name,
-            meta=meta,
-        )
-        resp = self.ctx.add_system(new)
-        return System(
-            self.ctx,
-            project_uid=self.uid,
-            uid=resp.uid,
-            name=name,
-        )
-    def get(self, name:str) -> System:
-
-        req = api.GetSystemRequest(
-            project_uid=self.uid,
-            name=name
-        )
-        resp = self.ctx.get_system(req)
-
-        return System(self.ctx, project_uid=self.uid, uid=resp.uid, name=name)
-
-    def _get_or_add(self, name: str, kind: vo.SystemKind) -> System:
-        try:
-            return self.get(name)
-        except errors.NotFound:
-            pass
-
-        return self._add(name, kind)
 
 
 class Project:
 
 
-    def __init__(self, ctx: Context, uid: bytes):
-        self.uid = uid
+    def __init__(self, ctx: Context, project_id: str):
+        self.project_id = project_id
         self.ctx = ctx
-        self.systems = Systems(ctx, uid)
 
 
-    def prepare_commit(self, clean_slate:bool = False):
-        return MultiCommit(self.ctx, self.uid, clean_slate)
 
 
-    def create_job(self, name:str, title:Optional[str]=None) -> Job:
-        meta = vo.JobMetadataDelta()
-        if title:
-            meta.title = title
-            meta.title_set = True
+    def get_dataset(self, id:str) -> Dataset:
 
-        create = api.CreateJobRequest(project_uid=self.uid, name=name,meta=meta)
-
-
-        resp = self.ctx.create_job(create)
-        return Job(self.ctx, self.uid, resp.uid, resp.name)
-
-    def get_job(self, name:str) -> Job:
-        get = api.GetJobRequest(project_uid=self.uid, name=name)
-        resp = self.ctx.get_job(get)
-
-        return Job(self.ctx, self.uid, resp.uid, resp.name)
-
-    def get_or_create_job(self, name: str) -> Job:
-        try:
-            return self.get_job(name)
-        except errors.NotFound:
-            pass
-
-        return self.create_job(name)
-
-
-    def get_dataset(self, name) -> Dataset:
-
-        get = api.GetDatasetRequest(project_uid=self.uid, name=name)
+        get = api.GetDatasetRequest(project_id=self.project_id, dataset_id=id)
         resp = self.ctx.get_dataset(get)
 
 
 
-        return Dataset(self.ctx, self.uid, resp.uid, resp.name,
-                       location_id=resp.location_id)
+        return Dataset(self.ctx, project_id=self.project_id, dataset_id=resp.dataset_id)
 
-    def add_dataset(self, name,
-                    location_id: Optional[str] = None,
-                    title: Optional[str] = None, data_format: Optional[str] = None,
+    def list_datasets(self) -> List[Dataset]:
+        get = api.ListDatasetsRequest(project_id=self.project_id)
+        resp = self.ctx.list_datasets(get)
+
+        res = []
+
+        d: api.DatasetInfoResponse
+        for d in resp.datasets:
+            res.append(Dataset(self.ctx, project_id=d.project_id, dataset_id=d.dataset_id))
+
+        return res
+
+    def add_dataset(self, dataset_id:str,
                     description: Optional[str] = None,
-                    location_uri: Optional[str] = None) -> Dataset:
+                    summary: Optional[str] = None) -> Dataset:
         meta = vo.DatasetMetadataDelta(
 
         )
-        if title:
-            meta.title_set=True
-            meta.title=title
-
-
-        if data_format:
-            meta.data_format=data_format
-            meta.data_format_set=True
-
         if description:
-            meta.description=description
-            meta.description_set=True
+            meta.description_set = True
+            meta.description = description
 
-        if location_uri:
-            meta.location_uri = location_uri
-            meta.location_uri_set = True
-
-
-
-
+        if summary:
+            meta.summary_set = True
+            meta.summary = summary
 
         new = api.CreateDatasetRequest(
-            project_uid=self.uid,
-            name=name,
+            project_id=self.project_id,
+            dataset_id=dataset_id,
             meta=meta
         )
 
         resp = self.ctx.create_dataset(new)
         return Dataset(
             self.ctx,
-            project_uid=self.uid,
-            uid=resp.uid,
-            name=name,
-            location_id=location_id,
+            project_id=self.project_id,
+            dataset_id=resp.dataset_id,
+
         )
 
-    def get_or_create_dataset(self, name: str, location_id: Optional[str]=None) -> Dataset:
+    def get_or_create_dataset(self, dataset_id: str) -> Dataset:
         try:
-            return self.get_dataset(name)
+            return self.get_dataset(dataset_id)
         except errors.NotFound:
             pass
 
-        return self.add_dataset(name, location_id=location_id)
+        return self.add_dataset(dataset_id)
 
 

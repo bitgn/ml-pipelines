@@ -5,65 +5,7 @@ import "vo.proto";
 
 
 message ProjectCreated{
-    bytes uid = 1;
-    string name = 2;
-
-    ProjectMetadataDelta meta = 3;
-}
-
-
-// JOBS -----------------------------------------------------
-
-message JobAdded {
-    bytes uid = 1;
-    bytes project_uid = 2;
-
-    string name = 3;
-
-    JobMetadataDelta meta = 4;
-
-    string project_name = 5;
-
-}
-
-
-message JobRunStarted {
-    bytes job_uid = 1;
-    bytes uid = 2;
-
-    string title = 3;
-
-    repeated JobRunInput inputs = 4;
-    int64 timestamp = 6;
-
-    int32 run_num = 7;
-}
-
-
-message JobRunLogged {
-    bytes job_uid = 1;
-    bytes uid = 2;
-    string details = 4;
-    string log_title = 5;
-    int64 timestamp = 3;
-
-}
-
-message JobRunFailed {
-    bytes job_uid = 1;
-    bytes uid = 2;
-
-    string details = 3;
-    string message = 4;
-    int64 timestamp = 5;
-
-}
-
-message JobRunCompleted {
-    bytes job_uid = 1;
-    bytes uid = 2;
-    int64 timestamp = 5;
-
+    string project_id = 1;
 }
 
 
@@ -74,80 +16,20 @@ message JobRunCompleted {
 
 
 message DatasetCreated{
-    bytes project_uid = 1;
-    bytes uid = 2;
-
-    string name = 3;
+    string project_id = 1;
+    string dataset_id = 2;
 
 
     DatasetMetadataDelta meta = 4;
-
-    string project_name = 5;
 }
 
 message DatasetUpdated {
-    bytes uid = 1;
-    bytes project_uid = 2;
+    string project_id = 1;
+    string dataset_id = 2;
 
     DatasetMetadataDelta meta = 3;
 }
 
-message DatasetVersionAdded {
-    bytes uid = 1;
-    bytes project_uid = 2;
-
-    bytes parent_uid = 3;
-    string project_name = 4;
-    string title = 5;
-    int64 timestamp = 6;
-
-    repeated DatasetItem items = 7;
-    repeated DatasetItem remove = 10;
-
-
-    repeated DatasetVerInput inputs = 8;
-
-    bytes dataset_uid = 9;
-    bool clean_slate =11;
-
-    int32 version_num = 12;
-}
-
-
-// SERVICE --------------------------------------------------------------------
-
-
-message SystemCreated {
-    bytes uid = 1;
-    bytes project_uid = 2;
-
-    string name = 3;
-
-    SystemMetadataDelta meta = 4;
-
-    string project_name = 5;
-}
-
-message SystemVersionAdded {
-    bytes system_uid = 1;
-    bytes uid = 2;
-    bytes project_uid = 3;
-    string title = 4;
-
-    repeated SystemVersionInput inputs = 5;
-    repeated SystemVersionOutput outputs = 6;
-    int32 num = 7;
-    int64 timestamp = 8;
-}
-
-
-message ExpertAdded {
-    bytes uid = 1;
-    string name = 2;
-
-    ExpertMetadataDelta meta = 3;
-
-}
 
 
 // META ---------------------------------------
@@ -157,16 +39,6 @@ enum Type {
     Event_ProjectCreated = 1;
     Event_DatasetCreated = 2;
     Event_DatasetUpdated = 3;
-    Event_ExpertAdded = 4;
-    Event_JobAdded = 5;
-    Event_SystemCreated = 6;
-    Event_DatasetVersionAdded = 7;
-    Event_JobRunStarted = 8;
-    Event_JobRunLogged = 9;
-    Event_JobRunCompleted = 10;
-    Event_JobRunFailed = 11;
-    Event_SystemVersionAdded = 12;
-
 }
 
 

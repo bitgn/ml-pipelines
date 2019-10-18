@@ -7,7 +7,6 @@ from . import mlp_api_pb2 as api
 from . import mlp_api_pb2_grpc as rpc
 from . import vo_pb2 as vo
 from .cl_project import Project
-from .cl_job import Job
 from .cl_dataset import Dataset
 from .cl_bases import Context
 
@@ -23,7 +22,7 @@ class Server():
     def stats(self):
 
         request = api.StatRequest()
-        return self.context.stat(request)
+        return self.context.stat()
 
     def reset_db(self):
         self.context.reset()
@@ -38,31 +37,25 @@ class Client():
 
 
 
-    def get_project(self, name) -> Project:
+    def get_project(self, project_id) -> Project:
 
-        r = api.GetProjectRequest(name=name)
+        r = api.GetProjectRequest(project_id=project_id)
         resp = self.context.get_project(r)
-        return Project(self.context, resp.uid)
+        return Project(self.context, project_id=project_id)
 
 
     def __getitem__(self, key:str):
         return self.get_project(key)
 
 
-    def add_project(self, name: Optional[str], title: Optional[str] = None) -> Project:
+    def add_project(self, project_id: str) -> Project:
 
-        delta = vo.ProjectMetadataDelta()
-
-        if title:
-            delta.title = title
-            delta.title_set = True
 
         request = api.CreateProjectRequest(
-            name=name,
-            meta=delta)
+            project_id=project_id,)
 
         resp = self.context.create_project(request)
-        return Project(self.context, resp.uid)
+        return Project(self.context, project_id=project_id)
 
 
 

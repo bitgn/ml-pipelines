@@ -18,24 +18,7 @@ func getInstance(id Type) proto.Message{
 		return &DatasetCreated{}
 	case Type_Event_DatasetUpdated:
 		return &DatasetUpdated{}
-	case Type_Event_ExpertAdded:
-		return  &ExpertAdded{}
-	case Type_Event_JobAdded:
-		return &JobAdded{}
-	case Type_Event_DatasetVersionAdded:
-		return &DatasetVersionAdded{}
-	case Type_Event_JobRunStarted:
-		return &JobRunStarted{}
-	case Type_Event_JobRunLogged:
-		return &JobRunLogged{}
-	case Type_Event_JobRunCompleted:
-		return &JobRunCompleted{}
-	case Type_Event_JobRunFailed:
-		return &JobRunFailed{}
-	case Type_Event_SystemVersionAdded:
-		return &SystemVersionAdded{}
-	case Type_Event_SystemCreated:
-		return &SystemCreated{}
+
 	default:
 		log.Panicf("Unknown event type %s", id)
 		return nil
@@ -51,24 +34,6 @@ func GetContract(msg proto.Message) Type {
 		return Type_Event_DatasetCreated
 	case *DatasetUpdated:
 		return Type_Event_DatasetUpdated
-	case *JobAdded:
-		return Type_Event_JobAdded
-	case *ExpertAdded:
-		return Type_Event_ExpertAdded
-	case *DatasetVersionAdded:
-		return Type_Event_DatasetVersionAdded
-	case *JobRunStarted:
-		return Type_Event_JobRunStarted
-	case *JobRunLogged:
-		return Type_Event_JobRunLogged
-	case *JobRunFailed:
-		return Type_Event_JobRunFailed
-	case *JobRunCompleted:
-		return Type_Event_JobRunCompleted
-	case *SystemCreated:
-		return Type_Event_SystemCreated
-	case *SystemVersionAdded:
-		return Type_Event_SystemVersionAdded
 	default:
 		log.Panicf("Uknown event %T", e)
 		return Type_None

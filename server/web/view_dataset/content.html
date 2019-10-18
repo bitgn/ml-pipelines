@@ -2,16 +2,6 @@
 {{define "content"}}
 
 
-
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb  rounded-bottom" style="border-top-left-radius: 0; border-top-right-radius: 0;">
-    <li class="breadcrumb-item"><a href="{{.Site.Url.ListProjects}}">Projects</a></li>
-    <li class="breadcrumb-item"><a href="{{.Site.Url.ViewProject .Project.Name}}" class="project-link">{{ .Project.Caption }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ .Dataset.Caption }}</li>
-  </ol>
-</nav>
-
-
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2>
             Dataset: {{ .Dataset.Caption }}
@@ -19,98 +9,47 @@
         </h2>
     </div>
 
-    <div class="container" id="ds-{{.Site.Fmt.Uid .Dataset.Uid}}">
-        <div class="row rounded border px-4 py-3" >
+    <div class="container" id="ds-{{.Dataset.DatasetId}}">
+        <div class="row" >
             <div class="col">
+                {{if .Dataset.Summary}}
 
-                <div>
-                    {{if .Dataset.LocationId }}
-                        <strong>Location: </strong><span class="location-id">{{ .Dataset.LocationId }}</span><br/>
-                    {{end}}
+                <pre class="alert alert-secondary"><code>{{ .Dataset.Summary }}</code></pre>
 
+                {{else}}
 
-                    <strong>URI: </strong>
-                    <code class="location-uri">
-                        {{if .Dataset.LocationUri}}{{.Dataset.LocationUri}}{{else}}N/A{{end}}
-                    </code><br/>
-
-                    {{if .Dataset.VersionCount}}
-                        <strong>Versions: </strong>{{ .Dataset.VersionCount }}<br/>
-                    {{end}}
-
-
-                    <strong>Records: </strong>{{ .Dataset.RecordCount }}<br/>
-                    <strong>Files: </strong> {{ .Dataset.FileCount }}<br />
-                    <strong>Size:</strong> <span class="zip-size" title="{{.Dataset.StorageBytes}}">{{ .Site.Fmt.BytesDecimal .Dataset.StorageBytes }}</span><br/>
-
-
-
-                    <strong>Format:</strong> <span class="record-format">{{if .Dataset.DataFormat}}{{.Dataset.DataFormat}}{{else}}N/A{{end}}</span><br/>
-
-
-                    <strong>Last updated:</strong> <span class="update-timestamp">{{if .Dataset.UpdateTimestamp}}{{.Site.Fmt.Timestamp .Dataset.UpdateTimestamp}}{{else}}never{{end}}</span><br/>
-                </div>
-
-
-
-            </div>
-            <div class="col">
-                {{if .Dataset.Experts}}
-                    <strong>Domain Experts: </strong>
-                        {{range $i,$e := .Dataset.Experts}}
-                            {{if $i}},{{end}}<i>{{$e}}</i>
-                        {{end}}
+                    No summary provided
                 {{end}}
-
-            </div>
-
-        </div>
-        <div class="row pt-5">
-            <div class="col">
-                <h3>Relations</h3>
-                <div style="padding: 2px; ">
-                {{  .Lineage }}
-                </div>
             </div>
         </div>
 
         {{ if .Description}}
 
-        <div class="row pt-5">
-        <div class="col">
-            <h3>Description</h3>
+            <div class="row pt-5">
+                <div class="col">
+                    <h3>Description</h3>
 
-            <article class="pt-2 description">
-                {{ .Description }}
-            </article>
+                    <article class="pt-2 description">
+                        {{ .Description }}
+                    </article>
 
-        </div>
-        </div>
-
-
-    {{end}}
+                </div>
+            </div>
+        {{end}}
         {{if .Dataset.Sample}}
-          <div class="row pt-5">
-        <div class="col">
-            <h3>Sample</h3>
+            <div class="row pt-5">
+                <div class="col">
+                    <h3>Sample</h3>
 
-            <pre class="alert alert-secondary"><code>{{ .Dataset.Sample.Body }}</code></pre>
-
-        </div>
-          </div>
-    {{end}}
-
-
-
+                    <pre class="alert alert-secondary">
+                        <code>
+                            {{ .Dataset.Sample.Body }}
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        {{end}}
     </div>
-
-
-
-
-
-
-
-
 {{end}}
 
 

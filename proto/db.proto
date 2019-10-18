@@ -7,297 +7,30 @@ enum Range {
     PROJECTS = 1;
     DATASETS = 2;
 
-    JOBS =4;
-    STATS=5;
-    ASSET_CACHE= 6;
-    EXPERTS=7;
-    DATASET_VERSIONS = 8;
-    DATASET_HEAD_ITEMS = 9;
-    SYSTEMS = 13;
-    SYSTEM_VERSIONS=14;
-
-    SYSTEM_LINKS = 30;
-
-    DATASET_BINARY_TREE = 22;
-
-
-
-    PROJECT_NAMES=10;
-    JOB_RUNS = 12;
-    JOB_RUN_HISTORY = 47;
-
-    // scoped to project
-    NAMES_SCOPED=11;
-
-    IDX_PROJECT_DATASETS =20;
-    IDX_DATASET_VERSIONS = 21;
-
-    // service UID/int32
-    IDX_SYSTEM_VERSIONS = 23;
-
-    IDX_PROJECT_SYSTEMS = 24;
-    IDX_PROJECT_JOBS = 25;
-    IDX_JOB_RUNS = 26;
-
     VERSION=255;
 }
 
 
-message JobRunEvent {
-    enum Type {
-        None = 0;
-        Started = 1;
-        Failed = 2;
-        Completed = 3;
-        Logged = 4;
-
-    }
-    Type type = 1;
-    string log = 2;
-    string title = 3;
-    int64 timestamp = 4;
-}
-
-
-
-// serviceID | Entity Container  | Exact Reference
-message SystemLink {
-    bytes instance_uid = 1;
-    bytes container_uid = 2;
-    Type type = 3;
-    enum Type {
-        None = 0;
-        Input_SystemVer = 1; // Container is System
-        Input_JobRun = 2; // container is Job
-        Output_SystemVer = 3;
-        Output_JobRun = 4;
-    }
-
-}
-
-message EntityRef {
-    ENTITY kind = 1;
-    bytes uid = 2;
-}
-
-
-
 message ProjectData {
-    string title = 1;
-    string name = 2;
-    bytes uid = 3;
-    int32 dataset_count = 4;
-    int64 storage_bytes = 5;
-    int32 job_count = 6;
-    string description = 7;
-    int32 system_count = 8;
-}
-
-message Expert {
-
-    string name = 1;
-    bytes uid = 2;
-    string full_name = 3;
-    string email = 4;
+    string project_id = 1;
 }
 
 message DatasetData {
-    bytes uid = 1;
 
-    string name = 2;
-    string title = 3;
-    bytes project_uid = 4;
-
-    int64 record_count = 5;
-    int64 file_count = 6;
-
-    int64 storage_bytes = 7;
-    DatasetSample sample = 8;
+    string project_id = 2;
+    string dataset_id = 3;
 
 
     int64 update_timestamp = 9;
-    string data_format = 10;
     string description = 11;
+    string summary = 12;
 
-
-    string location_id = 12;
-
-    string location_uri = 13;
-    repeated bytes experts = 14;
-
-
-    string project_name = 17;
-
-
-    bytes head_version = 20;
-
-    int32 version_count = 22;
-}
-
-
-message DatasetVersionData{
-    bytes uid = 1;
-    bytes parent_uid = 2;
-
-    string title = 3;
-
-
-    // total
-    int64 record_count = 4;
-    int64 item_count = 5;
-    int64 storage_bytes = 6;
-
-    repeated DatasetVerInput inputs = 7;
-    repeated DatasetItem items = 8;
-    bytes dataset_uid = 9;
-
-    repeated DatasetVerOutput outputs = 10;
-
-    int32 version_num=11;
-
-    int64 timestamp = 12;
-}
-
-
-
-
-message SystemData{
-    bytes uid = 1;
-
-    string name = 2;
-    string title = 3;
-    bytes project_uid = 4;
-    string description = 5;
-    string location_id = 6;
-    string location_uri = 7;
-    repeated bytes experts = 14;
-    string project_name = 8;
-
-    int32 version_num = 9;
-    bytes version_uid = 10;
-    int64 version_timestamp = 11;
-
-
-    SystemKind kind = 12;
-
-}
-
-message SystemVersionData{
-    bytes uid = 1;
-    string title = 2;
-
-
-    int32 version_num = 3;
-    bytes system_uid = 4;
-    int64 timestamp = 5;
-
-
-    repeated SystemVersionInput inputs = 10;
-    repeated SystemVersionOutput outputs = 11;
-
-
-}
-
-message DatasetItemData {
-    string name = 2;
-    int64 storage_bytes = 3;
-    int64 records_count = 4;
-}
-
-
-
-
-message Job{
-    bytes uid = 1;
-    bytes project_uid = 2;
-    string name = 3;
-
-
-    string title = 4;
-
-    repeated bytes experts = 7;
-    int32 run_num = 8;
-
-    bytes run_uid = 10;
-
-    string project_name = 9;
-
-
-    bytes last_success_uid = 11;
-
+    Sample sample = 14;
 
 }
 
 
 
-message JobRunData {
-
-    bytes uid = 1;
-    bytes job_uid = 2;
-
-    string title = 3;
-
-    repeated JobRunInput inputs = 4;
-    repeated JobRunOutput outputs = 5;
-    int64 start_timestamp = 6;
-    int64 update_timestamp = 9;
-
-    JOB_STATUS status = 7;
-
-
-    int32 run_num = 8;
-    int32 event_count = 10;
-
-}
-
-
-
-
-message JobRunOutput {
-    enum Type {
-        None = 0;
-        DatasetVer = 1;
-        SystemVer = 2;
-    }
-    // dataset
-    bytes uid = 1;
-    Type type = 2;
-}
-
-
-
-
-message TenantStats{
-    int32 project_count = 1;
-    int32 dataset_count = 2;
-    int32 job_count = 3;
-    int32 report_count = 4;
-    int32 expert_count = 5;
-    int32 model_count = 6;
-    int32 system_count = 7;
-}
-
-
-message AssetCache{
-    bytes digest = 1;
-    bytes body = 2;
-}
-
-
-
-
-
-message FieldSchema {
-    string name = 1;
-    string type = 2;
-}
-
-message DatasetDescriptor {
-    string type = 1;
-    int64 record_count = 2;
-    repeated FieldSchema schema = 3;
-    string sample_string = 4;
-}
 
 
 message AppVersionData {

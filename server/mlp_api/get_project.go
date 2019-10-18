@@ -2,7 +2,6 @@ package mlp_api
 
 import (
 	"golang.org/x/net/context"
-	"log"
 	"mlp/catalog/db"
 )
 
@@ -10,30 +9,22 @@ func (s *server) GetProject(c context.Context, r *GetProjectRequest) (*ProjectIn
 
 
 	wrap := func (err *ApiError) (*ProjectInfoResponse, error){
-		return &ProjectInfoResponse{
-			Error:err.Method("GetProject"),
-		}, nil
+		return &ProjectInfoResponse{}, nil
 	}
 
 	tx := s.db.MustRead()
 	defer tx.MustCleanup()
 
 
-	uid := db.LookupProject(tx, r.Name)
-	if uid == nil {
-		return wrap(unknownProjectName(r.Name))
-	}
-
-	prj := db.GetProject(tx, uid)
-
+	prj := db.GetProject(tx, r.ProjectId)
 	if prj == nil {
-		log.Panicln("Project not found ", uid)
+		return wrap(projectNotFound(r.ProjectId))
 	}
+
 
 
 
 	return &ProjectInfoResponse{
-		Name:prj.Name,
-		Uid:prj.Uid,
+		ProjectId:prj.ProjectId,
 	}, nil
 }

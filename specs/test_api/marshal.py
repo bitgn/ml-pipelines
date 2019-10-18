@@ -8,10 +8,6 @@ map = {
     evt.ProjectCreated: evt.Event_ProjectCreated,
     evt.DatasetCreated: evt.Event_DatasetCreated,
     evt.DatasetUpdated: evt.Event_DatasetUpdated,
-    evt.JobAdded: evt.Event_JobAdded,
-    evt.ExpertAdded: evt.Event_ExpertAdded,
-    evt.DatasetVersionAdded: evt.Event_DatasetVersionAdded,
-
 }
 
 

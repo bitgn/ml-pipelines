@@ -57,46 +57,6 @@
             <div class="sidebar-sticky">
 
 
-                <ul class="nav flex-column">
-
-                    <li class="nav-item">
-                        <a class="nav-link {{if eq .ActiveMenu "projects"}}active{{end}}" href="{{ .Url.ListProjects}}">
-                        <span data-feather="file"></span>
-                        Projects <span class="badge badge-pill badge-secondary align-middle project-count">{{.Stats.ProjectCount }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{if eq .ActiveMenu "datasets"}}active{{end}}" href="{{.Url.ExploreDatasets}}">
-                        <span data-feather="users"></span>
-                        Datasets  <span class="badge badge-pill badge-secondary align-middle dataset-count">{{.Stats.DatasetCount}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled text-muted" href="#">
-                            <span data-feather="users"></span>
-                            Jobs <span class="badge badge-pill badge-secondary align-middle job-count">{{.Stats.JobCount}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled text-muted" href="#">
-                            <span data-feather="users"></span>
-                            Models <span class="badge badge-pill badge-secondary align-middle model-count">{{.Stats.ModelCount}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled text-muted" href="#">
-                            <span data-feather="users"></span>
-                            Systems <span class="badge badge-pill badge-secondary align-middle report-count">{{.Stats.SystemCount}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled text-muted" href="#">
-                            <span data-feather="users"></span>
-                            Experts <span class="badge badge-pill badge-secondary align-middle expert-count">{{.Stats.ExpertCount}}</span>
-                        </a>
-                    </li>
-
-                </ul>
 
             </div>
         </nav>

@@ -31,21 +31,18 @@ class Context:
     def __init__(self, catalog: rpc.CatalogStub):
         self.catalog = catalog
 
-    def get_project(self, req: api.GetProjectRequest) -> api.ProjectInfoResponse:
-        resp: api.ProjectInfoResponse = self._rpc(lambda: self.catalog.GetProject(req))
-        return resp
-
     def create_project(self, req: api.CreateProjectRequest) -> api.ProjectInfoResponse:
         resp: api.ProjectInfoResponse = self._rpc(lambda: self.catalog.CreateProject(req))
         return resp
 
-    def get_job(self, req: api.GetJobRequest) -> api.JobInfoResponse:
-        s: api.JobInfoResponse = self._rpc(lambda: self.catalog.GetJob(req))
-        return s
+    def get_project(self, req: api.GetProjectRequest) -> api.ProjectInfoResponse:
+        resp: api.ProjectInfoResponse = self._rpc(lambda: self.catalog.GetProject(req))
+        return resp
 
-    def create_job(self, req: api.CreateJobRequest) -> api.JobInfoResponse:
-        s: api.JobInfoResponse = self._rpc(lambda: self.catalog.CreateJob(req))
-        return s
+    def list_projects(self, req: api.ListProjectsRequest) -> api.ListProjectsResponse:
+        resp: api.ListProjectsResponse = self._rpc(lambda : self.catalog.ListProjects(req))
+        return resp
+
 
     def create_dataset(self, req: api.CreateDatasetRequest) -> api.DatasetInfoResponse:
         s: api.DatasetInfoResponse = self._rpc(lambda: self.catalog.CreateDataset(req))
@@ -55,47 +52,20 @@ class Context:
         s: api.DatasetInfoResponse = self._rpc(lambda: self.catalog.GetDataset(req))
         return s
 
-    def get_last_version(self, req: api.GetLastDatasetVersionRequest) -> api.DatasetVersionResponse:
-        s: api.DatasetVersionResponse = self._rpc(lambda: self.catalog.GetLastDatasetVersion(req))
+    def list_datasets(self, req:api.ListDatasetsRequest) -> api.ListDatasetsResponse:
+        s:api.ListDatasetsResponse = self._rpc(lambda : self.catalog.ListDatasets(req))
         return s
 
-    def start_job_run(self, req: api.StartJobRunRequest) -> api.JobRunInfoResponse:
-        s: api.JobRunInfoResponse = self._rpc(lambda: self.catalog.StartJobRun(req))
-        return s
-
-    def log_job_run(self, req: api.LogJobRunRequest) -> api.EmptyResponse:
-        s: api.EmptyResponse = self._rpc(lambda: self.catalog.LogJobRun(req))
-        return s
-
-    def complete_job_run(self, req: api.CompleteJobRunRequest) -> api.EmptyResponse:
-        s: api.EmptyResponse = self._rpc(lambda: self.catalog.CompleteJobRun(req))
-        return s
-
-    def fail_job_run(self, req: api.FailJobRunRequest) -> api.EmptyResponse:
-        s: api.EmptyResponse = self._rpc(lambda: self.catalog.FailJobRun(req))
-        return s
-
-    def commit(self, req: api.CommitRequest) -> api.CommitResponse:
-        s: api.CommitResponse = self._rpc(lambda: self.catalog.Commit(req))
-        return s
-
-    def stat(self, req: api.StatRequest) -> api.StatResponse:
-        s: api.StatResponse = self._rpc(lambda: self.catalog.Stat(req))
-        return s
-
-    def add_system(self, req: api.AddSystemRequest) -> api.SystemInfoResponse:
-        s: api.SystemInfoResponse = self._rpc(lambda : self.catalog.AddSystem(req))
-        return s
-
-    def add_system_version(self, r: api.AddSystemVersionRequest) -> api.AddSystemVersionResponse:
-        s: api.AddSystemVersionResponse = self._rpc(lambda : self.catalog.AddSystemVersion(r))
-        return s
-    def get_system(self, r: api.GetSystemRequest)-> api.SystemInfoResponse:
-        s: api.SystemInfoResponse = self._rpc(lambda : self.catalog.GetSystem(r))
+    def update_dataset(self, req: api.UpdateDatasetRequest) -> api.UpdateDatasetRequest:
+        s:api.UpdateDatasetRequest = self._rpc(lambda: self.catalog.UpdateDataset(req))
         return s
 
     def reset(self):
         self._rpc(lambda : self.catalog.Reset(api.ResetRequest()))
+
+    def stat(self):
+        s:api.StatResponse = self._rpc(lambda : self.catalog.Stat(api.StatRequest()))
+        return s
 
     def _rpc(self, callable: Callable[[], pb.Message]):
         try:

@@ -5,8 +5,6 @@ import (
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
 	"mlp/catalog/events"
-	"mlp/catalog/sim"
-	"mlp/catalog/vo"
 )
 
 
@@ -17,7 +15,6 @@ import (
 func (s *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*ProjectInfoResponse, error) {
 
 	wrap := func (err *ApiError) (*ProjectInfoResponse, error){
-		err.MethodName = "CreateProject"
 		return &ProjectInfoResponse{
 			Error:err,
 		}, nil
@@ -25,9 +22,9 @@ func (s *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*P
 
 
 
-	err := domain.GetProblemsWithName(r.Name)
+	err := domain.GetProblemsWithName(r.ProjectId)
 	if err != nil {
-		return wrap(badName(vo.ENTITY_PROJECT, r.Name, err))
+		return wrap(badName(r.ProjectId, err))
 	}
 
 
@@ -35,26 +32,21 @@ func (s *server) CreateProject(ctx context.Context, r *CreateProjectRequest) (*P
 	defer tx.MustCleanup()
 
 
-	pid := db.LookupProject(tx, r.Name)
-	if len(pid)>0{
-		return wrap(alreadyExists(vo.ENTITY_PROJECT, r.Name, r.Name, pid))
+	pid := db.GetProject(tx, r.ProjectId)
+	if pid!=nil{
+		return wrap(projectAlreadyExists(r.ProjectId))
 	}
 
 
-	pid = sim.NewID()
-
 	prj := &events.ProjectCreated{
-		Uid:  pid,
-		Name: r.Name,
-		Meta: r.Meta,
+		ProjectId:r.ProjectId,
 	}
 
 	s.publish(tx, prj)
 	tx.MustCommit()
 
 	return &ProjectInfoResponse{
-		Uid:pid,
-		Name:r.Name,
+		ProjectId:r.ProjectId,
 	}, nil
 }
 

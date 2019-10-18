@@ -13,6 +13,4 @@ func GetProblemsWithName(name string) (error) {
 	}
 
 	return errors.New("Name must be 3-128 characters long and contain only a-z, '-', '.','_' and digits")
-
-
 }
