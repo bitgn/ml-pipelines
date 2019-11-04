@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"*\n\x14\x43reateProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"\'\n\x11GetProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"!\n\x0bProjectInfo\x12\x12\n\nproject_id\x18\x01 \x01(\t\"C\n\x13ProjectInfoResponse\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\";\n\x11GetDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\"c\n\x14\x43reateDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"c\n\x14UpdateDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x15\n\x13ListProjectsRequest\"P\n\x14ListProjectsResponse\x12\x1e\n\x08projects\x18\x01 \x03(\x0b\x32\x0c.ProjectInfo\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\")\n\x13ListDatasetsRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"P\n\x14ListDatasetsResponse\x12\x1e\n\x08\x64\x61tasets\x18\x01 \x03(\x0b\x32\x0c.DatasetInfo\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x8e\x01\n\x0b\x44\x61tasetInfo\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x18\n\x10update_timestamp\x18\x03 \x01(\x03\x12\x17\n\x06sample\x18\x04 \x01(\x0b\x32\x07.Sample\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x0f\n\x07summary\x18\x07 \x01(\t\"\xb0\x01\n\x13\x44\x61tasetInfoResponse\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x18\n\x10update_timestamp\x18\x03 \x01(\x03\x12\x17\n\x06sample\x18\x04 \x01(\x0b\x32\x07.Sample\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\r\n\x0bStatRequest\"9\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x0e\n\x0cResetRequest\"q\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65tail_code\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65tail_args\x18\x04 \x03(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x01(\t\")\n\rEmptyResponse\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError*\xf1\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x12\x14\n\x10VERSION_MISMATCH\x10\x66\x32\x86\x04\n\x07\x43\x61talog\x12>\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12\x38\n\nGetProject\x12\x12.GetProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12=\n\x0cListProjects\x12\x14.ListProjectsRequest\x1a\x15.ListProjectsResponse\"\x00\x12>\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12\x38\n\nGetDataset\x12\x12.GetDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12=\n\x0cListDatasets\x12\x14.ListDatasetsRequest\x1a\x15.ListDatasetsResponse\"\x00\x12\x38\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0e.EmptyResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x12(\n\x05Reset\x12\r.ResetRequest\x1a\x0e.EmptyResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"*\n\x14\x43reateProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"\'\n\x11GetProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"!\n\x0bProjectInfo\x12\x12\n\nproject_id\x18\x01 \x01(\t\"C\n\x13ProjectInfoResponse\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\";\n\x11GetDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\"c\n\x14\x43reateDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"c\n\x14UpdateDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x15\n\x13ListProjectsRequest\"P\n\x14ListProjectsResponse\x12\x1e\n\x08projects\x18\x01 \x03(\x0b\x32\x0c.ProjectInfo\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\")\n\x13ListDatasetsRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"P\n\x14ListDatasetsResponse\x12\x1e\n\x08\x64\x61tasets\x18\x01 \x03(\x0b\x32\x0c.DatasetInfo\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x8e\x01\n\x0b\x44\x61tasetInfo\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x18\n\x10update_timestamp\x18\x03 \x01(\x03\x12\x17\n\x06sample\x18\x04 \x01(\x0b\x32\x07.Sample\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x0f\n\x07summary\x18\x07 \x01(\t\"\xb0\x01\n\x13\x44\x61tasetInfoResponse\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x18\n\x10update_timestamp\x18\x03 \x01(\x03\x12\x17\n\x06sample\x18\x04 \x01(\x0b\x32\x07.Sample\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\r\n\x0bStatRequest\"N\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x13\n\x0b\x65vent_count\x18\x02 \x01(\x04\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x0e\n\x0cResetRequest\"q\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65tail_code\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65tail_args\x18\x04 \x03(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x01(\t\")\n\rEmptyResponse\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError*\xf1\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x12\x14\n\x10VERSION_MISMATCH\x10\x66\x32\x86\x04\n\x07\x43\x61talog\x12>\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12\x38\n\nGetProject\x12\x12.GetProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12=\n\x0cListProjects\x12\x14.ListProjectsRequest\x1a\x15.ListProjectsResponse\"\x00\x12>\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12\x38\n\nGetDataset\x12\x12.GetDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12=\n\x0cListDatasets\x12\x14.ListDatasetsRequest\x1a\x15.ListDatasetsResponse\"\x00\x12\x38\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0e.EmptyResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x12(\n\x05Reset\x12\r.ResetRequest\x1a\x0e.EmptyResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
@@ -115,8 +115,8 @@ _STATUSCODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1282,
-  serialized_end=1651,
+  serialized_start=1303,
+  serialized_end=1672,
 )
 _sym_db.RegisterEnumDescriptor(_STATUSCODE)
 
@@ -712,7 +712,14 @@ _STATRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='error', full_name='StatResponse.error', index=1,
+      name='event_count', full_name='StatResponse.event_count', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='error', full_name='StatResponse.error', index=2,
       number=100, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -731,7 +738,7 @@ _STATRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1048,
-  serialized_end=1105,
+  serialized_end=1126,
 )
 
 
@@ -754,8 +761,8 @@ _RESETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1107,
-  serialized_end=1121,
+  serialized_start=1128,
+  serialized_end=1142,
 )
 
 
@@ -813,8 +820,8 @@ _APIERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1123,
-  serialized_end=1236,
+  serialized_start=1144,
+  serialized_end=1257,
 )
 
 
@@ -844,8 +851,8 @@ _EMPTYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1238,
-  serialized_end=1279,
+  serialized_start=1259,
+  serialized_end=1300,
 )
 
 _PROJECTINFORESPONSE.fields_by_name['error'].message_type = _APIERROR
@@ -1016,8 +1023,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1654,
-  serialized_end=2172,
+  serialized_start=1675,
+  serialized_end=2193,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',

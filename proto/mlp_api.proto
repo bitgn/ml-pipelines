@@ -115,6 +115,8 @@ message StatRequest{}
 
 message StatResponse{
     string version = 1;
+    uint64 event_count = 2;
+    
 
 
     ApiError error = 100;

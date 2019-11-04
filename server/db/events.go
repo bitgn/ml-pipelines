@@ -8,12 +8,23 @@ import (
 	"mlp/catalog/events"
 )
 
+
+
+func GetEventCount(tx *Tx) uint64 {
+	val := tx.Get(CreateKey(Range_Events))
+	if val != nil {
+		return binary.BigEndian.Uint64(val)
+	} else {
+		return 0;
+	}
+}
+
 func AppendEvent(tx *Tx, e proto.Message) uint64 {
 	var version uint64
 
 	val := tx.Get(CreateKey(Range_Events))
 	if val != nil {
-		version = binary.LittleEndian.Uint64(val)
+		version = binary.BigEndian.Uint64(val)
 
 	} else {
 		val = make([]byte, 8)
@@ -27,6 +38,8 @@ func AppendEvent(tx *Tx, e proto.Message) uint64 {
 	binary.BigEndian.PutUint64(val, version)
 
 	tx.Put(CreateKey(Range_Events), val)
+
+
 
 	return version
 }

@@ -23,5 +23,11 @@ def wait_for_server_to_start():
 
 wait_for_server_to_start()
 
+print("Reset DB")
+cl.server.reset_db()
+
 analytics.setup_analytics_demo(cl)
+
+
+print(cl.server.stats())
 
