@@ -46,7 +46,7 @@ def setup_analytics_demo(cl: client.Client):
 
         age = rint(3600 * 2, 3600 * 24 * 30)
         begins = now - age
-        done = begins + rint(age/2,age)
+        done = begins + rint(int(age/2),age)
 
 
 

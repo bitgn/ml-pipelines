@@ -25,6 +25,8 @@ func (s *server) AddDatasetActivity(ctx context.Context, r *AddDatasetActivityRe
 
 	s.publish(tx, e)
 
+	tx.MustCommit()
+
 	return &AddDatasetActivityResponse{}, nil
 
 }

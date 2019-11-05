@@ -5,17 +5,28 @@ import (
 	"html/template"
 	"mlp/catalog/db"
 	"mlp/catalog/domain"
+	"mlp/catalog/vo"
 	"mlp/catalog/web/shared"
 	"net/http"
 	"strings"
 )
 
-type ViewDatsetModel struct {
+type ViewDatasetModel struct {
 	*shared.Site
 	Dataset     *db.DatasetData
 	Project     *db.ProjectData
 	IsStale     bool
 	Description template.HTML
+
+	Audit []*AuditModel
+}
+
+
+
+type AuditModel struct {
+	Timestamp int64
+	Class string
+	MultilineText string
 }
 
 type Handler struct {
@@ -53,7 +64,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 
 	site := shared.LoadSite(tx)
 
-	model := &ViewDatsetModel{
+	model := &ViewDatasetModel{
 		Site:    site,
 		Dataset: ds,
 		Project: prj,
@@ -68,7 +79,35 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 		model.Description = template.HTML(md)
 	}
 
+	for _, a := range db.ListDatasetActivities(tx, project, dataset){
+
+
+
+		model.Audit = append(model.Audit, &AuditModel{
+			MultilineText:a.MultilineText,
+			Timestamp:a.UpdateTimestamp,
+			Class:format_level(a.Level),
+
+		})
+	}
+
 
 	h.layout.Render(w, model)
+}
+
+
+func format_level(l vo.ACTIVITY_LEVEL) string{
+
+	switch l {
+	case vo.ACTIVITY_LEVEL_ACTIVITY_INFO:
+		return "success"
+	case vo.ACTIVITY_LEVEL_ACTIVITY_PROBLEM:
+		return "danger"
+	case vo.ACTIVITY_LEVEL_ACTIVITY_VERBOSE:
+		return "info"
+	default:
+		return ""
+
+	}
 }
 

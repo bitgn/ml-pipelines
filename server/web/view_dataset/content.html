@@ -1,4 +1,4 @@
-{{- /*gotype: mlp/catalog/web/view_dataset.ViewDatsetModel*/ -}}
+{{- /*gotype: mlp/catalog/web/view_dataset.ViewDatasetModel*/ -}}
 {{define "content"}}
 
 
@@ -36,6 +36,28 @@
                 </div>
             </div>
         {{end}}
+        <div class="row">
+            <div class="col">
+                <h3>Audit</h3>
+                <table class="table table-sm table-responsive table-bordered">
+                    {{range .Audit}}
+                        <tr class="table-{{.Class}}">
+                            <td>{{$.Site.Fmt.Timestamp .Timestamp}}</td>
+                            <td><pre>{{.MultilineText}}</pre></td>
+
+                        </tr>
+                    {{else}}
+                        <tr class="table-info">
+                            <td>Audit log is empty</td>
+                        </tr>
+
+                    {{end}}
+
+                </table>
+
+
+            </div>
+        </div>
         {{if .Dataset.Sample}}
             <div class="row pt-5">
                 <div class="col">
