@@ -4,6 +4,7 @@
 
 import sys
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -20,9 +21,39 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x08vo.proto\"\x97\x01\n\x14\x44\x61tasetMetadataDelta\x12\x17\n\x06sample\x18\x01 \x01(\x0b\x32\x07.Sample\x12\x12\n\nsample_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x06 \x01(\x08\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x13\n\x0bsummary_set\x18\x08 \x01(\x08\"g\n\x06Sample\x12\x1e\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x0e.Sample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"/\n\x06\x46ORMAT\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04TEXT\x10\x01\x12\x07\n\x03TSV\x10\x02\x12\x08\n\x04JSON\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x08vo.proto\"\x97\x01\n\x14\x44\x61tasetMetadataDelta\x12\x17\n\x06sample\x18\x01 \x01(\x0b\x32\x07.Sample\x12\x12\n\nsample_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x06 \x01(\x08\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x13\n\x0bsummary_set\x18\x08 \x01(\x08\"g\n\x06Sample\x12\x1e\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x0e.Sample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"/\n\x06\x46ORMAT\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04TEXT\x10\x01\x12\x07\n\x03TSV\x10\x02\x12\x08\n\x04JSON\x10\x03*O\n\x0e\x41\x43TIVITY_LEVEL\x12\x14\n\x10\x41\x43TIVITY_VERBOSE\x10\x00\x12\x11\n\rACTIVITY_INFO\x10\x01\x12\x14\n\x10\x41\x43TIVITY_PROBLEM\x10\x02\x62\x06proto3')
 )
 
+_ACTIVITY_LEVEL = _descriptor.EnumDescriptor(
+  name='ACTIVITY_LEVEL',
+  full_name='ACTIVITY_LEVEL',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='ACTIVITY_VERBOSE', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ACTIVITY_INFO', index=1, number=1,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ACTIVITY_PROBLEM', index=2, number=2,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=271,
+  serialized_end=350,
+)
+_sym_db.RegisterEnumDescriptor(_ACTIVITY_LEVEL)
+
+ACTIVITY_LEVEL = enum_type_wrapper.EnumTypeWrapper(_ACTIVITY_LEVEL)
+ACTIVITY_VERBOSE = 0
+ACTIVITY_INFO = 1
+ACTIVITY_PROBLEM = 2
 
 
 _SAMPLE_FORMAT = _descriptor.EnumDescriptor(
@@ -165,6 +196,7 @@ _SAMPLE.fields_by_name['format'].enum_type = _SAMPLE_FORMAT
 _SAMPLE_FORMAT.containing_type = _SAMPLE
 DESCRIPTOR.message_types_by_name['DatasetMetadataDelta'] = _DATASETMETADATADELTA
 DESCRIPTOR.message_types_by_name['Sample'] = _SAMPLE
+DESCRIPTOR.enum_types_by_name['ACTIVITY_LEVEL'] = _ACTIVITY_LEVEL
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 DatasetMetadataDelta = _reflection.GeneratedProtocolMessageType('DatasetMetadataDelta', (_message.Message,), {

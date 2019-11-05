@@ -18,7 +18,8 @@ func getInstance(id Type) proto.Message{
 		return &DatasetCreated{}
 	case Type_Event_DatasetUpdated:
 		return &DatasetUpdated{}
-
+	case Type_Event_DatasetActivityAdded:
+		return &DatasetActivityAdded{}
 	default:
 		log.Panicf("Unknown event type %s", id)
 		return nil
@@ -34,6 +35,8 @@ func GetContract(msg proto.Message) Type {
 		return Type_Event_DatasetCreated
 	case *DatasetUpdated:
 		return Type_Event_DatasetUpdated
+	case *DatasetActivityAdded:
+		return Type_Event_DatasetActivityAdded
 	default:
 		log.Panicf("Uknown event %T", e)
 		return Type_None

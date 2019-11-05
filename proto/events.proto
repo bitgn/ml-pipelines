@@ -30,6 +30,16 @@ message DatasetUpdated {
     DatasetMetadataDelta meta = 3;
 }
 
+message DatasetActivityAdded {
+
+    string project_id = 1;
+    string dataset_id = 2;
+
+   int64 update_timestamp = 4;
+    string multiline_text = 5;
+    ACTIVITY_LEVEL level = 6;    
+}
+
 
 
 // META ---------------------------------------
@@ -39,6 +49,7 @@ enum Type {
     Event_ProjectCreated = 1;
     Event_DatasetCreated = 2;
     Event_DatasetUpdated = 3;
+    Event_DatasetActivityAdded = 4;
 }
 
 

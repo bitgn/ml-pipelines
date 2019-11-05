@@ -20,7 +20,11 @@ message DatasetMetadataDelta {
 }
 
 
-
+enum ACTIVITY_LEVEL {
+    ACTIVITY_VERBOSE = 0;
+    ACTIVITY_INFO = 1;
+    ACTIVITY_PROBLEM = 2;
+}
 
 
 message Sample {

@@ -67,6 +67,10 @@ class Context:
         s:api.StatResponse = self._rpc(lambda : self.catalog.Stat(api.StatRequest()))
         return s
 
+    def add_dataset_activity(self, req: api.AddDatasetActivityRequest):
+        s:api.AddDatasetActivityResponse = self._rpc(lambda : self.catalog.AddDatasetActivity(req))
+        return s
+
     def _rpc(self, callable: Callable[[], pb.Message]):
         try:
 

@@ -22,6 +22,7 @@ from typing_extensions import (
 )
 
 from vo_pb2 import (
+    ACTIVITY_LEVEL as vo_pb2___ACTIVITY_LEVEL,
     DatasetMetadataDelta as vo_pb2___DatasetMetadataDelta,
 )
 
@@ -41,9 +42,11 @@ class Type(int):
     Event_ProjectCreated = typing___cast(Type, 1)
     Event_DatasetCreated = typing___cast(Type, 2)
     Event_DatasetUpdated = typing___cast(Type, 3)
+    Event_DatasetActivityAdded = typing___cast(Type, 4)
 Event_ProjectCreated = typing___cast(Type, 1)
 Event_DatasetCreated = typing___cast(Type, 2)
 Event_DatasetUpdated = typing___cast(Type, 3)
+Event_DatasetActivityAdded = typing___cast(Type, 4)
 
 class ProjectCreated(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -111,6 +114,31 @@ class DatasetUpdated(google___protobuf___message___Message):
     else:
         def HasField(self, field_name: typing_extensions___Literal[u"meta",b"meta"]) -> bool: ...
         def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",b"dataset_id",u"meta",b"meta",u"project_id",b"project_id"]) -> None: ...
+
+class DatasetActivityAdded(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    project_id = ... # type: typing___Text
+    dataset_id = ... # type: typing___Text
+    update_timestamp = ... # type: int
+    multiline_text = ... # type: typing___Text
+    level = ... # type: vo_pb2___ACTIVITY_LEVEL
+
+    def __init__(self,
+        *,
+        project_id : typing___Optional[typing___Text] = None,
+        dataset_id : typing___Optional[typing___Text] = None,
+        update_timestamp : typing___Optional[int] = None,
+        multiline_text : typing___Optional[typing___Text] = None,
+        level : typing___Optional[vo_pb2___ACTIVITY_LEVEL] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> DatasetActivityAdded: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",u"level",u"multiline_text",u"project_id",u"update_timestamp"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[u"dataset_id",b"dataset_id",u"level",b"level",u"multiline_text",b"multiline_text",u"project_id",b"project_id",u"update_timestamp",b"update_timestamp"]) -> None: ...
 
 class Event(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...

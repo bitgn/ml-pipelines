@@ -1,7 +1,5 @@
 package db
 
-
-
 func PutDataset(tx *Tx, val *DatasetData){
 	tx.PutProto(CreateKey(Range_DATASETS, val.ProjectId, val.DatasetId), val)
 }

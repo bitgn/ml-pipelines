@@ -22,6 +22,25 @@ from typing_extensions import (
 )
 
 
+class ACTIVITY_LEVEL(int):
+    DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
+    @classmethod
+    def Name(cls, number: int) -> str: ...
+    @classmethod
+    def Value(cls, name: str) -> ACTIVITY_LEVEL: ...
+    @classmethod
+    def keys(cls) -> typing___List[str]: ...
+    @classmethod
+    def values(cls) -> typing___List[ACTIVITY_LEVEL]: ...
+    @classmethod
+    def items(cls) -> typing___List[typing___Tuple[str, ACTIVITY_LEVEL]]: ...
+    ACTIVITY_VERBOSE = typing___cast(ACTIVITY_LEVEL, 0)
+    ACTIVITY_INFO = typing___cast(ACTIVITY_LEVEL, 1)
+    ACTIVITY_PROBLEM = typing___cast(ACTIVITY_LEVEL, 2)
+ACTIVITY_VERBOSE = typing___cast(ACTIVITY_LEVEL, 0)
+ACTIVITY_INFO = typing___cast(ACTIVITY_LEVEL, 1)
+ACTIVITY_PROBLEM = typing___cast(ACTIVITY_LEVEL, 2)
+
 class DatasetMetadataDelta(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     sample_set = ... # type: bool

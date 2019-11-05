@@ -102,7 +102,20 @@ message DatasetInfoResponse {
 }
 
 
+message AddDatasetActivityRequest{
+    string project_id = 1;
+    string dataset_id = 2;
 
+    string multiline_text = 3;
+    int64 timestamp = 4;
+
+    ACTIVITY_LEVEL level = 5;
+}
+
+
+message AddDatasetActivityResponse {
+        ApiError error = 100;
+}
 
 
 
@@ -144,6 +157,8 @@ service Catalog {
 
 
     rpc UpdateDataset(UpdateDatasetRequest) returns (EmptyResponse){}
+
+    rpc AddDatasetActivity(AddDatasetActivityRequest) returns (AddDatasetActivityResponse){}
 
 
 

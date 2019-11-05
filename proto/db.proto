@@ -6,6 +6,12 @@ enum Range {
     Events = 0;
     PROJECTS = 1;
     DATASETS = 2;
+    DATASET_ACTIVITY=3;
+
+    ACTIVITY_COUNT=4;
+
+    GLOBAL_PROBLEMS=5;
+    GLOBAL_ACTIVITIES=6;
 
     VERSION=255;
 }
@@ -26,7 +32,18 @@ message DatasetData {
     string summary = 12;
 
     Sample sample = 14;
+}
 
+message DatasetActivity {
+
+        string project_id = 1;
+    string dataset_id = 2;
+
+
+    int64 update_timestamp = 3;
+    string multiline_text = 4;
+    ACTIVITY_LEVEL level = 5;
+    uint64 id = 6;
 }
 
 

@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"*\n\x14\x43reateProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"\'\n\x11GetProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"!\n\x0bProjectInfo\x12\x12\n\nproject_id\x18\x01 \x01(\t\"C\n\x13ProjectInfoResponse\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\";\n\x11GetDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\"c\n\x14\x43reateDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"c\n\x14UpdateDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x15\n\x13ListProjectsRequest\"P\n\x14ListProjectsResponse\x12\x1e\n\x08projects\x18\x01 \x03(\x0b\x32\x0c.ProjectInfo\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\")\n\x13ListDatasetsRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"P\n\x14ListDatasetsResponse\x12\x1e\n\x08\x64\x61tasets\x18\x01 \x03(\x0b\x32\x0c.DatasetInfo\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x8e\x01\n\x0b\x44\x61tasetInfo\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x18\n\x10update_timestamp\x18\x03 \x01(\x03\x12\x17\n\x06sample\x18\x04 \x01(\x0b\x32\x07.Sample\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x0f\n\x07summary\x18\x07 \x01(\t\"\xb0\x01\n\x13\x44\x61tasetInfoResponse\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x18\n\x10update_timestamp\x18\x03 \x01(\x03\x12\x17\n\x06sample\x18\x04 \x01(\x0b\x32\x07.Sample\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\r\n\x0bStatRequest\"N\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x13\n\x0b\x65vent_count\x18\x02 \x01(\x04\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x0e\n\x0cResetRequest\"q\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65tail_code\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65tail_args\x18\x04 \x03(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x01(\t\")\n\rEmptyResponse\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError*\xf1\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x12\x14\n\x10VERSION_MISMATCH\x10\x66\x32\x86\x04\n\x07\x43\x61talog\x12>\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12\x38\n\nGetProject\x12\x12.GetProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12=\n\x0cListProjects\x12\x14.ListProjectsRequest\x1a\x15.ListProjectsResponse\"\x00\x12>\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12\x38\n\nGetDataset\x12\x12.GetDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12=\n\x0cListDatasets\x12\x14.ListDatasetsRequest\x1a\x15.ListDatasetsResponse\"\x00\x12\x38\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0e.EmptyResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x12(\n\x05Reset\x12\r.ResetRequest\x1a\x0e.EmptyResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rmlp_api.proto\x1a\x08vo.proto\"*\n\x14\x43reateProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"\'\n\x11GetProjectRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"!\n\x0bProjectInfo\x12\x12\n\nproject_id\x18\x01 \x01(\t\"C\n\x13ProjectInfoResponse\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\";\n\x11GetDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\"c\n\x14\x43reateDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"c\n\x14UpdateDatasetRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12#\n\x04meta\x18\x03 \x01(\x0b\x32\x15.DatasetMetadataDelta\"\x15\n\x13ListProjectsRequest\"P\n\x14ListProjectsResponse\x12\x1e\n\x08projects\x18\x01 \x03(\x0b\x32\x0c.ProjectInfo\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\")\n\x13ListDatasetsRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\"P\n\x14ListDatasetsResponse\x12\x1e\n\x08\x64\x61tasets\x18\x01 \x03(\x0b\x32\x0c.DatasetInfo\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x8e\x01\n\x0b\x44\x61tasetInfo\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x18\n\x10update_timestamp\x18\x03 \x01(\x03\x12\x17\n\x06sample\x18\x04 \x01(\x0b\x32\x07.Sample\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x0f\n\x07summary\x18\x07 \x01(\t\"\xb0\x01\n\x13\x44\x61tasetInfoResponse\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x18\n\x10update_timestamp\x18\x03 \x01(\x03\x12\x17\n\x06sample\x18\x04 \x01(\x0b\x32\x07.Sample\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x8e\x01\n\x19\x41\x64\x64\x44\x61tasetActivityRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\x12\n\ndataset_id\x18\x02 \x01(\t\x12\x16\n\x0emultiline_text\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\x03\x12\x1e\n\x05level\x18\x05 \x01(\x0e\x32\x0f.ACTIVITY_LEVEL\"6\n\x1a\x41\x64\x64\x44\x61tasetActivityResponse\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\r\n\x0bStatRequest\"N\n\x0cStatResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x13\n\x0b\x65vent_count\x18\x02 \x01(\x04\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError\"\x0e\n\x0cResetRequest\"q\n\x08\x41piError\x12\x19\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x0b.StatusCode\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65tail_code\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65tail_args\x18\x04 \x03(\t\x12\x0f\n\x07\x64\x65tails\x18\x06 \x01(\t\")\n\rEmptyResponse\x12\x18\n\x05\x65rror\x18\x64 \x01(\x0b\x32\t.ApiError*\xf1\x02\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\r\n\tCANCELLED\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\x12\x14\n\x10INVALID_ARGUMENT\x10\x03\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x04\x12\r\n\tNOT_FOUND\x10\x05\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x06\x12\x15\n\x11PERMISSION_DENIED\x10\x07\x12\x13\n\x0fUNAUTHENTICATED\x10\x10\x12\x16\n\x12RESOURCE_EXHAUSTED\x10\x08\x12\x17\n\x13\x46\x41ILED_PRECONDITION\x10\t\x12\x0b\n\x07\x41\x42ORTED\x10\n\x12\x10\n\x0cOUT_OF_RANGE\x10\x0b\x12\x11\n\rUNIMPLEMENTED\x10\x0c\x12\x0c\n\x08INTERNAL\x10\r\x12\x0f\n\x0bUNAVAILABLE\x10\x0e\x12\r\n\tDATA_LOSS\x10\x0f\x12\x0c\n\x08\x42\x41\x44_NAME\x10\x64\x12\x0e\n\nNAME_TAKEN\x10\x65\x12\x14\n\x10VERSION_MISMATCH\x10\x66\x32\xd7\x04\n\x07\x43\x61talog\x12>\n\rCreateProject\x12\x15.CreateProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12\x38\n\nGetProject\x12\x12.GetProjectRequest\x1a\x14.ProjectInfoResponse\"\x00\x12=\n\x0cListProjects\x12\x14.ListProjectsRequest\x1a\x15.ListProjectsResponse\"\x00\x12>\n\rCreateDataset\x12\x15.CreateDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12\x38\n\nGetDataset\x12\x12.GetDatasetRequest\x1a\x14.DatasetInfoResponse\"\x00\x12=\n\x0cListDatasets\x12\x14.ListDatasetsRequest\x1a\x15.ListDatasetsResponse\"\x00\x12\x38\n\rUpdateDataset\x12\x15.UpdateDatasetRequest\x1a\x0e.EmptyResponse\"\x00\x12O\n\x12\x41\x64\x64\x44\x61tasetActivity\x12\x1a.AddDatasetActivityRequest\x1a\x1b.AddDatasetActivityResponse\"\x00\x12%\n\x04Stat\x12\x0c.StatRequest\x1a\r.StatResponse\"\x00\x12(\n\x05Reset\x12\r.ResetRequest\x1a\x0e.EmptyResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[vo__pb2.DESCRIPTOR,])
 
@@ -115,8 +115,8 @@ _STATUSCODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1303,
-  serialized_end=1672,
+  serialized_start=1504,
+  serialized_end=1873,
 )
 _sym_db.RegisterEnumDescriptor(_STATUSCODE)
 
@@ -673,6 +673,96 @@ _DATASETINFORESPONSE = _descriptor.Descriptor(
 )
 
 
+_ADDDATASETACTIVITYREQUEST = _descriptor.Descriptor(
+  name='AddDatasetActivityRequest',
+  full_name='AddDatasetActivityRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='project_id', full_name='AddDatasetActivityRequest.project_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='dataset_id', full_name='AddDatasetActivityRequest.dataset_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='multiline_text', full_name='AddDatasetActivityRequest.multiline_text', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='AddDatasetActivityRequest.timestamp', index=3,
+      number=4, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='level', full_name='AddDatasetActivityRequest.level', index=4,
+      number=5, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1034,
+  serialized_end=1176,
+)
+
+
+_ADDDATASETACTIVITYRESPONSE = _descriptor.Descriptor(
+  name='AddDatasetActivityResponse',
+  full_name='AddDatasetActivityResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='error', full_name='AddDatasetActivityResponse.error', index=0,
+      number=100, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1178,
+  serialized_end=1232,
+)
+
+
 _STATREQUEST = _descriptor.Descriptor(
   name='StatRequest',
   full_name='StatRequest',
@@ -692,8 +782,8 @@ _STATREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1033,
-  serialized_end=1046,
+  serialized_start=1234,
+  serialized_end=1247,
 )
 
 
@@ -737,8 +827,8 @@ _STATRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1048,
-  serialized_end=1126,
+  serialized_start=1249,
+  serialized_end=1327,
 )
 
 
@@ -761,8 +851,8 @@ _RESETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1128,
-  serialized_end=1142,
+  serialized_start=1329,
+  serialized_end=1343,
 )
 
 
@@ -820,8 +910,8 @@ _APIERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1144,
-  serialized_end=1257,
+  serialized_start=1345,
+  serialized_end=1458,
 )
 
 
@@ -851,8 +941,8 @@ _EMPTYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1259,
-  serialized_end=1300,
+  serialized_start=1460,
+  serialized_end=1501,
 )
 
 _PROJECTINFORESPONSE.fields_by_name['error'].message_type = _APIERROR
@@ -865,6 +955,8 @@ _LISTDATASETSRESPONSE.fields_by_name['error'].message_type = _APIERROR
 _DATASETINFO.fields_by_name['sample'].message_type = vo__pb2._SAMPLE
 _DATASETINFORESPONSE.fields_by_name['sample'].message_type = vo__pb2._SAMPLE
 _DATASETINFORESPONSE.fields_by_name['error'].message_type = _APIERROR
+_ADDDATASETACTIVITYREQUEST.fields_by_name['level'].enum_type = vo__pb2._ACTIVITY_LEVEL
+_ADDDATASETACTIVITYRESPONSE.fields_by_name['error'].message_type = _APIERROR
 _STATRESPONSE.fields_by_name['error'].message_type = _APIERROR
 _APIERROR.fields_by_name['code'].enum_type = _STATUSCODE
 _EMPTYRESPONSE.fields_by_name['error'].message_type = _APIERROR
@@ -881,6 +973,8 @@ DESCRIPTOR.message_types_by_name['ListDatasetsRequest'] = _LISTDATASETSREQUEST
 DESCRIPTOR.message_types_by_name['ListDatasetsResponse'] = _LISTDATASETSRESPONSE
 DESCRIPTOR.message_types_by_name['DatasetInfo'] = _DATASETINFO
 DESCRIPTOR.message_types_by_name['DatasetInfoResponse'] = _DATASETINFORESPONSE
+DESCRIPTOR.message_types_by_name['AddDatasetActivityRequest'] = _ADDDATASETACTIVITYREQUEST
+DESCRIPTOR.message_types_by_name['AddDatasetActivityResponse'] = _ADDDATASETACTIVITYRESPONSE
 DESCRIPTOR.message_types_by_name['StatRequest'] = _STATREQUEST
 DESCRIPTOR.message_types_by_name['StatResponse'] = _STATRESPONSE
 DESCRIPTOR.message_types_by_name['ResetRequest'] = _RESETREQUEST
@@ -980,6 +1074,20 @@ DatasetInfoResponse = _reflection.GeneratedProtocolMessageType('DatasetInfoRespo
   })
 _sym_db.RegisterMessage(DatasetInfoResponse)
 
+AddDatasetActivityRequest = _reflection.GeneratedProtocolMessageType('AddDatasetActivityRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ADDDATASETACTIVITYREQUEST,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:AddDatasetActivityRequest)
+  })
+_sym_db.RegisterMessage(AddDatasetActivityRequest)
+
+AddDatasetActivityResponse = _reflection.GeneratedProtocolMessageType('AddDatasetActivityResponse', (_message.Message,), {
+  'DESCRIPTOR' : _ADDDATASETACTIVITYRESPONSE,
+  '__module__' : 'mlp_api_pb2'
+  # @@protoc_insertion_point(class_scope:AddDatasetActivityResponse)
+  })
+_sym_db.RegisterMessage(AddDatasetActivityResponse)
+
 StatRequest = _reflection.GeneratedProtocolMessageType('StatRequest', (_message.Message,), {
   'DESCRIPTOR' : _STATREQUEST,
   '__module__' : 'mlp_api_pb2'
@@ -1023,8 +1131,8 @@ _CATALOG = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1675,
-  serialized_end=2193,
+  serialized_start=1876,
+  serialized_end=2475,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateProject',
@@ -1090,9 +1198,18 @@ _CATALOG = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
+    name='AddDatasetActivity',
+    full_name='Catalog.AddDatasetActivity',
+    index=7,
+    containing_service=None,
+    input_type=_ADDDATASETACTIVITYREQUEST,
+    output_type=_ADDDATASETACTIVITYRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
     name='Stat',
     full_name='Catalog.Stat',
-    index=7,
+    index=8,
     containing_service=None,
     input_type=_STATREQUEST,
     output_type=_STATRESPONSE,
@@ -1101,7 +1218,7 @@ _CATALOG = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Reset',
     full_name='Catalog.Reset',
-    index=8,
+    index=9,
     containing_service=None,
     input_type=_RESETREQUEST,
     output_type=_EMPTYRESPONSE,

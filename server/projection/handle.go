@@ -52,7 +52,25 @@ func Handle(tx *db.Tx, msg proto.Message){
 		data := db.GetDataset(tx, e.ProjectId, e.DatasetId)
 		mergeDatasetMeta(e.Meta, data)
 		db.PutDataset(tx, data)
+	case *events.DatasetActivityAdded:
+		mustName(e.ProjectId)
+		mustName(e.DatasetId)
 
+		data := &db.DatasetActivity{
+			DatasetId:e.DatasetId,
+			ProjectId:e.ProjectId,
+			MultilineText:e.MultilineText,
+			Level:e.Level,
+			UpdateTimestamp:e.UpdateTimestamp,
+			Id:db.NextActivityCounter(tx),
+		}
+
+		db.AddDatasetActivity(tx, data)
+		db.AddGlobalActivity(tx, data)
+
+		if data.Level ==  vo.ACTIVITY_LEVEL_ACTIVITY_PROBLEM {
+			db.AddGlobalProblem(tx, data)
+		}
 	}
 
 }

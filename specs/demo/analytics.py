@@ -17,7 +17,7 @@ import faker
 
 rint = randint
 
-
+import time
 
 
 def setup_analytics_demo(cl: client.Client):
@@ -40,7 +40,20 @@ def setup_analytics_demo(cl: client.Client):
 
 
     for tsv in tsvs:
-        prj.add_dataset(tsv, summary="Sample dataset summary")
+        ds = prj.add_dataset(tsv, summary="Sample dataset summary")
+
+        now= int(time.time())
+
+        age = rint(3600 * 2, 3600 * 24 * 30)
+        begins = now - age
+        done = begins + rint(age/2,age)
+
+
+
+        ds.add_activity(multiline_text="initial import started", timestamp_sec=begins)
+        ds.add_activity(multiline_text="initial import complete", timestamp_sec=done)
+
+
 
 
 

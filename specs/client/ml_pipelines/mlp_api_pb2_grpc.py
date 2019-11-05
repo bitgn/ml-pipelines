@@ -49,6 +49,11 @@ class CatalogStub(object):
         request_serializer=mlp__api__pb2.UpdateDatasetRequest.SerializeToString,
         response_deserializer=mlp__api__pb2.EmptyResponse.FromString,
         )
+    self.AddDatasetActivity = channel.unary_unary(
+        '/Catalog/AddDatasetActivity',
+        request_serializer=mlp__api__pb2.AddDatasetActivityRequest.SerializeToString,
+        response_deserializer=mlp__api__pb2.AddDatasetActivityResponse.FromString,
+        )
     self.Stat = channel.unary_unary(
         '/Catalog/Stat',
         request_serializer=mlp__api__pb2.StatRequest.SerializeToString,
@@ -114,6 +119,13 @@ class CatalogServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def AddDatasetActivity(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def Stat(self, request, context):
     # missing associated documentation comment in .proto file
     pass
@@ -165,6 +177,11 @@ def add_CatalogServicer_to_server(servicer, server):
           servicer.UpdateDataset,
           request_deserializer=mlp__api__pb2.UpdateDatasetRequest.FromString,
           response_serializer=mlp__api__pb2.EmptyResponse.SerializeToString,
+      ),
+      'AddDatasetActivity': grpc.unary_unary_rpc_method_handler(
+          servicer.AddDatasetActivity,
+          request_deserializer=mlp__api__pb2.AddDatasetActivityRequest.FromString,
+          response_serializer=mlp__api__pb2.AddDatasetActivityResponse.SerializeToString,
       ),
       'Stat': grpc.unary_unary_rpc_method_handler(
           servicer.Stat,
