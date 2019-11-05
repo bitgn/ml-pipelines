@@ -2,6 +2,7 @@ package view_dashboard
 
 import (
 	"mlp/catalog/db"
+	"mlp/catalog/vo"
 	"mlp/catalog/web/shared"
 
 	"net/http"
@@ -12,13 +13,24 @@ import (
 type ProjectModel struct {
 	ProjectId string
 	Datasets  []*db.DatasetData
+
 }
 
 type Model struct {
 	*shared.Site
 	Projects []*ProjectModel
+	Audit []*AuditModel
+
 }
 
+
+type AuditModel struct {
+	DatasetId,ProjectId string
+
+	Timestamp int64
+	Level vo.ACTIVITY_LEVEL
+	MultilineText string
+}
 
 type Handler struct {
 	env *db.DB
@@ -58,6 +70,20 @@ func (h *Handler) Handle(w http.ResponseWriter){
 	model := &Model{
 		Site: site,
 		Projects: pmod,
+	}
+
+	for _, a := range db.ListGlobalActivities(tx){
+
+
+
+		model.Audit = append(model.Audit, &AuditModel{
+			MultilineText:a.MultilineText,
+			Timestamp:a.UpdateTimestamp,
+			Level:a.Level,
+			ProjectId:a.ProjectId,
+			DatasetId:a.DatasetId,
+
+		})
 	}
 
 	h.layout.Render(w, model)

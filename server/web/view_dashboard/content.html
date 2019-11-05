@@ -1,44 +1,65 @@
 {{- /*gotype: mlp/catalog/web/view_dashboard.Model*/ -}}
 {{ define "content" }}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h1 class="h2">Projects</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">Projects</h1>
 
-</div>
+    </div>
 
-{{if .Projects}}
-    <table class="table table-sm table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Updated</th>
-        </tr>
-        </thead>
-        <tbody>
+    {{if .Projects}}
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        {{range .Projects}}
+            {{range .Projects}}
 
 
-        <tr class="project-info" id="prj-{{ .ProjectId }}">
-            <td colspan="2" class="table-primary">
-                <strong>Project:</strong> {{ .ProjectId }}
-            </td>
-        </tr>
+            <tr class="project-info" id="prj-{{ .ProjectId }}">
+                <td colspan="2" class="table-primary">
+                    <strong>Project:</strong> {{ .ProjectId }}
+                </td>
+            </tr>
 
-            {{range .Datasets}}
-                <tr>
-                    <td><a href="{{$.Site.Url.ViewDataset .ProjectId .DatasetId}}">{{.Caption}}</a></td>
-                    <td>{{$.Site.Fmt.Timestamp .UpdateTimestamp}}</td>
-                </tr>
+                {{range .Datasets}}
+                    <tr>
+                        <td><a href="{{$.Site.Url.ViewDataset .ProjectId .DatasetId}}">{{.Caption}}</a></td>
+                        <td>{{$.Site.Fmt.Timestamp .UpdateTimestamp}}</td>
+                    </tr>
+                {{end}}
+
             {{end}}
+            </tbody>
+        </table>
+
+    {{else}}
+        <div class="alert alert-info" role="alert" id="empty-catalog-message">
+            <h4 class="alert-heading">Catalog is empty</h4>
+            <p>This looks like a fresh install. Catalog currently contains no projects or datasets. You can use client tools to add dataset information.</p>
+        </div>
+    {{end}}
+
+
+    <h1 class="h2">Audit Log</h1>
+    <table class="table table-sm table-bordered">
+        {{range .Audit}}
+            <tr class="table-{{$.Site.Fmt.ActivityLevel .Level}}">
+
+                <td><a href="{{$.Site.Url.ViewDataset .ProjectId .DatasetId}}">{{.ProjectId}}/{{.DatasetId}}</a> {{$.Site.Fmt.Timestamp .Timestamp}}</td>
+                <td><pre>{{.MultilineText}}</pre></td>
+
+            </tr>
+        {{else}}
+            <tr class="table-info">
+                <td>Audit log is empty</td>
+            </tr>
 
         {{end}}
-        </tbody>
-    </table>
 
-{{else}}
-    <div class="alert alert-info" role="alert" id="empty-catalog-message">
-        <h4 class="alert-heading">Catalog is empty</h4>
-        <p>This looks like a fresh install. Catalog currently contains no projects or datasets. You can use client tools to add dataset information.</p>
-    </div>
+    </table>
 {{end}}
-{{end}}
+
+

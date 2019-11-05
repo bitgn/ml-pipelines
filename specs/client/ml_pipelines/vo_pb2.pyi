@@ -36,10 +36,12 @@ class ACTIVITY_LEVEL(int):
     def items(cls) -> typing___List[typing___Tuple[str, ACTIVITY_LEVEL]]: ...
     ACTIVITY_VERBOSE = typing___cast(ACTIVITY_LEVEL, 0)
     ACTIVITY_INFO = typing___cast(ACTIVITY_LEVEL, 1)
-    ACTIVITY_PROBLEM = typing___cast(ACTIVITY_LEVEL, 2)
+    ACTIVITY_ERROR = typing___cast(ACTIVITY_LEVEL, 2)
+    ACTIVITY_SUCCESS = typing___cast(ACTIVITY_LEVEL, 3)
 ACTIVITY_VERBOSE = typing___cast(ACTIVITY_LEVEL, 0)
 ACTIVITY_INFO = typing___cast(ACTIVITY_LEVEL, 1)
-ACTIVITY_PROBLEM = typing___cast(ACTIVITY_LEVEL, 2)
+ACTIVITY_ERROR = typing___cast(ACTIVITY_LEVEL, 2)
+ACTIVITY_SUCCESS = typing___cast(ACTIVITY_LEVEL, 3)
 
 class DatasetMetadataDelta(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...

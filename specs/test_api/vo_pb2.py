@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x08vo.proto\"\x97\x01\n\x14\x44\x61tasetMetadataDelta\x12\x17\n\x06sample\x18\x01 \x01(\x0b\x32\x07.Sample\x12\x12\n\nsample_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x06 \x01(\x08\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x13\n\x0bsummary_set\x18\x08 \x01(\x08\"g\n\x06Sample\x12\x1e\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x0e.Sample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"/\n\x06\x46ORMAT\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04TEXT\x10\x01\x12\x07\n\x03TSV\x10\x02\x12\x08\n\x04JSON\x10\x03*O\n\x0e\x41\x43TIVITY_LEVEL\x12\x14\n\x10\x41\x43TIVITY_VERBOSE\x10\x00\x12\x11\n\rACTIVITY_INFO\x10\x01\x12\x14\n\x10\x41\x43TIVITY_PROBLEM\x10\x02\x62\x06proto3')
+  serialized_pb=_b('\n\x08vo.proto\"\x97\x01\n\x14\x44\x61tasetMetadataDelta\x12\x17\n\x06sample\x18\x01 \x01(\x0b\x32\x07.Sample\x12\x12\n\nsample_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x06 \x01(\x08\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x13\n\x0bsummary_set\x18\x08 \x01(\x08\"g\n\x06Sample\x12\x1e\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x0e.Sample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"/\n\x06\x46ORMAT\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04TEXT\x10\x01\x12\x07\n\x03TSV\x10\x02\x12\x08\n\x04JSON\x10\x03*c\n\x0e\x41\x43TIVITY_LEVEL\x12\x14\n\x10\x41\x43TIVITY_VERBOSE\x10\x00\x12\x11\n\rACTIVITY_INFO\x10\x01\x12\x12\n\x0e\x41\x43TIVITY_ERROR\x10\x02\x12\x14\n\x10\x41\x43TIVITY_SUCCESS\x10\x03\x62\x06proto3')
 )
 
 _ACTIVITY_LEVEL = _descriptor.EnumDescriptor(
@@ -39,21 +39,26 @@ _ACTIVITY_LEVEL = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='ACTIVITY_PROBLEM', index=2, number=2,
+      name='ACTIVITY_ERROR', index=2, number=2,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ACTIVITY_SUCCESS', index=3, number=3,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
   serialized_start=271,
-  serialized_end=350,
+  serialized_end=370,
 )
 _sym_db.RegisterEnumDescriptor(_ACTIVITY_LEVEL)
 
 ACTIVITY_LEVEL = enum_type_wrapper.EnumTypeWrapper(_ACTIVITY_LEVEL)
 ACTIVITY_VERBOSE = 0
 ACTIVITY_INFO = 1
-ACTIVITY_PROBLEM = 2
+ACTIVITY_ERROR = 2
+ACTIVITY_SUCCESS = 3
 
 
 _SAMPLE_FORMAT = _descriptor.EnumDescriptor(

@@ -39,9 +39,9 @@
         <div class="row">
             <div class="col">
                 <h3>Audit</h3>
-                <table class="table table-sm table-responsive table-bordered">
+                <table class="table table-sm table-bordered">
                     {{range .Audit}}
-                        <tr class="table-{{.Class}}">
+                        <tr class="table-{{$.Site.Fmt.ActivityLevel .Level}}">
                             <td>{{$.Site.Fmt.Timestamp .Timestamp}}</td>
                             <td><pre>{{.MultilineText}}</pre></td>
 

@@ -25,7 +25,8 @@ type ViewDatasetModel struct {
 
 type AuditModel struct {
 	Timestamp int64
-	Class string
+	Level vo.ACTIVITY_LEVEL
+
 	MultilineText string
 }
 
@@ -86,7 +87,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 		model.Audit = append(model.Audit, &AuditModel{
 			MultilineText:a.MultilineText,
 			Timestamp:a.UpdateTimestamp,
-			Class:format_level(a.Level),
+			Level:a.Level,
 
 		})
 	}
@@ -95,19 +96,4 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 	h.layout.Render(w, model)
 }
 
-
-func format_level(l vo.ACTIVITY_LEVEL) string{
-
-	switch l {
-	case vo.ACTIVITY_LEVEL_ACTIVITY_INFO:
-		return "success"
-	case vo.ACTIVITY_LEVEL_ACTIVITY_PROBLEM:
-		return "danger"
-	case vo.ACTIVITY_LEVEL_ACTIVITY_VERBOSE:
-		return "info"
-	default:
-		return ""
-
-	}
-}
 

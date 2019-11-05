@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"mlp/catalog/sim"
+	"mlp/catalog/vo"
 	"strings"
 	"time"
 )
@@ -114,3 +115,23 @@ func durationAbs(d time.Duration) string {
 	}
 	return ""
 }
+
+
+
+func (f*Format) ActivityLevel (l vo.ACTIVITY_LEVEL) string{
+
+	switch l {
+	case vo.ACTIVITY_LEVEL_ACTIVITY_SUCCESS:
+		return "success"
+	case vo.ACTIVITY_LEVEL_ACTIVITY_ERROR:
+		return "danger"
+	case vo.ACTIVITY_LEVEL_ACTIVITY_INFO:
+		return ""
+	case vo.ACTIVITY_LEVEL_ACTIVITY_VERBOSE:
+		return "secondary"
+	default:
+		return ""
+
+	}
+}
+

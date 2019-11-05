@@ -38,11 +38,12 @@ def setup_analytics_demo(cl: client.Client):
         "users_per_property_7d",
     ]
 
+    now = int(time.time())
 
     for tsv in tsvs:
         ds = prj.add_dataset(tsv, summary="Sample dataset summary")
 
-        now= int(time.time())
+
 
         age = rint(3600 * 2, 3600 * 24 * 30)
         begins = now - age
@@ -50,8 +51,12 @@ def setup_analytics_demo(cl: client.Client):
 
 
 
-        ds.add_activity(multiline_text="initial import started", timestamp_sec=begins)
-        ds.add_activity(multiline_text="initial import complete", timestamp_sec=done)
+        ds.add_info(multiline_text="initial import started", timestamp_sec=begins)
+        ds.add_success(multiline_text="initial import complete", timestamp_sec=done)
+
+    dataset = prj.get_or_create_dataset("revenue_per_device")
+    dataset.add_info("Starting incremental import", now-3600,)
+    dataset.add_error("Failed to import", now -2000)
 
 
 

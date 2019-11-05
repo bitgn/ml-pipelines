@@ -68,7 +68,7 @@ func Handle(tx *db.Tx, msg proto.Message){
 		db.AddDatasetActivity(tx, data)
 		db.AddGlobalActivity(tx, data)
 
-		if data.Level ==  vo.ACTIVITY_LEVEL_ACTIVITY_PROBLEM {
+		if data.Level ==  vo.ACTIVITY_LEVEL_ACTIVITY_ERROR {
 			db.AddGlobalProblem(tx, data)
 		}
 	}
