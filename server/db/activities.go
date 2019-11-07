@@ -35,8 +35,8 @@ func AddGlobalProblem(tx *Tx, val *DatasetActivity){
 	tx.PutProto(CreateKey(Range_GLOBAL_PROBLEMS, -val.UpdateTimestamp, val.Id), val)
 }
 
-func ListDatasetActivities(tx *Tx, projectId, datasetId string)(vals []*DatasetActivity) {
-	tx.MustScanRange(CreateKey(Range_DATASET_ACTIVITY,projectId, datasetId), func(k, v []byte) {
+func ListDatasetActivities(tx *Tx, projectId, datasetId string, limit int)(vals []*DatasetActivity) {
+	tx.MustScanRangeLimited(CreateKey(Range_DATASET_ACTIVITY,projectId, datasetId), limit, func(k, v []byte) {
 		val := &DatasetActivity{}
 		mustUnmarshal(v, val)
 		vals = append(vals, val)
@@ -44,8 +44,17 @@ func ListDatasetActivities(tx *Tx, projectId, datasetId string)(vals []*DatasetA
 	return vals
 }
 
-func ListGlobalActivities(tx *Tx) (vals []*DatasetActivity){
-	tx.MustScanRange(CreateKey(Range_GLOBAL_ACTIVITIES), func(k, v []byte) {
+func ListGlobalActivities(tx *Tx, limit int) (vals []*DatasetActivity){
+	tx.MustScanRangeLimited(CreateKey(Range_GLOBAL_ACTIVITIES), limit, func(k, v []byte) {
+		val := &DatasetActivity{}
+		mustUnmarshal(v, val)
+		vals = append(vals, val)
+	})
+	return vals
+}
+
+func ListGlobalProblems(tx *Tx, limit int) (vals []*DatasetActivity){
+	tx.MustScanRangeLimited(CreateKey(Range_GLOBAL_PROBLEMS), limit, func(k, v []byte) {
 		val := &DatasetActivity{}
 		mustUnmarshal(v, val)
 		vals = append(vals, val)

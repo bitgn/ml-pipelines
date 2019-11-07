@@ -54,6 +54,11 @@ def setup_analytics_demo(cl: client.Client):
         ds.add_info(multiline_text="initial import started", timestamp_sec=begins)
         ds.add_success(multiline_text="initial import complete", timestamp_sec=done)
 
+
+        for i in range(50):
+            ds.add_info(multiline_text="Starting another run", timestamp_sec=done + i*5)
+            ds.add_success(multiline_text="Completed another run", timestamp_sec=done+i*5+4)
+
     dataset = prj.get_or_create_dataset("revenue_per_device")
     dataset.add_info("Starting incremental import\nFound offsets [[0, 309], [1, 249], [2, 262], [3, 285], [4, 278], [5, 288], [6, 298], [7, 264], [8, 273], [9, 284], [10, 287], [11, 310]]", now-3600,)
     dataset.add_error("Failed to import", now -2000)

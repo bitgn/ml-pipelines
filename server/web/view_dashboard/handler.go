@@ -20,6 +20,9 @@ type Model struct {
 	*shared.Site
 	Projects []*ProjectModel
 	Audit []*AuditModel
+	Problems []*AuditModel
+	HasMoreAudit bool
+	HasMoreProblems bool
 
 }
 
@@ -72,9 +75,9 @@ func (h *Handler) Handle(w http.ResponseWriter){
 		Projects: pmod,
 	}
 
-	for _, a := range db.ListGlobalActivities(tx){
+	const log_limit = 20
 
-
+	for _, a := range db.ListGlobalActivities(tx, log_limit+1){
 
 		model.Audit = append(model.Audit, &AuditModel{
 			MultilineText:a.MultilineText,
@@ -82,9 +85,32 @@ func (h *Handler) Handle(w http.ResponseWriter){
 			Level:a.Level,
 			ProjectId:a.ProjectId,
 			DatasetId:a.DatasetId,
-
 		})
+
+
 	}
+	if len(model.Audit) > log_limit {
+		model.Audit = model.Audit[0:log_limit]
+		model.HasMoreAudit = true
+	}
+
+	for _, a := range db.ListGlobalProblems(tx, log_limit+1){
+		model.Problems = append(model.Problems, &AuditModel{
+			MultilineText:a.MultilineText,
+			Timestamp:a.UpdateTimestamp,
+			Level:a.Level,
+			ProjectId:a.ProjectId,
+			DatasetId:a.DatasetId,
+		})
+
+
+	}
+
+	if len(model.Problems) > log_limit {
+		model.Problems = model.Problems[0:log_limit]
+		model.HasMoreProblems = true
+	}
+
 
 	h.layout.Render(w, model)
 }

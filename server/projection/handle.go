@@ -66,10 +66,13 @@ func Handle(tx *db.Tx, msg proto.Message){
 		}
 
 		db.AddDatasetActivity(tx, data)
-		db.AddGlobalActivity(tx, data)
 
-		if data.Level ==  vo.ACTIVITY_LEVEL_ACTIVITY_ERROR {
+		switch data.Level {
+		case vo.ACTIVITY_LEVEL_ACTIVITY_ERROR:
 			db.AddGlobalProblem(tx, data)
+			db.AddGlobalActivity(tx, data)
+		case vo.ACTIVITY_LEVEL_ACTIVITY_SUCCESS:
+			db.AddGlobalActivity(tx, data)
 		}
 	}
 

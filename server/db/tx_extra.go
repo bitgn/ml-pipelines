@@ -118,6 +118,27 @@ func (tx *Tx) MustScanRange(key []byte, row func(k, v []byte))  {
 	}
 }
 
+func (tx *Tx) MustScanRangeLimited(key []byte, limit int, row func(k, v []byte))  {
+	scanner := lmdbscan.New(tx.Tx, tx.DB)
+	defer scanner.Close()
+	if !scanner.Set(key, nil, lmdb.SetRange) {
+		return
+	}
+
+	for i := 0; scanner.Scan() && i< limit; i++ {
+		if !bytes.HasPrefix(scanner.Key(), key) {
+			break
+		}
+		row(scanner.Key(), scanner.Val())
+	}
+
+	if err := scanner.Err(); err != nil {
+		panic(errors.Wrap(err, "Scanner					"))
+	}
+}
+
+
+
 // MustDelRangeByPrefix removes a range and returns number of deleted values
 // Panics on problems
 func (t *Tx) MustDelRangeByPrefix(key []byte) int {

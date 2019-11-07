@@ -80,7 +80,7 @@ func (h *Handler) Handle(w http.ResponseWriter, project, dataset string){
 		model.Description = template.HTML(md)
 	}
 
-	for _, a := range db.ListDatasetActivities(tx, project, dataset){
+	for _, a := range db.ListDatasetActivities(tx, project, dataset, 100){
 
 
 

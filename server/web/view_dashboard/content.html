@@ -43,12 +43,15 @@
     {{end}}
 
 
-    <h1 class="h2">Audit Log</h1>
+
+    <h1 class="h2">Recent Problems</h1>
+
+
 
         <div class="table-responsive">
 
     <table class="table table-sm table-bordered">
-        {{range .Audit}}
+        {{range .Problems}}
             <tr class="table-{{$.Site.Fmt.ActivityLevel .Level}}">
                 <td>
 
@@ -62,13 +65,42 @@
 
         {{else}}
             <tr class="table-info">
-                <td>Audit log is empty</td>
+                <td>There are no more problems</td>
             </tr>
 
         {{end}}
 
     </table>
         </div>
+
+    <h1 class="h2">Audit Log</h1>
+
+
+
+    <div class="table-responsive">
+
+        <table class="table table-sm table-bordered">
+            {{range .Audit}}
+                <tr class="table-{{$.Site.Fmt.ActivityLevel .Level}}">
+                    <td>
+
+                        <a href="{{$.Site.Url.ViewDataset .ProjectId .DatasetId}}">{{.ProjectId}}/{{.DatasetId}}</a>
+                        <span class="float-right">{{$.Site.Fmt.Timestamp .Timestamp}}</span>
+
+                        <br/>
+                        <code>{{.MultilineText}}</code>
+                    </td>
+                </tr>
+
+            {{else}}
+                <tr class="table-info">
+                    <td>Audit log is empty</td>
+                </tr>
+
+            {{end}}
+
+        </table>
+    </div>
 {{end}}
 
 
