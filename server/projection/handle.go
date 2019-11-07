@@ -67,13 +67,28 @@ func Handle(tx *db.Tx, msg proto.Message){
 
 		db.AddDatasetActivity(tx, data)
 
+		ds := db.GetDataset(tx, e.ProjectId, e.DatasetId)
+
+		if e.UpdateTimestamp > ds.UpdateTimestamp {
+			ds.UpdateTimestamp = e.UpdateTimestamp
+		}
+
 		switch data.Level {
 		case vo.ACTIVITY_LEVEL_ACTIVITY_ERROR:
 			db.AddGlobalProblem(tx, data)
 			db.AddGlobalActivity(tx, data)
+
+
+			ds.Status = vo.DATASET_STATUS_STATUS_ERROR
+
 		case vo.ACTIVITY_LEVEL_ACTIVITY_SUCCESS:
 			db.AddGlobalActivity(tx, data)
+
+			ds.Status = vo.DATASET_STATUS_STATUS_SUCCESS
 		}
+
+
+		db.PutDataset(tx, ds)
 	}
 
 }

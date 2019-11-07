@@ -3,6 +3,7 @@ package shared
 import (
 	"encoding/hex"
 	"fmt"
+	"html/template"
 	"math"
 	"mlp/catalog/sim"
 	"mlp/catalog/vo"
@@ -132,6 +133,17 @@ func (f*Format) ActivityLevel (l vo.ACTIVITY_LEVEL) string{
 	default:
 		return ""
 
+	}
+}
+
+func (f*Format) DatasetStatusBadge (l vo.DATASET_STATUS) template.HTML {
+	switch l {
+	case vo.DATASET_STATUS_STATUS_SUCCESS:
+		return `<span class="badge badge-success">Success</span>`
+	case vo.DATASET_STATUS_STATUS_ERROR:
+		return `<span class="badge badge-danger">Error</span>`
+	default:
+		return ""
 	}
 }
 

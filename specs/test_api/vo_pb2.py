@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x08vo.proto\"\x97\x01\n\x14\x44\x61tasetMetadataDelta\x12\x17\n\x06sample\x18\x01 \x01(\x0b\x32\x07.Sample\x12\x12\n\nsample_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x06 \x01(\x08\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x13\n\x0bsummary_set\x18\x08 \x01(\x08\"g\n\x06Sample\x12\x1e\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x0e.Sample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"/\n\x06\x46ORMAT\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04TEXT\x10\x01\x12\x07\n\x03TSV\x10\x02\x12\x08\n\x04JSON\x10\x03*c\n\x0e\x41\x43TIVITY_LEVEL\x12\x14\n\x10\x41\x43TIVITY_VERBOSE\x10\x00\x12\x11\n\rACTIVITY_INFO\x10\x01\x12\x12\n\x0e\x41\x43TIVITY_ERROR\x10\x02\x12\x14\n\x10\x41\x43TIVITY_SUCCESS\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x08vo.proto\"\x97\x01\n\x14\x44\x61tasetMetadataDelta\x12\x17\n\x06sample\x18\x01 \x01(\x0b\x32\x07.Sample\x12\x12\n\nsample_set\x18\x02 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x17\n\x0f\x64\x65scription_set\x18\x06 \x01(\x08\x12\x0f\n\x07summary\x18\x07 \x01(\t\x12\x13\n\x0bsummary_set\x18\x08 \x01(\x08\"g\n\x06Sample\x12\x1e\n\x06\x66ormat\x18\x01 \x01(\x0e\x32\x0e.Sample.FORMAT\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\"/\n\x06\x46ORMAT\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04TEXT\x10\x01\x12\x07\n\x03TSV\x10\x02\x12\x08\n\x04JSON\x10\x03*c\n\x0e\x41\x43TIVITY_LEVEL\x12\x14\n\x10\x41\x43TIVITY_VERBOSE\x10\x00\x12\x11\n\rACTIVITY_INFO\x10\x01\x12\x12\n\x0e\x41\x43TIVITY_ERROR\x10\x02\x12\x14\n\x10\x41\x43TIVITY_SUCCESS\x10\x03*G\n\x0e\x44\x41TASET_STATUS\x12\x0f\n\x0bSTATUS_NONE\x10\x00\x12\x10\n\x0cSTATUS_ERROR\x10\x01\x12\x12\n\x0eSTATUS_SUCCESS\x10\x02\x62\x06proto3')
 )
 
 _ACTIVITY_LEVEL = _descriptor.EnumDescriptor(
@@ -55,10 +55,40 @@ _ACTIVITY_LEVEL = _descriptor.EnumDescriptor(
 _sym_db.RegisterEnumDescriptor(_ACTIVITY_LEVEL)
 
 ACTIVITY_LEVEL = enum_type_wrapper.EnumTypeWrapper(_ACTIVITY_LEVEL)
+_DATASET_STATUS = _descriptor.EnumDescriptor(
+  name='DATASET_STATUS',
+  full_name='DATASET_STATUS',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='STATUS_NONE', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='STATUS_ERROR', index=1, number=1,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='STATUS_SUCCESS', index=2, number=2,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=372,
+  serialized_end=443,
+)
+_sym_db.RegisterEnumDescriptor(_DATASET_STATUS)
+
+DATASET_STATUS = enum_type_wrapper.EnumTypeWrapper(_DATASET_STATUS)
 ACTIVITY_VERBOSE = 0
 ACTIVITY_INFO = 1
 ACTIVITY_ERROR = 2
 ACTIVITY_SUCCESS = 3
+STATUS_NONE = 0
+STATUS_ERROR = 1
+STATUS_SUCCESS = 2
 
 
 _SAMPLE_FORMAT = _descriptor.EnumDescriptor(
@@ -202,6 +232,7 @@ _SAMPLE_FORMAT.containing_type = _SAMPLE
 DESCRIPTOR.message_types_by_name['DatasetMetadataDelta'] = _DATASETMETADATADELTA
 DESCRIPTOR.message_types_by_name['Sample'] = _SAMPLE
 DESCRIPTOR.enum_types_by_name['ACTIVITY_LEVEL'] = _ACTIVITY_LEVEL
+DESCRIPTOR.enum_types_by_name['DATASET_STATUS'] = _DATASET_STATUS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 DatasetMetadataDelta = _reflection.GeneratedProtocolMessageType('DatasetMetadataDelta', (_message.Message,), {

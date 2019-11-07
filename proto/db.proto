@@ -32,6 +32,10 @@ message DatasetData {
     string summary = 12;
 
     Sample sample = 14;
+
+    DATASET_STATUS status = 8;
+
+
 }
 
 message DatasetActivity {

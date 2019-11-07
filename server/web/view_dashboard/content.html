@@ -26,7 +26,10 @@
 
                 {{range .Datasets}}
                     <tr>
-                        <td><a href="{{$.Site.Url.ViewDataset .ProjectId .DatasetId}}">{{.Caption}}</a></td>
+                        <td>
+                            <a href="{{$.Site.Url.ViewDataset .ProjectId .DatasetId}}">{{.Caption}}</a>
+                            {{ $.Site.Fmt.DatasetStatusBadge .Status}}
+                        </td>
                         <td>{{$.Site.Fmt.Timestamp .UpdateTimestamp}}</td>
                     </tr>
                 {{end}}

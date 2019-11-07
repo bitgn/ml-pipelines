@@ -27,6 +27,12 @@ enum ACTIVITY_LEVEL {
     ACTIVITY_SUCCESS = 3;
 }
 
+enum DATASET_STATUS {
+    STATUS_NONE = 0;
+    STATUS_ERROR = 1;
+    STATUS_SUCCESS = 2;
+}
+
 
 message Sample {
     // Sample storage format. Doesn't necessarily match

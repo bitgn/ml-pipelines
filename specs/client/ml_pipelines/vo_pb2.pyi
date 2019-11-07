@@ -43,6 +43,25 @@ ACTIVITY_INFO = typing___cast(ACTIVITY_LEVEL, 1)
 ACTIVITY_ERROR = typing___cast(ACTIVITY_LEVEL, 2)
 ACTIVITY_SUCCESS = typing___cast(ACTIVITY_LEVEL, 3)
 
+class DATASET_STATUS(int):
+    DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
+    @classmethod
+    def Name(cls, number: int) -> str: ...
+    @classmethod
+    def Value(cls, name: str) -> DATASET_STATUS: ...
+    @classmethod
+    def keys(cls) -> typing___List[str]: ...
+    @classmethod
+    def values(cls) -> typing___List[DATASET_STATUS]: ...
+    @classmethod
+    def items(cls) -> typing___List[typing___Tuple[str, DATASET_STATUS]]: ...
+    STATUS_NONE = typing___cast(DATASET_STATUS, 0)
+    STATUS_ERROR = typing___cast(DATASET_STATUS, 1)
+    STATUS_SUCCESS = typing___cast(DATASET_STATUS, 2)
+STATUS_NONE = typing___cast(DATASET_STATUS, 0)
+STATUS_ERROR = typing___cast(DATASET_STATUS, 1)
+STATUS_SUCCESS = typing___cast(DATASET_STATUS, 2)
+
 class DatasetMetadataDelta(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     sample_set = ... # type: bool
